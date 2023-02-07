@@ -1,0 +1,19 @@
+Résumé des différentes versions :
+-	V0 : squelette du modèle basique, structures de contrôles et premières fonctions
+-	V1 : modèle avancé, début de l’interface graphique et premières interactions boutons modèle, système de sauvegarde de données de graphe (au moins le début)
+-	V2 : algorithmes de numérotation, vérification des cycles, graphe visuel sur la vue, ajout d’images et export de cartes
+-	V3 : appli externe, polissage
+
+Points importants évoqués :
+-	Ebauches : dessins de la fenêtre d’interface graphique, des différentes interactions possibles avec l’utilisateur, sur papier/paint
+-	Export des cartes, format image / pdf / LATEC
+-	Utilisation de GTK v4 (voir documentation en ligne), plutôt que GTK v3 comme vu en cours
+-	Algorithmes de numérotation : réflexions sur la manière d’allouer les nombres. Aléatoire ? Nécessité de savoir quelles cartes peuvent être accessibles en même temps pour prévoir tous les cas et toutes les combinaisons
+-	Vérification des cycles : vérification d’une boucle d’interaction des cartes dans le graph
+-	Modèle de sauvegarde : format txt en binaire ou database, import des cartes (copie) ou lien externe 
+
+Diagramme de Gantt :
+-	Mieux séparer les tâches sous le format Modèle – Vue – Contrôleur
+-	Gantt trop linéaire, à étoffer
+-	Ajout des tâches de formation à GTK et de création du projet en V0. 
+-	A rendre vendredi 10 février
