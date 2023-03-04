@@ -11,6 +11,9 @@
 #ifndef UNLOCKMAKER_VERTEX_H
 #define UNLOCKMAKER_VERTEX_H
 
+/**
+ * \brief the structure used for created list of cards
+ */
 typedef struct Vertex{
     Card* card;
     struct Vertex* next;
@@ -18,6 +21,7 @@ typedef struct Vertex{
 } Vertex;
 
 Vertex* allocVertex();
+
 void initVertex(Vertex* v, Card* c);
 
 Card* getVertexCard(Vertex* v);

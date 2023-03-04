@@ -11,6 +11,10 @@
 #ifndef UNLOCKMAKER_VERTEXLIST_H
 #define UNLOCKMAKER_VERTEXLIST_H
 
+
+/**
+ * \brief the list of cards structure
+ */
 typedef struct { /* to contain several vertices */
     Vertex sentinelFirst;
     Vertex* current;
