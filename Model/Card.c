@@ -210,3 +210,11 @@ void findCompatibility(Card* c)
 
 
 }
+
+/**
+ * print the content of a card
+ * @param c the card to be printed
+ */
+void printCard(Card* c){
+
+}

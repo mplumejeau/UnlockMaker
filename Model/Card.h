@@ -62,4 +62,6 @@ void loadCardBinary(Card* c, char* file);
 
 void findCompatibility(Card* c);
 
+void printCard(Card* c);
+
 #endif /*UNLOCKMAKER_CARD_H*/
