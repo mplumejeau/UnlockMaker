@@ -22,7 +22,7 @@ typedef struct Vertex{
 
 Vertex* allocVertex();
 
-void initVertex(Vertex* v, Card* c);
+void initVertex(Vertex* v, Card* c, Vertex* n, Vertex* p);
 
 Card* getVertexCard(Vertex* v);
 

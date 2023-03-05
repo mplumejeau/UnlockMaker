@@ -38,7 +38,7 @@ typedef struct Card{
     EdgeList children;
 } Card;
 
-
+Card* allocCard();
 void initCard(Card* c, int idCard);
 void freeCard(Card* c);
 

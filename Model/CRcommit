@@ -1,0 +1,11 @@
+autor : Maxime Plumejeau 
+date : 05/03/23
+
+problem : I don't no why but I can't commit with more than one line of msg so I have written here all the changes I have done
+
+vertex.h : modification prototype initVertex
+vertex.c : complétion allocVertex, initVertex, getVertexCard, freeVertex
+card.h : ajout prototype allocCard
+card.c : ajout documentation allocCard
+vertexTestsU.c : création et complétion tests unitaires pour le module vertex
+
