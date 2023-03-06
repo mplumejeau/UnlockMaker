@@ -20,7 +20,7 @@ typedef struct Vertex{
     struct Vertex* previous;
 } Vertex;
 
-Vertex* allocVertex();
+Vertex* allocVertex(void);
 
 void initVertex(Vertex* v, Card* c, Vertex* n, Vertex* p);
 

@@ -5,28 +5,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "Link.h"
-#include "Card.h"
-#include "Project.h"
-#include "Edge.h"
 #include "VertexList.h"
 #include "Vertex.h"
+#include "Card.h"
+
+
 
 /**
- * initialize an empty list of vertex
+ * initialize an empty list of vertex and set the current pointer on sentinelFirst
  * @param vl the list to be initialized
  */
-void initVertexList(VertexList *vl){
+void initEmptyVertexList(VertexList *vl){
     if (vl != NULL){
         vl->sentinelFirst.card = NULL;
-        vl->sentinelFirst.next = vl->sentinelLast;
+        vl->sentinelFirst.next = &vl->sentinelLast;
         vl->sentinelFirst.previous = NULL;
 
-        vl->current = vl->sentinelFirst;
+        vl->current = &vl->sentinelFirst;
 
         vl->sentinelLast.card = NULL;
         vl->sentinelLast.next = NULL;
-        vl->sentinelLast.previous = vl->sentinelFirst;
+        vl->sentinelLast.previous = &vl->sentinelFirst;
     } else {
         fprintf(stderr, "error : vertexList bad allocation");
     }
@@ -53,7 +52,7 @@ int isVertexListEmpty(VertexList *vl){
  */
 int isFirstVertex(VertexList *vl){
     if (vl != NULL){
-        return vl->current == vl->sentinelBegin.next;
+        return vl->current == vl->sentinelFirst.next;
     } else {
         fprintf(stderr, "error : vertexList bad allocation");
         return -1;
@@ -81,7 +80,7 @@ int isLastVertex(VertexList *vl){
  */
 int isOutOfListVertex(VertexList *vl){
     if (vl != NULL){
-        return vl->current == &vl->sentinelLast || vl->current == &vl->sentinelBegin;
+        return vl->current == &vl->sentinelLast || vl->current == &vl->sentinelFirst;
     } else {
         fprintf(stderr, "error : vertexList bad allocation");
         return -1;
@@ -189,14 +188,14 @@ int insertVertexLast(VertexList *vl, Card* c){
         initVertex(v,c,NULL,NULL);
         if(isVertexListEmpty(vl)){
             vl->sentinelFirst.next = v;
-            v->previous = vl->sentinelFirst;
+            v->previous = &vl->sentinelFirst;
         } else {
             setOnLastVertex(vl);
             vl->current->next = v;
             v->previous = vl->current;
         }
         vl->sentinelLast.previous = v;
-        v->next = vl->sentinelLast;
+        v->next = &vl->sentinelLast;
         return 0;
     } else {
         fprintf(stderr, "error : vertexList bad allocation");
@@ -232,7 +231,7 @@ int findCard(VertexList *vl, Card* c){
  * @param c the card to be deleted
  * @return 0 if it's a success, -1 if not
  */
-int deleteVertex(VertexList *vl, Card* c){
+int deleteVertex(VertexList* vl, Card* c){
     if (vl != NULL){
         if(findCard(vl,c)){
             vl->current->previous->next = vl->current->next;

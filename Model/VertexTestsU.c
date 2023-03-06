@@ -39,7 +39,7 @@ static int setupInit(void** state){
     Vertex* n = NULL;
     Vertex* p = NULL;
     initVertex(v,c,n,p);
-    if (v != NULL && v->c != NULL){
+    if (v != NULL && v->card != NULL){
         *state = v;
         return 0;
     } else {

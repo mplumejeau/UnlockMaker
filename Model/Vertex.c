@@ -10,7 +10,7 @@
  * allocate a Vertex in the dynamic space memory
  * @return Vertex* the address of the allocated structure
  */
-Vertex* allocVertex(){
+Vertex* allocVertex(void){
     Vertex* newV = (Vertex*) malloc(sizeof(Vertex));
     return newV;
 }
