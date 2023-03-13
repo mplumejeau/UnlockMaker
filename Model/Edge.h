@@ -10,14 +10,18 @@
 #ifndef UNLOCKMAKER_EDGE_H
 #define UNLOCKMAKER_EDGE_H
 
+/**
+ * \brief the structure used for created list of links
+ */
 typedef struct edge{
     Link* link;
     struct edge* next;
     struct edge* previous;
 } Edge;
 
-Edge* allocEdge();
-void initEdge(Edge* e, Link* l);
+Edge* allocEdge(void);
+
+void initEdge(Edge* e, Link* l, Edge* n, Edge* p);
 
 Link* getEdgeLink(Edge* e);
 
