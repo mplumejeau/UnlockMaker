@@ -11,6 +11,10 @@
 #ifndef UNLOCKMAKER_EDGELIST_H
 #define UNLOCKMAKER_EDGELIST_H
 
+
+/**
+ * \brief the list of links structure
+ */
 typedef struct {
     Edge sentinelFirst;
     Edge* current;
