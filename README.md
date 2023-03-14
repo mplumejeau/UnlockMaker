@@ -20,6 +20,22 @@ On some READMEs, you may see small images that convey metadata, such as whether 
 Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
 
 ## Installation
+
+GTK4 (Linux OS):
+
+If you want to modified the application, as a developer, and be able to build and run a project or just use the application we have created, the gtk4 libraries are required.
+
+To get them you need to install the gtk4 packages.
+	1.) Open a terminal.
+		2.a) If you expect to develop an application, tap this command on the terminal:
+		'sudo apt install libgtk-4-dev'
+		
+		2.b) if you expect to use a gtk application, tap this command on the terminal:
+		'sudo apt install libgtk-4-1'
+
+	4.) Enter your login to authorize the downloading of the gtk4 packtages.
+
+
 Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
 
 ## Usage
