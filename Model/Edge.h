@@ -2,22 +2,10 @@
 // Created by Louenn on 17/02/2023.
 */
 
-#include "Link.h"
-#include "Vertex.h"
-#include "Project.h"
-#include "Card.h"
-
 #ifndef UNLOCKMAKER_EDGE_H
 #define UNLOCKMAKER_EDGE_H
 
-/**
- * \brief the structure used for created list of links
- */
-typedef struct edge{
-    Link* link;
-    struct edge* next;
-    struct edge* previous;
-} Edge;
+#include "Struct.h"
 
 Edge* allocEdge(void);
 
