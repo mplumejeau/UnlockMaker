@@ -13,5 +13,7 @@ void setLinkType(Link* l, linkType t);
 void setParent(Link* l, Card* c);
 void setChild(Link* l, Card* c);
 
+void printLink(Link* l);
+
 
 #endif /*QCM_LINK_H*/

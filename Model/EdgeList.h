@@ -25,6 +25,6 @@ int countEdgeElements(EdgeList *el);
 int insertEdgeLast(EdgeList *el, Link* l);
 
 int findLink(EdgeList *el, Link* l);
-void deleteEdge(EdgeList *el, Link* l);
+int deleteEdge(EdgeList *el, Link* l);
 
 #endif /*UNLOCKMAKER_EDGELIST_H*/

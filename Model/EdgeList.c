@@ -4,147 +4,244 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "EdgeList.h"
+#include "Edge.h"
+#include "Link.h"
 
 
 /**
- * Initialized an EdgeList.
- * @param el the address of the EdgeList to initialize
+ * initialize an empty list of Edge and set the current pointer on sentinelFirst
+ * @param el the list to be initialized
  */
-void initEdgeList(EdgeList *el){
+void initEmptyEdgeList(EdgeList *el){
+    if (el != NULL){
+        el->sentinelFirst.link = NULL;
+        el->sentinelFirst.next = &el->sentinelLast;
+        el->sentinelFirst.previous = NULL;
 
+        el->current = &el->sentinelFirst;
+
+        el->sentinelLast.link = NULL;
+        el->sentinelLast.next = NULL;
+        el->sentinelLast.previous = &el->sentinelFirst;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+    }
 }
 
 /**
- * Tests if it is an empty EdgeList.
- * @param el the address of the EdgeList to be tested
- * @return int 1 if empty, 0 otherwise
+ * return a boolean about the emptyness of a list of Links
+ * @param el the list of Links
+ * @return 1 if the list is empty and 0 if the list isn't empty
  */
 int isEdgeListEmpty(EdgeList *el){
-
-
-    return 1;
+    if (el != NULL){
+        return el->sentinelFirst.next == &el->sentinelLast;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+        return -1;
+    }
 }
 
 /**
- * Tests if the current Edge is the first one.
- * @param el the address of the EdgeList to be tested
- * @return int 1 if the current Edge is the first one, 0 otherwise
+ * return a boolean about the position of the current pointer in a list of Links
+ * @param el the list of Links
+ * @return 1 if the current pointer is on the first element of the list and 0 if it isn't
  */
 int isFirstEdge(EdgeList *el){
-
-
-    return 1;
+    if (el != NULL){
+        return el->current == el->sentinelFirst.next;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+        return -1;
+    }
 }
 
 /**
- * Tests if the current Edge is the last one.
- * @param el the address of the EdgeList to be tested
- * @return int 1 if the current Edge is the last one, 0 otherwise
+ * return a boolean about the position of the current pointer in a list of Links
+ * @param el the list of Links
+ * @return 1 if the current pointer is on the last element of the list and 0 if it isn't
  */
 int isLastEdge(EdgeList *el){
-
-
-    return 1;
+    if (el != NULL){
+        return el->current == el->sentinelLast.previous;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+        return -1;
+    }
 }
 
 /**
- * Tests if the current Edge not valid (outside the EdgeList).
- * @param el the address of the EdgeList to be tested
- * @return int 1 if the current Edge is not valid, 0 otherwise
+ * return a boolean about the position of the current pointer in a list of Links
+ * @param el the list of Links
+ * @return 1 if the current pointer is on one of both sentinels of the list and 0 if it isn't
  */
 int isOutOfListEdge(EdgeList *el){
-
-
-    return 1;
+    if (el != NULL){
+        return el->current == &el->sentinelLast || el->current == &el->sentinelFirst;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+        return -1;
+    }
 }
 
 /**
- * Set the current Edge on the first one, if the list is empty, it will be positionned on the sentinel at the end.
- * @param el the address of the EdgeList to be modified
+ * set the current pointer of a list of Links on the first element of the list
+ * @param el the list of Links
  */
 void setOnFirstEdge(EdgeList *el){
-
-
+    if (el != NULL){
+        el->current = el->sentinelFirst.next;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+    }
 }
 
 /**
- * Set the current Edge on the last one, if the list is empty, it will be positionned on the sentinel at the beginning.
- * @param el the address of the EdgeList to be modified
+ * set the current pointer of a list of Links on the last element of the list
+ * @param el the list of Links
  */
 void setOnLastEdge(EdgeList *el){
-
-
+    if (el != NULL){
+        el->current = el->sentinelLast.previous;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+    }
 }
 
 /**
- * Set the current Edge on the next one.
- * @param el the address of the EdgeList to be modified
+ * set the current pointer of a list of Links on the next element of the list
+ * @param el the list of Links
  */
 void setOnNextEdge(EdgeList *el){
-
-
+    if (el != NULL && el->current != NULL){
+        el->current = el->current->next;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation or current pointer NULL\n");
+    }
 }
 
 /**
- * Set the current Edge on the previous one.
- * @param el the address of the EdgeList to be modified
+ * set the current pointer of a list of Links on the previous element of the list
+ * @param el the list of Links
  */
 void setOnPreviousEdge(EdgeList *el){
-
-
+    if (el != NULL && el->current != NULL){
+        el->current = el->current->previous;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation or current pointer NULL\n");
+    }
 }
 
 /**
- * Print the content of the EdgeList.
- * @param el the address of the EdgeList to be displayed
+ * print the content of a list of Links
+ * @param el the list of Links
  */
 void printEdgeList(EdgeList *el){
-
-
+    Link* l;
+    if (el != NULL){
+        printf("Edge list :\n\n");
+        setOnFirstEdge(el);
+        while(!isOutOfListEdge(el)){
+            l = getEdgeLink(el->current);
+            printLink(l);
+            setOnNextEdge(el);
+        }
+        printf("\n");
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+    }
 }
 
 /**
- * Count the number of elements stored in the EdgeList.
- * @param el the address of the EdgeList to be counted
- * @return In int the number of element in the EdgeList
+ * return the number of element of a list of Links
+ * @param el the list of Links
+ * @return the number of element of a list of Links
  */
 int countEdgeElements(EdgeList *el){
-
-
-    return 1;
+    int res = 0;
+    if (el != NULL){
+        setOnFirstEdge(el);
+        while(!isOutOfListEdge(el)){
+            res ++;
+            setOnNextEdge(el);
+        }
+        return res;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+        return -1;
+    }
 }
 
 /**
- * Create a new Edge containing an Link given as parameter and insert it at the end of the EdgeList
- * @param el the address of the EdgeList
- * @param l the address of Link
- * @return int 1 if the Edge is valid and correctly insert, 0 otherwise
+ * create a new Edge pointing a given Link and insert it at the end of a list of Links
+ * @param el the list of Links
+ * @param c the Link to add in the list
+ * @return 0 if it is a success, -1 if it isn't
  */
-int insertEdgeLast(EdgeList *el, Link* l){
-
-
-    return 1;
+int insertEdgeLast(EdgeList *el, Link* c){
+    Edge* e = NULL;
+    if (el != NULL){
+        e = allocEdge();
+        initEdge(e,c,NULL,NULL);
+        if(isEdgeListEmpty(el)){
+            el->sentinelFirst.next = e;
+            e->previous = &el->sentinelFirst;
+        } else {
+            setOnLastEdge(el);
+            el->current->next = e;
+            e->previous = el->current;
+        }
+        el->sentinelLast.previous = e;
+        e->next = &el->sentinelLast;
+        return 0;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+        return -1;
+    }
 }
 
 /**
- * Verify if the Link l is stored in the EdgeList el.
- * @param el the address of the EdgeList
- * @param l the address of Link to be found
- * @return int 1 if Link is found, 0 otherwise
+ * seek a given Link in a list of Links
+ * @param el the list of Links
+ * @param c the Link to seek
+ * @return 1 if the Link is in the list, 0 if not
  */
 int findLink(EdgeList *el, Link* l){
-
-
-    return 1;
+    if (el != NULL){
+        setOnFirstEdge(el);
+        while(!isOutOfListEdge(el)){
+            if(el->current != NULL && el->current->link == l){
+                return 1;
+            }
+            setOnNextEdge(el);
+        }
+        return 0;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+        return -1;
+    }
 }
 
 /**
- * Delete the Edge containing the Link l in the EdgeList el. It frees the memory of the Edge.
- * @param el the address of the EdgeList
- * @param l the contained in the Edge to be deleted
+ * delete a Edge pointing a given Link from a list of Links if it exists and free the Edge deleted memory
+ * @param el the list of Links
+ * @param c the Link to be deleted
+ * @return 0 if it's a success, -1 if not
  */
-void deleteEdge(EdgeList *el, Link* l){
-
-
+int deleteEdge(EdgeList* el, Link* l){
+    if (el != NULL){
+        if(findLink(el,l)){
+            el->current->previous->next = el->current->next;
+            el->current->next->previous = el->current->previous;
+            freeEdge(el->current);
+            setOnNextEdge(el);
+            return 0;
+        }
+        return -1;
+    } else {
+        fprintf(stderr, "error : EdgeList bad allocation\n");
+        return -1;
+    }
 }
