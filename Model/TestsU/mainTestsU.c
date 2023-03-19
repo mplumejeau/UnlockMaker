@@ -11,6 +11,7 @@
 #include "VertexTestsU.h"
 #include "VertexListTestsU.h"
 #include "EdgeTestsU.h"
+#include "EdgeListTestsU.h"
 
 
 //main
@@ -36,9 +37,9 @@ int main(void){
                     cmocka_unit_test_setup_teardown(testIsLastVertexTrue,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
                     cmocka_unit_test_setup_teardown(testIsLastVertexFalse,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
                     cmocka_unit_test_setup(testIsLastVertexBadAlloc, setupNonAllocVertexList),
-                    cmocka_unit_test_setup_teardown(testIsOutOfListTrue,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
-                    cmocka_unit_test_setup_teardown(testIsOutOfListFalse,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
-                    cmocka_unit_test_setup(testIsOutOfListBadAlloc, setupNonAllocVertexList),
+                    cmocka_unit_test_setup_teardown(testIsOutOfVertexListTrue,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup_teardown(testIsOutOfVertexListFalse,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup(testIsOutOfVertexListBadAlloc, setupNonAllocVertexList),
                     cmocka_unit_test_setup_teardown(testSetOnNextVertex,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
                     cmocka_unit_test_setup_teardown(testSetOnPreviousVertex,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
                     cmocka_unit_test_setup_teardown(testCountVertexElements0,setupInitEmptyVertexList,teardownEmptyVertexList),
@@ -64,9 +65,43 @@ int main(void){
                     cmocka_unit_test_setup(testGetEdgeLinkBadAlloc, setupNonAllocEdge)
             };
 
+    const struct CMUnitTest testsEdgeList[] =
+            {
+                    cmocka_unit_test_setup_teardown(testInitEdgeList, setupNonInitEdgeList, teardownEmptyEdgeList),
+                    cmocka_unit_test_setup_teardown(testIsEdgeListEmptyTrue, setupInitEmptyEdgeList, teardownEmptyEdgeList),
+                    cmocka_unit_test_setup_teardown(testIsEdgeListEmptyFalse, setupInitOneElementEdgeList, teardownOneElementEdgeList),
+                    cmocka_unit_test_setup(testIsEdgeListEmptyBadAlloc, setupNonAllocEdgeList),
+                    cmocka_unit_test_setup_teardown(testIsFirstEdgeTrue,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup_teardown(testIsFirstEdgeFalse,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup(testIsFirstEdgeBadAlloc, setupNonAllocEdgeList),
+                    cmocka_unit_test_setup_teardown(testIsLastEdgeTrue,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup_teardown(testIsLastEdgeFalse,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup(testIsLastEdgeBadAlloc, setupNonAllocEdgeList),
+                    cmocka_unit_test_setup_teardown(testIsOutOfEdgeListTrue,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup_teardown(testIsOutOfEdgeListFalse,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup(testIsOutOfEdgeListBadAlloc, setupNonAllocEdgeList),
+                    cmocka_unit_test_setup_teardown(testSetOnNextEdge,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup_teardown(testSetOnPreviousEdge,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup_teardown(testCountEdgeElements0,setupInitEmptyEdgeList,teardownEmptyEdgeList),
+                    cmocka_unit_test_setup_teardown(testCountEdgeElements1,setupInitOneElementEdgeList,teardownOneElementEdgeList),
+                    cmocka_unit_test_setup_teardown(testCountEdgeElements2,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup(testCountEdgeElementsBadAlloc, setupNonAllocEdgeList),
+                    cmocka_unit_test_setup_teardown(testInsertEdgeLast0,setupInitEmptyEdgeList,teardownEmptyEdgeList),
+                    cmocka_unit_test_setup_teardown(testInsertEdgeLast1,setupInitOneElementEdgeList,teardownOneElementEdgeList),
+                    cmocka_unit_test_setup_teardown(testInsertEdgeLast2,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup(testInsertEdgeLastBadAlloc, setupNonAllocEdgeList),
+                    cmocka_unit_test_setup_teardown(testFindLinkTrue,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup_teardown(testFindLinkFalse,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup(testFindLinkBadAlloc, setupNonAllocEdgeList),
+                    cmocka_unit_test_setup_teardown(testDeleteEdgeTrue,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup_teardown(testDeleteEdgeFalse,setupInitTwoElementsEdgeList,teardownTwoElementsEdgeList),
+                    cmocka_unit_test_setup(testDeleteEdgeBadAlloc, setupNonAllocEdgeList)
+            };
+
     cmocka_run_group_tests_name("Tests Vertex module", testsVertex, NULL, NULL);
     cmocka_run_group_tests_name("Tests VertexList module", testsVertexList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Edge module", testsEdge, NULL, NULL);
+    cmocka_run_group_tests_name("Tests EdgeList module", testsEdgeList, NULL, NULL);
 
     return 0;
 }

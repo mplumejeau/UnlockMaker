@@ -37,6 +37,7 @@ add_executable(UnlockMakerTestsU
         Model/VertexList.h Model/VertexList.c Model/TestsU/VertexListTestsU.h Model/TestsU/VertexListTestsU.c
         Model/Card.h Model/Card.c
         Model/Edge.h Model/Edge.c Model/TestsU/EdgeTestsU.h Model/TestsU/EdgeTestsU.c
+        Model/EdgeList.h Model/EdgeList.c Model/TestsU/EdgeListTestsU.h Model/TestsU/EdgeListTestsU.c
         Model/Link.h Model/Link.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)

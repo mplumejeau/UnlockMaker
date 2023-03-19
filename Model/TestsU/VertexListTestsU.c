@@ -170,20 +170,20 @@ void testIsLastVertexBadAlloc(void** state){
 
 //test isOutOfList
 
-void testIsOutOfListTrue(void** state){
+void testIsOutOfVertexListTrue(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnLastVertex(vl);
     setOnNextVertex(vl);
     assert_int_equal(1, isOutOfListVertex(vl));
 }
 
-void testIsOutOfListFalse(void** state){
+void testIsOutOfVertexListFalse(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnFirstVertex(vl);
     assert_int_equal(0, isOutOfListVertex(vl));
 }
 
-void testIsOutOfListBadAlloc(void** state){
+void testIsOutOfVertexListBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     assert_int_equal(-1, isOutOfListVertex(vl));
 }

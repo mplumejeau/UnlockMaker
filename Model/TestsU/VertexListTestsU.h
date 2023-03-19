@@ -29,9 +29,9 @@ void testIsLastVertexTrue(void** state);
 void testIsLastVertexFalse(void** state);
 void testIsLastVertexBadAlloc(void** state);
 
-void testIsOutOfListTrue(void** state);
-void testIsOutOfListFalse(void** state);
-void testIsOutOfListBadAlloc(void** state);
+void testIsOutOfVertexListTrue(void** state);
+void testIsOutOfVertexListFalse(void** state);
+void testIsOutOfVertexListBadAlloc(void** state);
 
 void testSetOnNextVertex(void** state);
 

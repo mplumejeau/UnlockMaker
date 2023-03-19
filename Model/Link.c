@@ -18,8 +18,16 @@ Link* allocLink(void){
 
 /**
  * Frees the link and everything that must be deleted in it (deletes the image in the folder ?)
- * @param c the link to free
+ * @param l the link to free
  */
 void freeLink(Link* l){
     free(l);
+}
+
+/**
+ * print the content of a link
+ * @param l the link to be printed
+ */
+void printLink(Link* l){
+
 }

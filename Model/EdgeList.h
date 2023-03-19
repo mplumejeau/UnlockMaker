@@ -7,7 +7,7 @@
 
 #include "Struct.h"
 
-void initEdgeList(EdgeList *el);
+void initEmptyEdgeList(EdgeList *el);
 
 int isEdgeListEmpty(EdgeList *el);
 int isFirstEdge(EdgeList *el);
