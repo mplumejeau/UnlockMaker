@@ -10,10 +10,12 @@
 #include "Vertex.h"
 #include "Card.h"
 
+#include "VertexListTestsU.h"
+
 
 //setup
 
-static int setupNonAlloc(void** state){
+int setupNonAlloc(void** state){
     VertexList* vl = NULL;
     if(vl == NULL){
         *state = vl;
@@ -23,7 +25,7 @@ static int setupNonAlloc(void** state){
     }
 }
 
-static int setupNonInit(void** state){
+int setupNonInit(void** state){
     VertexList* vl = malloc(sizeof(VertexList));
     if(vl != NULL){
         *state = vl;
@@ -33,7 +35,7 @@ static int setupNonInit(void** state){
     }
 }
 
-static int setupInitEmpty(void** state){
+int setupInitEmpty(void** state){
     VertexList* vl = malloc(sizeof(VertexList));
     initEmptyVertexList(vl);
     if (vl != NULL){
@@ -44,7 +46,7 @@ static int setupInitEmpty(void** state){
     }
 }
 
-static int setupInitOneElement(void** state){
+int setupInitOneElement(void** state){
     VertexList* vl = malloc(sizeof(VertexList));
     Card* c = allocCard();
     initEmptyVertexList(vl);
@@ -57,7 +59,7 @@ static int setupInitOneElement(void** state){
     }
 }
 
-static int setupInitTwoElements(void** state){
+int setupInitTwoElements(void** state){
     VertexList* vl = malloc(sizeof(VertexList));
     Card* c1 = allocCard();
     Card* c2 = allocCard();
@@ -75,12 +77,12 @@ static int setupInitTwoElements(void** state){
 
 //teardown
 
-static int teardownEmpty(void** state){
+int teardownEmpty(void** state){
     free(*state);
     return 0;
 }
 
-static int teardownOneElement(void** state){
+int teardownOneElement(void** state){
     VertexList* vl = (VertexList*) (*state);
     freeCard(getVertexCard(vl->sentinelFirst.next));
     freeVertex(vl->sentinelFirst.next);
@@ -88,7 +90,7 @@ static int teardownOneElement(void** state){
     return 0;
 }
 
-static int teardownTwoElements(void** state){
+int teardownTwoElements(void** state){
     VertexList* vl = (VertexList*) (*state);
     freeCard(getVertexCard(vl->sentinelFirst.next));
     freeCard(getVertexCard(vl->sentinelLast.previous));
@@ -101,7 +103,7 @@ static int teardownTwoElements(void** state){
 
 //test initVertexList
 
-static void testInitVertexList(void** state){
+void testInitVertexList(void** state){
     VertexList* vl = (VertexList*) (*state);
     initEmptyVertexList(vl);
     assert_int_equal(&vl->sentinelLast, vl->sentinelFirst.next);
@@ -111,75 +113,75 @@ static void testInitVertexList(void** state){
 
 //test isVertexListEmpty
 
-static void testIsVertexListEmptyTrue(void** state){
+void testIsVertexListEmptyTrue(void** state){
     VertexList* vl = (VertexList*) (*state);
     assert_int_equal(1, isVertexListEmpty(vl));
 }
 
-static void testIsVertexListEmptyFalse(void** state){
+void testIsVertexListEmptyFalse(void** state){
     VertexList* vl = (VertexList*) (*state);
     assert_int_equal(0, isVertexListEmpty(vl));
 }
 
-static void testIsVertexListEmptyBadAlloc(void** state){
+void testIsVertexListEmptyBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     assert_int_equal(-1, isVertexListEmpty(vl));
 }
 
 //test isFirstVertex
 
-static void testIsFirstVertexTrue(void** state){
+void testIsFirstVertexTrue(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnFirstVertex(vl);
     assert_int_equal(1, isFirstVertex(vl));
 }
 
-static void testIsFirstVertexFalse(void** state){
+void testIsFirstVertexFalse(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnLastVertex(vl);
     assert_int_equal(0, isFirstVertex(vl));
 }
 
-static void testIsFirstVertexBadAlloc(void** state){
+void testIsFirstVertexBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     assert_int_equal(-1, isFirstVertex(vl));
 }
 
 //test isLastVertex
 
-static void testIsLastVertexTrue(void** state){
+void testIsLastVertexTrue(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnLastVertex(vl);
     assert_int_equal(1, isLastVertex(vl));
 }
 
-static void testIsLastVertexFalse(void** state){
+void testIsLastVertexFalse(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnFirstVertex(vl);
     assert_int_equal(0, isLastVertex(vl));
 }
 
-static void testIsLastVertexBadAlloc(void** state){
+void testIsLastVertexBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     assert_int_equal(-1, isLastVertex(vl));
 }
 
 //test isOutOfList
 
-static void testIsOutOfListTrue(void** state){
+void testIsOutOfListTrue(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnLastVertex(vl);
     setOnNextVertex(vl);
     assert_int_equal(1, isLastVertex(vl));
 }
 
-static void testIsOutOfListFalse(void** state){
+void testIsOutOfListFalse(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnFirstVertex(vl);
     assert_int_equal(0, isLastVertex(vl));
 }
 
-static void testIsOutOfListBadAlloc(void** state){
+void testIsOutOfListBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     assert_int_equal(-1, isLastVertex(vl));
 }
@@ -188,7 +190,7 @@ static void testIsOutOfListBadAlloc(void** state){
 
 //test setOnNextVertex
 
-static void testSetOnNextVertex(void** state){
+void testSetOnNextVertex(void** state){
     VertexList* vl = (VertexList*) (*state);
     Vertex* v1;
     Vertex* v2;
@@ -201,7 +203,7 @@ static void testSetOnNextVertex(void** state){
 
 //test setOnPreviousVertex
 
-static void testSetOnPreviousVertex(void** state){
+void testSetOnPreviousVertex(void** state){
     VertexList* vl = (VertexList*) (*state);
     Vertex* v1;
     Vertex* v2;
@@ -218,25 +220,25 @@ static void testSetOnPreviousVertex(void** state){
 
 //test countVertexElements
 
-static void testCountVertexElements0(void** state){
+void testCountVertexElements0(void** state){
     VertexList* vl = (VertexList*) (*state);
     int nb = countVertexElements(vl);
     assert_int_equal(0, nb);
 }
 
-static void testCountVertexElements1(void** state){
+void testCountVertexElements1(void** state){
     VertexList* vl = (VertexList*) (*state);
     int nb = countVertexElements(vl);
     assert_int_equal(1, nb);
 }
 
-static void testCountVertexElements2(void** state){
+void testCountVertexElements2(void** state){
     VertexList* vl = (VertexList*) (*state);
     int nb = countVertexElements(vl);
     assert_int_equal(2, nb);
 }
 
-static void testCountVertexElementsBadAlloc(void** state){
+void testCountVertexElementsBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     int nb = countVertexElements(vl);
     assert_int_equal(-1, nb);
@@ -244,7 +246,7 @@ static void testCountVertexElementsBadAlloc(void** state){
 
 //test insertVertexLast
 
-static void testInsertVertexLast0(void** state){
+void testInsertVertexLast0(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int success = insertVertexLast(vl,c);
@@ -255,7 +257,7 @@ static void testInsertVertexLast0(void** state){
     freeCard(c);
 }
 
-static void testInsertVertexLast1(void** state){
+void testInsertVertexLast1(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int success = insertVertexLast(vl,c);
@@ -266,7 +268,7 @@ static void testInsertVertexLast1(void** state){
     freeCard(c);
 }
 
-static void testInsertVertexLast2(void** state){
+void testInsertVertexLast2(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int success = insertVertexLast(vl,c);
@@ -277,7 +279,7 @@ static void testInsertVertexLast2(void** state){
     freeCard(c);
 }
 
-static void testInsertVertexLastBadAlloc(void** state){
+void testInsertVertexLastBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int success = insertVertexLast(vl,c);
@@ -287,7 +289,7 @@ static void testInsertVertexLastBadAlloc(void** state){
 
 //test findCard
 
-static void testFindCardTrue(void** state){
+void testFindCardTrue(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int found;
@@ -297,7 +299,7 @@ static void testFindCardTrue(void** state){
     freeCard(c);
 }
 
-static void testFindCardFalse(void** state){
+void testFindCardFalse(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int found;
@@ -306,7 +308,7 @@ static void testFindCardFalse(void** state){
     freeCard(c);
 }
 
-static void testFindCardBadAlloc(void** state){
+void testFindCardBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int found;
@@ -317,7 +319,7 @@ static void testFindCardBadAlloc(void** state){
 
 //test deleteCard
 
-static void testDeleteVertexTrue(void** state){
+void testDeleteVertexTrue(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int success;
@@ -327,7 +329,7 @@ static void testDeleteVertexTrue(void** state){
     freeCard(c);
 }
 
-static void testDeleteVertexFalse(void** state){
+void testDeleteVertexFalse(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int success;
@@ -336,7 +338,7 @@ static void testDeleteVertexFalse(void** state){
     freeCard(c);
 }
 
-static void testDeleteVertexBadAlloc(void** state){
+void testDeleteVertexBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
     Card* c = allocCard();
     int success;
@@ -344,45 +346,3 @@ static void testDeleteVertexBadAlloc(void** state){
     assert_int_equal(-1,success);
     freeCard(c);
 }
-
-
-//main
-
-int main(void){
-
-    const struct CMUnitTest testsVertexList[] =
-            {
-                    cmocka_unit_test_setup_teardown(testInitVertexList, setupNonInit, teardownEmpty),
-                    cmocka_unit_test_setup_teardown(testIsVertexListEmptyTrue, setupInitEmpty, teardownEmpty),
-                    cmocka_unit_test_setup_teardown(testIsVertexListEmptyFalse, setupInitOneElement, teardownOneElement),
-                    cmocka_unit_test_setup(testIsVertexListEmptyBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testIsFirstVertexTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testIsFirstVertexFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testIsFirstVertexBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testIsLastVertexTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testIsLastVertexFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testIsLastVertexBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testIsOutOfListTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testIsOutOfListFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testIsOutOfListBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testSetOnNextVertex,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testSetOnPreviousVertex,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testCountVertexElements0,setupInitEmpty,teardownEmpty),
-                    cmocka_unit_test_setup_teardown(testCountVertexElements1,setupInitOneElement,teardownOneElement),
-                    cmocka_unit_test_setup_teardown(testCountVertexElements2,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testCountVertexElementsBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testInsertVertexLast0,setupInitEmpty,teardownEmpty),
-                    cmocka_unit_test_setup_teardown(testInsertVertexLast1,setupInitOneElement,teardownOneElement),
-                    cmocka_unit_test_setup_teardown(testInsertVertexLast2,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testInsertVertexLastBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testFindCardTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testFindCardFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testFindCardBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testDeleteVertexTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testDeleteVertexFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testDeleteVertexBadAlloc, setupNonAlloc)
-            };
-
-    return cmocka_run_group_tests_name("Tests VertexList module", testsVertexList, NULL, NULL);
-}
-
