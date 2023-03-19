@@ -4,12 +4,13 @@ project(UnlockMaker C)
 set(CMAKE_C_STANDARD 99)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic-errors")
 
-set(MODE "TestU")
-
 # MAIN EXECUTABLE
 
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK4 REQUIRED gtk4)
+# a decommenter pour utiliser gtk
+#
+#find_package(PkgConfig REQUIRED)
+#pkg_check_modules(GTK4 REQUIRED gtk4)
+#
 
 add_executable(UnlockMaker
         Model/main.c Model/Struct.h
@@ -31,9 +32,9 @@ target_compile_options(UnlockMaker PUBLIC ${GTK4_CFLAGS_OTHER})
 find_package(cmocka REQUIRED)
 
 add_executable(UnlockMakerTestsU
-        Model/mainTestsU.c Model/Struct.h
-        Model/Vertex.h Model/Vertex.c Model/VertexTestsU.h Model/VertexTestsU.c
-        Model/VertexList.h Model/VertexList.c Model/VertexListTestsU.h Model/VertexListTestsU.c
+        Model/TestsU/mainTestsU.c Model/Struct.h
+        Model/Vertex.h Model/Vertex.c Model/TestsU/VertexTestsU.h Model/TestsU/VertexTestsU.c
+        Model/VertexList.h Model/VertexList.c Model/TestsU/VertexListTestsU.h Model/TestsU/VertexListTestsU.c
         Model/Card.h Model/Card.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)
