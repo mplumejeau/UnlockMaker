@@ -5,16 +5,16 @@
 #ifndef UNLOCKMAKER_VERTEXTESTSU_H
 #define UNLOCKMAKER_VERTEXTESTSU_H
 
-int setupNonAlloc(void** state);
-int setupNonInit(void** state);
-int setupInit(void** state);
+int setupNonAllocVertex(void** state);
+int setupNonInitVertex(void** state);
+int setupInitVertex(void** state);
 
-int teardownNonInit(void** state);
-int teardownInit(void** state);
+int teardownNonInitVertex(void** state);
+int teardownInitVertex(void** state);
 
 void testInitVertex(void** state);
 
 void testGetVertexCard(void** state);
-void testGetVertexCardNonAlloc(void** state);
+void testGetVertexCardBadAlloc(void** state);
 
 #endif //UNLOCKMAKER_VERTEXTESTSU_H

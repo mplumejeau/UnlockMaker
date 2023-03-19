@@ -5,15 +5,15 @@
 #ifndef UNLOCKMAKER_VERTEXLISTTESTSU_H
 #define UNLOCKMAKER_VERTEXLISTTESTSU_H
 
-int setupNonAlloc(void** state);
-int setupNonInit(void** state);
-int setupInitEmpty(void** state);
-int setupInitOneElement(void** state);
-int setupInitTwoElements(void** state);
+int setupNonAllocVertexList(void** state);
+int setupNonInitVertexList(void** state);
+int setupInitEmptyVertexList(void** state);
+int setupInitOneElementVertexList(void** state);
+int setupInitTwoElementsVertexList(void** state);
 
-int teardownEmpty(void** state);
-int teardownOneElement(void** state);
-int teardownTwoElements(void** state);
+int teardownEmptyVertexList(void** state);
+int teardownOneElementVertexList(void** state);
+int teardownTwoElementsVertexList(void** state);
 
 void testInitVertexList(void** state);
 

@@ -12,8 +12,9 @@
  * allocate a Card in the dynamic space memory
  * @return Card* the address of the allocated structure
  */
-Card* allocCard(){
-    return NULL;
+Card* allocCard(void){
+    Card* newC = (Card*) malloc(sizeof(Card));
+    return newC;
 }
 
 /**
@@ -31,10 +32,8 @@ void initCard(Card* c, int idCard)
  * Frees the card and everything that must be deleted in it (deletes the image in the folder ?)
  * @param c the card to free
  */
-void freeCard(Card* c)
-{
-
-
+void freeCard(Card* c){
+    free(c);
 }
 
 /**

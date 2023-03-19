@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <setjmp.h>
 #include <cmocka.h>
 
 #include "VertexList.h"
@@ -15,7 +17,7 @@
 
 //setup
 
-int setupNonAlloc(void** state){
+int setupNonAllocVertexList(void** state){
     VertexList* vl = NULL;
     if(vl == NULL){
         *state = vl;
@@ -25,7 +27,7 @@ int setupNonAlloc(void** state){
     }
 }
 
-int setupNonInit(void** state){
+int setupNonInitVertexList(void** state){
     VertexList* vl = malloc(sizeof(VertexList));
     if(vl != NULL){
         *state = vl;
@@ -35,7 +37,7 @@ int setupNonInit(void** state){
     }
 }
 
-int setupInitEmpty(void** state){
+int setupInitEmptyVertexList(void** state){
     VertexList* vl = malloc(sizeof(VertexList));
     initEmptyVertexList(vl);
     if (vl != NULL){
@@ -46,7 +48,7 @@ int setupInitEmpty(void** state){
     }
 }
 
-int setupInitOneElement(void** state){
+int setupInitOneElementVertexList(void** state){
     VertexList* vl = malloc(sizeof(VertexList));
     Card* c = allocCard();
     initEmptyVertexList(vl);
@@ -59,7 +61,7 @@ int setupInitOneElement(void** state){
     }
 }
 
-int setupInitTwoElements(void** state){
+int setupInitTwoElementsVertexList(void** state){
     VertexList* vl = malloc(sizeof(VertexList));
     Card* c1 = allocCard();
     Card* c2 = allocCard();
@@ -77,12 +79,12 @@ int setupInitTwoElements(void** state){
 
 //teardown
 
-int teardownEmpty(void** state){
+int teardownEmptyVertexList(void** state){
     free(*state);
     return 0;
 }
 
-int teardownOneElement(void** state){
+int teardownOneElementVertexList(void** state){
     VertexList* vl = (VertexList*) (*state);
     freeCard(getVertexCard(vl->sentinelFirst.next));
     freeVertex(vl->sentinelFirst.next);
@@ -90,12 +92,12 @@ int teardownOneElement(void** state){
     return 0;
 }
 
-int teardownTwoElements(void** state){
+int teardownTwoElementsVertexList(void** state){
     VertexList* vl = (VertexList*) (*state);
+    freeCard(getVertexCard(vl->sentinelFirst.next->next));
     freeCard(getVertexCard(vl->sentinelFirst.next));
-    freeCard(getVertexCard(vl->sentinelLast.previous));
+    freeVertex(vl->sentinelFirst.next->next);
     freeVertex(vl->sentinelFirst.next);
-    freeVertex(vl->sentinelLast.previous);
     free(vl);
     return 0;
 }
@@ -106,9 +108,9 @@ int teardownTwoElements(void** state){
 void testInitVertexList(void** state){
     VertexList* vl = (VertexList*) (*state);
     initEmptyVertexList(vl);
-    assert_int_equal(&vl->sentinelLast, vl->sentinelFirst.next);
-    assert_int_equal(&vl->sentinelFirst, vl->sentinelLast.previous);
-    assert_int_equal(&vl->sentinelFirst, vl->current);
+    assert_ptr_equal(&vl->sentinelLast, vl->sentinelFirst.next);
+    assert_ptr_equal(&vl->sentinelFirst, vl->sentinelLast.previous);
+    assert_ptr_equal(&vl->sentinelFirst, vl->current);
 }
 
 //test isVertexListEmpty
@@ -172,18 +174,18 @@ void testIsOutOfListTrue(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnLastVertex(vl);
     setOnNextVertex(vl);
-    assert_int_equal(1, isLastVertex(vl));
+    assert_int_equal(1, isOutOfListVertex(vl));
 }
 
 void testIsOutOfListFalse(void** state){
     VertexList* vl = (VertexList*) (*state);
     setOnFirstVertex(vl);
-    assert_int_equal(0, isLastVertex(vl));
+    assert_int_equal(0, isOutOfListVertex(vl));
 }
 
 void testIsOutOfListBadAlloc(void** state){
     VertexList* vl = (VertexList*) (*state);
-    assert_int_equal(-1, isLastVertex(vl));
+    assert_int_equal(-1, isOutOfListVertex(vl));
 }
 
 //can we consider that setOnFirstVertex and setOnLastVertex are tested respectively by testIsOnFirstVertexTrue and testIsOnLastVertexTrue ?
@@ -198,7 +200,7 @@ void testSetOnNextVertex(void** state){
     v1 = vl->current;
     setOnNextVertex(vl);
     v2 = vl->current;
-    assert_int_equal(v1->next,v2);
+    assert_ptr_equal(v1->next,v2);
 }
 
 //test setOnPreviousVertex
@@ -211,7 +213,7 @@ void testSetOnPreviousVertex(void** state){
     v1 = vl->current;
     setOnPreviousVertex(vl);
     v2 = vl->current;
-    assert_int_equal(v1->previous,v2);
+    assert_ptr_equal(v1->previous,v2);
 }
 
 //test printVertexList ??
@@ -253,7 +255,7 @@ void testInsertVertexLast0(void** state){
     int nb = countVertexElements(vl);
     assert_int_equal(0,success);
     assert_int_equal(1, nb);
-    assert_int_equal(c,vl->sentinelLast.previous->card);
+    assert_ptr_equal(c,vl->sentinelLast.previous->card);
     freeCard(c);
 }
 
@@ -264,7 +266,7 @@ void testInsertVertexLast1(void** state){
     int nb = countVertexElements(vl);
     assert_int_equal(0,success);
     assert_int_equal(2, nb);
-    assert_int_equal(c,vl->sentinelLast.previous->card);
+    assert_ptr_equal(c,vl->sentinelLast.previous->card);
     freeCard(c);
 }
 
@@ -275,7 +277,7 @@ void testInsertVertexLast2(void** state){
     int nb = countVertexElements(vl);
     assert_int_equal(0,success);
     assert_int_equal(3, nb);
-    assert_int_equal(c,vl->sentinelLast.previous->card);
+    assert_ptr_equal(c,vl->sentinelLast.previous->card);
     freeCard(c);
 }
 

@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <setjmp.h>
 #include <cmocka.h>
 
 #include "VertexTestsU.h"
@@ -16,42 +18,42 @@ int main(void){
 
     const struct CMUnitTest testsVertex[] =
             {
-                    cmocka_unit_test_setup_teardown(testInitVertex, setupNonInit, teardownNonInit),
-                    cmocka_unit_test_setup_teardown(testGetVertexCard, setupInit, teardownInit),
-                    cmocka_unit_test_setup(testGetVertexCardNonAlloc, setupNonAlloc)
+                    cmocka_unit_test_setup_teardown(testInitVertex, setupNonInitVertex, teardownNonInitVertex),
+                    cmocka_unit_test_setup_teardown(testGetVertexCard, setupInitVertex, teardownInitVertex),
+                    cmocka_unit_test_setup(testGetVertexCardBadAlloc, setupNonAllocVertex)
             };
 
     const struct CMUnitTest testsVertexList[] =
             {
-                    cmocka_unit_test_setup_teardown(testInitVertexList, setupNonInit, teardownEmpty),
-                    cmocka_unit_test_setup_teardown(testIsVertexListEmptyTrue, setupInitEmpty, teardownEmpty),
-                    cmocka_unit_test_setup_teardown(testIsVertexListEmptyFalse, setupInitOneElement, teardownOneElement),
-                    cmocka_unit_test_setup(testIsVertexListEmptyBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testIsFirstVertexTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testIsFirstVertexFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testIsFirstVertexBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testIsLastVertexTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testIsLastVertexFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testIsLastVertexBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testIsOutOfListTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testIsOutOfListFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testIsOutOfListBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testSetOnNextVertex,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testSetOnPreviousVertex,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testCountVertexElements0,setupInitEmpty,teardownEmpty),
-                    cmocka_unit_test_setup_teardown(testCountVertexElements1,setupInitOneElement,teardownOneElement),
-                    cmocka_unit_test_setup_teardown(testCountVertexElements2,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testCountVertexElementsBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testInsertVertexLast0,setupInitEmpty,teardownEmpty),
-                    cmocka_unit_test_setup_teardown(testInsertVertexLast1,setupInitOneElement,teardownOneElement),
-                    cmocka_unit_test_setup_teardown(testInsertVertexLast2,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testInsertVertexLastBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testFindCardTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testFindCardFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testFindCardBadAlloc, setupNonAlloc),
-                    cmocka_unit_test_setup_teardown(testDeleteVertexTrue,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup_teardown(testDeleteVertexFalse,setupInitTwoElements,teardownTwoElements),
-                    cmocka_unit_test_setup(testDeleteVertexBadAlloc, setupNonAlloc)
+                    cmocka_unit_test_setup_teardown(testInitVertexList, setupNonInitVertexList, teardownEmptyVertexList),
+                    cmocka_unit_test_setup_teardown(testIsVertexListEmptyTrue, setupInitEmptyVertexList, teardownEmptyVertexList),
+                    cmocka_unit_test_setup_teardown(testIsVertexListEmptyFalse, setupInitOneElementVertexList, teardownOneElementVertexList),
+                    cmocka_unit_test_setup(testIsVertexListEmptyBadAlloc, setupNonAllocVertexList),
+                    cmocka_unit_test_setup_teardown(testIsFirstVertexTrue,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup_teardown(testIsFirstVertexFalse,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup(testIsFirstVertexBadAlloc, setupNonAllocVertexList),
+                    cmocka_unit_test_setup_teardown(testIsLastVertexTrue,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup_teardown(testIsLastVertexFalse,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup(testIsLastVertexBadAlloc, setupNonAllocVertexList),
+                    cmocka_unit_test_setup_teardown(testIsOutOfListTrue,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup_teardown(testIsOutOfListFalse,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup(testIsOutOfListBadAlloc, setupNonAllocVertexList),
+                    cmocka_unit_test_setup_teardown(testSetOnNextVertex,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup_teardown(testSetOnPreviousVertex,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup_teardown(testCountVertexElements0,setupInitEmptyVertexList,teardownEmptyVertexList),
+                    cmocka_unit_test_setup_teardown(testCountVertexElements1,setupInitOneElementVertexList,teardownOneElementVertexList),
+                    cmocka_unit_test_setup_teardown(testCountVertexElements2,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup(testCountVertexElementsBadAlloc, setupNonAllocVertexList),
+                    cmocka_unit_test_setup_teardown(testInsertVertexLast0,setupInitEmptyVertexList,teardownEmptyVertexList),
+                    cmocka_unit_test_setup_teardown(testInsertVertexLast1,setupInitOneElementVertexList,teardownOneElementVertexList),
+                    cmocka_unit_test_setup_teardown(testInsertVertexLast2,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup(testInsertVertexLastBadAlloc, setupNonAllocVertexList),
+                    cmocka_unit_test_setup_teardown(testFindCardTrue,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup_teardown(testFindCardFalse,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup(testFindCardBadAlloc, setupNonAllocVertexList),
+                    cmocka_unit_test_setup_teardown(testDeleteVertexTrue,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup_teardown(testDeleteVertexFalse,setupInitTwoElementsVertexList,teardownTwoElementsVertexList),
+                    cmocka_unit_test_setup(testDeleteVertexBadAlloc, setupNonAllocVertexList)
             };
 
     cmocka_run_group_tests_name("Tests Vertex module", testsVertex, NULL, NULL);

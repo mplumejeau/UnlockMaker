@@ -4,6 +4,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <setjmp.h>
 #include <cmocka.h>
 
 #include "Vertex.h"
@@ -15,7 +17,7 @@
 
 //setup
 
-int setupNonAlloc(void** state){
+int setupNonAllocVertex(void** state){
     Vertex* v = NULL;
     if(v == NULL){
         *state = v;
@@ -25,7 +27,7 @@ int setupNonAlloc(void** state){
     }
 }
 
-int setupNonInit(void** state){
+int setupNonInitVertex(void** state){
     Vertex* v = allocVertex();
     if(v != NULL){
         *state = v;
@@ -35,7 +37,7 @@ int setupNonInit(void** state){
     }
 }
 
-int setupInit(void** state){
+int setupInitVertex(void** state){
     Vertex* v = allocVertex();
     Card* c = allocCard();
     Vertex* n = NULL;
@@ -51,12 +53,12 @@ int setupInit(void** state){
 
 //teardown
 
-int teardownNonInit(void** state){
+int teardownNonInitVertex(void** state){
     freeVertex(*state);
     return 0;
 }
 
-int teardownInit(void** state){
+int teardownInitVertex(void** state){
     Vertex* v = (Vertex*) (*state);
     freeCard(v->card);
     freeVertex(v);
@@ -72,9 +74,9 @@ void testInitVertex(void** state){
     Vertex* n = NULL;
     Vertex* p = NULL;
     initVertex(v,c,n,p);
-    assert_int_equal(c,v->card);
-    assert_int_equal(n, v->next);
-    assert_int_equal(p, v->previous);
+    assert_ptr_equal(c,v->card);
+    assert_ptr_equal(n, v->next);
+    assert_ptr_equal(p, v->previous);
     free(c);
 }
 
@@ -84,19 +86,12 @@ void testGetVertexCard(void** state){
     Card* res;
     Vertex* v = (Vertex*) (*state);
     res = getVertexCard(v);
-    assert_int_equal(v->card, res);
+    assert_ptr_equal(v->card, res);
 }
 
-void testGetVertexCardNonAlloc(void** state){
+void testGetVertexCardBadAlloc(void** state){
     Card* res;
     Vertex* v = (Vertex*) (*state);
     res = getVertexCard(v);
-    assert_int_equal(NULL, res);
-}
-
-//main
-
-int main(void){
-
-
+    assert_ptr_equal(NULL, res);
 }
