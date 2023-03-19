@@ -20,7 +20,7 @@ add_executable(UnlockMaker
         Model/Card.h Model/Card.c
         Model/Edge.h Model/Edge.c
         Model/EdgeList.h Model/EdgeList.c
-        Model/Link.h)
+        Model/Link.h Model/Link.c)
 
 target_link_libraries(UnlockMaker ${GLIB_LIBRARIES})
 target_link_libraries(UnlockMaker ${GTK4_LIBRARIES})
@@ -35,6 +35,8 @@ add_executable(UnlockMakerTestsU
         Model/TestsU/mainTestsU.c Model/Struct.h
         Model/Vertex.h Model/Vertex.c Model/TestsU/VertexTestsU.h Model/TestsU/VertexTestsU.c
         Model/VertexList.h Model/VertexList.c Model/TestsU/VertexListTestsU.h Model/TestsU/VertexListTestsU.c
-        Model/Card.h Model/Card.c)
+        Model/Card.h Model/Card.c
+        Model/Edge.h Model/Edge.c Model/TestsU/EdgeTestsU.h Model/TestsU/EdgeTestsU.c
+        Model/Link.h Model/Link.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)

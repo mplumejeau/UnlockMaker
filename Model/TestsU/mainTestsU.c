@@ -10,6 +10,7 @@
 
 #include "VertexTestsU.h"
 #include "VertexListTestsU.h"
+#include "EdgeTestsU.h"
 
 
 //main
@@ -56,8 +57,16 @@ int main(void){
                     cmocka_unit_test_setup(testDeleteVertexBadAlloc, setupNonAllocVertexList)
             };
 
+    const struct CMUnitTest testsEdge[] =
+            {
+                    cmocka_unit_test_setup_teardown(testInitEdge, setupNonInitEdge, teardownNonInitEdge),
+                    cmocka_unit_test_setup_teardown(testGetEdgeLink, setupInitEdge, teardownInitEdge),
+                    cmocka_unit_test_setup(testGetEdgeLinkBadAlloc, setupNonAllocEdge)
+            };
+
     cmocka_run_group_tests_name("Tests Vertex module", testsVertex, NULL, NULL);
     cmocka_run_group_tests_name("Tests VertexList module", testsVertexList, NULL, NULL);
+    cmocka_run_group_tests_name("Tests Edge module", testsEdge, NULL, NULL);
 
     return 0;
 }
