@@ -2,15 +2,15 @@
 // Created by Louenn on 28/02/2023.
 */
 
-#include "Link.h"
-#include "Vertex.h"
-#include "Project.h"
-#include "Card.h"
 #include "Edge.h"
+#include "Link.h"
 
 #ifndef UNLOCKMAKER_EDGELIST_H
 #define UNLOCKMAKER_EDGELIST_H
 
+/**
+ * \brief the list of links structure
+ */
 typedef struct {
     Edge sentinelFirst;
     Edge* current;
