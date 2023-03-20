@@ -20,6 +20,8 @@ void activate(GtkApplication *app, gpointer user_data) {
 
     GObject *window;
     GObject *button;
+    GdkRGBA color = {255, 0, 0};
+    load_css();
     /* Construct a GtkBuilder instance and load our UI description */
     GtkBuilder *builder = gtk_builder_new();
     gtk_builder_add_from_file(builder, "../View/viewBuilder.ui", NULL);
@@ -41,4 +43,19 @@ void activate(GtkApplication *app, gpointer user_data) {
 
     /* We do not need the builder any more */
     g_object_unref(builder);
+}
+
+void load_css ( void )
+{
+    GtkCssProvider *CSSprovider;
+    /// ***
+    const gchar *css_style_file = "../View/viewStyle.css";
+    GFile *css_fp               = g_file_new_for_path ( css_style_file );
+    /// ***
+    CSSprovider = gtk_css_provider_new ();
+    /// ***
+    gtk_css_provider_load_from_file( CSSprovider, css_fp);
+    gtk_style_context_add_provider_for_display(gdk_display_get_default(), GTK_STYLE_PROVIDER(CSSprovider), GTK_STYLE_PROVIDER_PRIORITY_USER);
+    /// ***
+    g_object_unref ( CSSprovider );
 }

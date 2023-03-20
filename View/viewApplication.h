@@ -11,4 +11,6 @@ void quit_cb(GtkWindow *window);
 
 void activate(GtkApplication *app, gpointer user_data);
 
+void load_css();
+
 #endif //UNLOCKMAKER_VIEWAPPLICATION_H

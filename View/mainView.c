@@ -7,11 +7,11 @@
 int main(int argc, char* argv[]) {
     #ifdef GTK_SRCDIR
     g_chdir (GTK_SRCDIR);
-#endif
+    #endif
 
     int status;
 
-    GtkApplication *app = gtk_application_new("org.gtk.example", 0);
+    GtkApplication *app = gtk_application_new("org.app.example", 0);
     g_signal_connect (app, "activate", G_CALLBACK(activate), NULL);
 
     status = g_application_run(G_APPLICATION (app), argc, argv);
