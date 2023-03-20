@@ -27,16 +27,17 @@ If you want to modified the application, as a developer, and be able to build an
 
 To get them you need to install the gtk4 packages.
 	1.) Open a terminal.
-		2.a) If you expect to develop an application, tap this command on the terminal:
-		'sudo apt install libgtk-4-dev'
+		2.a) If you expect to develop an application you will gtk4 and his dependencies tap these commands on the terminal:
+		'sudo apt-get install libgtk-4-dev'
+		'sudo apt-get install glib-2.0'
 		
 		2.b) if you expect to use a gtk application, tap this command on the terminal:
-		'sudo apt install libgtk-4-1'
+		'sudo apt-get install libgtk-4-1'
 
 	4.) Enter your login to authorize the downloading of the gtk4 packtages.
 
 
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+
 
 ## Usage
 Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
