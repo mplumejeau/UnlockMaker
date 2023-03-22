@@ -8,31 +8,74 @@ window
 
 grid
 {
+   background-color: lightgrey;
    border-style: solid;
    border-width: 1px;
    border-radius: 12px;
    border-color: yellow;
+
 }
 
 button
 {
-   border-radius: 12px;
+   margin: 3px;
 }
 
-button:hover
+#genericButton
 {
-   background-color: chartreuse;
+   background-color: darkgrey;
+   border-radius: 5px;
+   margin: 3px;
+}
+
+#genericButton:hover
+{
+   background-color: grey;
+}
+
+button:active
+{
+   transform: translateY(2px);
 }
 
 #button1
 {
-   background-color: red;
-   border-radius: 0px;
+   background-color: green;
+   border-radius: 5px;
 }
 
 #button1:hover
 {
-   background-color: blue;
-   border-radius: 1px;
+   background-color: forestgreen;
 }
 
+#PinkBox
+{
+   background-color: deeppink;
+}
+
+#RightButton
+{
+   margin-bottom: 10px;
+   margin-left: 20px;
+   margin-right: 20px;
+   border-color: black;
+   border-width: 2px;
+   border-style: solid;
+   background-color: darkgrey;
+   color: black;
+   box-shadow: 0 9px #999;
+}
+
+#RightButton:hover
+{
+   background-color: grey;
+   color:white;
+}
+
+#RightButton:active
+{
+   box-shadow: 0 4px #666;
+   transform: translateY(5px);
+   transition-duration: 0.05s;
+}

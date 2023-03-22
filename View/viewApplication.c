@@ -3,24 +3,44 @@
 #include <stdio.h>
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>
+#include <string.h>
 
 #include "viewApplication.h"
 
 /* This is a basic example of GUI using an XML file, it creates a window with 3 buttons */
 
-void print_hello(GtkWidget *widget, gpointer data) {
-    g_print("Hello World\n");
+
+
+void print_csl(GtkWidget *widget, char* data) {
+    g_print(data);
+    g_print("\n");
 }
 
 void quit_cb(GtkWindow *window) {
     gtk_window_close(window);
 }
 
+void changeColorPink(GtkWidget *widget) {
+    if(strcmp(gtk_widget_get_name(widget),"PinkBox")==0) {
+        gtk_widget_set_name(widget, "GtkBox");
+    } else {
+        gtk_widget_set_name(widget, "PinkBox");
+    }
+
+}
+
+GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id) {
+    button = gtk_builder_get_object(builder, id);
+    if(strcmp(gtk_widget_get_name(GTK_WIDGET(button)),"GtkButton")==0) {
+        gtk_widget_set_name(GTK_WIDGET(button), "genericButton");
+    }
+    return button;
+}
+
 void activate(GtkApplication *app, gpointer user_data) {
 
     GObject *window;
     GObject *button;
-    GdkRGBA color = {255, 0, 0};
     load_css();
     /* Construct a GtkBuilder instance and load our UI description */
     GtkBuilder *builder = gtk_builder_new();
@@ -28,16 +48,21 @@ void activate(GtkApplication *app, gpointer user_data) {
 
     /* Connect signal handlers to the constructed widgets. */
     window = gtk_builder_get_object(builder, "window");
+    gtk_window_set_default_size(GTK_WINDOW(window), 1000, 500);
     gtk_window_set_application(GTK_WINDOW (window), app);
+    /*gtk_window_fullscreen(GTK_WINDOW(window));*/
 
-    button = gtk_builder_get_object(builder, "button1");
-    g_signal_connect (button, "clicked", G_CALLBACK(print_hello), NULL);
+    button = addGenericButton(button, builder, "buttonHello");
+    g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Hello World");
 
-    button = gtk_builder_get_object(builder, "button2");
-    g_signal_connect (button, "clicked", G_CALLBACK(print_hello), NULL);
+    /*button = addGenericButton(button, builder, "buttonGoodbye");
+    g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Goodbye World");*/
 
-    button = gtk_builder_get_object(builder, "quit");
-    g_signal_connect_swapped (button, "clicked", G_CALLBACK(quit_cb), window);
+    /*button = addGenericButton(button, builder, "buttonQuit");
+    g_signal_connect_swapped (button, "clicked", G_CALLBACK(quit_cb), window);*/
+
+    /*button = addGenericButton(button, builder, "buttonColor");
+    g_signal_connect_swapped (button, "clicked", G_CALLBACK(changeColorPink), gtk_builder_get_object(builder, "grid"));*/
 
     gtk_widget_show(GTK_WIDGET (window));
 

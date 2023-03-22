@@ -4,14 +4,112 @@
   <object id="window" class="GtkWindow">
     <property name="title">Example window</property>
     <child>
-      <object id="grid" class="GtkGrid">
+      <object id="generalGrid" class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <child>
+          <object id="buttonHello" class="GtkButton">
+            <property name="label">Left Space</property>
+            <property name="name">button1</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">10</property>
+              <property name="column-span">1</property>
+              <property name="row">0</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="MiddlePlaceHolder" class="GtkLabel">
+            <property name="label">Middle Empty Space</property>
+            <layout>
+              <property name="column">11</property>
+              <property name="row">0</property>
+              <property name="column-span">25</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">36</property>
+              <property name="column-span">1</property>
+              <property name="row">0</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="BoxButtonsRight" class="GtkBox">
+            <property name="homogeneous">False</property>
+            <property name="orientation">vertical</property>
+            <layout>
+              <property name="column">37</property>
+              <property name="row">0</property>
+              <property name="column-span">4</property>
+            </layout>
+            <child>
+              <object id="BL1" class="GtkButton">
+                <property name="label">Bouton n°1</property>
+                <property name="name">RightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="BL2" class="GtkButton">
+                <property name="label">Bouton n°2</property>
+                <property name="name">RightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="BL3" class="GtkButton">
+                <property name="label">Bouton n°3</property>
+                <property name="name">RightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="BL4" class="GtkButton">
+                <property name="label">Bouton n°4</property>
+                <property name="name">RightButton</property>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+
+
+
+      <!--<object id="grid" class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <child>
+          <object id="boxHeader" class="GtkBox">
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="row-span">1</property>
+            </layout>
+            <child>
+              <object id="btn" class="GtkButton">
+                <property name="label">HeaderBtn</property>
+              </object>
+            </child>
+          </object>
+        </child>
         <child>
           <object id="button1" class="GtkButton">
             <property name="label">Hello World !</property>
             <property name="name">button1</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">0</property>
+              <property name="row">1</property>
               <property name="row-span">1</property>
               <property name="column-span">1</property>
             </layout>
@@ -22,7 +120,7 @@
             <property name="label">Button 2</property>
             <layout>
               <property name="column">1</property>
-              <property name="row">0</property>
+              <property name="row">1</property>
             </layout>
           </object>
         </child>
@@ -31,12 +129,42 @@
             <property name="label">Quit</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">1</property>
+              <property name="row">2</property>
               <property name="column-span">2</property>
             </layout>
           </object>
         </child>
-      </object>
+        <child>
+          <object id="buttonColor" class="GtkButton">
+            <property name="label">Change Color</property>
+            <layout>
+              <property name="column">3</property>
+              <property name="row">1</property>
+              <property name="column-span">1</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <child>
+              <object class="GtkButton"/>
+            </child>
+            <child>
+              <object class="GtkButton"/>
+            </child>
+            <child>
+              <object class="GtkButton"/>
+            </child>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">1</property>
+              <property name="column-span">1</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>-->
     </child>
   </object>
 </interface>
