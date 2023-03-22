@@ -1,65 +1,33 @@
 # Unlock maker
 
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Unlock Maker
-
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+This README aims to introduce new people to be able to work on the Unlock Project. You will see here how to install the needed libraries to run the program : gtk and glib. This project is developped on CLion and uses a CMakeLists for its compiling.
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+## File organization
+This project's files are sorted into 3 main directories : Model, View, and Controller. Any file you will add to this project must be tied to one of these 3 directories and thus put in it.
+
+## Git organization
+For the moment, we're working on several different git branches.
+	- The branch main contains the main versions of the project
+	- The branch devModel contains the work in progress for the model, only on the console
+	- The branch devView contains the work in progress for the view, on the Graphical interface.
 
 ## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+This section will be updated when visuals will get more advanced.
 
 ## Installation
-
 GTK4 (Linux OS):
 
-If you want to modified the application, as a developer, and be able to build and run a project or just use the application we have created, the gtk4 libraries are required.
+If you want to modify the application, as a developer, and be able to build and run a project or just use the application we have created, the gtk4 libraries are required.
 
 To get them you need to install the gtk4 packages.
 	1.) Open a terminal.
-		2.a) If you expect to develop an application you will gtk4 and his dependencies tap these commands on the terminal:
+	
+		2.a) If you expect to develop an application you will need gtk4 and his dependencies. Tap these commands on the terminal:
 		'sudo apt-get install libgtk-4-dev'
 		'sudo apt-get install glib-2.0'
 		
 		2.b) if you expect to use a gtk application, tap this command on the terminal:
 		'sudo apt-get install libgtk-4-1'
 
-	4.) Enter your login to authorize the downloading of the gtk4 packtages.
-
-
-
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+	3.) Enter your login to authorize the downloading of the gtk4 packtages.
