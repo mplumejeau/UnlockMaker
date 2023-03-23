@@ -138,6 +138,7 @@ void setOnPreviousEdge(EdgeList *el){
  * print the content of a list of Links
  * @param el the list of Links
  */
+ /*
 void printEdgeList(EdgeList *el){
     Link* l;
     if (el != NULL){
@@ -153,7 +154,7 @@ void printEdgeList(EdgeList *el){
         fprintf(stderr, "error : EdgeList bad allocation\n");
     }
 }
-
+*/
 /**
  * return the number of element of a list of Links
  * @param el the list of Links

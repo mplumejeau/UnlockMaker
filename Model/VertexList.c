@@ -137,6 +137,7 @@ void setOnPreviousVertex(VertexList *vl){
  * print the content of a list of cards
  * @param vl the list of cards
  */
+ /*
 void printVertexList(VertexList *vl){
     Card* c;
     if (vl != NULL){
@@ -152,7 +153,7 @@ void printVertexList(VertexList *vl){
         fprintf(stderr, "error : vertexList bad allocation\n");
     }
 }
-
+*/
 /**
  * return the number of element of a list of cards
  * @param vl the list of cards
