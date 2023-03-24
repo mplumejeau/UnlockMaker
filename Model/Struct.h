@@ -122,7 +122,7 @@ struct Link {
 
 /**
  * A structure representing a unlock scenario project, created by a user from the software
- * @var graphBegin : the root card of the unlock scenario (the unique face up card at the beginning of the game)
+ * @var root : the root card of the unlock scenario (the unique face up card at the beginning of the game)
  * @var cardList : the list of all the cards of the project (the order have nothing to do with the order of discovering during the game)
  * @var nbCards : the number of cards of the project
  * @var nbLinks : the number of links of the project
@@ -139,7 +139,7 @@ struct Link {
  *                  0 : no bottom image has been added yet
  */
 typedef struct {
-    Card* graphBegin; /* points on the first element of the list */
+    Card* root; /* points on the first element of the list */
     VertexList cardList;
     int nbCards;
     int nbLinks;

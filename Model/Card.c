@@ -19,7 +19,7 @@ Card* allocCard(void){
 }
 
 /**
- * Initializes a card and allocates everything it needs, and giving it its unique id
+ * Initializes an empty card and allocates everything it needs, and giving it its unique id
  * @param c the card to initialize
  * @param idCard the new id of the card c, found by adding one to the number of cards of the card's project
  */

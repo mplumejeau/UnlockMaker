@@ -18,7 +18,7 @@ pkg_check_modules(GTK4 REQUIRED gtk4)
 
 add_executable(UnlockMaker
         Model/main.c Model/Struct.h
-        Model/Project.h
+        Model/Project.h Model/Project.c
         Model/Vertex.h Model/Vertex.c
         Model/VertexList.h Model/VertexList.c
         Model/Card.h Model/Card.c
@@ -57,8 +57,9 @@ add_custom_target(coverage
 
 add_dependencies(${PROJECT_NAME} coverage)
 
-# Here are the command to write on a terminal to create a .html file about the code coverage for the Model
-# Then you will find this file index.html in the directory cmake-build-debug
+# Here are the commands to write in a terminal to create a .html file about the code coverage for the Model
+# You have to be in the unlock-maker directory
+# Then you will find the file index.html in the directory cmake-build-debug
 
 # lcov --capture --directory cmake-build-debug/CMakeFiles/UnlockMakerTestsU.dir/Model --output-file coverage.info
 # genhtml coverage.info --output-directory cmake-build-debug
