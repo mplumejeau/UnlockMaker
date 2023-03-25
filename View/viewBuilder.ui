@@ -8,22 +8,265 @@
         <property name="column-homogeneous">True</property>
         <property name="row-homogeneous">True</property>
         <child>
-          <object id="buttonHello" class="GtkButton">
-            <property name="label">Left Space</property>
-            <property name="name">button1</property>
+          <object class="GtkBox">
+            <property name="orientation">horizontal</property>
             <layout>
               <property name="column">0</property>
               <property name="row">0</property>
-              <property name="column-span">10</property>
+              <property name="column-span">41</property>
+              <property name="row-span">10</property>
             </layout>
+            <child>
+              <object class="GtkButton">
+                <property name="label">Fichier</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label">Editer</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label">Affichage</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label">Outils</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton">
+                <property name="label">Aide</property>
+              </object>
+            </child>
+            <child>
+              <object id="buttonHello" class="GtkButton">
+                <property name="label">Hello</property>
+              </object>
+            </child>
+            <child>
+              <object id="Quit" class="GtkButton">
+                <property name="label">Quitter</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <property name="orientation">horizontal</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="column-span">41</property>
+              <property name="row">10</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="leftWindowsBox" class="GtkBox">
+            <property name="name">leftWindowsBox</property>
+            <property name="homogeneous">false</property>
+            <property name="orientation">vertical</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">11</property>
+              <property name="column-span">6</property>
+              <property name="row-span">200</property>
+            </layout>
+            <child>
+              <object class="GtkLabel">
+                <property name="label">Card List</property>
+                <property name="name">ScrolledWindowTitle</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="vexpand">true</property>
+                <property name="name">CardWindow</property>
+                <child>
+                  <object id="CardBox" class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">RedCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">BlueCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">GreyCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">GreenCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">BlueCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">GreyCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">BlueCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">RedCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">GreyCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">GreenCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">GreenCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">GreyCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">RedCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">BlueCardBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">RedCardBtn</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object id="LinkBox" class="GtkLabel">
+                <property name="label">Link List</property>
+                <property name="name">ScrolledWindowTitle</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="vexpand">true</property>
+                <child>
+                  <object class="GtkBox">
+                    <property name="orientation">vertical</property>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">CombLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">FixedLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">CombLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">FoundLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">CombLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">FixedLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">HintLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">CombLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">CombLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">HintLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">FoundLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">CombLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">FoundLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">HintLinkBtn</property>
+                      </object>
+                    </child>
+                    <child>
+                      <object class="GtkButton">
+                        <property name="name">FixedLinkBtn</property>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
           </object>
         </child>
         <child>
           <object class="GtkSeparator">
             <layout>
-              <property name="column">10</property>
+              <property name="column">6</property>
               <property name="column-span">1</property>
-              <property name="row">0</property>
+              <property name="row">11</property>
+              <property name="row-span">200</property>
             </layout>
           </object>
         </child>
@@ -31,140 +274,88 @@
           <object id="MiddlePlaceHolder" class="GtkLabel">
             <property name="label">Middle Empty Space</property>
             <layout>
-              <property name="column">11</property>
-              <property name="row">0</property>
+              <property name="column">7</property>
+              <property name="row">11</property>
               <property name="column-span">25</property>
+              <property name="row-span">200</property>
             </layout>
           </object>
         </child>
         <child>
           <object class="GtkSeparator">
             <layout>
-              <property name="column">36</property>
+              <property name="column">32</property>
               <property name="column-span">1</property>
-              <property name="row">0</property>
+              <property name="row">11</property>
               <property name="row-span">1</property>
+              <property name="row-span">200</property>
             </layout>
           </object>
         </child>
         <child>
-          <object id="BoxButtonsRight" class="GtkBox">
-            <property name="homogeneous">False</property>
+          <object class="GtkBox">
             <property name="orientation">vertical</property>
+            <property name="homogeneous">true</property>
             <layout>
-              <property name="column">37</property>
-              <property name="row">0</property>
-              <property name="column-span">4</property>
+              <property name="column">33</property>
+              <property name="row">11</property>
+              <property name="column-span">7</property>
+              <property name="row-span">200</property>
             </layout>
             <child>
-              <object id="BL1" class="GtkButton">
-                <property name="label">Bouton n°1</property>
-                <property name="name">RightButton</property>
+              <object id="BoxButtonsRight" class="GtkBox">
+                <property name="homogeneous">False</property>
+                <property name="orientation">vertical</property>
+                <child>
+                  <object id="BtnAddCard" class="GtkButton">
+                    <property name="label">Ajouter une carte</property>
+                    <property name="name">RightButton</property>
+                  </object>
+                </child>
+                <child>
+                  <object id="BtnModifyCard" class="GtkButton">
+                    <property name="label">Modifier une carte</property>
+                    <property name="name">RightButton</property>
+                  </object>
+                </child>
+                <child>
+                  <object id="BtnDeleteCard" class="GtkButton">
+                    <property name="label">Supprimer une carte</property>
+                    <property name="name">RightButton</property>
+                  </object>
+                </child>
+                <child>
+                  <object id="BtnAddLink" class="GtkButton">
+                    <property name="label">Ajouter un lien</property>
+                    <property name="name">RightButton</property>
+                  </object>
+                </child>
+                <child>
+                  <object id="BtnModifyLink" class="GtkButton">
+                    <property name="label">Modifier un lien</property>
+                    <property name="name">RightButton</property>
+                  </object>
+                </child>
+                <child>
+                  <object id="BtnDeleteLink" class="GtkButton">
+                    <property name="label">Supprimer un lien</property>
+                    <property name="name">RightButton</property>
+                  </object>
+                </child>
               </object>
             </child>
             <child>
-              <object id="BL2" class="GtkButton">
-                <property name="label">Bouton n°2</property>
-                <property name="name">RightButton</property>
-              </object>
-            </child>
-            <child>
-              <object id="BL3" class="GtkButton">
-                <property name="label">Bouton n°3</property>
-                <property name="name">RightButton</property>
-              </object>
-            </child>
-            <child>
-              <object id="BL4" class="GtkButton">
-                <property name="label">Bouton n°4</property>
-                <property name="name">RightButton</property>
-              </object>
+              <object class="GtkLabel">
+                <property name="justify">center</property>
+                <property name="lines">21</property>
+                <property name="wrap">True</property>
+                <property name="yalign">0.1</property>
+                <property name="label">Sélectionner la carte à modifier</property>
+            </object>
             </child>
           </object>
         </child>
       </object>
-
-
-
-      <!--<object id="grid" class="GtkGrid">
-        <property name="column-homogeneous">True</property>
-        <property name="row-homogeneous">True</property>
-        <child>
-          <object id="boxHeader" class="GtkBox">
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-              <property name="row-span">1</property>
-            </layout>
-            <child>
-              <object id="btn" class="GtkButton">
-                <property name="label">HeaderBtn</property>
-              </object>
-            </child>
-          </object>
-        </child>
-        <child>
-          <object id="button1" class="GtkButton">
-            <property name="label">Hello World !</property>
-            <property name="name">button1</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">1</property>
-              <property name="row-span">1</property>
-              <property name="column-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="button2" class="GtkButton">
-            <property name="label">Button 2</property>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="quit" class="GtkButton">
-            <property name="label">Quit</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">2</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="buttonColor" class="GtkButton">
-            <property name="label">Change Color</property>
-            <layout>
-              <property name="column">3</property>
-              <property name="row">1</property>
-              <property name="column-span">1</property>
-              <property name="row-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkScrolledWindow">
-            <child>
-              <object class="GtkButton"/>
-            </child>
-            <child>
-              <object class="GtkButton"/>
-            </child>
-            <child>
-              <object class="GtkButton"/>
-            </child>
-            <layout>
-              <property name="column">4</property>
-              <property name="row">1</property>
-              <property name="column-span">1</property>
-              <property name="row-span">2</property>
-            </layout>
-          </object>
-        </child>
-      </object>-->
     </child>
   </object>
 </interface>

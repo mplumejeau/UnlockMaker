@@ -5,6 +5,8 @@
 #ifndef UNLOCKMAKER_VIEWAPPLICATION_H
 #define UNLOCKMAKER_VIEWAPPLICATION_H
 
+typedef enum {CARD, LINK} buttonType;
+
 void print_csl(GtkWidget *widget, char* data);
 
 void quit_cb(GtkWindow *window);

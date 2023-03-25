@@ -37,10 +37,18 @@ GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id) {
     return button;
 }
 
+GObject* newCard(GObject *button, GObject *box) {
+    button = G_OBJECT(gtk_button_new_with_label("Card X"));
+    gtk_widget_set_name(GTK_WIDGET(button), "GreyCardBtn");
+    gtk_box_append(GTK_BOX(box), GTK_WIDGET(button));
+    return button;
+}
+
 void activate(GtkApplication *app, gpointer user_data) {
 
     GObject *window;
     GObject *button;
+    GObject *box;
     load_css();
     /* Construct a GtkBuilder instance and load our UI description */
     GtkBuilder *builder = gtk_builder_new();
@@ -48,21 +56,25 @@ void activate(GtkApplication *app, gpointer user_data) {
 
     /* Connect signal handlers to the constructed widgets. */
     window = gtk_builder_get_object(builder, "window");
-    gtk_window_set_default_size(GTK_WINDOW(window), 1000, 500);
+    gtk_window_set_default_size(GTK_WINDOW(window), 1700, 900);
     gtk_window_set_application(GTK_WINDOW (window), app);
     /*gtk_window_fullscreen(GTK_WINDOW(window));*/
 
     button = addGenericButton(button, builder, "buttonHello");
     g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Hello World");
 
-    /*button = addGenericButton(button, builder, "buttonGoodbye");
-    g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Goodbye World");*/
+    button = addGenericButton(button, builder, "Quit");
+    g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Goodbye World");
 
-    /*button = addGenericButton(button, builder, "buttonQuit");
-    g_signal_connect_swapped (button, "clicked", G_CALLBACK(quit_cb), window);*/
+    button = addGenericButton(button, builder, "Quit");
+    g_signal_connect_swapped (button, "clicked", G_CALLBACK(quit_cb), window);
 
     /*button = addGenericButton(button, builder, "buttonColor");
     g_signal_connect_swapped (button, "clicked", G_CALLBACK(changeColorPink), gtk_builder_get_object(builder, "grid"));*/
+
+    button = addGenericButton(button, builder, "BtnAddCard");
+    box = gtk_builder_get_object(builder, "CardBox");
+    g_signal_connect_object(button, "clicked", G_CALLBACK(newCard), box, 0);
 
     gtk_widget_show(GTK_WIDGET (window));
 
