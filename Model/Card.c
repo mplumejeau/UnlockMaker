@@ -13,7 +13,8 @@
  * @return Card* the address of the allocated structure
  */
 Card* allocCard(){
-    return NULL;
+    Card* newCard = new Card;
+    return newCard;
 }
 
 /**
@@ -24,6 +25,11 @@ Card* allocCard(){
 void initCard(Card* c, int idCard)
 {
 
+    c.id = idCard;
+    c.value = 0;
+    c.suit = ' ';
+    char* suitStr = new char[20];
+    c.suitStr = suitStr;
 
 }
 
@@ -34,6 +40,7 @@ void initCard(Card* c, int idCard)
 void freeCard(Card* c)
 {
 
+    delete[] c.suitStr;
 
 }
 
@@ -43,7 +50,9 @@ void freeCard(Card* c)
  * @param t the new type of the card
  */
 void setCardType(Card* c, cardType t)
+
 {
+    c.cardType= t;
 
 
 }
@@ -55,7 +64,7 @@ void setCardType(Card* c, cardType t)
  */
 void setCardNumber(Card* c, int n)
 {
-
+ c.cardNumber= n;
 
 }
 
