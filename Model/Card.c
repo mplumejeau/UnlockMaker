@@ -6,8 +6,6 @@
 #include <stdlib.h>
 
 #include "Card.h"
-#include "Link.h"
-#include "Vertex.h"
 
 /**
  * allocate a Card in the dynamic space memory
@@ -23,6 +21,7 @@ Card* allocCard(void){
  * @param c the card to initialize
  * @param idCard the new id of the card c, found by adding one to the number of cards of the card's project
  */
+ /*
 void initCard(Card* c, int idCard)
 {
 
@@ -33,7 +32,7 @@ void initCard(Card* c, int idCard)
     c.suitStr = suitStr;
 
 }
-
+*/
 /**
  * Frees the card and everything that must be deleted in it (deletes the image in the folder ?)
  * @param c the card to free
@@ -47,6 +46,7 @@ void freeCard(Card* c){
  * @param c the card to modify
  * @param t the new type of the card
  */
+ /*
 void setCardType(Card* c, cardType t)
 
 {
@@ -54,18 +54,19 @@ void setCardType(Card* c, cardType t)
 
 
 }
-
+*/
 /**
  * Sets the number of the card c to n
  * @param c the card to modify
  * @param n the new number of the card
  */
+ /*
 void setCardNumber(Card* c, int n)
 {
  c.cardNumber= n;
 
 }
-
+*/
 /**
  * Sets the number of the card c to n and enables the card's parameter fixedNumber (to indicate that it is chosen by the user)
  * @param c the card to modify
@@ -225,3 +226,4 @@ void findCompatibility(Card* c)
 void printCard(Card* c){
 
 }
+

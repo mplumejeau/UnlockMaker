@@ -53,7 +53,7 @@ add_custom_target(coverage
         COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --directory . --capture --output-file coverage.info
         COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --remove coverage.info '/usr/*' "${PROJECT_SOURCE_DIR}/tests/*" --output-file coverage.info.cleaned
         COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage genhtml --output-directory html coverage.info.cleaned
-        DEPENDS tests)
+        DEPENDS UnlockMakerTestsU)
 
 add_dependencies(${PROJECT_NAME} coverage)
 

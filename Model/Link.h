@@ -8,8 +8,9 @@
 #include "Struct.h"
 
 Link* allocLink(void);
-void initLink(Link* l, int idLink);
 void freeLink(Link* l);
+
+void initLink(Link* l);
 
 void setLinkType(Link* l, linkType t);
 void setParent(Link* l, Card* c);
