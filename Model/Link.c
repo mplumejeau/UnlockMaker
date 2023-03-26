@@ -7,7 +7,7 @@
 
 #include "Link.h"
 
-static int idLinks = 0;
+int idLinks = 0;
 
 /**
  * allocate a Link in the dynamic space memory
@@ -24,6 +24,7 @@ Link* allocLink(void){
  */
 void freeLink(Link* l){
     free(l);
+    idLinks --;
 }
 
 /**

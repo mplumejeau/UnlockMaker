@@ -39,6 +39,7 @@ int setupNonInitEdge(void** state){
 int setupInitEdge(void** state){
     Edge* e = allocEdge();
     Link* l = allocLink();
+    initLink(l);
     Edge* n = NULL;
     Edge* p = NULL;
     initEdge(e,l,n,p);
@@ -70,13 +71,14 @@ int teardownInitEdge(void** state){
 void testInitEdge(void** state){
     Edge* e = (Edge*) (*state);
     Link* l = allocLink();
+    initLink(l);
     Edge* n = NULL;
     Edge* p = NULL;
     initEdge(e,l,n,p);
     assert_ptr_equal(l,e->link);
     assert_ptr_equal(n, e->next);
     assert_ptr_equal(p, e->previous);
-    free(l);
+    freeLink(l);
 }
 
 //tests getEdgeLink
