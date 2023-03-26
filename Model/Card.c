@@ -26,6 +26,11 @@ Card* allocCard(void){
 void initCard(Card* c, int idCard)
 {
 
+    c.id = idCard;
+    c.value = 0;
+    c.suit = ' ';
+    char* suitStr = new char[20];
+    c.suitStr = suitStr;
 
 }
 
@@ -43,7 +48,9 @@ void freeCard(Card* c){
  * @param t the new type of the card
  */
 void setCardType(Card* c, cardType t)
+
 {
+    c.cardType= t;
 
 
 }
@@ -55,7 +62,7 @@ void setCardType(Card* c, cardType t)
  */
 void setCardNumber(Card* c, int n)
 {
-
+ c.cardNumber= n;
 
 }
 
