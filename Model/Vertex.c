@@ -28,7 +28,7 @@ void initVertex(Vertex* v, Card* c, Vertex* n, Vertex* p){
         v->next = n;
         v->previous = p;
     } else {
-        fprintf(stderr, "error : vertex bad allocation");
+        fprintf(stderr, "error : vertex bad allocation\n");
     }
 }
 
@@ -41,7 +41,7 @@ Card* getVertexCard(Vertex* v){
     if (v != NULL){
         return v->card;
     } else {
-        fprintf(stderr, "error : vertex bad allocation");
+        fprintf(stderr, "error : vertex bad allocation\n");
         return NULL;
     }
 }

@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
 #include "Card.h"
 #include "Link.h"
 #include "Vertex.h"
@@ -12,13 +13,13 @@
  * allocate a Card in the dynamic space memory
  * @return Card* the address of the allocated structure
  */
-Card* allocCard(){
-    Card* newCard = new Card;
-    return newCard;
+Card* allocCard(void){
+    Card* newC = (Card*) malloc(sizeof(Card));
+    return newC;
 }
 
 /**
- * Initializes a card and allocates everything it needs, and giving it its unique id
+ * Initializes an empty card and allocates everything it needs, and giving it its unique id
  * @param c the card to initialize
  * @param idCard the new id of the card c, found by adding one to the number of cards of the card's project
  */
@@ -37,11 +38,8 @@ void initCard(Card* c, int idCard)
  * Frees the card and everything that must be deleted in it (deletes the image in the folder ?)
  * @param c the card to free
  */
-void freeCard(Card* c)
-{
-
-    delete[] c.suitStr;
-
+void freeCard(Card* c){
+    free(c);
 }
 
 /**

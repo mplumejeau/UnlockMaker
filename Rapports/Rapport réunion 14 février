@@ -1,0 +1,35 @@
+Projet info Unlock Maker
+
+Compte-rendu réunion 14/02 
+
+Auteur : Maxime Plumejeau
+
+Fait :
+
+- Diagramme de Gantt complet
+
+- Dessin de l'interface graphique du logiciel
+
+- Reflexion sur les structures et le comportement du logiciel
+
+A faire :
+
+- Decrire le comportement du logiciel sous forme graphique : logigramme
+	-> représenter les différents scénarii d'utilisations du logiciel par un utilisateur
+	-> pourra être modifier pendant le projet pour s'adapter aux problèmes rencontrés
+
+- /!\ Finir la v0 pour la prochiane réunion (01/03)
+	-> commencer par les .h : structures de données et protoypes des fonctions principales
+	-> linker le projet avec gtk
+
+- Répartir les rôles dans l'équipe
+
+- Se former à gtk pour les personnes s'occupant de la partie vue
+
+Tips :
+
+- on peut intégrer les images du projet (logigramme, dessin,...) sur gitlab ou les laisser sur un drive
+
+- au niveau des structures, il est facile d'ajouter un champ une fois le code démarré mais compliqué d'ajouter une nouvelle structure
+
+- commande git branch --all pour afficher toutes les branches clonées, y compris celles non activées
