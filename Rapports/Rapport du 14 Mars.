@@ -1,0 +1,24 @@
+Projet info : Unlock Maker
+
+Compte-rendu réunion 14/03
+
+
+Fait :
+
+- Test unitaire
+
+- Ordonner les tests unitaires 
+
+
+A faire :
+
+ - Rattraper le retard sur la V0
+ - Rajouter les options du linkages
+ 
+
+ 
+Tips :
+
+- Print non testable ( vaut mieux éliminer tout les prints dans le modèle)
+- Print f dans un fichier du view
+- plusieurs insert call ( possible )
