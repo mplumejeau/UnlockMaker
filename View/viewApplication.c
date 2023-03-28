@@ -7,11 +7,8 @@
 
 #include "viewApplication.h"
 
-/* This is a basic example of GUI using an XML file, it creates a window with 3 buttons */
 
-
-
-void print_csl(GtkWidget *widget, char* data) {
+void print_csl(GtkWidget *widget, gpointer data) {
     g_print(data);
     g_print("\n");
 }
@@ -37,16 +34,24 @@ GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id) {
     return button;
 }
 
-GObject* newCard(GObject *button, GObject *box) {
-    button = G_OBJECT(gtk_button_new_with_label("Card X"));
+GtkWidget* newCard(GtkWidget *button, GObject *box) {
+    button = gtk_button_new_with_label("Card X");
     gtk_widget_set_name(GTK_WIDGET(button), "GreyCardBtn");
     gtk_box_append(GTK_BOX(box), GTK_WIDGET(button));
     return button;
 }
 
+/*void openModifyCardWindow(GObject) {
+
+}*/
+
+void onDestroy(GtkWidget *widget, gpointer data) {
+    print_csl(widget, "Window Destroyed");
+}
+
 void activate(GtkApplication *app, gpointer user_data) {
 
-    GObject *window;
+    GObject *window, *windowModify;
     GObject *button;
     GObject *box;
     load_css();
@@ -57,11 +62,16 @@ void activate(GtkApplication *app, gpointer user_data) {
     /* Connect signal handlers to the constructed widgets. */
     window = gtk_builder_get_object(builder, "window");
     gtk_window_set_default_size(GTK_WINDOW(window), 1700, 900);
-    gtk_window_set_application(GTK_WINDOW (window), app);
+    gtk_window_set_application(GTK_WINDOW(window), app);
     /*gtk_window_fullscreen(GTK_WINDOW(window));*/
+
+    /*windowModify = gtk_builder_get_object(builder, "windowModify");
+    gtk_window_set_default_size(GTK_WINDOW(window), 500, 400);*/
 
     button = addGenericButton(button, builder, "buttonHello");
     g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Hello World");
+    /*g_signal_connect (button, "clicked", G_CALLBACK(print_csl), windowModify);*/
+
 
     button = addGenericButton(button, builder, "Quit");
     g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Goodbye World");
@@ -71,6 +81,8 @@ void activate(GtkApplication *app, gpointer user_data) {
 
     /*button = addGenericButton(button, builder, "buttonColor");
     g_signal_connect_swapped (button, "clicked", G_CALLBACK(changeColorPink), gtk_builder_get_object(builder, "grid"));*/
+
+    g_signal_connect(window, "destroy", G_CALLBACK(onDestroy), NULL);
 
     button = addGenericButton(button, builder, "BtnAddCard");
     box = gtk_builder_get_object(builder, "CardBox");

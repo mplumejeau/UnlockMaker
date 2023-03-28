@@ -7,7 +7,7 @@
 
 typedef enum {CARD, LINK} buttonType;
 
-void print_csl(GtkWidget *widget, char* data);
+void print_csl(GtkWidget *widget, gpointer data);
 
 void quit_cb(GtkWindow *window);
 
@@ -18,5 +18,11 @@ void load_css();
 void changeColorPink(GtkWidget *widget);
 
 GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id);
+
+GtkWidget* newCard(GtkWidget *button, GObject *box);
+
+void openModifyCardWindow(GObject);
+
+void onDestroy(GtkWidget *widget, gpointer data);
 
 #endif //UNLOCKMAKER_VIEWAPPLICATION_H

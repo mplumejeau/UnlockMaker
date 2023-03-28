@@ -1,18 +1,15 @@
 window
 {
-   background-color: grey;
+   background-color: lightgrey;
    color: black;
    border-width: 3px;
-   border-color: blue;
 }
 
 grid
 {
    background-color: lightgrey;
-   border-style: solid;
    border-width: 1px;
-   border-radius: 12px;
-   border-color: yellow;
+   border-radius: 0px;
 
 }
 
@@ -57,8 +54,8 @@ button:active
 #RightButton
 {
    margin-bottom: 10px;
-   margin-left: 20px;
-   margin-right: 10px;
+   margin-left: 15px;
+   margin-right: 15px;
    border-color: black;
    border-width: 2px;
    border-style: solid;
@@ -157,4 +154,12 @@ button:active
 {
    background-color: #333333;
    color: white;
+}
+
+#infoLabel
+{
+   background-color: black;
+   color: white;
+   border-radius: 3px;
+   margin: 5px;
 }
