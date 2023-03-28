@@ -1,0 +1,10 @@
+autor : Maxime Plumejeau 
+date : 06/03/23
+
+problem : I don't no why but I can't commit with more than one line of msg so I have written here all the changes I have done
+
+VertexListTestsU.c : added several setups, teardowns and tests functions for VertexList.C
+CMakeLists.txt : added modifications for the executable build and error detections
+*.h : modifications about which header are included
+others : sligthly and unimportant modifications
+
