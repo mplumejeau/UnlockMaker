@@ -20,6 +20,9 @@ Link* allocLink(void){
     if (newL != NULL){
         newL->id = idLinks;
         idLinks++;
+        newL->type = DEFAULT;
+        newL->parent = NULL;
+        newL->child = NULL;
     } else {
         fprintf(stderr, "error : link bad allocation\n");
     }

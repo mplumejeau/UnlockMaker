@@ -4,15 +4,19 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
 
 #include "Project.h"
+#include "VertexList.h"
 
 /**
  * Allocate a unlock project in the dynamic space memory
  * @return the address of the allocated structure
  */
 Project* allocProject(void){
-    return NULL;
+    Project* newP = (Project*) malloc(sizeof(Project));
+    return newP;
 }
 
 /**
@@ -23,10 +27,67 @@ Project* allocProject(void){
  */
 void initProject(Project* p, char* path, char* name){
 
+    int lengthPath, lengthName;
+    char* mainDirectory;
+    char* projectDirectory;
+
+    if (p != NULL ){
+
+        lengthPath = strlen(path);
+        if(lengthPath<MAXPATH){
+            // utile ??????????
+            strncpy(p->path, path, lengthPath);
+        } else {
+            strncpy(p->path, path, MAXPATH);
+        }
+
+        lengthName = strlen(name);
+        if(lengthName<MAXNAME){
+            strncpy(p->name, name, lengthName);
+        } else {
+            strncpy(p->name, name, MAXNAME);
+        }
+
+        p->root = NULL;
+        initEmptyVertexList(&p->cardList);
+        p->nbCards = 0;
+        p->nbLinks = 0;
+
+        p->backImage = 0;
+        p->topImage = 0;
+        p->bottomImage = 0;
+
+        // creation of the directory tree
+
+        //first directory : [projectPath]/[projectName]
+
+        mainDirectory = (char*) malloc((MAXPATH+1+MAXNAME)*sizeof(char));
+        strncat(mainDirectory, p->path, MAXPATH);
+        strncat(mainDirectory,"/",1);
+        strncat(mainDirectory, p->name, MAXNAME);
+
+        if ( mkdir(mainDirectory, 0755 ) != 0 ) {
+            fprintf( stderr, "Directory %s creation is impossible\n", mainDirectory);
+        }
+
+        //second directory : [projectPath]/[projectName]/Project
+
+        projectDirectory = (char*) malloc((MAXPATH+1+MAXNAME+1+7)*sizeof(char));
+        strncat(projectDirectory, mainDirectory, MAXPATH+1+MAXNAME);
+        strncat(mainDirectory, "/Project", 8);
+
+        if ( mkdir(projectDirectory, 0755 ) != 0 ) {
+            fprintf( stderr, "Directory %s creation is impossible\n", projectDirectory);
+        }
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+    }
 }
 
 /**
  * Free a project and every structures (cards, links, vertexList,...) it contains
+ * Delete directory tree of the project
  * @param p the project to free
  */
 void freeProject(Project* p){
@@ -35,11 +96,29 @@ void freeProject(Project* p){
 
 /**
  * Set the name of a project
+ * Modify the directory tree of the project according to the new name
  * @param p the project to rename
  * @param name the new name for the project
  */
 void setName(Project* p, char* name){
+    int lengthName;
+    if (p != NULL ){
 
+        lengthName = strlen(name);
+        if(lengthName<MAXNAME){
+            strncpy(p->name, name, lengthName);
+        } else {
+            strncpy(p->name, name, MAXNAME);
+        }
+        /*
+         *
+         * to finish with modify the directory tree of the project according to the new name
+         *
+         */
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+    }
 }
 
 /**
@@ -48,11 +127,16 @@ void setName(Project* p, char* name){
  * @param root the new root card for the project
  */
 void setRoot(Project* p, Card* root){
-
+    if (p != NULL && root != NULL ){
+        p->root = root;
+    } else {
+        fprintf(stderr, "error : project or root card bad allocation\n");
+    }
 }
 
 /**
  * Add an empty card to a project
+ * Create its directory into the directory tree of the project
  * @param p the project to which a card must be added
  * @return a pointer towards the created card
  */

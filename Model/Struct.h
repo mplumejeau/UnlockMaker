@@ -126,7 +126,7 @@ struct Link {
  * @var cardList : the list of all the cards of the project (the order have nothing to do with the order of discovering during the game)
  * @var nbCards : the number of cards of the project
  * @var nbLinks : the number of links of the project
- * @var path : the absolute path of the project directory
+ * @var path : the absolute path of the project directory (without the name of the project)
  * @var name : the name of the project
  * @var backImage : a boolean about the presence of a back image for the cards of the project
  *                  1 : a back image is present in a specific directory with the precise appropriate name
