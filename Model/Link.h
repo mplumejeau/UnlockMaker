@@ -12,8 +12,6 @@ extern int idLinks;
 Link* allocLink(void);
 void freeLink(Link* l);
 
-void initLink(Link* l);
-
 void setLinkType(Link* l, linkType t);
 void setParent(Link* l, Card* c);
 void setChild(Link* l, Card* c);

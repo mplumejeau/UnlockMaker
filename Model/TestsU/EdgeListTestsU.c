@@ -51,7 +51,6 @@ int setupInitEmptyEdgeList(void** state){
 int setupInitOneElementEdgeList(void** state){
     EdgeList* el = malloc(sizeof(EdgeList));
     Link* l = allocLink();
-    initLink(l);
     initEmptyEdgeList(el);
     insertEdgeLast(el,l);
     if (el != NULL && getEdgeLink(el->sentinelFirst.next) == l && getEdgeLink(el->sentinelLast.previous) == l){
@@ -65,9 +64,7 @@ int setupInitOneElementEdgeList(void** state){
 int setupInitTwoElementsEdgeList(void** state){
     EdgeList* el = malloc(sizeof(EdgeList));
     Link* l1 = allocLink();
-    initLink(l1);
     Link* l2 = allocLink();
-    initLink(l2);
     initEmptyEdgeList(el);
     insertEdgeLast(el,l1);
     insertEdgeLast(el, l2);
@@ -254,7 +251,6 @@ void testCountEdgeElementsBadAlloc(void** state){
 void testInsertEdgeLast0(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int success = insertEdgeLast(el,l);
     int nb = countEdgeElements(el);
     assert_int_equal(0,success);
@@ -266,7 +262,6 @@ void testInsertEdgeLast0(void** state){
 void testInsertEdgeLast1(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int success = insertEdgeLast(el,l);
     int nb = countEdgeElements(el);
     assert_int_equal(0,success);
@@ -278,7 +273,6 @@ void testInsertEdgeLast1(void** state){
 void testInsertEdgeLast2(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int success = insertEdgeLast(el,l);
     int nb = countEdgeElements(el);
     assert_int_equal(0,success);
@@ -290,7 +284,6 @@ void testInsertEdgeLast2(void** state){
 void testInsertEdgeLastBadAlloc(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int success = insertEdgeLast(el,l);
     assert_int_equal(-1,success);
     freeLink(l);
@@ -301,7 +294,6 @@ void testInsertEdgeLastBadAlloc(void** state){
 void testFindLinkTrue(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int found;
     insertEdgeLast(el,l);
     found = findLink(el,l);
@@ -312,7 +304,6 @@ void testFindLinkTrue(void** state){
 void testFindLinkFalse(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int found;
     found = findLink(el,l);
     assert_int_equal(0,found);
@@ -322,7 +313,6 @@ void testFindLinkFalse(void** state){
 void testFindLinkBadAlloc(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int found;
     found = findLink(el,l);
     assert_int_equal(-1,found);
@@ -334,7 +324,6 @@ void testFindLinkBadAlloc(void** state){
 void testDeleteEdgeTrue(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int success;
     insertEdgeLast(el,l);
     success = deleteEdge(el,l);
@@ -345,7 +334,6 @@ void testDeleteEdgeTrue(void** state){
 void testDeleteEdgeFalse(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int success;
     success = deleteEdge(el,l);
     assert_int_equal(-1,success);
@@ -355,7 +343,6 @@ void testDeleteEdgeFalse(void** state){
 void testDeleteEdgeBadAlloc(void** state){
     EdgeList* el = (EdgeList*) (*state);
     Link* l = allocLink();
-    initLink(l);
     int success;
     success = deleteEdge(el,l);
     assert_int_equal(-1,success);

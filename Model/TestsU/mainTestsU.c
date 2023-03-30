@@ -13,6 +13,7 @@
 #include "EdgeTestsU.h"
 #include "EdgeListTestsU.h"
 #include "LinkTestsU.h"
+#include "../Link.h"
 
 //main
 
@@ -100,10 +101,9 @@ int main(void){
 
     const struct CMUnitTest testsLink[] =
             {
-                    cmocka_unit_test_setup_teardown(testInitLink, setupAllocLink, teardownAllocLink),
-                    cmocka_unit_test_setup_teardown(testSetLinkType, setupInitLink, teardownAllocLink),
-                    cmocka_unit_test_setup_teardown(testSetParent, setupInitLink, teardownAllocLink),
-                    cmocka_unit_test_setup_teardown(testSetChild, setupInitLink, teardownAllocLink)
+                    cmocka_unit_test_setup_teardown(testSetLinkType, setupAllocLink, teardownAllocLink),
+                    cmocka_unit_test_setup_teardown(testSetParent, setupAllocLink, teardownAllocLink),
+                    cmocka_unit_test_setup_teardown(testSetChild, setupAllocLink, teardownAllocLink)
             };
 
     cmocka_run_group_tests_name("Tests Vertex module", testsVertex, NULL, NULL);

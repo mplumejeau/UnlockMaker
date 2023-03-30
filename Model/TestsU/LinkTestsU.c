@@ -23,29 +23,10 @@ int setupAllocLink(void** state){
     }
 }
 
-int setupInitLink(void** state){
-    Link* l = allocLink();
-    initLink(l);
-    if(l != NULL){
-        *state = l;
-        return 0;
-    } else {
-        return -1;
-    }
-}
-
 int teardownAllocLink(void** state){
     Link* l = (Link*) *state;
     freeLink(l);
     return 0;
-}
-
-void testInitLink(void** state){
-    Link* l = (Link*) *state;
-    int nb = idLinks;
-    initLink(l);
-    assert_int_equal(nb,l->id);
-    assert_int_equal(nb+1,idLinks);
 }
 
 void testSetLinkType(void** state){
