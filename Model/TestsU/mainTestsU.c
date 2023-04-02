@@ -13,7 +13,7 @@
 #include "EdgeTestsU.h"
 #include "EdgeListTestsU.h"
 #include "LinkTestsU.h"
-#include "../Link.h"
+#include "../Project.h"
 
 //main
 
@@ -111,6 +111,12 @@ int main(void){
     cmocka_run_group_tests_name("Tests Edge module", testsEdge, NULL, NULL);
     cmocka_run_group_tests_name("Tests EdgeList module", testsEdgeList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Link module", testsLink, NULL, NULL);
+
+    /*
+    Project p1;
+    initProject(&p1, "/home/maxime/Documents","unlock1");
+    deleteProject(&p1);
+    */
 
     return 0;
 }

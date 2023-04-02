@@ -5,8 +5,8 @@
 #ifndef UNLOCKMAKER_STRUCT_H
 #define UNLOCKMAKER_STRUCT_H
 
-#define MAXPATH 511
-#define MAXNAME 63
+#define MAXPATH 63
+#define MAXNAME 15
 #define MAXCARD 60
 
 /**
@@ -125,6 +125,7 @@ struct Link {
  * @var root : the root card of the unlock scenario (the unique face up card at the beginning of the game)
  * @var cardList : the list of all the cards of the project (the order have nothing to do with the order of discovering during the game)
  * @var nbCards : the number of cards of the project
+ * @var linkList : the list of all the links of the project
  * @var nbLinks : the number of links of the project
  * @var path : the absolute path of the project directory (without the name of the project)
  * @var name : the name of the project
@@ -142,9 +143,10 @@ typedef struct {
     Card* root; /* points on the first element of the list */
     VertexList cardList;
     int nbCards;
+    EdgeList linkList;
     int nbLinks;
-    char path[MAXPATH];
-    char name[MAXNAME];
+    char path[MAXPATH+1];
+    char name[MAXNAME+1];
     int backImage; /* 1 : project's cards have a back image ; 0 : they have none ; Images have a precise name (to be chosen) */
     int topImage; /* 1 : project's cards have a top image ; 0 : they have none ; Images have a precise name (to be chosen) */
     int bottomImage; /* 1 : project's cards have a bottom image ; 0 : they have none ; Images have a precise name (to be chosen) */

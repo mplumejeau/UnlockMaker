@@ -8,14 +8,19 @@
 #include "Struct.h"
 
 Project* allocProject(void);
-void initProject(Project* p, char* path, char* name);
 void freeProject(Project* p);
+
+int initProject(Project* p, char* path, char* name);
+int deleteProject(Project* p);
 
 void setName(Project* p, char* name);
 void setRoot(Project* p, Card* root);
 
-Card* addCard(Project* p);
+Card* addEmptyCard(Project* p);
 int deleteCard(Project* p, Card* c);
+
+Link* addLink(Project* p, Card* parent, Card* child);
+int deleteLink(Project* p, Link* l);
 
 int setBackImage(Project* p, char* path);
 int setTopImage(Project* p, char* path);
