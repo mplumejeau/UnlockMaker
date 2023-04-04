@@ -1,0 +1,8 @@
+- Finir merge branch merge
+- Tests, converture de code OK pour le modèle
+- Le modèle est bientôt terminé, reste les algorithmes à implémenter en plus de finir les bases des classes
+- Voir pour l'écriture dans un fichier texte, et pour les tests à faire là-dessus
+- Update le README pour le mettre dans le bon format
+- Une erreur apparait pour la librairie glib à cause de -pedantic-errors dans le CMakeLists -> on supprime
+- Gérer la répartition pour la vue et le contrôleur
+- Gantt : modifier certaines tâches car la v1 était ambitieuse, à reporter dans la v2
