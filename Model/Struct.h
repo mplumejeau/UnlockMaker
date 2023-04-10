@@ -140,13 +140,13 @@ struct Link {
  *                  0 : no bottom image has been added yet
  */
 typedef struct {
+    char path[MAXPATH+1];
+    char name[MAXNAME+1];
     Card* root; /* points on the first element of the list */
     VertexList cardList;
     int nbCards;
     EdgeList linkList;
     int nbLinks;
-    char path[MAXPATH+1];
-    char name[MAXNAME+1];
     int backImage; /* 1 : project's cards have a back image ; 0 : they have none ; Images have a precise name (to be chosen) */
     int topImage; /* 1 : project's cards have a top image ; 0 : they have none ; Images have a precise name (to be chosen) */
     int bottomImage; /* 1 : project's cards have a bottom image ; 0 : they have none ; Images have a precise name (to be chosen) */

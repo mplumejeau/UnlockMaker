@@ -122,7 +122,7 @@ int deleteProject(Project* p){
     char projectDirectory[MAXPATH+1+MAXNAME+1+7+1];
     char cardsDirectory[MAXPATH+1+MAXNAME+1+5+1];
 
-    char saveFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
+    char backupFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
     char printFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
 
     char backImage[MAXPATH+1+MAXNAME+1+7+1+13+1];
@@ -159,12 +159,12 @@ int deleteProject(Project* p){
         strncpy(cardsDirectory, mainDirectory, MAXPATH+1+MAXNAME+1);
         strcat(cardsDirectory, "/Cards");
 
-        //project save file
+        //project backup file
 
-        strncpy(saveFile, mainDirectory, MAXPATH+1+MAXNAME+1);
-        strcat(saveFile,"/");
-        strncat(saveFile, p->name, MAXNAME);
-        strcat(saveFile,".txt");
+        strncpy(backupFile, mainDirectory, MAXPATH+1+MAXNAME+1);
+        strcat(backupFile,"/");
+        strncat(backupFile, p->name, MAXNAME);
+        strcat(backupFile,".txt");
 
         //project printable file
 
@@ -201,10 +201,10 @@ int deleteProject(Project* p){
             fprintf(stderr,"%d\n", errno);
         }
 
-        // remove project save and print files
+        // remove project backup and print files
 
-        if(remove(saveFile) != 0){
-            fprintf( stderr, "error : deletion of the file %s is impossible\n", saveFile);
+        if(remove(backupFile) != 0){
+            fprintf( stderr, "error : deletion of the file %s is impossible\n", backupFile);
             fprintf(stderr,"%d\n", errno);
         }
 
@@ -521,6 +521,159 @@ int setBottomImage(Project* p, char* pathImage){
 }
 
 /**
+ * Save all the information about a project in a [projectName].txt in the /[projectPath] directory
+ * The information stored has to respect a precise and specific template in order to be read when loading a project
+ * If the .txt file doesn't exist, create it and if it already exists, suppress it and recreate it
+ * @param p the project to save
+ * @return 0 if it's a success, -1 if not
+ */
+int saveProject(Project* p){
+
+    char pathBackupFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
+    FILE* backupFile;
+
+    if (p != NULL) {
+
+        // construction of the backup file path
+
+        strncpy(pathBackupFile, p->path, MAXPATH);
+        strcat(pathBackupFile, "/");
+        strncat(pathBackupFile, p->name, MAXNAME);
+        strcat(pathBackupFile, "/");
+        strncat(pathBackupFile, p->name, MAXNAME);
+        strcat(pathBackupFile,".txt");
+
+        // remove precedent file if it existed
+
+        if(remove(pathBackupFile) != 0){
+            fprintf( stderr, "error : deletion of the file %s is impossible\n", pathBackupFile);
+            fprintf(stderr,"%d\n", errno);
+        }
+
+        // creation and completion of the new file
+
+        if((backupFile = fopen(pathBackupFile,"w")) == (FILE*) NULL){
+            fprintf(stderr, "error : impossible to open the backup file\n");
+            perror("msg : ");
+            return -1;
+        }
+
+        fprintf(backupFile,"backup file for a Unlock project :\n");
+
+        fprintf(backupFile,"%s\n", p->path);
+        fprintf(backupFile,"%s\n", p->name);
+        if(p->root != NULL){
+            fprintf(backupFile,"%d\n", p->root->id);
+        } else {
+            fprintf(backupFile,"-1\n");
+        }
+        fprintf(backupFile,"%d\n", p->backImage);
+        fprintf(backupFile,"%d\n", p->topImage);
+        fprintf(backupFile,"%d\n", p->bottomImage);
+        fprintf(backupFile,".\n");
+
+        if(!isVertexListEmpty(&p->cardList)){
+
+            setOnFirstVertex(&p->cardList);
+
+            if(p->cardList.current->card == NULL){
+                fprintf(stderr, "error : card bad allocation\n");
+                return -1;
+            }
+
+            fprintf(backupFile, "%d\n", p->cardList.current->card->id);
+            fprintf(backupFile, "%d\n", p->cardList.current->card->type);
+            fprintf(backupFile, "%c\n", p->cardList.current->card->number);
+            fprintf(backupFile, "%d\n", p->cardList.current->card->fixedNumber);
+            fprintf(backupFile, "%d\n", p->cardList.current->card->image);
+
+            setOnNextVertex(&p->cardList);
+
+            while(!isOutOfListVertex(&p->cardList)){
+
+                if(p->cardList.current->card == NULL){
+                    fprintf(stderr, "error : card bad allocation\n");
+                    return -1;
+                }
+
+                fprintf(backupFile,";\n");
+                fprintf(backupFile, "%d\n", p->cardList.current->card->id);
+                fprintf(backupFile, "%d\n", p->cardList.current->card->type);
+                fprintf(backupFile, "%c\n", p->cardList.current->card->number);
+                fprintf(backupFile, "%d\n", p->cardList.current->card->fixedNumber);
+                fprintf(backupFile, "%d\n", p->cardList.current->card->image);
+
+                setOnNextVertex(&p->cardList);
+            }
+        }
+
+        fprintf(backupFile,".\n");
+
+        if(!isEdgeListEmpty(&p->linkList)){
+
+            setOnFirstEdge(&p->linkList);
+
+            if(p->linkList.current->link == NULL){
+                fprintf(stderr, "error : link bad allocation\n");
+                return -1;
+            }
+
+            fprintf(backupFile, "%d\n", p->linkList.current->link->id);
+            fprintf(backupFile, "%d\n", p->linkList.current->link->type);
+            if(p->linkList.current->link->parent != NULL) {
+                fprintf(backupFile, "%d\n", p->linkList.current->link->parent->id);
+            } else {
+                fprintf(stderr, "error : card parent of a link bad allocation\n");
+                return -1;
+            }
+            if(p->linkList.current->link->child != NULL) {
+                fprintf(backupFile, "%d\n", p->linkList.current->link->child->id);
+            } else {
+                fprintf(stderr, "error : card child of a link bad allocation\n");
+                return -1;
+            }
+
+            setOnNextEdge(&p->linkList);
+
+            while(!isOutOfListEdge(&p->linkList)){
+
+                if(p->linkList.current->link == NULL){
+                    fprintf(stderr, "error : link bad allocation\n");
+                    return -1;
+                }
+
+                fprintf(backupFile,";\n");
+                fprintf(backupFile, "%d\n", p->linkList.current->link->id);
+                fprintf(backupFile, "%d\n", p->linkList.current->link->type);
+                if(p->linkList.current->link->parent != NULL) {
+                    fprintf(backupFile, "%d\n", p->linkList.current->link->parent->id);
+                } else {
+                    fprintf(stderr, "error : card parent of a link bad allocation\n");
+                    return -1;
+                }
+                if(p->linkList.current->link->child != NULL) {
+                    fprintf(backupFile, "%d\n", p->linkList.current->link->child->id);
+                } else {
+                    fprintf(stderr, "error : card child of a link bad allocation\n");
+                    return -1;
+                }
+
+                setOnNextEdge(&p->linkList);
+            }
+        }
+        fprintf(backupFile,".\n");
+
+        fclose(backupFile);
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return -1;
+    }
+}
+
+/**
  * Load a project from a [projectName].txt in the /[projectPath] directory
  * The information stored has to respect a precise and specific template in order to be well read
  * Allocate and fill all the needed structures in order to restore the state of the project when he was saved
@@ -528,17 +681,6 @@ int setBottomImage(Project* p, char* pathImage){
  * @return 0 if it's a success, -1 if not
  */
 int loadProject(Project* p){
-    return -1;
-}
-
-/**
- * Save all the information about a project in a [projectName].txt in the /[projectPath] directory
- * The information stored has to respect a precise and specific template in order to be read when loading a project
- * If the .txt file doesn't exist, create it and if it already exists, erase all previous information and rewrite it
- * @param p the project to save
- * @return 0 if it's a success, -1 if not
- */
-int saveProject(Project* p){
     return -1;
 }
 

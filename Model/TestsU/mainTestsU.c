@@ -112,7 +112,7 @@ int main(void){
     cmocka_run_group_tests_name("Tests EdgeList module", testsEdgeList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Link module", testsLink, NULL, NULL);
 
-    /*
+
     Project p1;
     initProject(&p1, "/home/maxime/Documents","unlock1");
 
@@ -120,8 +120,10 @@ int main(void){
     setTopImage(&p1, "/home/maxime/Pictures/IronMan.jpg");
     setBottomImage(&p1, "/home/maxime/Pictures/IronMan.jpg");
 
-    deleteProject(&p1);
-    */
+    saveProject(&p1);
+
+    //deleteProject(&p1);
+
 
     return 0;
 }

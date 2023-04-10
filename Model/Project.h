@@ -26,8 +26,8 @@ int setBackImage(Project* p, char* pathImage);
 int setTopImage(Project* p, char* pathImage);
 int setBottomImage(Project* p, char* pathImage);
 
-int loadProject(Project* p);
 int saveProject(Project* p);
+int loadProject(Project* p);
 int createPrintable(Project* p);
 
 int checkLoops(Project* p);
