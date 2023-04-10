@@ -16,6 +16,8 @@
 #include "Card.h"
 #include "Link.h"
 
+static int copyFile(char* dest, char* source);
+
 /**
  * Allocate a unlock project in the dynamic space memory
  * @return the address of the allocated structure
@@ -123,9 +125,9 @@ int deleteProject(Project* p){
     char saveFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
     char printFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
 
-    char backImage[MAXPATH+1+MAXNAME+1+7+1+14+1];
-    char topImage[MAXPATH+1+MAXNAME+1+7+1+13+1];
-    char bottomImage[MAXPATH+1+MAXNAME+1+7+1+16+1];
+    char backImage[MAXPATH+1+MAXNAME+1+7+1+13+1];
+    char topImage[MAXPATH+1+MAXNAME+1+7+1+12+1];
+    char bottomImage[MAXPATH+1+MAXNAME+1+7+1+15+1];
 
     if (p != NULL ){
 
@@ -149,38 +151,38 @@ int deleteProject(Project* p){
 
         //second directory : [projectPath]/[projectName]/Project
 
-        strncpy(projectDirectory, mainDirectory, strlen(mainDirectory));
+        strncpy(projectDirectory, mainDirectory, MAXPATH+1+MAXNAME+1);
         strcat(projectDirectory, "/Project");
 
         //third directory : [projectPath]/[projectName]/Cards
 
-        strncpy(cardsDirectory, mainDirectory, strlen(mainDirectory));
+        strncpy(cardsDirectory, mainDirectory, MAXPATH+1+MAXNAME+1);
         strcat(cardsDirectory, "/Cards");
 
         //project save file
 
-        strncpy(saveFile, mainDirectory, strlen(mainDirectory));
+        strncpy(saveFile, mainDirectory, MAXPATH+1+MAXNAME+1);
         strcat(saveFile,"/");
         strncat(saveFile, p->name, MAXNAME);
         strcat(saveFile,".txt");
 
         //project printable file
 
-        strncpy(printFile, mainDirectory, strlen(mainDirectory));
+        strncpy(printFile, mainDirectory, MAXPATH+1+MAXNAME+1);
         strcat(printFile,"/");
         strncat(printFile, p->name, MAXNAME);
         strcat(printFile,".pdf");
 
         //project images
 
-        strncpy(backImage, projectDirectory, strlen(projectDirectory));
-        strcat(backImage, "/BackImage.jpeg");
+        strncpy(backImage, projectDirectory, MAXPATH+1+MAXNAME+1+7+1);
+        strcat(backImage, "/BackImage.jpg");
 
-        strncpy(topImage, projectDirectory, strlen(projectDirectory));
-        strcat(topImage, "/topImage.jpeg");
+        strncpy(topImage, projectDirectory, MAXPATH+1+MAXNAME+1+7+1);
+        strcat(topImage, "/TopImage.jpg");
 
-        strncpy(bottomImage, projectDirectory, strlen(projectDirectory));
-        strcat(bottomImage, "/bottomImage.jpeg");
+        strncpy(bottomImage, projectDirectory, MAXPATH+1+MAXNAME+1+7+1);
+        strcat(bottomImage, "/BottomImage.jpg");
 
         //remove project images files
 
@@ -226,7 +228,7 @@ int deleteProject(Project* p){
         }
 
         if(rmdir(mainDirectory) != 0){
-            fprintf( stderr, "error : deletion of the directory %s is impossible\n", projectDirectory);
+            fprintf( stderr, "error : deletion of the directory %s is impossible\n", mainDirectory);
             fprintf(stderr,"%d\n", errno);
             return -1;
         }
@@ -338,7 +340,7 @@ Link* addLink(Project* p, Card* parent, Card* child, linkType type){
  */
 int deleteLink(Project* p, Link* l){
 
-    if (p != NULL && l != NULL ){
+    if (p != NULL && l != NULL){
 
         if(deleteEdge(&l->parent->children,l) != 0){
             fprintf(stderr, "error : problem during the link %d deletion\n", l->id);
@@ -361,7 +363,44 @@ int deleteLink(Project* p, Link* l){
 
     } else {
         fprintf(stderr, "error : project or link bad allocation\n");
+        return -1;
     }
+}
+
+/**
+ * Copy the content of the source file into the dest file (and create the dest file if it doesn't exist)
+ * @param dest the path of the destination file
+ * @param source the path of the source file
+ * @return 0 if it's a success, -1 if not
+ */
+static int copyFile(char* dest, char* source){
+
+    FILE* sourceFile;
+    FILE* destFile;
+    unsigned char* buffer[1024];
+    size_t nbBlocksRead;
+
+    if((sourceFile = fopen(source,"rb")) == (FILE*) NULL){
+        fprintf(stderr, "error : impossible to open the source file\n");
+        perror("msg : ");
+        return -1;
+    }
+
+    if((destFile = fopen(dest,"wb")) == (FILE*) NULL){
+        fprintf(stderr, "error : impossible to open the destination file\n");
+        perror("msg : ");
+        fclose(sourceFile);
+        return -1;
+    }
+
+    while((nbBlocksRead = fread(buffer, 1, sizeof(buffer), sourceFile)) > 0){
+        fwrite(buffer, 1, nbBlocksRead, destFile);
+    }
+
+    fclose(sourceFile);
+    fclose(destFile);
+
+    return 0;
 }
 
 /**
@@ -372,8 +411,35 @@ int deleteLink(Project* p, Link* l){
  * @param path the absolute path of the image to copy
  * @return 0 if it's a success, -1 if not
  */
-int setBackImage(Project* p, char* path){
-    return -1;
+int setBackImage(Project* p, char* pathImage){
+
+    char pathBackImage[MAXPATH+1+MAXNAME+1+7+1+13+1];
+
+    if (p != NULL) {
+
+        // construction of the new path
+
+        strncpy(pathBackImage, p->path, MAXPATH);
+        strcat(pathBackImage, "/");
+        strncat(pathBackImage, p->name, MAXNAME);
+        strcat(pathBackImage, "/Project");
+        strcat(pathBackImage, "/BackImage.jpg");
+
+        // copy of the file
+
+        if(copyFile(pathBackImage, pathImage) != 0){
+            fprintf(stderr, "error : failure in the copy of the file\n");
+            return -1;
+        }
+
+        p->backImage = 1;
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return -1;
+    }
 }
 
 /**
@@ -384,8 +450,35 @@ int setBackImage(Project* p, char* path){
  * @param path the absolute path of the image to copy
  * @return 0 if it's a success, -1 if not
  */
-int setTopImage(Project* p, char* path){
-    return -1;
+int setTopImage(Project* p, char* pathImage){
+
+    char pathTopImage[MAXPATH+1+MAXNAME+1+7+1+12+1];
+
+    if (p != NULL) {
+
+        // construction of the new path
+
+        strncpy(pathTopImage, p->path, MAXPATH);
+        strcat(pathTopImage, "/");
+        strncat(pathTopImage, p->name, MAXNAME);
+        strcat(pathTopImage, "/Project");
+        strcat(pathTopImage, "/TopImage.jpg");
+
+        // copy of the file
+
+        if(copyFile(pathTopImage, pathImage) != 0){
+            fprintf(stderr, "error : failure in the copy of the file\n");
+            return -1;
+        }
+
+        p->topImage = 1;
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return -1;
+    }
 }
 
 /**
@@ -396,8 +489,35 @@ int setTopImage(Project* p, char* path){
  * @param path the absolute path of the image to copy
  * @return 0 if it's a success, -1 if not
  */
-int setBottomImage(Project* p, char* path){
-    return -1;
+int setBottomImage(Project* p, char* pathImage){
+
+    char pathBottomImage[MAXPATH+1+MAXNAME+1+7+1+15+1];
+
+    if (p != NULL) {
+
+        // construction of the new path
+
+        strncpy(pathBottomImage, p->path, MAXPATH);
+        strcat(pathBottomImage, "/");
+        strncat(pathBottomImage, p->name, MAXNAME);
+        strcat(pathBottomImage, "/Project");
+        strcat(pathBottomImage, "/BottomImage.jpg");
+
+        // copy of the file
+
+        if(copyFile(pathBottomImage, pathImage) != 0){
+            fprintf(stderr, "error : failure in the copy of the file\n");
+            return -1;
+        }
+
+        p->bottomImage = 1;
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return -1;
+    }
 }
 
 /**

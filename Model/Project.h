@@ -22,9 +22,9 @@ int deleteCard(Project* p, Card* c);
 Link* addLink(Project* p, Card* parent, Card* child, linkType type);
 int deleteLink(Project* p, Link* l);
 
-int setBackImage(Project* p, char* path);
-int setTopImage(Project* p, char* path);
-int setBottomImage(Project* p, char* path);
+int setBackImage(Project* p, char* pathImage);
+int setTopImage(Project* p, char* pathImage);
+int setBottomImage(Project* p, char* pathImage);
 
 int loadProject(Project* p);
 int saveProject(Project* p);
