@@ -307,8 +307,27 @@ int deleteCard(Project* p, Card* c){
  * @param child the child card of the link
  * @return a pointer towards the link created
  */
-Link* addLink(Project* p, Card* parent, Card* child){
-    return NULL;
+Link* addLink(Project* p, Card* parent, Card* child, linkType type){
+
+    if (p != NULL && parent != NULL && child != NULL){
+
+        Link* l = allocLink();
+        setParent(l, parent);
+        setChild(l, child);
+        setLinkType(l, type);
+
+        insertEdgeLast(&parent->children, l);
+        insertEdgeLast(&child->parents, l);
+
+        insertEdgeLast(&p->linkList, l);
+        p->nbLinks ++;
+
+        return l;
+
+    } else {
+        fprintf(stderr, "error : project or parent card or child card bad allocation\n");
+        return NULL;
+    }
 }
 
 /**
@@ -318,7 +337,31 @@ Link* addLink(Project* p, Card* parent, Card* child){
  * @return 0 if it's a success, -1 if not
  */
 int deleteLink(Project* p, Link* l){
-    return 0;
+
+    if (p != NULL && l != NULL ){
+
+        if(deleteEdge(&l->parent->children,l) != 0){
+            fprintf(stderr, "error : problem during the link %d deletion\n", l->id);
+            return -1;
+        }
+        if(deleteEdge(&l->child->parents,l) != 0){
+            fprintf(stderr, "error : problem during the link %d deletion\n", l->id);
+            return -1;
+        }
+
+        if(deleteEdge(&p->linkList,l) != 0){
+            fprintf(stderr, "error : problem during the link %d deletion\n", l->id);
+            return -1;
+        }
+        p->nbLinks --;
+
+        freeLink(l);
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project or link bad allocation\n");
+    }
 }
 
 /**

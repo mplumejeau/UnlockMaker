@@ -19,7 +19,7 @@ void setRoot(Project* p, Card* root);
 Card* addEmptyCard(Project* p);
 int deleteCard(Project* p, Card* c);
 
-Link* addLink(Project* p, Card* parent, Card* child);
+Link* addLink(Project* p, Card* parent, Card* child, linkType type);
 int deleteLink(Project* p, Link* l);
 
 int setBackImage(Project* p, char* path);
