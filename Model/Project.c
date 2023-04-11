@@ -288,7 +288,98 @@ void setRoot(Project* p, Card* root){
  * @return a pointer towards the created card
  */
 Card* addEmptyCard(Project* p){
-    return NULL;
+
+    char pathCardDirectory[MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1];
+
+    char idString[TAILLEMAXID];
+
+    if (p != NULL){
+
+        if(p->nbCards >= MAXCARD){
+            fprintf(stderr, "error : maximum number of cards in a project reached\n");
+            return NULL;
+        }
+
+        Card* c = allocCard();
+
+        if(c == NULL){
+            fprintf(stderr, "error : card bad allocation\n");
+            return NULL;
+        }
+
+        // construction of the path
+
+        strncpy(pathCardDirectory, p->path, MAXPATH);
+        strcat(pathCardDirectory, "/");
+        strncat(pathCardDirectory, p->name, MAXNAME);
+        strcat(pathCardDirectory, "/Cards/Card");
+        sprintf(idString, "%d", c->id);
+        strncat(pathCardDirectory, idString, TAILLEMAXID);
+
+        // creation of the directory
+
+        if ( mkdir(pathCardDirectory, 0755 ) != 0 ) {
+            fprintf( stderr, "error : creation of the directory %s is impossible\n", pathCardDirectory);
+            fprintf(stderr,"%d\n", errno);
+            free(c);
+            return NULL;
+        }
+
+        // adding the card to the project
+
+        insertVertexLast(&p->cardList, c);
+        p->nbCards ++;
+
+        return c;
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return NULL;
+    }
+}
+
+/**
+ * Set a front image for a card of the project
+ * Copy an image to the directory /[projectPath]/Project/Cards/Card[c->id] and rename it Image.jpg
+ * Set the enable image for the card to 1 if it's a success
+ * @param p the project containing the card c
+ * @param c the card
+ * @param pathImage the absolute path of the image to copy
+ * @return 0 if it's a success, -1 if not
+ */
+int setCardImage(Project* p, Card* c, char* pathImage){
+
+    char pathCardImage[MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1+10+1];
+
+    char idString[TAILLEMAXID];
+
+    if (p != NULL && c != NULL){
+
+        // construction of the new path
+
+        strncpy(pathCardImage, p->path, MAXPATH);
+        strcat(pathCardImage, "/");
+        strncat(pathCardImage, p->name, MAXNAME);
+        strcat(pathCardImage, "/Cards/Card");
+        sprintf(idString, "%d", c->id);
+        strncat(pathCardImage, idString, TAILLEMAXID);
+        strcat(pathCardImage, "/Image.jpg");
+
+        // copy of the file
+
+        if(copyFile(pathCardImage, pathImage) != 0){
+            fprintf(stderr, "error : failure in the copy of the file\n");
+            return -1;
+        }
+
+        c->image = 1;
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project or card bad allocation\n");
+        return -1;
+    }
 }
 
 /**
@@ -405,7 +496,7 @@ static int copyFile(char* dest, char* source){
 
 /**
  * Set a back image for all cards of the project
- * Copy an image to the directory /[projectPath]/Project and rename it BackImage.jpeg
+ * Copy an image to the directory /[projectPath]/Project and rename it BackImage.jpg
  * Set the enable backImage to 1 if it's a success
  * @param p the project
  * @param path the absolute path of the image to copy
@@ -444,7 +535,7 @@ int setBackImage(Project* p, char* pathImage){
 
 /**
  * Set a top image for all cards of the project
- * Copy an image to the directory /[projectPath]/Project and rename it TopImage.jpeg
+ * Copy an image to the directory /[projectPath]/Project and rename it TopImage.jpg
  * Set the enable topImage to 1 if it's a success
  * @param p the project
  * @param path the absolute path of the image to copy
@@ -483,7 +574,7 @@ int setTopImage(Project* p, char* pathImage){
 
 /**
  * Set a bottom image for all cards of the project
- * Copy an image to the directory /[projectPath]/Project and rename it BottomImage.jpeg
+ * Copy an image to the directory /[projectPath]/Project and rename it BottomImage.jpg
  * Set the enable bottomImage to 1 if it's a success
  * @param p the project
  * @param path the absolute path of the image to copy
@@ -558,110 +649,76 @@ int saveProject(Project* p){
             return -1;
         }
 
-        fprintf(backupFile,"backup file for a Unlock project :\n");
+        fprintf(backupFile,"backup file for a unlock project :\n");
 
-        fprintf(backupFile,"%s\n", p->path);
-        fprintf(backupFile,"%s\n", p->name);
         if(p->root != NULL){
-            fprintf(backupFile,"%d\n", p->root->id);
+            fprintf(backupFile,"%d;", p->root->id);
         } else {
-            fprintf(backupFile,"-1\n");
+            fprintf(backupFile,"-1;");
         }
-        fprintf(backupFile,"%d\n", p->backImage);
-        fprintf(backupFile,"%d\n", p->topImage);
+        fprintf(backupFile,"%d;", p->backImage);
+        fprintf(backupFile,"%d;", p->topImage);
         fprintf(backupFile,"%d\n", p->bottomImage);
-        fprintf(backupFile,".\n");
 
         if(!isVertexListEmpty(&p->cardList)){
 
             setOnFirstVertex(&p->cardList);
 
-            if(p->cardList.current->card == NULL){
-                fprintf(stderr, "error : card bad allocation\n");
-                return -1;
-            }
-
-            fprintf(backupFile, "%d\n", p->cardList.current->card->id);
-            fprintf(backupFile, "%d\n", p->cardList.current->card->type);
-            fprintf(backupFile, "%c\n", p->cardList.current->card->number);
-            fprintf(backupFile, "%d\n", p->cardList.current->card->fixedNumber);
-            fprintf(backupFile, "%d\n", p->cardList.current->card->image);
-
-            setOnNextVertex(&p->cardList);
-
             while(!isOutOfListVertex(&p->cardList)){
 
                 if(p->cardList.current->card == NULL){
                     fprintf(stderr, "error : card bad allocation\n");
+                    fclose(backupFile);
                     return -1;
                 }
 
-                fprintf(backupFile,";\n");
-                fprintf(backupFile, "%d\n", p->cardList.current->card->id);
-                fprintf(backupFile, "%d\n", p->cardList.current->card->type);
-                fprintf(backupFile, "%c\n", p->cardList.current->card->number);
-                fprintf(backupFile, "%d\n", p->cardList.current->card->fixedNumber);
+                fprintf(backupFile,".\n");
+                fprintf(backupFile, "%d;", p->cardList.current->card->id);
+                fprintf(backupFile, "%d;", p->cardList.current->card->type);
+                fprintf(backupFile, "%c;", p->cardList.current->card->number);
+                fprintf(backupFile, "%d;", p->cardList.current->card->fixedNumber);
                 fprintf(backupFile, "%d\n", p->cardList.current->card->image);
 
                 setOnNextVertex(&p->cardList);
             }
         }
 
-        fprintf(backupFile,".\n");
+        fprintf(backupFile,"!\n");
 
         if(!isEdgeListEmpty(&p->linkList)){
 
             setOnFirstEdge(&p->linkList);
 
-            if(p->linkList.current->link == NULL){
-                fprintf(stderr, "error : link bad allocation\n");
-                return -1;
-            }
-
-            fprintf(backupFile, "%d\n", p->linkList.current->link->id);
-            fprintf(backupFile, "%d\n", p->linkList.current->link->type);
-            if(p->linkList.current->link->parent != NULL) {
-                fprintf(backupFile, "%d\n", p->linkList.current->link->parent->id);
-            } else {
-                fprintf(stderr, "error : card parent of a link bad allocation\n");
-                return -1;
-            }
-            if(p->linkList.current->link->child != NULL) {
-                fprintf(backupFile, "%d\n", p->linkList.current->link->child->id);
-            } else {
-                fprintf(stderr, "error : card child of a link bad allocation\n");
-                return -1;
-            }
-
-            setOnNextEdge(&p->linkList);
-
             while(!isOutOfListEdge(&p->linkList)){
 
                 if(p->linkList.current->link == NULL){
                     fprintf(stderr, "error : link bad allocation\n");
+                    fclose(backupFile);
                     return -1;
                 }
 
-                fprintf(backupFile,";\n");
-                fprintf(backupFile, "%d\n", p->linkList.current->link->id);
-                fprintf(backupFile, "%d\n", p->linkList.current->link->type);
+                fprintf(backupFile,".\n");
+                fprintf(backupFile, "%d;", p->linkList.current->link->id);
+                fprintf(backupFile, "%d;", p->linkList.current->link->type);
                 if(p->linkList.current->link->parent != NULL) {
-                    fprintf(backupFile, "%d\n", p->linkList.current->link->parent->id);
+                    fprintf(backupFile, "%d;", p->linkList.current->link->parent->id);
                 } else {
                     fprintf(stderr, "error : card parent of a link bad allocation\n");
+                    fclose(backupFile);
                     return -1;
                 }
                 if(p->linkList.current->link->child != NULL) {
                     fprintf(backupFile, "%d\n", p->linkList.current->link->child->id);
                 } else {
                     fprintf(stderr, "error : card child of a link bad allocation\n");
+                    fclose(backupFile);
                     return -1;
                 }
 
                 setOnNextEdge(&p->linkList);
             }
         }
-        fprintf(backupFile,".\n");
+        fprintf(backupFile,"!\n");
 
         fclose(backupFile);
 
@@ -675,13 +732,93 @@ int saveProject(Project* p){
 
 /**
  * Load a project from a [projectName].txt in the /[projectPath] directory
- * The information stored has to respect a precise and specific template in order to be well read
+ * The information stored has to respect a precise and specific pattern in order to be well read
  * Allocate and fill all the needed structures in order to restore the state of the project when he was saved
  * @param p the project to load
  * @return 0 if it's a success, -1 if not
  */
-int loadProject(Project* p){
-    return -1;
+int loadProject(Project* p, char* path, char* name){
+
+    char pathBackupFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
+    FILE* backupFile;
+
+    char bufferFormat[35];
+    int bufferRoot;
+    char bufferDot;
+
+    Card* c = NULL;
+
+    int bufferLinkType;
+    int bufferParentId;
+    int bufferChildId;
+
+    if (p != NULL) {
+
+        strncpy(p->path, path, MAXPATH);
+        strncpy(p->name, name, MAXNAME);
+
+        // construction of the backup file path
+
+        strncpy(pathBackupFile, p->path, MAXPATH);
+        strcat(pathBackupFile, "/");
+        strncat(pathBackupFile, p->name, MAXNAME);
+        strcat(pathBackupFile, "/");
+        strncat(pathBackupFile, p->name, MAXNAME);
+        strcat(pathBackupFile,".txt");
+
+        // opening the backup file
+
+        if((backupFile = fopen(pathBackupFile,"r")) == (FILE*) NULL){
+            fprintf(stderr, "error : impossible to open the backup file\n");
+            perror("msg : ");
+            return -1;
+        }
+
+        // reading the backup file and completion of a project
+
+        fscanf(backupFile, "%s\n", &bufferFormat);
+        if(strncmp(bufferFormat, "backup file for a Unlock project :", 35) != 0){
+            fprintf(stderr, "error : backup file format is wrong\n");
+            fclose(backupFile);
+            return -1;
+        }
+
+        fscanf(backupFile, "%d;%d;%d;%d\n", bufferRoot, p->backImage, p->topImage, p->bottomImage);
+
+        fscanf(backupFile, "%c\n", &bufferDot);
+
+        while(bufferDot == '.'){
+
+            c = allocCard();
+            fscanf(backupFile, "%d;%d;%c;%d;%d\n", c->id, c->type, c->number, c->fixedNumber, c->image);
+
+            // add card c to the project p
+
+            fscanf(backupFile, "%c\n", &bufferDot);
+        }
+
+        // setRoot
+
+        fscanf(backupFile, "%c\n", &bufferDot);
+
+        while(bufferDot == '.'){
+
+            fscanf(backupFile, "%d;%d;%d;%d\n", bufferLinkType, bufferLinkType, bufferParentId, bufferChildId);
+
+
+
+            fscanf(backupFile, "%c\n", &bufferDot);
+        }
+
+
+        fclose(backupFile);
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return -1;
+    }
 }
 
 /**

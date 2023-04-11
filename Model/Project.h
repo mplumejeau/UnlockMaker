@@ -17,6 +17,7 @@ void setName(Project* p, char* name);
 void setRoot(Project* p, Card* root);
 
 Card* addEmptyCard(Project* p);
+int setCardImage(Project* p, Card* c, char* pathImage);
 int deleteCard(Project* p, Card* c);
 
 Link* addLink(Project* p, Card* parent, Card* child, linkType type);
@@ -27,7 +28,7 @@ int setTopImage(Project* p, char* pathImage);
 int setBottomImage(Project* p, char* pathImage);
 
 int saveProject(Project* p);
-int loadProject(Project* p);
+int loadProject(Project* p, char* path, char* name);
 int createPrintable(Project* p);
 
 int checkLoops(Project* p);

@@ -7,13 +7,14 @@
 
 #include "Struct.h"
 
+extern int idCards;
+
 Card* allocCard(void);
-void initCard(Card* c, int idCard);
 void freeCard(Card* c);
 
 void setCardType(Card* c, cardType t);
-void setCardNumber(Card* c, int n);
-void fixCardNumber(Card* c, int n);
+void setCardNumber(Card* c, char n);
+void fixCardNumber(Card* c, char n);
 void unfixCardNumber(Card* c);
 void addCardImage(Card* c);
 void removeCardImage(Card* c);

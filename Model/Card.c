@@ -7,76 +7,43 @@
 
 #include "Card.h"
 #include "VertexList.h"
+#include "EdgeList.h"
 
+int idCards = 0;
 
 /**
- * allocate a Card in the dynamic space memory
+ * Allocate a Card in the dynamic space memory
+ * Give it a unique id based on idLinks
+ * Increment idLinks by 1
  * @return Card* the address of the allocated structure
  */
 Card* allocCard(void){
     Card* c = (Card*) malloc(sizeof(Card));
     if (c != NULL) {
-        c->id = 0;
+        c->id = idCards;
+        idCards ++;
         c->type = GREY;
-        c->number = 0;
+        c->number = -1;
         c->fixedNumber = 0;
         c->image = 0;
-        c->discard = NULL;
-        c->parents = NULL;
-        c->children = NULL;
+        initEmptyVertexList(&c->discard);
+        initEmptyVertexList(&c->compatibility);
+        initEmptyEdgeList(&c->parents);
+        initEmptyEdgeList(&c->children);
+    } else {
+        fprintf(stderr, "error : card bad allocation\n");
     }
     return c;
 }
 
 /**
- * Initializes an empty card and allocates everything it needs, and giving it its unique id
- * @param c the card to initialize
- * @param idCard the new id of the card c, found by adding one to the number of cards of the card's project
- */
-
-void initCard(Card* c, int idCard)
-{
-
-    if (c != NULL) {
-        c->id = idCard;
-        c->type = GREY;
-        c->number = 0;
-        c->fixedNumber = 0;
-        c->image = 0;
-        c->discard = allocVertexList();
-        c->compatibility = allocVertexList();
-        c->parents = allocEdgeList();
-        c->children = allocEdgeList();
-    }
-
-}
-
-/**
- * Frees the card and everything that must be deleted in it (deletes the image in the folder ?)
+ * Frees the card and everything that must be deleted in it
  * @param c the card to free
  */
 void freeCard(Card* c){
-    // Free the discard list
-    freeVertexList(&c->discard);
-
-    // Free the compatibility list
-    freeVertexList(&c->compatibility);
-
-    // Free the parents list
-    freeEdgeList(&c->parents);
-
-    // Free the children list
-    freeEdgeList(&c->children);
-
-    // Delete the image file if it exists
-    if (c->image) {
-        char filename[20];
-        sprintf(filename, "card_%d.png", c->id);
-        remove(filename);
-    }
-
     // Free the card structure itself
     free(c);
+    idCards --;
 }
 
 /**
@@ -85,47 +52,52 @@ void freeCard(Card* c){
  * @param t the new type of the card
  */
 
-void setCardType(Card* c, cardType t)
-
-{
-    c->type = t;
-
-
+void setCardType(Card* c, cardType t){
+    if (c != NULL) {
+        c->type = t;
+    } else {
+        fprintf(stderr, "error : card bad allocation\n");
+    }
 }
-*/
+
 /**
  * Sets the number of the card c to n
  * @param c the card to modify
  * @param n the new number of the card
  */
 
-void setCardNumber(Card* c, int n)
-{
-    c->number = n;
-
+void setCardNumber(Card* c, char n){
+    if (c != NULL) {
+        c->number = n;
+    } else {
+        fprintf(stderr, "error : card bad allocation\n");
+    }
 }
-*/
+
 /**
  * Sets the number of the card c to n and enables the card's parameter fixedNumber (to indicate that it is chosen by the user)
  * @param c the card to modify
  * @param n the new number of the card
  */
-void fixCardNumber(Card* c, int n)
-{
-    c->number = n;
-    c->fixedNumber = 1;
-
-
+void fixCardNumber(Card* c, char n){
+    if (c != NULL) {
+        c->number = n;
+        c->fixedNumber = 1;
+    } else {
+        fprintf(stderr, "error : card bad allocation\n");
+    }
 }
 
 /**
  * Disables the card's parameter fixedNumber (to indicate that it is no longer chosen by the user)
  * @param c the card to modify
  */
-void unfixCardNumber(Card* c)
-{
-    c->fixedNumber = 0;
-
+void unfixCardNumber(Card* c){
+    if (c != NULL) {
+        c->fixedNumber = 0;
+    } else {
+        fprintf(stderr, "error : card bad allocation\n");
+    }
 }
 
 /**
@@ -163,8 +135,10 @@ void removeCardImage(Card* c)
  * @param parent the new parent of the card c
  * @return a pointer to the Link between the current card and its new parent
  */
+ /*
 Link* addParent(Card* c, Card* parent)
-{/ Create a new link between the current card and its new parent
+{
+    // Create a new link between the current card and its new parent
     Link* link = allocLink();
     initLink(link, c, parent);
 
@@ -176,7 +150,7 @@ Link* addParent(Card* c, Card* parent)
 
 
 }
-
+*/
 /**
  * Creates a link between the card c and a card child, adds this link in both c's children list and child's parents list
  * It reuses the function addParent (because it is the same principle)
@@ -184,12 +158,13 @@ Link* addParent(Card* c, Card* parent)
  * @param child the new child of the card c
  * @return a pointer to the Link between the current card and its new child
  */
+ /*
 Link* addChild(Card* c, Card* child)
 {
 
     return addParent(child, c);
 }
-
+*/
 /**
  * If it exists, deletes the link between the card c and the card parent, and remove it from both c's parents list and parent's children list
  * If it doesn't exist, this function does nothing
@@ -197,6 +172,7 @@ Link* addChild(Card* c, Card* child)
  * @param c the current card (no longer the child of the card parent)
  * @param parent the former parent of the card c
  */
+ /*
 void removeParent(Card* c, Card* parent)
 {
  Link* link = findLink(c->parents, parent);
@@ -213,7 +189,7 @@ void removeParent(Card* c, Card* parent)
 
 
 }
-
+*/
 /**
  * If it exists, deletes the link between the card c and the card child, and remove it from both c's children list and child's parents list
  * If it doesn't exist, this function does nothing
@@ -221,6 +197,7 @@ void removeParent(Card* c, Card* parent)
  * @param c the current card (no longer the parent of the card child)
  * @param parent the former child of the card c
  */
+ /*
 void removeChild(Card* c, Card* child)
 {
  Link* link = (Link*) malloc(sizeof(Link));
@@ -237,7 +214,7 @@ void removeChild(Card* c, Card* child)
 
 
 }
-
+*/
 /**
  * Adds the card discard to c's discard list
  * (if it is already present, this does nothing and returns a pointer to the existing Vertex in c's list pointing to the card discard)
@@ -245,6 +222,7 @@ void removeChild(Card* c, Card* child)
  * @param discard the card to add to c's discard list
  * @return a pointer to the Vertex in c's discard list pointing to the card discard
  */
+ /*
 Vertex* addDiscard(Card* c, Card* discard)
 {
 
@@ -275,7 +253,7 @@ Vertex* addDiscard(Card* c, Card* discard)
 
         return newVertex;
     }
-
+*/
 
 
 
@@ -285,6 +263,7 @@ Vertex* addDiscard(Card* c, Card* discard)
  * @param c1 the first card to modify
  * @param c2 the second card to modify
  */
+ /*
 void addCompatibility(Card* c1, Card* c2) {
 
         if (c == NULL || discard == NULL) {
@@ -301,7 +280,7 @@ void addCompatibility(Card* c1, Card* c2) {
         // discard is not in the list, add it
         return insertVertexLast(c->discardList, discard);
     }
-
+*/
 
 
 
@@ -310,6 +289,7 @@ void addCompatibility(Card* c1, Card* c2) {
  * @param c the card to write on a binary file
  * @param file the path/name of the file where the data of the card needs to be writen (file is created if it does not already exist)
  */
+ /*
 void writeCardBinary(Card* c, char* file)
 {
 
@@ -366,7 +346,7 @@ void writeCardBinary(Card* c, char* file)
     }
 
 }
-
+*/
 /**
  * Loads all the data of a card from a binary file
  * The card must be created and initialized first ?
@@ -374,6 +354,7 @@ void writeCardBinary(Card* c, char* file)
  * @param c the card structure where the data will be transferred
  * @param file the path/name of the file that contains the data to transfer
  */
+ /*
 void loadCardBinary(Card* c, char* file)
 {
     FILE* fp = fopen(file, "rb");
@@ -427,12 +408,13 @@ void loadCardBinary(Card* c, char* file)
 }
 
 }
-
+*/
 /**
  * Runs an algorithm to determine which other cards can be present at the same time as the current card
  * Calls the function addCompatibility to add every compatible card in c's compatibility list
  * @param c the current card
  */
+ /*
 void findCompatibility(Card* c)
 {// Clear the compatibility list
     clearVertexList(&(c->compatibilityList));
@@ -452,11 +434,12 @@ void findCompatibility(Card* c)
 
 
 }
-
+*/
 /**
  * print the content of a card
  * @param c the card to be printed
  */
+ /*
 void printCard(Card* c){
     printf("Card name: %s\n", c->name);
     printf("Card type: %s\n", c->type);
@@ -467,4 +450,4 @@ void printCard(Card* c){
     printf("Card compatibility list:\n");
     printVertexList(&(c->compatibilityList));
 }
-
+*/

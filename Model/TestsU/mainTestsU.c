@@ -114,11 +114,17 @@ int main(void){
 
 
     Project p1;
+    Card* c1;
+
     initProject(&p1, "/home/maxime/Documents","unlock1");
 
     setBackImage(&p1, "/home/maxime/Pictures/IronMan.jpg");
     setTopImage(&p1, "/home/maxime/Pictures/IronMan.jpg");
     setBottomImage(&p1, "/home/maxime/Pictures/IronMan.jpg");
+
+    c1 = addEmptyCard(&p1);
+    setCardImage(&p1,c1, "/home/maxime/Pictures/IronMan.jpg");
+    //setCardImage(&p1,c1, "/home/maxime/Pictures/IronMan.jpg");
 
     saveProject(&p1);
 

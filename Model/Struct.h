@@ -8,6 +8,7 @@
 #define MAXPATH 63
 #define MAXNAME 15
 #define MAXCARD 60
+#define TAILLEMAXID 4
 
 /**
  * An enumeration for the different types/colors of cards
