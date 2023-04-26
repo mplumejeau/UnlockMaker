@@ -28,7 +28,7 @@ void initEdge(Edge* e, Link* l, Edge* n, Edge* p){
         e->next = n;
         e->previous = p;
     } else {
-        fprintf(stderr, "error : edge bad allocation");
+        fprintf(stderr, "error : edge bad allocation\n");
     }
 }
 
@@ -41,7 +41,7 @@ Link* getEdgeLink(Edge* e){
     if (e != NULL){
         return e->link;
     } else {
-        fprintf(stderr, "error : edge bad allocation");
+        fprintf(stderr, "error : edge bad allocation\n");
         return NULL;
     }
 }

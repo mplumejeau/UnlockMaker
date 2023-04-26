@@ -1,0 +1,23 @@
+Projet info : Unlock Maker
+
+Compte-rendu réunion 01/03
+
+
+Fait :
+
+- Projet créé et separé en MVC
+
+- Strutures et protoypes des fonctions 
+
+
+A faire pour finir la V0 :
+
+ - Finir la documentation pour les fonctions et structure
+ 
+Tips :
+
+- Télécharger la librairie developper pour GTK4. Aide possible sur le site "gtk.org"
+
+- Types des fonction (void ou int) à choisir en fonction de, si pouvoir vérifier l'échec d'une fonction à vraiment un intérêt.
+
+

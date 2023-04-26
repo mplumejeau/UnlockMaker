@@ -2,21 +2,11 @@
 // Created by Louenn on 28/02/2023.
 */
 
-#include "Vertex.h"
-#include "Card.h"
 
 #ifndef UNLOCKMAKER_VERTEXLIST_H
 #define UNLOCKMAKER_VERTEXLIST_H
 
-
-/**
- * \brief the list of cards structure
- */
-typedef struct { /* to contain several vertices */
-    Vertex sentinelFirst;
-    Vertex* current;
-    Vertex sentinelLast;
-} VertexList;
+#include "Struct.h"
 
 void initEmptyVertexList(VertexList *vl);
 
@@ -29,7 +19,6 @@ void setOnFirstVertex(VertexList *vl);
 void setOnLastVertex(VertexList *vl);
 void setOnNextVertex(VertexList *vl);
 void setOnPreviousVertex(VertexList *vl);
-//void * getCurrentAddress (VertexList *vl);
 
 void printVertexList(VertexList *vl);
 int countVertexElements(VertexList *vl);

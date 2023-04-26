@@ -4,16 +4,20 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+
+#include <setjmp.h>
 #include <cmocka.h>
 
-#include "Vertex.h"
-#include "Card.h"
+#include "../Vertex.h"
+#include "../Card.h"
+
+#include "VertexTestsU.h"
 
 //is it possible to test allocVertex and freeVertex ?
 
 //setup
 
-static int setupNonAlloc(void** state){
+int setupNonAllocVertex(void** state){
     Vertex* v = NULL;
     if(v == NULL){
         *state = v;
@@ -23,7 +27,7 @@ static int setupNonAlloc(void** state){
     }
 }
 
-static int setupNonInit(void** state){
+int setupNonInitVertex(void** state){
     Vertex* v = allocVertex();
     if(v != NULL){
         *state = v;
@@ -33,7 +37,7 @@ static int setupNonInit(void** state){
     }
 }
 
-static int setupInit(void** state){
+int setupInitVertex(void** state){
     Vertex* v = allocVertex();
     Card* c = allocCard();
     Vertex* n = NULL;
@@ -49,12 +53,12 @@ static int setupInit(void** state){
 
 //teardown
 
-static int teardownNonInit(void** state){
+int teardownNonInitVertex(void** state){
     freeVertex(*state);
     return 0;
 }
 
-static int teardownInit(void** state){
+int teardownInitVertex(void** state){
     Vertex* v = (Vertex*) (*state);
     freeCard(v->card);
     freeVertex(v);
@@ -64,44 +68,30 @@ static int teardownInit(void** state){
 //test initVertex
 //peut on tester le cas ou le vertex est mal alloué ?
 
-static void testInitVertex(void** state){
+void testInitVertex(void** state){
     Vertex* v = (Vertex*) (*state);
     Card* c = allocCard();
     Vertex* n = NULL;
     Vertex* p = NULL;
     initVertex(v,c,n,p);
-    assert_int_equal(c,v->card);
-    assert_int_equal(n, v->next);
-    assert_int_equal(p, v->previous);
+    assert_ptr_equal(c,v->card);
+    assert_ptr_equal(n, v->next);
+    assert_ptr_equal(p, v->previous);
     free(c);
 }
 
 //tests getVertexCard
 
-static void testGetVertexCard(void** state){
+void testGetVertexCard(void** state){
     Card* res;
     Vertex* v = (Vertex*) (*state);
     res = getVertexCard(v);
-    assert_int_equal(v->card, res);
+    assert_ptr_equal(v->card, res);
 }
 
-static void testGetVertexCardNonAlloc(void** state){
+void testGetVertexCardBadAlloc(void** state){
     Card* res;
     Vertex* v = (Vertex*) (*state);
     res = getVertexCard(v);
-    assert_int_equal(NULL, res);
-}
-
-//main
-
-int main(void){
-
-    const struct CMUnitTest testsVertex[] =
-            {
-                    cmocka_unit_test_setup_teardown(testInitVertex, setupNonInit, teardownNonInit),
-                    cmocka_unit_test_setup_teardown(testGetVertexCard, setupInit, teardownInit),
-                    cmocka_unit_test_setup(testGetVertexCardNonAlloc, setupNonAlloc)
-            };
-
-    return cmocka_run_group_tests_name("Tests Vertex module", testsVertex, NULL, NULL);
+    assert_ptr_equal(NULL, res);
 }
