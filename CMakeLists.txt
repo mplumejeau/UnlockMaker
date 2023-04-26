@@ -3,10 +3,14 @@ project(UnlockMaker C)
 
 set(CMAKE_C_STANDARD 99)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic-errors")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
+
+# VIEW EXECUTABLE
+
+add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c)
 
 # MAIN EXECUTABLE
 
@@ -26,10 +30,10 @@ add_executable(UnlockMaker
         Model/EdgeList.h Model/EdgeList.c
         Model/Link.h Model/Link.c)
 
-target_link_libraries(UnlockMaker ${GLIB_LIBRARIES})
-target_link_libraries(UnlockMaker ${GTK4_LIBRARIES})
-target_include_directories(UnlockMaker PUBLIC ${GTK4_INCLUDE_DIRS})
-target_compile_options(UnlockMaker PUBLIC ${GTK4_CFLAGS_OTHER})
+target_link_libraries(UnlockView ${GLIB_LIBRARIES})
+target_link_libraries(UnlockView ${GTK4_LIBRARIES})
+target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
+target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
 
 # UNIT TESTS EXECUTABLE
 
