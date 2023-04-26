@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- This is an example of an XML description displaying a window and 3 buttons -->
 <interface>
-  <object id="window" class="GtkWindow">
-    <property name="title">Example window</property>
+  <object id="mainWindow" class="GtkWindow">
+    <property name="title">Main window</property>
     <child>
       <object id="generalGrid" class="GtkGrid">
         <property name="column-homogeneous">True</property>
@@ -345,7 +345,7 @@
               </object>
             </child>
             <child>
-              <object id="infoLabel" class="GtkLabel">
+              <object id="infoPanel" class="GtkLabel">
                 <property name="justify">center</property>
                 <property name="lines">5</property>
                 <property name="wrap">True</property>
@@ -358,6 +358,9 @@
         </child>
       </object>
     </child>
+  </object>
+  <object id="modifWindow" class="GtkWindow">
+    <property name="title">Modification window</property>
   </object>
 </interface>
 

@@ -15,14 +15,18 @@ void activate(GtkApplication *app, gpointer user_data);
 
 void load_css();
 
-void changeColorPink(GtkWidget *widget);
-
 GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id);
 
-GtkWidget* newCard(GtkWidget *button, GObject *box);
+void newCard(gpointer data);
 
-void openModifyCardWindow(GObject);
+void selectCard(GtkWidget *widget);
+
+void openModifyCardWindow(gpointer data);
+
+void modifyInfoPanel(char* text);
 
 void onDestroy(GtkWidget *widget, gpointer data);
+
+void onDestroySecondWindow(GtkWidget *widget, gpointer data);
 
 #endif //UNLOCKMAKER_VIEWAPPLICATION_H

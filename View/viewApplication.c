@@ -7,6 +7,9 @@
 
 #include "viewApplication.h"
 
+static int secondWindowOpen = 0;
+static GtkWidget *cardSelected = NULL;
+static GtkWidget *infoPanel = NULL;
 
 void print_csl(GtkWidget *widget, gpointer data) {
     g_print(data);
@@ -17,15 +20,6 @@ void quit_cb(GtkWindow *window) {
     gtk_window_close(window);
 }
 
-void changeColorPink(GtkWidget *widget) {
-    if(strcmp(gtk_widget_get_name(widget),"PinkBox")==0) {
-        gtk_widget_set_name(widget, "GtkBox");
-    } else {
-        gtk_widget_set_name(widget, "PinkBox");
-    }
-
-}
-
 GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id) {
     button = gtk_builder_get_object(builder, id);
     if(strcmp(gtk_widget_get_name(GTK_WIDGET(button)),"GtkButton")==0) {
@@ -34,24 +28,53 @@ GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id) {
     return button;
 }
 
-GtkWidget* newCard(GtkWidget *button, GObject *box) {
-    button = gtk_button_new_with_label("Card X");
+void newCard(gpointer data) {
+    GtkWidget *button = gtk_button_new_with_label("Card X");
     gtk_widget_set_name(GTK_WIDGET(button), "GreyCardBtn");
-    gtk_box_append(GTK_BOX(box), GTK_WIDGET(button));
-    return button;
+    g_signal_connect (button, "clicked", G_CALLBACK(selectCard), NULL);
+    gtk_box_append(GTK_BOX(data), GTK_WIDGET(button));
 }
 
-/*void openModifyCardWindow(GObject) {
+void selectCard(GtkWidget *widget) {
+    cardSelected = widget;
+    modifyInfoPanel("Card Selected");
+}
 
+/*void destroyCard(GtkWidget *widget) {
+    if(cardSelected == widget) {
+        unselectCard();
+    }
 }*/
+
+void openModifyCardWindow(gpointer data) {
+    if(secondWindowOpen == 0) {
+        GtkBuilder *builder = gtk_builder_new();
+        gtk_builder_add_from_file(builder, "../View/viewBuilder.ui", NULL);
+        GObject *modifWindow;
+        modifWindow = gtk_builder_get_object(builder, "modifWindow");
+        gtk_window_set_default_size(GTK_WINDOW(modifWindow), 700, 400);
+        g_signal_connect(modifWindow, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
+        secondWindowOpen = 1;
+        gtk_widget_show(GTK_WIDGET (modifWindow));
+        g_object_unref(builder);
+    }
+}
+
+void modifyInfoPanel(char* text) {
+    gtk_label_set_label(GTK_LABEL(infoPanel), text);
+}
 
 void onDestroy(GtkWidget *widget, gpointer data) {
     print_csl(widget, "Window Destroyed");
 }
 
+void onDestroySecondWindow(GtkWidget *widget, gpointer data) {
+    secondWindowOpen = 0;
+}
+
 void activate(GtkApplication *app, gpointer user_data) {
 
-    GObject *window, *windowModify;
+    GObject *window;
     GObject *button;
     GObject *box;
     load_css();
@@ -60,23 +83,25 @@ void activate(GtkApplication *app, gpointer user_data) {
     gtk_builder_add_from_file(builder, "../View/viewBuilder.ui", NULL);
 
     /* Connect signal handlers to the constructed widgets. */
-    window = gtk_builder_get_object(builder, "window");
+    window = gtk_builder_get_object(builder, "mainWindow");
     gtk_window_set_default_size(GTK_WINDOW(window), 1700, 900);
     gtk_window_set_application(GTK_WINDOW(window), app);
     /*gtk_window_fullscreen(GTK_WINDOW(window));*/
 
-    /*windowModify = gtk_builder_get_object(builder, "windowModify");
-    gtk_window_set_default_size(GTK_WINDOW(window), 500, 400);*/
+    gtk_window_set_default_size(GTK_WINDOW(window), 1000, 400);
 
     button = addGenericButton(button, builder, "buttonHello");
     g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Hello World");
     /*g_signal_connect (button, "clicked", G_CALLBACK(print_csl), windowModify);*/
 
+    button = addGenericButton(button, builder, "BtnModifyCard");
+    g_signal_connect_swapped (button, "clicked", G_CALLBACK(openModifyCardWindow), builder);
+
+    //gtk_widget_set_can_target(GTK_WIDGET(button),false);
+    //gtk_widget_set_name(GTK_WIDGET(button),"RightButtonDisabled");
 
     button = addGenericButton(button, builder, "Quit");
     g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Goodbye World");
-
-    button = addGenericButton(button, builder, "Quit");
     g_signal_connect_swapped (button, "clicked", G_CALLBACK(quit_cb), window);
 
     /*button = addGenericButton(button, builder, "buttonColor");
@@ -86,11 +111,13 @@ void activate(GtkApplication *app, gpointer user_data) {
 
     button = addGenericButton(button, builder, "BtnAddCard");
     box = gtk_builder_get_object(builder, "CardBox");
-    g_signal_connect_object(button, "clicked", G_CALLBACK(newCard), box, 0);
+    g_signal_connect_swapped(button, "clicked", G_CALLBACK(newCard), box);
+
+    infoPanel = gtk_builder_get_object(builder, "infoPanel");
 
     gtk_widget_show(GTK_WIDGET (window));
-
-    /* We do not need the builder any more */
+    secondWindowOpen = 0;
+    /* We do not need the builder anymore */
     g_object_unref(builder);
 }
 

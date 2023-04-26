@@ -35,6 +35,7 @@ button:active
    transform: translateY(2px);
 }
 
+
 #button1
 {
    background-color: green;
@@ -75,6 +76,20 @@ button:active
    box-shadow: 0 4px #666;
    transform: translateY(5px);
    transition-duration: 0.05s;
+}
+
+#RightButtonDisabled
+{
+   margin-bottom: 10px;
+   margin-left: 15px;
+   margin-right: 15px;
+   border-color: black;
+   border-width: 2px;
+   border-style: solid;
+   background-color: darkgrey;
+   opacity: 0.6;
+   color: black;
+   box-shadow: 0 9px #999;
 }
 
 #CombLinkBtn
