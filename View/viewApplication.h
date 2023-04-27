@@ -23,6 +23,14 @@ void selectCard(GtkWidget *widget);
 
 void openModifyCardWindow(gpointer data);
 
+void openStartingWindow(GtkBuilder *builder, GObject *mainWindow);
+
+void destroyWindow_cb(gpointer window);
+
+void unminimizeWindow_cb(gpointer window);
+
+void openProjectSearchWindow(GtkBuilder *builder);
+
 void modifyInfoPanel(char* text);
 
 void onDestroy(GtkWidget *widget, gpointer data);

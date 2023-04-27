@@ -3,10 +3,12 @@
 <interface>
   <object id="mainWindow" class="GtkWindow">
     <property name="title">Main window</property>
+    <property name="name">mainWindow</property>
     <child>
       <object id="generalGrid" class="GtkGrid">
         <property name="column-homogeneous">True</property>
         <property name="row-homogeneous">True</property>
+        <property name="name">generalGrid</property>
         <child>
           <object class="GtkBox">
             <property name="orientation">horizontal</property>
@@ -325,12 +327,6 @@
                   </object>
                 </child>
                 <child>
-                  <object id="BtnAddLink" class="GtkButton">
-                    <property name="label">Ajouter un lien</property>
-                    <property name="name">RightButton</property>
-                  </object>
-                </child>
-                <child>
                   <object id="BtnModifyLink" class="GtkButton">
                     <property name="label">Modifier un lien</property>
                     <property name="name">RightButton</property>
@@ -362,5 +358,50 @@
   <object id="modifWindow" class="GtkWindow">
     <property name="title">Modification window</property>
   </object>
+  <object id="startWindow" class="GtkWindow">
+    <property name="title">Starting window</property>
+    <property name="decorated">False</property>
+    <property name="name">startWindow</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">startWindowGrid</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="justify">center</property>
+            <property name="lines">1</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.5</property>
+            <property name="label">Création d'un nouveau projet ou ouverture d'un projet existant :</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="newProjectButton" class="GtkButton">
+            <property name="label">Nouveau projet</property>
+            <property name="name">startButton</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectButton" class="GtkButton">
+            <property name="label">Ouvrir un projet existant</property>
+            <property name="name">startButton</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
 </interface>
-

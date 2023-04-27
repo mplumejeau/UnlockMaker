@@ -9,7 +9,7 @@
 
 static int secondWindowOpen = 0;
 static GtkWidget *cardSelected = NULL;
-static GtkWidget *infoPanel = NULL;
+static GObject *infoPanel = NULL;
 
 void print_csl(GtkWidget *widget, gpointer data) {
     g_print(data);
@@ -60,6 +60,30 @@ void openModifyCardWindow(gpointer data) {
     }
 }
 
+void openStartingWindow(GtkBuilder *builder, GObject *mainWindow) {
+    GObject *startWindow, *newProjectButton;
+    startWindow = gtk_builder_get_object(builder, "startWindow");
+    newProjectButton = gtk_builder_get_object(builder, "newProjectButton");
+    gtk_window_set_default_size(GTK_WINDOW(startWindow), 300, 200);
+    g_signal_connect_swapped(newProjectButton, "clicked", G_CALLBACK(unminimizeWindow_cb), mainWindow);
+    g_signal_connect_swapped(newProjectButton, "clicked", G_CALLBACK(destroyWindow_cb), startWindow);
+    //Création du projet
+    gtk_widget_show(GTK_WIDGET (startWindow));
+}
+
+void destroyWindow_cb(gpointer window) {
+    gtk_window_close(GTK_WINDOW(window));
+}
+
+void unminimizeWindow_cb(gpointer window) {
+    gtk_window_present(GTK_WINDOW(window));
+    gtk_window_maximize(GTK_WINDOW(window));
+}
+
+void openProjectSearchWindow(GtkBuilder *builder) {
+
+}
+
 void modifyInfoPanel(char* text) {
     gtk_label_set_label(GTK_LABEL(infoPanel), text);
 }
@@ -86,9 +110,6 @@ void activate(GtkApplication *app, gpointer user_data) {
     window = gtk_builder_get_object(builder, "mainWindow");
     gtk_window_set_default_size(GTK_WINDOW(window), 1700, 900);
     gtk_window_set_application(GTK_WINDOW(window), app);
-    /*gtk_window_fullscreen(GTK_WINDOW(window));*/
-
-    gtk_window_set_default_size(GTK_WINDOW(window), 1000, 400);
 
     button = addGenericButton(button, builder, "buttonHello");
     g_signal_connect (button, "clicked", G_CALLBACK(print_csl), "Hello World");
@@ -115,8 +136,11 @@ void activate(GtkApplication *app, gpointer user_data) {
 
     infoPanel = gtk_builder_get_object(builder, "infoPanel");
 
-    gtk_widget_show(GTK_WIDGET (window));
+    gtk_window_minimize(GTK_WINDOW(window));
     secondWindowOpen = 0;
+    gtk_widget_show(GTK_WIDGET (window));
+    openStartingWindow(builder, window);
+
     /* We do not need the builder anymore */
     g_object_unref(builder);
 }

@@ -1,16 +1,36 @@
-window
+#mainWindow
 {
    background-color: lightgrey;
    color: black;
-   border-width: 3px;
 }
 
-grid
+#startWindow
+{
+
+}
+
+#startWindowGrid
+{
+   margin: 10px;
+   padding: 10px;
+}
+
+#startButton
+{
+   margin: 10px;
+}
+
+#newProjectEntry
+{
+   margin-bottom: 10px;
+   margin-top: 10px;
+}
+
+#generalGrid
 {
    background-color: lightgrey;
    border-width: 1px;
    border-radius: 0px;
-
 }
 
 button
@@ -45,11 +65,6 @@ button:active
 #button1:hover
 {
    background-color: forestgreen;
-}
-
-#PinkBox
-{
-   background-color: deeppink;
 }
 
 #RightButton
