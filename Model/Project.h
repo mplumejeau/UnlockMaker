@@ -16,9 +16,15 @@ int deleteProject(Project* p);
 void setName(Project* p, char* name);
 void setRoot(Project* p, Card* root);
 
+int assignIdCard(Project* p, Card* c);
+void unassignIdCard(Project* p, Card* c);
+
 Card* addEmptyCard(Project* p);
 int setCardImage(Project* p, Card* c, char* pathImage);
 int deleteCard(Project* p, Card* c);
+
+int assignIdLink(Project* p, Link* l);
+void unassignIdLink(Project* p, Link* l);
 
 Link* addLink(Project* p, Card* parent, Card* child, linkType type);
 int deleteLink(Project* p, Link* l);

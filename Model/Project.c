@@ -37,6 +37,7 @@ void freeProject(Project* p){
 
 /**
  * Initialize an empty project and create its directory tree at the specified absolute path
+ * Set the id arrays to arrays of 0
  * @param p the project to initialize
  * @param path the absolute path where the project's directory has to be created
  * @param name the name of the project
@@ -44,6 +45,7 @@ void freeProject(Project* p){
  */
 int initProject(Project* p, char* path, char* name){
 
+    int i;
     char mainDirectory[MAXPATH+1+MAXNAME+1];
     char projectDirectory[MAXPATH+1+MAXNAME+1+7+1];
     char cardsDirectory[MAXPATH+1+MAXNAME+1+5+1];
@@ -56,10 +58,18 @@ int initProject(Project* p, char* path, char* name){
         p->name[MAXNAME] = '\0';
 
         p->root = NULL;
+
         initEmptyVertexList(&p->cardList);
         p->nbCards = 0;
+        for(i=0;i<MAXCARD;i++){
+            p->idCards[i] = 0;
+        }
+
         initEmptyEdgeList(&p->linkList);
         p->nbLinks = 0;
+        for(i=0;i<MAXLINK;i++){
+            p->idLinks[i] = 0;
+        }
 
         p->backImage = 0;
         p->topImage = 0;
@@ -282,6 +292,49 @@ void setRoot(Project* p, Card* root){
 }
 
 /**
+ * Automatically assign a free id to a card and set it as occupied in the idCards array of a project
+ * @param p the project
+ * @param c the card
+ * @return 0 if it's a success, -1 if not
+ */
+int assignIdCard(Project* p, Card* c){
+    int i;
+    if (p != NULL && c != NULL){
+
+        for(i=0;i<MAXCARD;i++){
+            if(p->idCards[i] == 0){
+                c->id = i;
+                p->idCards[i] = 1;
+                return 0;
+            }
+        }
+
+        fprintf(stderr, "error : impossible to assign an id to the card\n");
+        return -1;
+
+    } else {
+        fprintf(stderr, "error : project or card bad allocation\n");
+        return -1;
+    }
+}
+
+/**
+ * Automatically unassign an id from a card => set it as unoccupied in the idCards array of a project
+ * @param p the project
+ * @param c the card
+ */
+void unassignIdCard(Project* p, Card* c){
+
+    if (p != NULL && c != NULL){
+
+        p->idCards[c->id] = 0;
+
+    } else {
+        fprintf(stderr, "error : project or card bad allocation\n");
+    }
+}
+
+/**
  * Add an empty card to a project
  * Create its directory into the directory tree of the project
  * @param p the project to which a card must be added
@@ -307,6 +360,17 @@ Card* addEmptyCard(Project* p){
             return NULL;
         }
 
+        initEmptyCard(c);
+
+        // adding the card to the project
+
+        insertVertexLast(&p->cardList, c);
+        p->nbCards ++;
+        if(assignIdCard(p,c) != 0){
+            freeCard(c);
+            return NULL;
+        }
+
         // construction of the path
 
         strncpy(pathCardDirectory, p->path, MAXPATH);
@@ -321,14 +385,9 @@ Card* addEmptyCard(Project* p){
         if ( mkdir(pathCardDirectory, 0755 ) != 0 ) {
             fprintf( stderr, "error : creation of the directory %s is impossible\n", pathCardDirectory);
             fprintf(stderr,"%d\n", errno);
-            free(c);
+            freeCard(c);
             return NULL;
         }
-
-        // adding the card to the project
-
-        insertVertexLast(&p->cardList, c);
-        p->nbCards ++;
 
         return c;
 
@@ -349,7 +408,7 @@ Card* addEmptyCard(Project* p){
  */
 int setCardImage(Project* p, Card* c, char* pathImage){
 
-    char pathCardImage[MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1+10+1];
+    char pathCardImage[MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1+9+1];
 
     char idString[TAILLEMAXID];
 
@@ -384,13 +443,122 @@ int setCardImage(Project* p, Card* c, char* pathImage){
 
 /**
  * Remove a card from a project and free it
+ * Must delete all links in which the card is included
  * Delete its directory in the directory tree
  * @param p the project to which a card must be removed
  * @param c the card to delete
  * @return 0 if it's a success, -1 if not
  */
 int deleteCard(Project* p, Card* c){
-    return -1;
+
+    Link* currentLink;
+
+    char pathCardDirectory[MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1];
+    char pathCardImage[MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1+9+1];
+    char idString[TAILLEMAXID];
+
+    if (p != NULL && c != NULL){
+
+        // deletion of all links in which the card c is included
+
+        setOnFirstEdge(&p->linkList);
+
+        while(!isOutOfListEdge(&p->linkList)){
+
+            currentLink = p->linkList.current->link;
+
+            if(currentLink->parent == c || currentLink->child == c){
+                deleteLink(p,currentLink);
+            }
+
+            setOnNextEdge(&p->linkList);
+        }
+
+        // deletion of the image of the card (if it exists) and of the directory of the card
+
+        strncpy(pathCardDirectory, p->path, MAXPATH);
+        strcat(pathCardDirectory, "/");
+        strncat(pathCardDirectory, p->name, MAXNAME);
+        strcat(pathCardDirectory, "/Cards/Card");
+        sprintf(idString, "%d", c->id);
+        strncat(pathCardDirectory, idString, TAILLEMAXID);
+
+        strncpy(pathCardImage, pathCardDirectory, MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1);
+        strcat(pathCardImage, "/Image.jpg");
+
+        if(remove(pathCardImage) != 0){
+            fprintf( stderr, "error : deletion of the file %s is impossible\n", pathCardImage);
+            fprintf(stderr,"%d\n", errno);
+        }
+
+        if(rmdir(pathCardDirectory) != 0){
+            fprintf( stderr, "error : deletion of the directory %s is impossible\n", pathCardDirectory);
+            fprintf(stderr,"%d\n", errno);
+            return -1;
+        }
+
+        // deletion of the card from the card list of the project
+
+        if(deleteVertex(&p->cardList,c) != 0){
+            fprintf(stderr, "error : problem during the card %d deletion\n", c->id);
+            return -1;
+        }
+        p->nbCards --;
+        unassignIdCard(p,c);
+
+        // freeing the card
+
+        freeCard(c);
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project or card bad allocation\n");
+        return -1;
+    }
+}
+
+/**
+ * Automatically assign a free id to a link and set it as occupied in the idLinks array of a project
+ * @param p the project
+ * @param l the link
+ * @return 0 if it's a success, -1 if not
+ */
+int assignIdLink(Project* p, Link* l){
+    int i;
+    if (p != NULL && l != NULL){
+
+        for(i=0;i<MAXLINK;i++){
+            if(p->idLinks[i] == 0){
+                l->id = i;
+                p->idLinks[i] = 1;
+                return 0;
+            }
+        }
+
+        fprintf(stderr, "error : impossible to assign an id to the link\n");
+        return -1;
+
+    } else {
+        fprintf(stderr, "error : project or link bad allocation\n");
+        return -1;
+    }
+}
+
+/**
+ * Automatically unassign an id from a link => set it as unoccupied in the idLinks array of a project
+ * @param p the project
+ * @param l the link
+ */
+void unassignIdLink(Project* p, Link* l){
+
+    if (p != NULL && l != NULL){
+
+        p->idLinks[l->id] = 0;
+
+    } else {
+        fprintf(stderr, "error : project or link bad allocation\n");
+    }
 }
 
 /**
@@ -404,7 +572,20 @@ Link* addLink(Project* p, Card* parent, Card* child, linkType type){
 
     if (p != NULL && parent != NULL && child != NULL){
 
+        if(p->nbLinks >= MAXLINK){
+            fprintf(stderr, "error : maximum number of links in a project reached\n");
+            return NULL;
+        }
+
         Link* l = allocLink();
+
+        if(l == NULL){
+            fprintf(stderr, "error : link bad allocation\n");
+            return NULL;
+        }
+
+        initEmptyLink(l);
+
         setParent(l, parent);
         setChild(l, child);
         setLinkType(l, type);
@@ -414,6 +595,10 @@ Link* addLink(Project* p, Card* parent, Card* child, linkType type){
 
         insertEdgeLast(&p->linkList, l);
         p->nbLinks ++;
+        if(assignIdLink(p,l) != 0){
+            freeLink(l);
+            return NULL;
+        }
 
         return l;
 
@@ -447,6 +632,7 @@ int deleteLink(Project* p, Link* l){
             return -1;
         }
         p->nbLinks --;
+        unassignIdLink(p,l);
 
         freeLink(l);
 
@@ -675,7 +861,7 @@ int saveProject(Project* p){
                 fprintf(backupFile,".\n");
                 fprintf(backupFile, "%d;", p->cardList.current->card->id);
                 fprintf(backupFile, "%d;", p->cardList.current->card->type);
-                fprintf(backupFile, "%c;", p->cardList.current->card->number);
+                fprintf(backupFile, "%d;", p->cardList.current->card->number);
                 fprintf(backupFile, "%d;", p->cardList.current->card->fixedNumber);
                 fprintf(backupFile, "%d\n", p->cardList.current->card->image);
 
@@ -790,7 +976,7 @@ int loadProject(Project* p, char* path, char* name){
         while(bufferDot == '.'){
 
             c = allocCard();
-            fscanf(backupFile, "%d;%d;%c;%d;%d\n", c->id, c->type, c->number, c->fixedNumber, c->image);
+            fscanf(backupFile, "%d;%d;%d;%d;%d\n", c->id, c->type, c->number, c->fixedNumber, c->image);
 
             // add card c to the project p
 

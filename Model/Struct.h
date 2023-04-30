@@ -8,6 +8,7 @@
 #define MAXPATH 63
 #define MAXNAME 15
 #define MAXCARD 60
+#define MAXLINK 200
 #define TAILLEMAXID 4
 
 /**
@@ -98,7 +99,7 @@ typedef struct {
 struct Card{
     int id;
     cardType type;
-    char number;
+    int number;
     int fixedNumber;
     int image;
     VertexList discard;
@@ -123,13 +124,17 @@ struct Link {
 
 /**
  * A structure representing a unlock scenario project, created by a user from the software
+ * @var path : the absolute path of the project directory (without the name of the project)
+ * @var name : the name of the project
  * @var root : the root card of the unlock scenario (the unique face up card at the beginning of the game)
  * @var cardList : the list of all the cards of the project (the order have nothing to do with the order of discovering during the game)
  * @var nbCards : the number of cards of the project
+ * @var idCards : array to manage the id for each cards of the project
+ *                there is a 1 in a case of this array if the index of the case is an id for an existing card and o 0 if this id is free
  * @var linkList : the list of all the links of the project
  * @var nbLinks : the number of links of the project
- * @var path : the absolute path of the project directory (without the name of the project)
- * @var name : the name of the project
+ * @var idLinks : array to manage the id for each links of the project
+ *                there is a 1 in a case of this array if the index of the case is an id for an existing link and o 0 if this id is free
  * @var backImage : a boolean about the presence of a back image for the cards of the project
  *                  1 : a back image is present in a specific directory with the precise appropriate name
  *                  0 : no back image has been added yet
@@ -146,8 +151,10 @@ typedef struct {
     Card* root; /* points on the first element of the list */
     VertexList cardList;
     int nbCards;
+    int idCards[MAXCARD];
     EdgeList linkList;
     int nbLinks;
+    int idLinks[MAXLINK];
     int backImage; /* 1 : project's cards have a back image ; 0 : they have none ; Images have a precise name (to be chosen) */
     int topImage; /* 1 : project's cards have a top image ; 0 : they have none ; Images have a precise name (to be chosen) */
     int bottomImage; /* 1 : project's cards have a bottom image ; 0 : they have none ; Images have a precise name (to be chosen) */

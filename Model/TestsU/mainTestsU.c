@@ -114,7 +114,8 @@ int main(void){
 
 
     Project p1;
-    Card* c1;
+    Card *c1, *c2, *c3, *c4, *c5;
+    Link *l1, *l2, *l3, *l4;
 
     initProject(&p1, "/home/maxime/Documents","unlock1");
 
@@ -125,6 +126,24 @@ int main(void){
     c1 = addEmptyCard(&p1);
     setCardImage(&p1,c1, "/home/maxime/Pictures/IronMan.jpg");
     //setCardImage(&p1,c1, "/home/maxime/Pictures/IronMan.jpg");
+
+    c2 = addEmptyCard(&p1);
+    c3 = addEmptyCard(&p1);
+
+    deleteCard(&p1, c2);
+
+    c4 = addEmptyCard(&p1);
+    c5 = addEmptyCard(&p1);
+
+    l1 = addLink(&p1, c1, c3, DEFAULT);
+    l2 = addLink(&p1, c1, c5, DEFAULT);
+    l3 = addLink(&p1, c4, c5, COMBINE);
+
+    //l4 = addLink(&p1, c4, c2, DEFAULT);
+
+    deleteLink(&p1, l2);
+
+    deleteCard(&p1, c3);
 
     saveProject(&p1);
 
