@@ -9,6 +9,7 @@
 #define MAXNAME 15
 #define MAXCARD 60
 #define MAXLINK 200
+
 #define TAILLEMAXID 4
 
 /**

@@ -119,6 +119,51 @@ int initProject(Project* p, char* path, char* name){
     }
 }
 
+/**
+ * Initialize an empty project without create its directory tree (already exists)
+ * Set the id arrays to arrays of 0
+ * @param p the project to initialized
+ * @param path the absolute path of the project
+ * @param name the name of the project
+ * @return 0 if it's a success, -1 if not
+ */
+int initProjectForLoad(Project* p, char* path, char* name){
+
+    int i;
+
+    if (p != NULL ){
+
+        strncpy(p->path, path, MAXPATH);
+        p->path[MAXPATH] = '\0';
+        strncpy(p->name, name, MAXNAME);
+        p->name[MAXNAME] = '\0';
+
+        p->root = NULL;
+
+        initEmptyVertexList(&p->cardList);
+        p->nbCards = 0;
+        for(i=0;i<MAXCARD;i++){
+            p->idCards[i] = 0;
+        }
+
+        initEmptyEdgeList(&p->linkList);
+        p->nbLinks = 0;
+        for(i=0;i<MAXLINK;i++){
+            p->idLinks[i] = 0;
+        }
+
+        p->backImage = 0;
+        p->topImage = 0;
+        p->bottomImage = 0;
+
+        return 0;
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return -1;
+    }
+}
+
 
 /**
  * Free every structures (cards, links, vertexList,...) contained by a project
@@ -298,7 +343,9 @@ void setRoot(Project* p, Card* root){
  * @return 0 if it's a success, -1 if not
  */
 int assignIdCard(Project* p, Card* c){
+
     int i;
+
     if (p != NULL && c != NULL){
 
         for(i=0;i<MAXCARD;i++){
@@ -311,6 +358,37 @@ int assignIdCard(Project* p, Card* c){
 
         fprintf(stderr, "error : impossible to assign an id to the card\n");
         return -1;
+
+    } else {
+        fprintf(stderr, "error : project or card bad allocation\n");
+        return -1;
+    }
+}
+
+/**
+ * Assign a given id (verify it is free) to a card and set it as occupied in the idCards array of a project
+ * @param p the project
+ * @param c the card
+ * @param id the id to assign
+ * @return 0 if it's a success, -1 if not
+ */
+int assignGivenIdCard(Project* p, Card* c, int id){
+
+    if (p != NULL && c != NULL){
+
+        if(id < 0 && id >= MAXCARD){
+            fprintf(stderr, "error :  the given id hasn't a correct value\n");
+            return -1;
+        }
+
+        if(p->idCards[id] == 0) {
+            c->id = id;
+            p->idCards[id] = 1;
+            return 0;
+        } else {
+            fprintf(stderr, "error : impossible to assign the given id to the card (already used)\n");
+            return -1;
+        }
 
     } else {
         fprintf(stderr, "error : project or card bad allocation\n");
@@ -385,6 +463,60 @@ Card* addEmptyCard(Project* p){
         if ( mkdir(pathCardDirectory, 0755 ) != 0 ) {
             fprintf( stderr, "error : creation of the directory %s is impossible\n", pathCardDirectory);
             fprintf(stderr,"%d\n", errno);
+            freeCard(c);
+            return NULL;
+        }
+
+        return c;
+
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return NULL;
+    }
+}
+
+/**
+ * Create and add a card to a project when it is loaded from a .txt file
+ * Don't create a directory for the card (already existed)
+ * The id of the card created is the given id
+ * @param p the project
+ * @param id the id of the new card
+ * @param type the type of the new card
+ * @param number the number of the new card
+ * @param fixedNumber the enable fixedNumber of the new card
+ * @param image the enable image of the new card
+ * @return a pointer towards the created card
+ */
+Card* addCardForLoad(Project* p, int id, cardType type, int number, int fixedNumber, int image){
+
+    if (p != NULL){
+
+        if(p->nbCards >= MAXCARD){
+            fprintf(stderr, "error : maximum number of cards in a project reached\n");
+            return NULL;
+        }
+
+        Card* c = allocCard();
+
+        if(c == NULL){
+            fprintf(stderr, "error : card bad allocation\n");
+            return NULL;
+        }
+
+        initEmptyCard(c);
+
+        // filling the card
+
+        c->type = type;
+        c->number = number;
+        c->fixedNumber = fixedNumber;
+        c->image = image;
+
+        // adding the card to the project
+
+        insertVertexLast(&p->cardList, c);
+        p->nbCards ++;
+        if(assignGivenIdCard(p,c,id) != 0){
             freeCard(c);
             return NULL;
         }
@@ -509,6 +641,7 @@ int deleteCard(Project* p, Card* c){
         // freeing the card
 
         freeCard(c);
+        //c = NULL;
 
         return 0;
 
@@ -541,6 +674,37 @@ int assignIdLink(Project* p, Link* l){
 
     } else {
         fprintf(stderr, "error : project or link bad allocation\n");
+        return -1;
+    }
+}
+
+/**
+ * Assign a given id (verify it is free) to a link and set it as occupied in the idLinks array of a project
+ * @param p the project
+ * @param l the link
+ * @param id the id to assign
+ * @return 0 if it's a success, -1 if not
+ */
+int assignGivenIdLink(Project* p, Link* l, int id){
+
+    if (p != NULL && l != NULL){
+
+        if(id < 0 && id >= MAXLINK){
+            fprintf(stderr, "error :  the given id hasn't a correct value\n");
+            return -1;
+        }
+
+        if(p->idLinks[id] == 0) {
+            l->id = id;
+            p->idLinks[id] = 1;
+            return 0;
+        } else {
+            fprintf(stderr, "error : impossible to assign the given id to the link (already used)\n");
+            return -1;
+        }
+
+    } else {
+        fprintf(stderr, "error : project or card bad allocation\n");
         return -1;
     }
 }
@@ -586,16 +750,78 @@ Link* addLink(Project* p, Card* parent, Card* child, linkType type){
 
         initEmptyLink(l);
 
+        // filling the link
+
         setParent(l, parent);
         setChild(l, child);
         setLinkType(l, type);
 
+        // adding the link to the link list of the cards parent and child
+
         insertEdgeLast(&parent->children, l);
         insertEdgeLast(&child->parents, l);
+
+        // adding the link to the project
 
         insertEdgeLast(&p->linkList, l);
         p->nbLinks ++;
         if(assignIdLink(p,l) != 0){
+            freeLink(l);
+            return NULL;
+        }
+
+        return l;
+
+    } else {
+        fprintf(stderr, "error : project or parent card or child card bad allocation\n");
+        return NULL;
+    }
+}
+
+/**
+ * Create and add a link between 2 cards of a project
+ * The id of the link created is the given id
+ * @param p the project
+ * @param id the given id for the new link
+ * @param type the type of the new link
+ * @param parent the parent card of the new link
+ * @param child the child card of the new link
+ * @return a pointer towards the link created
+ */
+Link* addLinkForLoad(Project* p, int id, linkType type, Card* parent, Card* child){
+
+    if (p != NULL && parent != NULL && child != NULL){
+
+        if(p->nbLinks >= MAXLINK){
+            fprintf(stderr, "error : maximum number of links in a project reached\n");
+            return NULL;
+        }
+
+        Link* l = allocLink();
+
+        if(l == NULL){
+            fprintf(stderr, "error : link bad allocation\n");
+            return NULL;
+        }
+
+        initEmptyLink(l);
+
+        // filling the link
+
+        setLinkType(l, type);
+        setParent(l, parent);
+        setChild(l, child);
+
+        // adding the link to the link list of the cards parent and child
+
+        insertEdgeLast(&parent->children, l);
+        insertEdgeLast(&child->parents, l);
+
+        // adding the link to the project
+
+        insertEdgeLast(&p->linkList, l);
+        p->nbLinks ++;
+        if(assignGivenIdLink(p,l,id) != 0){
             freeLink(l);
             return NULL;
         }
@@ -920,91 +1146,131 @@ int saveProject(Project* p){
  * Load a project from a [projectName].txt in the /[projectPath] directory
  * The information stored has to respect a precise and specific pattern in order to be well read
  * Allocate and fill all the needed structures in order to restore the state of the project when he was saved
- * @param p the project to load
- * @return 0 if it's a success, -1 if not
+ * @param path the path of the directory tree of project to load
+ * @param name the name of the project to load
+ * @return the project filled if it's a success, NULL if not
  */
-int loadProject(Project* p, char* path, char* name){
+Project* loadProject(char* path, char* name){
+
+    Project* p = NULL;
+    Card* bufferParent = NULL;
+    Card* bufferChild = NULL;
 
     char pathBackupFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
-    FILE* backupFile;
+    FILE* backupFile = NULL;
 
-    char bufferFormat[35];
-    int bufferRoot;
+    int lengthFormat = 34;
+    char bufferFormat[lengthFormat+1];
     char bufferDot;
 
-    Card* c = NULL;
+    int bufferRootId;
 
+    int bufferCardId;
+    int bufferCardType;
+    int bufferCardNumber;
+    int bufferCardFixedNumber;
+    int bufferCardImage;
+
+    int bufferLinkId;
     int bufferLinkType;
     int bufferParentId;
     int bufferChildId;
 
-    if (p != NULL) {
+    p = allocProject();
 
-        strncpy(p->path, path, MAXPATH);
-        strncpy(p->name, name, MAXNAME);
-
-        // construction of the backup file path
-
-        strncpy(pathBackupFile, p->path, MAXPATH);
-        strcat(pathBackupFile, "/");
-        strncat(pathBackupFile, p->name, MAXNAME);
-        strcat(pathBackupFile, "/");
-        strncat(pathBackupFile, p->name, MAXNAME);
-        strcat(pathBackupFile,".txt");
-
-        // opening the backup file
-
-        if((backupFile = fopen(pathBackupFile,"r")) == (FILE*) NULL){
-            fprintf(stderr, "error : impossible to open the backup file\n");
-            perror("msg : ");
-            return -1;
-        }
-
-        // reading the backup file and completion of a project
-
-        fscanf(backupFile, "%s\n", &bufferFormat);
-        if(strncmp(bufferFormat, "backup file for a Unlock project :", 35) != 0){
-            fprintf(stderr, "error : backup file format is wrong\n");
-            fclose(backupFile);
-            return -1;
-        }
-
-        fscanf(backupFile, "%d;%d;%d;%d\n", bufferRoot, p->backImage, p->topImage, p->bottomImage);
-
-        fscanf(backupFile, "%c\n", &bufferDot);
-
-        while(bufferDot == '.'){
-
-            c = allocCard();
-            fscanf(backupFile, "%d;%d;%d;%d;%d\n", c->id, c->type, c->number, c->fixedNumber, c->image);
-
-            // add card c to the project p
-
-            fscanf(backupFile, "%c\n", &bufferDot);
-        }
-
-        // setRoot
-
-        fscanf(backupFile, "%c\n", &bufferDot);
-
-        while(bufferDot == '.'){
-
-            fscanf(backupFile, "%d;%d;%d;%d\n", bufferLinkType, bufferLinkType, bufferParentId, bufferChildId);
-
-
-
-            fscanf(backupFile, "%c\n", &bufferDot);
-        }
-
-
-        fclose(backupFile);
-
-        return 0;
-
-    } else {
+    if(p == NULL){
         fprintf(stderr, "error : project bad allocation\n");
-        return -1;
+        return NULL;
     }
+
+    initProjectForLoad(p, path, name);
+
+    // construction of the backup file path
+
+    strncpy(pathBackupFile, p->path, MAXPATH);
+    strcat(pathBackupFile, "/");
+    strncat(pathBackupFile, p->name, MAXNAME);
+    strcat(pathBackupFile, "/");
+    strncat(pathBackupFile, p->name, MAXNAME);
+    strcat(pathBackupFile,".txt");
+
+    // opening the backup file
+
+    if((backupFile = fopen(pathBackupFile,"r")) == (FILE*) NULL){
+        fprintf(stderr, "error : impossible to open the backup file\n");
+        perror("msg : ");
+        return NULL;
+    }
+
+    // reading the backup file and completion of a project
+
+    // checking the format (the first line of the text file)
+
+    fgets(bufferFormat, lengthFormat+1, backupFile);
+    if(strncmp(bufferFormat, "backup file for a unlock project :", lengthFormat+1) != 0){
+        fprintf(stderr, "error : backup file format is wrong\n");
+        fclose(backupFile);
+        return NULL;
+    }
+
+    // filling data for the project
+
+    fscanf(backupFile, "%d;%d;%d;%d\n", &bufferRootId, &p->backImage, &p->topImage, &p->bottomImage);
+
+    // filling data for each card
+
+    fscanf(backupFile, "%c\n", &bufferDot);
+
+    while(bufferDot == '.'){
+
+        fscanf(backupFile, "%d;%d;%d;%d;%d\n",
+               &bufferCardId, &bufferCardType, &bufferCardNumber,&bufferCardFixedNumber, &bufferCardImage);
+
+        addCardForLoad(p,bufferCardId, bufferCardType, bufferCardNumber,
+                           bufferCardFixedNumber, bufferCardImage);
+
+        fscanf(backupFile, "%c\n", &bufferDot);
+    }
+
+    // setting root card of the project
+
+    setOnFirstVertex(&p->cardList);
+    while(!isOutOfListVertex(&p->cardList)){
+        if(p->cardList.current->card->id == bufferRootId){
+            p->root = p->cardList.current->card;
+            break;
+        }
+        setOnNextVertex(&p->cardList);
+    }
+
+    // filling data for each link
+
+    fscanf(backupFile, "%c\n", &bufferDot);
+
+    while(bufferDot == '.'){
+
+        fscanf(backupFile, "%d;%d;%d;%d\n", &bufferLinkId, &bufferLinkType, &bufferParentId, &bufferChildId);
+
+        setOnFirstVertex(&p->cardList);
+        while(!isOutOfListVertex(&p->cardList)){
+            if(p->cardList.current->card->id == bufferParentId){
+                bufferParent = p->cardList.current->card;
+            } else if(p->cardList.current->card->id == bufferChildId){
+                bufferChild = p->cardList.current->card;
+            }
+            setOnNextVertex(&p->cardList);
+        }
+
+        addLinkForLoad(p, bufferLinkId, bufferLinkType, bufferParent, bufferChild);
+
+        fscanf(backupFile, "%c\n", &bufferDot);
+    }
+
+    // closing the backup file
+
+    fclose(backupFile);
+
+    return p;
 }
 
 /**
