@@ -3,10 +3,14 @@ project(UnlockMaker C)
 
 set(CMAKE_C_STANDARD 99)
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -pedantic-errors")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
+
+# VIEW EXECUTABLE
+
+add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c)
 
 # MAIN EXECUTABLE
 
@@ -19,6 +23,7 @@ pkg_check_modules(GTK4 REQUIRED gtk4)
 add_executable(UnlockMaker
         Model/main.c Model/Struct.h
         Model/Project.h Model/Project.c
+        Model/algo.h Model/algo.c
         Model/Vertex.h Model/Vertex.c
         Model/VertexList.h Model/VertexList.c
         Model/Card.h Model/Card.c
@@ -26,10 +31,10 @@ add_executable(UnlockMaker
         Model/EdgeList.h Model/EdgeList.c
         Model/Link.h Model/Link.c)
 
-target_link_libraries(UnlockMaker ${GLIB_LIBRARIES})
-target_link_libraries(UnlockMaker ${GTK4_LIBRARIES})
-target_include_directories(UnlockMaker PUBLIC ${GTK4_INCLUDE_DIRS})
-target_compile_options(UnlockMaker PUBLIC ${GTK4_CFLAGS_OTHER})
+target_link_libraries(UnlockView ${GLIB_LIBRARIES})
+target_link_libraries(UnlockView ${GTK4_LIBRARIES})
+target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
+target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
 
 # UNIT TESTS EXECUTABLE
 
@@ -43,7 +48,8 @@ add_executable(UnlockMakerTestsU
         Model/Edge.h Model/Edge.c Model/TestsU/EdgeTestsU.h Model/TestsU/EdgeTestsU.c
         Model/EdgeList.h Model/EdgeList.c Model/TestsU/EdgeListTestsU.h Model/TestsU/EdgeListTestsU.c
         Model/Link.h Model/Link.c Model/TestsU/LinkTestsU.h Model/TestsU/LinkTestsU.c
-        Model/Project.h Model/Project.c)
+        Model/Project.h Model/Project.c
+        Model/algo.h Model/algo.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)
 
