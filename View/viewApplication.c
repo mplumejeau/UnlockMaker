@@ -81,9 +81,11 @@ void openStartingWindow(GtkBuilder *builder, GObject *mainWindow) {
     startWindow = gtk_builder_get_object(builder, "startWindow");
     newProjectButton = gtk_builder_get_object(builder, "newProjectButton");
     gtk_window_set_default_size(GTK_WINDOW(startWindow), 300, 200);
+    //Création du projet
+    g_signal_connect(newProjectButton, "clicked", G_CALLBACK(createNewProject_cb), NULL);
     g_signal_connect_swapped(newProjectButton, "clicked", G_CALLBACK(unminimizeWindow_cb), mainWindow);
     g_signal_connect_swapped(newProjectButton, "clicked", G_CALLBACK(destroyWindow_cb), startWindow);
-    //Création du projet
+
     gtk_widget_show(GTK_WIDGET (startWindow));
 }
 
