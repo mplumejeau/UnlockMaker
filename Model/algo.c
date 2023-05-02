@@ -8,6 +8,7 @@
 #include "algo.h"
 #include "VertexList.h"
 #include "Card.h"
+#include "EdgeList.h"
 
 /**
  * Run an algorithm to check that there is no loops in the graph structure of a project
@@ -35,6 +36,26 @@ int checkLoops(Project* p) {
             }
             // Add the current card to the visited list
             insertVertexLast(&visitedCards, currentCard);
+
+            /*
+            setOnFirstEdge(&currentCard->children);
+
+            while(!isOutOfListEdge(&currentCard->children)){
+
+                Card* linkedCard = currentCard->children.current->link->child;
+
+                // Check if the linked card has already been visited
+                if (findCard(&visitedCards, linkedCard) != 0) {
+                    // If the card has already been visited, return 1 to indicate a loop
+                    return 1;
+                }
+
+                // Add the linked card to the visited list
+                insertVertexLast(&visitedCards, linkedCard);
+
+                setOnNextEdge(&currentCard->children);
+            }
+             */
 
             // Check all links of the current card
             for (int i = 0; i < currentCard->nbLinks; i++) {
