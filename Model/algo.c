@@ -1,10 +1,12 @@
 //
 // Created by miniya on 16/04/23.
 //
+
+#include <stdio.h>
 #include <stddef.h>
+
 #include "algo.h"
 #include "VertexList.h"
-#include "Struct.h"
 #include "Card.h"
 
 /**
@@ -14,10 +16,13 @@
  */
 
 
-    int checkLoops(Project* p) {
-        // Initialize the vertex list to keep track of visited cards
-        VertexList visitedCards;
-        initEmptyVertexList(&visitedCards);
+int checkLoops(Project* p) {
+
+    // Initialize the vertex list to keep track of visited cards
+    VertexList visitedCards;
+    initEmptyVertexList(&visitedCards);
+
+    if (p != NULL ){
 
         // Set the current card to the root of the project
         Card* currentCard = p->root;
@@ -52,9 +57,11 @@
         }
         // No loops were found, return 0
         return 0;
-    }
 
-    return -1;
+    } else {
+        fprintf(stderr, "error : project bad allocation\n");
+        return -1;
+    }
 }
 
 /**

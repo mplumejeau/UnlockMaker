@@ -42,10 +42,4 @@ int saveProject(Project* p);
 Project* loadProject(char* path, char* name);
 int createPrintable(Project* p);
 
-int checkLoops(Project* p);
-
-void runCompatibility(Project* p);
-void runDiscard(Project* p);
-int assignNumbers(Project* p);
-
 #endif /*UNLOCKMAKER_PROJECT_H*/

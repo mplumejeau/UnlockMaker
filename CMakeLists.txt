@@ -10,7 +10,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 
 # VIEW EXECUTABLE
 
-add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c)
+# add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c)
 
 # MAIN EXECUTABLE
 
@@ -31,10 +31,10 @@ add_executable(UnlockMaker
         Model/EdgeList.h Model/EdgeList.c
         Model/Link.h Model/Link.c)
 
-target_link_libraries(UnlockView ${GLIB_LIBRARIES})
-target_link_libraries(UnlockView ${GTK4_LIBRARIES})
-target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
-target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
+#target_link_libraries(UnlockView ${GLIB_LIBRARIES})
+#target_link_libraries(UnlockView ${GTK4_LIBRARIES})
+#target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
+#target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
 
 # UNIT TESTS EXECUTABLE
 

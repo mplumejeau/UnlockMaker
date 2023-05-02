@@ -1283,38 +1283,3 @@ Project* loadProject(char* path, char* name){
 int createPrintable(Project* p){
     return -1;
 }
-
-/**
- * Run an algorithm to check that there is no loops in the graph structure of a project
- * @param p the project to check
- * @return 1 if there are loops, 0 if there isn't
- */
-int checkLoops(Project* p){
-    return -1;
-}
-
-/**
- * Run an algorithm to fill every card's compatibility list
- * @param p the project
- */
-void runCompatibility(Project* p){
-
-}
-
-/**
- * Run an algorithm to fill every card's discard list
- * @param p the project
- */
-void runDiscard(Project* p){
-
-}
-
-/**
- * Run an algorithm to automatically assign a number between 1 and 99 to every card that hasn't a number yet
- * Must take in account that several specific numbers may have been already assigned by the user
- * @param p the project
- * @return 0 if it's a success, -1 if not
- */
-int assignNumbers(Project* p){
-    return -1;
-}
