@@ -23,6 +23,8 @@ void selectCard(GtkWidget *widget);
 
 void openModifyCardWindow(gpointer data);
 
+void entryPropertiesFromCheck(GtkWidget *checkButton, gpointer entry);
+
 void openStartingWindow(GtkBuilder *builder, GObject *mainWindow);
 
 void destroyWindow_cb(gpointer window);
@@ -36,5 +38,7 @@ void modifyInfoPanel(char* text);
 void onDestroy(GtkWidget *widget, gpointer data);
 
 void onDestroySecondWindow(GtkWidget *widget, gpointer data);
+
+int exportPNGGraphFromFile(char* dataInput, char* PNGOutput);
 
 #endif //UNLOCKMAKER_VIEWAPPLICATION_H

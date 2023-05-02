@@ -4,6 +4,7 @@
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>
 #include <string.h>
+#include <graphviz/gvc.h>
 
 #include "viewApplication.h"
 
@@ -49,15 +50,28 @@ void selectCard(GtkWidget *widget) {
 void openModifyCardWindow(gpointer data) {
     if(secondWindowOpen == 0) {
         GtkBuilder *builder = gtk_builder_new();
+        GObject *modifWindow, *colorList, *numberCheck, *numberEntry;
         gtk_builder_add_from_file(builder, "../View/viewBuilder.ui", NULL);
-        GObject *modifWindow;
         modifWindow = gtk_builder_get_object(builder, "modifWindow");
-        gtk_window_set_default_size(GTK_WINDOW(modifWindow), 700, 400);
+        numberCheck = gtk_builder_get_object(builder, "numberCheck");
+        numberEntry = gtk_builder_get_object(builder, "numberEntry");
+        //Récupérer les informations de la carte pour initialiser les valeurs
+        entryPropertiesFromCheck(GTK_WIDGET(numberCheck), numberEntry);
+        g_signal_connect(GTK_WIDGET(numberCheck), "toggled", G_CALLBACK(entryPropertiesFromCheck), numberEntry);
+        //colorList = gtk_builder_get_object(builder, "colorList");
+        //gtk_string_list_append(GTK_STRING_LIST(colorList), "Pink");
+        gtk_window_set_default_size(GTK_WINDOW(modifWindow), 300, 700);
+        gtk_window_set_resizable(GTK_WINDOW(modifWindow),false);
         g_signal_connect(modifWindow, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
         secondWindowOpen = 1;
         gtk_widget_show(GTK_WIDGET (modifWindow));
         g_object_unref(builder);
     }
+}
+
+void entryPropertiesFromCheck(GtkWidget *checkButton, gpointer entry) {
+    gboolean active = gtk_check_button_get_active(GTK_CHECK_BUTTON(checkButton));
+    gtk_widget_set_can_target(GTK_WIDGET(entry), active);
 }
 
 void openStartingWindow(GtkBuilder *builder, GObject *mainWindow) {
@@ -94,6 +108,43 @@ void onDestroy(GtkWidget *widget, gpointer data) {
 
 void onDestroySecondWindow(GtkWidget *widget, gpointer data) {
     secondWindowOpen = 0;
+}
+
+//projectPath unused if newProject == 1
+void initGraphViz(int newProject, char* projectPath /* Or a pointer to the project */) {
+    //create a text file
+    //if newProject == 0 then fill it with the data from the project
+    //update the graph on the view
+}
+
+//this function must be called at every modification/addition/suppression of any Card/link
+void updateImageGraphViz() {
+    //call exportPNGGraphFromFile to create the new PNG image
+    //display it on the screen with gtk_image_set_from_file(Gtk_Image *image, char* filename);
+}
+
+/**
+ * Takes a text file in the format of graphviz and exports it on a png format
+ * @param graphInput The input file containing the text graph data
+ * @param PNGoutput The output file containing the PNG graph image
+ * @return 1 if the function was successful, 0 otherwise
+ */
+int exportPNGGraphFromFile(char* dataInput, char* PNGOutput) {
+    Agraph_t *g;
+    GVC_t *gvc;
+    gvc = gvContext();
+    //g = agopen("G", Agdirected, NULL);
+    FILE *fp = NULL;
+    fp = fopen(dataInput, "r");
+    if(fp == NULL) return 0;
+    g = agread(fp, NULL);
+    gvLayout(gvc, g, "dot");
+    gvRenderFilename(gvc, g, "png", PNGOutput);
+    gvFreeLayout(gvc,g);
+    agclose(g);
+    gvFreeContext(gvc);
+    fclose(fp);
+    return 1;
 }
 
 void activate(GtkApplication *app, gpointer user_data) {

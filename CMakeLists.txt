@@ -18,7 +18,7 @@ add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mai
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
-
+pkg_check_modules(LIBGVC REQUIRED libgvc)
 
 add_executable(UnlockMaker
         Model/main.c Model/Struct.h
@@ -35,6 +35,9 @@ target_link_libraries(UnlockView ${GLIB_LIBRARIES})
 target_link_libraries(UnlockView ${GTK4_LIBRARIES})
 target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
 target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
+target_link_libraries(UnlockView ${LIBGVC_LIBRARIES})
+target_include_directories(UnlockView PUBLIC ${LIBGVC_INCLUDE_DIRS})
+target_compile_options(UnlockView PUBLIC ${LIBGVC_CFLAGS_OTHER})
 
 # UNIT TESTS EXECUTABLE
 
