@@ -12,6 +12,20 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 
 add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c)
 
+# CONTROLLER EXECUTABLE
+
+add_executable(UnlockControl
+        Controller/Controller.c Controller/Controller.h
+        View/viewApplication.c View/viewApplication.h
+        Model/Project.h Model/Project.c
+        Model/algo.h Model/algo.c
+        Model/Vertex.h Model/Vertex.c
+        Model/VertexList.h Model/VertexList.c
+        Model/Card.h Model/Card.c
+        Model/Edge.h Model/Edge.c
+        Model/EdgeList.h Model/EdgeList.c
+        Model/Link.h Model/Link.c)
+
 # MAIN EXECUTABLE
 
 # a decommenter pour utiliser gtk
@@ -38,6 +52,14 @@ target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
 target_link_libraries(UnlockView ${LIBGVC_LIBRARIES})
 target_include_directories(UnlockView PUBLIC ${LIBGVC_INCLUDE_DIRS})
 target_compile_options(UnlockView PUBLIC ${LIBGVC_CFLAGS_OTHER})
+
+target_link_libraries(UnlockControl ${GLIB_LIBRARIES})
+target_link_libraries(UnlockControl ${GTK4_LIBRARIES})
+target_include_directories(UnlockControl PUBLIC ${GTK4_INCLUDE_DIRS})
+target_compile_options(UnlockControl PUBLIC ${GTK4_CFLAGS_OTHER})
+target_link_libraries(UnlockControl ${LIBGVC_LIBRARIES})
+target_include_directories(UnlockControl PUBLIC ${LIBGVC_INCLUDE_DIRS})
+target_compile_options(UnlockControl PUBLIC ${LIBGVC_CFLAGS_OTHER})
 
 # UNIT TESTS EXECUTABLE
 

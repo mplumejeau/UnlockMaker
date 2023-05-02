@@ -8,6 +8,8 @@
 
 #include "viewApplication.h"
 
+#include "../Controller/Controller.h"
+
 static int secondWindowOpen = 0;
 static GtkWidget *cardSelected = NULL;
 static GObject *infoPanel = NULL;
@@ -179,10 +181,12 @@ void activate(GtkApplication *app, gpointer user_data) {
     /*button = addGenericButton(button, builder, "buttonColor");
     g_signal_connect_swapped (button, "clicked", G_CALLBACK(changeColorPink), gtk_builder_get_object(builder, "grid"));*/
 
+    g_signal_connect(window, "destroy", G_CALLBACK(closeProject), NULL);
     g_signal_connect(window, "destroy", G_CALLBACK(onDestroy), NULL);
 
     button = addGenericButton(button, builder, "BtnAddCard");
     box = gtk_builder_get_object(builder, "CardBox");
+    g_signal_connect(button, "clicked", G_CALLBACK(addNewCard),NULL);
     g_signal_connect_swapped(button, "clicked", G_CALLBACK(newCard), box);
 
     infoPanel = gtk_builder_get_object(builder, "infoPanel");
