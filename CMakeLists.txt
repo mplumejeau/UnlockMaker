@@ -23,6 +23,7 @@ pkg_check_modules(GTK4 REQUIRED gtk4)
 add_executable(UnlockMaker
         Model/main.c Model/Struct.h
         Model/Project.h Model/Project.c
+        Model/algo.h Model/algo.c
         Model/Vertex.h Model/Vertex.c
         Model/VertexList.h Model/VertexList.c
         Model/Card.h Model/Card.c
@@ -47,7 +48,8 @@ add_executable(UnlockMakerTestsU
         Model/Edge.h Model/Edge.c Model/TestsU/EdgeTestsU.h Model/TestsU/EdgeTestsU.c
         Model/EdgeList.h Model/EdgeList.c Model/TestsU/EdgeListTestsU.h Model/TestsU/EdgeListTestsU.c
         Model/Link.h Model/Link.c Model/TestsU/LinkTestsU.h Model/TestsU/LinkTestsU.c
-        Model/Project.h Model/Project.c)
+        Model/Project.h Model/Project.c
+        Model/algo.h Model/algo.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)
 
