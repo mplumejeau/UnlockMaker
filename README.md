@@ -1,7 +1,7 @@
 # Unlock maker
 
 ## Description
-This README aims to introduce new people to be able to work on the Unlock Project. You will see here how to install the needed libraries to run the program : gtk and glib. This project is developped on CLion and uses a CMakeLists for its compiling.
+This README aims to introduce new people to be able to work on the Unlock Project. You will see here how to install the needed libraries to run the program : gtk, glib, cmocka and graphviz. This project is developped on CLion and uses a CMakeLists for its compiling.
 
 ## File organization
 This project's files are sorted into 3 main directories : Model, View, and Controller. Any file you will add to this project must be tied to one of these 3 directories and thus put in it.
@@ -16,7 +16,7 @@ For the moment, we're working on several different git branches.
 This section will be updated when visuals will get more advanced.
 
 ## Installation (on Ubuntu)
-#### GTK4 :
+#### GTK4 + Glib :
 
 If you want to modify the application, as a developer, and be able to build and run a project or just use the application we have created, the gtk4 libraries are required.
 
@@ -40,3 +40,8 @@ To get them you need to install the gtk4 packages.
 #### CMocka :
  
 To get the cmocka library, repeat the same steps with the following command : `$ sudo apt-get install libcmocka-dev`
+
+#### GraphViz
+
+To get the Graphviz library, tap following command on the terminal : `$ pip install graphviz`
+

@@ -44,11 +44,6 @@
               </object>
             </child>
             <child>
-              <object id="buttonHello" class="GtkButton">
-                <property name="label">Hello</property>
-              </object>
-            </child>
-            <child>
               <object id="Quit" class="GtkButton">
                 <property name="label">Quitter</property>
               </object>
@@ -274,7 +269,6 @@
         </child>
         <child>
           <object id="GraphViewer" class="GtkImage">
-            <property name="file">../View/image.png</property>
             <layout>
               <property name="column">7</property>
               <property name="row">11</property>
@@ -346,7 +340,7 @@
                 <property name="lines">5</property>
                 <property name="wrap">True</property>
                 <property name="yalign">0.1</property>
-                <property name="label">Example text : [Sélectionner la carte à modifier]</property>
+                <property name="label">Aucune carte selectionnée</property>
                 <property name="name">infoLabel</property>
             </object>
             </child>
@@ -378,9 +372,9 @@
               <object id="colorList" class="GtkStringList">
                 <items>
                   <item translatable="yes">Gris</item>
+                  <item translatable="yes">Bleu</item>
                   <item translatable="yes">Rouge</item>
                   <item translatable="yes">Vert</item>
-                  <item translatable="yes">Bleu</item>
                 </items>
               </object>
             </property>

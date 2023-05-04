@@ -7,8 +7,6 @@
 
 typedef enum {CARD, LINK} buttonType;
 
-void print_csl(GtkWidget *widget, gpointer data);
-
 void quit_cb(GtkWindow *window);
 
 void activate(GtkApplication *app, gpointer user_data);
@@ -17,28 +15,26 @@ void load_css();
 
 GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id);
 
-void newCard(gpointer data);
-
-void selectCard(GtkWidget *widget);
-
 void openModifyCardWindow(gpointer data);
 
 void entryPropertiesFromCheck(GtkWidget *checkButton, gpointer entry);
 
 void openStartingWindow(GtkBuilder *builder, GObject *mainWindow);
 
+void cardColorUserChange_cb(GtkWidget *widget, gpointer data);
+
 void destroyWindow_cb(gpointer window);
 
-void unminimizeWindow_cb(gpointer window);
+void openWindow_cb(gpointer window);
 
 void openProjectSearchWindow(GtkBuilder *builder);
 
 void modifyInfoPanel(char* text);
 
-void onDestroy(GtkWidget *widget, gpointer data);
-
 void onDestroySecondWindow(GtkWidget *widget, gpointer data);
 
-int exportPNGGraphFromFile(char* dataInput, char* PNGOutput);
+void changeCenterImagePath(char* path);
+
+void reloadCenterImage();
 
 #endif //UNLOCKMAKER_VIEWAPPLICATION_H
