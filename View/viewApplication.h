@@ -15,13 +15,13 @@ void load_css();
 
 GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id);
 
-void openModifyCardWindow(gpointer data);
+void openModifyCardWindow_cb(gpointer data);
 
 void entryPropertiesFromCheck(GtkWidget *checkButton, gpointer entry);
 
 void openStartingWindow(GtkBuilder *builder, GObject *mainWindow);
 
-void cardColorUserChange_cb(GtkWidget *widget, gpointer data);
+void cardColorUserChange_cb(GtkWidget *widget);
 
 void destroyWindow_cb(gpointer window);
 
@@ -33,8 +33,12 @@ void modifyInfoPanel(char* text);
 
 void onDestroySecondWindow(GtkWidget *widget, gpointer data);
 
-void changeCenterImagePath(char* path);
+void setCenterImagePath(char* path);
 
 void reloadCenterImage();
+
+void disableRightCardButtons();
+
+void enableRightCardButtons();
 
 #endif //UNLOCKMAKER_VIEWAPPLICATION_H

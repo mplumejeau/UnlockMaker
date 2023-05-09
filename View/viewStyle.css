@@ -107,15 +107,15 @@ button:active
    box-shadow: 0 9px #999;
 }
 
-#CombLinkBtn
+#UnselectedCombLinkBtn
 {
-   background-color: #00CCCC;
+   background-color: #DA70D6;
    margin-bottom: 1px;
    border-radius: 1px;
    margin-right: 18px;
 }
 
-#HintLinkBtn
+#UnselectedHintLinkBtn
 {
    background-color: #FF8000;
    margin-bottom: 1px;
@@ -123,15 +123,15 @@ button:active
    margin-right: 18px;
 }
 
-#FixedLinkBtn
+#UnselectedFixedLinkBtn
 {
-   background-color: #B3B3B3;
+   background-color: #00CDCD;
    margin-bottom: 1px;
    border-radius: 1px;
    margin-right: 18px;
 }
 
-#FoundLinkBtn
+#UnselectedFoundLinkBtn
 {
    background-color: #000000;
    margin-bottom: 1px;
@@ -139,23 +139,45 @@ button:active
    color: #FFFFFF;
    margin-right: 18px;
 }
-#RedCardBtn
+#UnselectedRedCardBtn
 {
-   background-color: red;
+   background-color: #EE0000;
    margin-bottom: 1px;
    border-radius: 1px;
    margin-right: 18px;
 }
 
-#BlueCardBtn
+#SelectedRedCardBtn
 {
-   background-color: blue;
+   background-color: #EE0000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#UnselectedBlueCardBtn
+{
+   background-color: #0000CD;
    margin-bottom: 1px;
    border-radius: 1px;
    margin-right: 18px;
 }
 
-#GreyCardBtn
+#SelectedBlueCardBtn
+{
+   background-color: #0000CD;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#UnselectedGreyCardBtn
 {
    background-color: grey;
    margin-bottom: 1px;
@@ -163,21 +185,74 @@ button:active
    margin-right: 18px;
 }
 
-#GreenCardBtn
+#SelectedGreyCardBtn
 {
-   background-color: green;
+   background-color: grey;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#UnselectedGreenCardBtn
+{
+   background-color: #00BD00;
    margin-bottom: 1px;
    border-radius: 1px;
    margin-right: 18px;
 }
 
-#CardWindow
+#SelectedGreenCardBtn
+{
+   background-color: #00BD00;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#LeftWindow
 {
    border-style: solid;
    border-color: black;
    border-width: 2px;
    border-radius: 1px;
    background-color: #B0B0B0;
+}
+
+#ParentWindow
+{
+   border-style: solid;
+   border-color: grey;
+   border-width: 2px;
+   border-radius: 7px;
+   margin: 2px;
+}
+#ChildWindow
+{
+   border-style: solid;
+   border-color: grey;
+   border-width: 2px;
+   border-radius: 7px;
+   margin: 2px;
+}
+
+#ChildLabel
+{
+   background-color: lightgrey;
+   border-radius: 6px;
+   margin-bottom: 2px;
+}
+
+#ParentLabel
+{
+   background-color: lightgrey;
+   border-radius: 6px;
+   margin-bottom: 2px;
 }
 
 #ScrolledWindowTitle
@@ -192,4 +267,9 @@ button:active
    color: white;
    border-radius: 3px;
    margin: 5px;
+}
+
+#numberEntry
+{
+   margin-right: 3px;
 }

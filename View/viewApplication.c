@@ -7,13 +7,21 @@
 
 
 #include "viewApplication.h"
+#include "../Model/Project.h"
 
 #include "../Controller/Controller.h"
 
-static int secondWindowOpen = 0;
-static GObject *infoPanel = NULL;
-static bool dropDownAvoidDoubles = false;
-static char *imagePath = NULL;
+bool secondWindowOpen = false;
+GObject *infoPanel = NULL;
+//bool dropDownAvoidDoubles = false;
+char *imagePath = NULL;
+extern Card *cardSelected;
+extern Project *curProject;
+GObject *centerImage = NULL;
+GObject *btnModifyCard = NULL;
+GObject *btnDeleteCard = NULL;
+
+
 
 void quit_cb(GtkWindow *window) {
     gtk_window_close(window);
@@ -27,43 +35,62 @@ GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id) {
     return button;
 }
 
-void openModifyCardWindow(gpointer data) {
-    if(secondWindowOpen == 0) {
+void openModifyCardWindow_cb(gpointer data) {
+    if(secondWindowOpen == 0 && cardSelected != NULL) {
         GtkBuilder *builder = gtk_builder_new();
-        GObject *modifWindow, *colorList, *numberCheck, *numberEntry;
+        GObject *modifWindow, *colorList, *numberCheck,*numberEntry, *rootCheck, *gridParents, *gridChildren;
+        char windowTitle[31];
+        sprintf(windowTitle, "Modification de la carte n°%d", cardSelected->id);
         gtk_builder_add_from_file(builder, "../View/viewBuilder.ui", NULL);
         modifWindow = gtk_builder_get_object(builder, "modifWindow");
+        gtk_window_set_title(GTK_WINDOW(modifWindow), windowTitle);
         numberCheck = gtk_builder_get_object(builder, "numberCheck");
         numberEntry = gtk_builder_get_object(builder, "numberEntry");
-        //Récupérer les informations de la carte pour initialiser les valeurs
-        entryPropertiesFromCheck(GTK_WIDGET(numberCheck), numberEntry);
-        g_signal_connect(GTK_WIDGET(numberCheck), "toggled", G_CALLBACK(entryPropertiesFromCheck), numberEntry);
+        rootCheck = gtk_builder_get_object(builder, "rootCheck");
         colorList = gtk_builder_get_object(builder, "dropDownColor");
+        gridParents = gtk_builder_get_object(builder, "ParentGrid");
+        gridChildren = gtk_builder_get_object(builder, "ChildGrid");
+        gtk_drop_down_set_selected(GTK_DROP_DOWN(colorList), cardSelected->type);
+        gtk_check_button_set_active(GTK_CHECK_BUTTON(numberCheck), cardSelected->fixedNumber);
+        if(cardSelected->fixedNumber == 1) {
+            GObject *entryBuffer = G_OBJECT(gtk_entry_get_buffer(GTK_ENTRY(numberEntry)));
+            char numberFixed[3];
+            sprintf(numberFixed, "%d", cardSelected->number);
+            gtk_entry_buffer_set_text(GTK_ENTRY_BUFFER(entryBuffer), numberFixed, (int)strlen(numberFixed));
+        }
+        gtk_check_button_set_active(GTK_CHECK_BUTTON(rootCheck), curProject->root == cardSelected);
+        retrieveParentsChildren(GTK_WIDGET(gridParents), GTK_WIDGET(gridChildren));
+        ///A Faire : Récupérer les informations de la carte pour initialiser les valeurs (mettre à jour)
+        entryPropertiesFromCheck(GTK_WIDGET(numberCheck), numberEntry);
         g_signal_connect(GTK_WIDGET(colorList), "notify", G_CALLBACK(cardColorUserChange_cb), NULL);
-        gtk_drop_down_get_selected(GTK_DROP_DOWN(colorList));
-
+        g_signal_connect(GTK_WIDGET(numberEntry), "changed", G_CALLBACK(onEnterCardFixedNumber_cb), numberCheck);
+        g_signal_connect(GTK_WIDGET(numberCheck), "toggled", G_CALLBACK(entryPropertiesFromCheck), numberEntry);
+        g_signal_connect(GTK_WIDGET(rootCheck), "toggled", G_CALLBACK(onToggleCardRoot_cb), NULL);
         //gtk_string_list_append(GTK_STRING_LIST(colorList), "Pink");
-        gtk_window_set_default_size(GTK_WINDOW(modifWindow), 300, 700);
+        gtk_window_set_default_size(GTK_WINDOW(modifWindow), 350, 700);
         gtk_window_set_resizable(GTK_WINDOW(modifWindow),false);
         g_signal_connect(modifWindow, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
-        secondWindowOpen = 1;
+        secondWindowOpen = true;
         gtk_widget_show(GTK_WIDGET (modifWindow));
         g_object_unref(builder);
     }
 }
 
-void cardColorUserChange_cb(GtkWidget *widget, gpointer data) {
-    if(dropDownAvoidDoubles == false) {
+void cardColorUserChange_cb(GtkWidget *widget) {
+    /*if(dropDownAvoidDoubles == false) {
         dropDownAvoidDoubles = true;
-    } else {
-        guint colorSelected = gtk_drop_down_get_selected(GTK_DROP_DOWN(widget));
-        //envoyer notification de changement de couleur au modèle. Color id is the same as in Struct.h : 0 = Gris ; 1 = Bleu ; 2 = Rouge ; 3 = Vert
-        dropDownAvoidDoubles = false;
-    }
+    } else {*/
+        onModifyCardType_cb((int)gtk_drop_down_get_selected(GTK_DROP_DOWN(widget)));
+        //dropDownAvoidDoubles = false;
+    //}
 }
 
 void entryPropertiesFromCheck(GtkWidget *checkButton, gpointer entry) {
     gboolean active = gtk_check_button_get_active(GTK_CHECK_BUTTON(checkButton));
+    if(!active) {
+        onToggleCardFixedNumber_cb(-1);
+        gtk_entry_buffer_set_text(GTK_ENTRY_BUFFER(G_OBJECT(gtk_entry_get_buffer(GTK_ENTRY(entry)))), "", 0);
+    }
     gtk_widget_set_can_target(GTK_WIDGET(entry), active);
 }
 
@@ -98,27 +125,27 @@ void modifyInfoPanel(char* text) {
 }
 
 void onDestroySecondWindow(GtkWidget *widget, gpointer data) {
-    secondWindowOpen = 0;
+    secondWindowOpen = false;
 }
 
-void changeCenterImagePath(char* path) {
+void setCenterImagePath(char* path) {
     imagePath = path;
-    GtkBuilder *builder = gtk_builder_new();
-    GObject *image;
-    gtk_builder_add_from_file(builder, "../View/viewBuilder.ui", NULL);
-    image = gtk_builder_get_object(builder, "GraphViewer");
-    gtk_image_set_from_file(GTK_IMAGE(image), imagePath);
+    gtk_image_set_from_file(GTK_IMAGE(centerImage), imagePath);
 }
 
 void reloadCenterImage() {
-    GtkBuilder *builder = gtk_builder_new();
-    GObject *image;
-    gtk_builder_add_from_file(builder, "../View/viewBuilder.ui", NULL);
-    image = gtk_builder_get_object(builder, "GraphViewer");
-    gtk_image_clear(GTK_IMAGE(image));
-    gtk_image_set_from_file(GTK_IMAGE(image), imagePath);
+    gtk_image_set_from_file(GTK_IMAGE(centerImage), imagePath);
 }
 
+void disableRightCardButtons() {
+    gtk_widget_set_can_target(GTK_WIDGET(btnModifyCard),false);
+    gtk_widget_set_can_target(GTK_WIDGET(btnDeleteCard),false);
+}
+
+void enableRightCardButtons() {
+    gtk_widget_set_can_target(GTK_WIDGET(btnModifyCard),true);
+    gtk_widget_set_can_target(GTK_WIDGET(btnDeleteCard),true);
+}
 
 void activate(GtkApplication *app, gpointer user_data) {
 
@@ -135,33 +162,28 @@ void activate(GtkApplication *app, gpointer user_data) {
     gtk_window_set_default_size(GTK_WINDOW(window), 1700, 900);
     gtk_window_set_application(GTK_WINDOW(window), app);
 
-    button = addGenericButton(button, builder, "BtnModifyCard");
-    g_signal_connect_swapped (button, "clicked", G_CALLBACK(openModifyCardWindow), builder);
-
-    //gtk_widget_set_can_target(GTK_WIDGET(button),false);
-    //gtk_widget_set_name(GTK_WIDGET(button),"RightButtonDisabled");
-
     button = addGenericButton(button, builder, "Quit");
     g_signal_connect_swapped (button, "clicked", G_CALLBACK(quit_cb), window);
-
     g_signal_connect(window, "destroy", G_CALLBACK(closeProject), NULL);
 
     button = gtk_builder_get_object(builder, "BtnAddCard");
     box = gtk_builder_get_object(builder, "CardBox");
-    g_signal_connect(button, "clicked", G_CALLBACK(onPressAddCard_cb), box);
+    g_signal_connect(button, "clicked", G_CALLBACK(onAddCard_cb), box);
 
-    button = gtk_builder_get_object(builder, "BtnModifyCard");
-    g_signal_connect(button, "clicked", G_CALLBACK(onPressModifyCard_cb), box);
+    btnModifyCard = gtk_builder_get_object(builder, "BtnModifyCard");
+    g_signal_connect_swapped (btnModifyCard, "clicked", G_CALLBACK(openModifyCardWindow_cb), builder);
 
-    button = gtk_builder_get_object(builder, "BtnDeleteCard");
-    g_signal_connect(button, "clicked", G_CALLBACK(onPressDeleteCard_cb), box);
+    btnDeleteCard = gtk_builder_get_object(builder, "BtnDeleteCard");
+    g_signal_connect(btnDeleteCard, "clicked", G_CALLBACK(onPressDeleteCard_cb), box);
+
+    disableRightCardButtons();
 
     infoPanel = gtk_builder_get_object(builder, "infoPanel");
+    centerImage = gtk_builder_get_object(builder, "GraphViewer");
 
-    secondWindowOpen = 0;
+    secondWindowOpen = false;
     openStartingWindow(builder, window);
 
-    /* We do not need the builder anymore */
     g_object_unref(builder);
 }
 
@@ -179,3 +201,5 @@ void load_css ( void )
     /// ***
     g_object_unref ( CSSprovider );
 }
+
+

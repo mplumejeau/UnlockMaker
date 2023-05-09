@@ -8,7 +8,6 @@
 void createNewProject_cb(GtkApplication *app, gpointer user_data);
 
 void initGraphFile();
-void updateGraphFile();
 
 /**
  * Takes a text file in the format of graphviz and exports it on a png format
@@ -18,10 +17,20 @@ void updateGraphFile();
  */
 int exportPNGGraphFromFile(char* dataInput, char* PNGOutput);
 
-void onPressAddCard_cb(GtkWidget *widget, gpointer data);
+void onAddCard_cb(GtkWidget *widget, gpointer data);
 void onSelectCard_cb(GtkWidget *widget, gpointer data);
 void onPressDeleteCard_cb(GtkWidget *widget);
-void onPressModifyCard_cb(GtkWidget *widget, gpointer data);
+void onModifyCardType_cb(int newType);
+Card* getSelectedCard();
+void onToggleCardFixedNumber_cb(int number); // -1 if fixNumber disabled, the number otherwise
+void onEnterCardFixedNumber_cb(GtkWidget *entry, gpointer checkButton);
+void onToggleCardRoot_cb(GtkWidget *checkButton);
+
+void retrieveParentsChildren(GtkWidget *gridParents, GtkWidget *gridChildren);
+void onAddParent_cb(GtkWidget *widget, gpointer data);
+
+void onToggleAddParent_cb(GtkWidget *widget, gpointer data);
+void onToggleAddChild_cb(GtkWidget *widget, gpointer data);
 
 void closeProject(GtkApplication *app, gpointer user_data);
 
