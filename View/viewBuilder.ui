@@ -100,83 +100,8 @@
                 <property name="vexpand">true</property>
                 <property name="name">LeftWindow</property>
                 <child>
-                  <object class="GtkBox">
+                  <object id="linkBox" class="GtkBox">
                     <property name="orientation">vertical</property>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedCombLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedFixedLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedCombLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedFoundLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedCombLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedFixedLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedHintLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedCombLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedCombLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedHintLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedFoundLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedCombLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedFoundLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedHintLinkBtn</property>
-                      </object>
-                    </child>
-                    <child>
-                      <object class="GtkButton">
-                        <property name="name">UnselectedFixedLinkBtn</property>
-                      </object>
-                    </child>
                   </object>
                 </child>
               </object>
@@ -274,10 +199,10 @@
       </object>
     </child>
   </object>
-  <object id="modifWindow" class="GtkWindow">
+  <object id="cardWindow" class="GtkWindow">
     <property name="title">Modification window</property>
     <child>
-      <object id="modifGrid" class="GtkGrid">
+      <object class="GtkGrid">
         <property name="column-homogeneous">True</property>
         <property name="row-homogeneous">True</property>
         <child>
@@ -292,9 +217,9 @@
           </object>
         </child>
         <child>
-          <object id="dropDownColor" class="GtkDropDown">
+          <object id="colorDropDown" class="GtkDropDown">
             <property name="model">
-              <object id="colorList" class="GtkStringList">
+              <object class="GtkStringList">
                 <items>
                   <item translatable="yes">Gris</item>
                   <item translatable="yes">Bleu</item>
@@ -453,6 +378,68 @@
             </child>
           </object>
         </child>
+        <child>
+          <object id="closeCardWindowBtn" class="GtkButton">
+            <property name="label">Terminer</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">93</property>
+              <property name="column-span">4</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object id="linkWindow" class="GtkWindow">
+    <property name="title">Modification window</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Type de Carte</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">4</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="typeDropDown" class="GtkDropDown">
+            <property name="model">
+              <object class="GtkStringList">
+                <items>
+                  <item translatable="yes">Recherche</item>
+                  <item translatable="yes">Combinaison</item>
+                  <item translatable="yes">Numéro fixe</item>
+                  <item translatable="yes">Indice</item>
+                </items>
+              </object>
+            </property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">1</property>
+              <property name="column-span">4</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeLinkWindowBtn" class="GtkButton">
+            <property name="label">Terminer</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">6</property>
+              <property name="column-span">4</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
       </object>
     </child>
   </object>
@@ -499,6 +486,40 @@
             </layout>
           </object>
         </child>
+      </object>
+    </child>
+  </object>
+  <object id="singleLinkGrid" class="GtkGrid">
+    <property name="row-homogeneous">True</property>
+    <property name="column-homogeneous">True</property>
+    <child>
+      <object id="linkBtn" class="GtkButton">
+        <property name="name">foundLinkBtn</property>
+        <layout>
+          <property name="column">0</property>
+          <property name="row">0</property>
+          <property name="column-span">1</property>
+        </layout>
+      </object>
+     </child>
+     <child>
+      <object id="linkDropDown" class="GtkDropDown">
+        <property name="name">linkDropDown</property>
+        <property name="model">
+          <object class="GtkStringList">
+            <items>
+              <item translatable="yes">Recherche</item>
+              <item translatable="yes">Combinaison</item>
+              <item translatable="yes">Numéro fixe</item>
+              <item translatable="yes">Indice</item>
+            </items>
+          </object>
+        </property>
+        <layout>
+          <property name="column">1</property>
+          <property name="row">0</property>
+          <property name="column-span">2</property>
+        </layout>
       </object>
     </child>
   </object>

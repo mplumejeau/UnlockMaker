@@ -107,7 +107,7 @@ button:active
    box-shadow: 0 9px #999;
 }
 
-#UnselectedCombLinkBtn
+#unselectedCombLinkBtn
 {
    background-color: #DA70D6;
    margin-bottom: 1px;
@@ -115,7 +115,7 @@ button:active
    margin-right: 18px;
 }
 
-#UnselectedHintLinkBtn
+#unselectedHintLinkBtn
 {
    background-color: #FF8000;
    margin-bottom: 1px;
@@ -123,7 +123,7 @@ button:active
    margin-right: 18px;
 }
 
-#UnselectedFixedLinkBtn
+#unselectedFixedLinkBtn
 {
    background-color: #00CDCD;
    margin-bottom: 1px;
@@ -131,7 +131,7 @@ button:active
    margin-right: 18px;
 }
 
-#UnselectedFoundLinkBtn
+#unselectedFoundLinkBtn
 {
    background-color: #000000;
    margin-bottom: 1px;
@@ -139,6 +139,52 @@ button:active
    color: #FFFFFF;
    margin-right: 18px;
 }
+
+#selectedCombLinkBtn
+{
+   background-color: #DA70D6;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#selectedHintLinkBtn
+{
+   background-color: #FF8000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#selectedFixedLinkBtn
+{
+   background-color: #00CDCD;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#selectedFoundLinkBtn
+{
+   background-color: #000000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   color: #FFFFFF;
+   border-width: 2px;
+   border-style: solid;
+   border-color: white;
+   margin-right: 18px;
+}
+
 #UnselectedRedCardBtn
 {
    background-color: #EE0000;
@@ -272,4 +318,9 @@ button:active
 #numberEntry
 {
    margin-right: 3px;
+}
+
+#linkDropDown
+{
+   margin-right: 15px;
 }

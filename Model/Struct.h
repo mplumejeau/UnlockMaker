@@ -5,7 +5,7 @@
 #ifndef UNLOCKMAKER_STRUCT_H
 #define UNLOCKMAKER_STRUCT_H
 
-#define MAXPATH 63
+#define MAXPATH 100
 #define MAXNAME 15
 #define MAXCARD 60
 #define MAXLINK 200

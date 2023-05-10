@@ -8,14 +8,14 @@
 
 ///LA DOC !!!
 
-void addCardGraphData(const char* id, int type);
-void addLinkGraphData(char* idParent, char* idChild, int type);
-void modifyCardTypeGraphData(const char* id, int newType);
-void modifyLinkTypeGraphData(const char* idParent, const char* idChild, int newType);
-void removeCardGraphData(const char* id);
-void removeLinkGraphData(const char* idParent, const char* idChild);
-void setCardAsRootGraphData(const char* id);
-void removeCardAsRootGraphData();
+void addCardGraphData(char* graphDataPath, const char* id, int type);
+void addLinkGraphData(char* graphDataPath, char* idParent, char* idChild, int type);
+void modifyCardTypeGraphData(char* graphDataPath, const char* id, int newType);
+void modifyLinkTypeGraphData(char* graphDataPath, const char* idParent, const char* idChild, int newType);
+void removeCardGraphData(char* graphDataPath, const char* id);
+void removeLinkGraphData(char* graphDataPath, const char* idParent, const char* idChild);
+void setCardAsRootGraphData(char* graphDataPath, const char* id);
+void removeCardAsRootGraphData(char* graphDataPath);
 
 
 #endif //UNLOCKMAKER_GRAPHHANDLER_H

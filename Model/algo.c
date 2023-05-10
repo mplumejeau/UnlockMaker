@@ -18,7 +18,7 @@
 
 
 int checkLoops(Project* p) {
-
+/*
     // Initialize the vertex list to keep track of visited cards
     VertexList visitedCards;
     initEmptyVertexList(&visitedCards);
@@ -55,7 +55,7 @@ int checkLoops(Project* p) {
 
                 setOnNextEdge(&currentCard->children);
             }
-             */
+
 
             // Check all links of the current card
             for (int i = 0; i < currentCard->nbLinks; i++) {
@@ -76,13 +76,13 @@ int checkLoops(Project* p) {
             setOnNextVertex(&visitedCards);
             currentCard = (Card*)visitedCards.current->card;
         }
-        // No loops were found, return 0
+        // No loops were found, return 0*/
         return 0;
-
+/*
     } else {
         fprintf(stderr, "error : project bad allocation\n");
         return -1;
-    }
+    }*/
 }
 
 /**

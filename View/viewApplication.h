@@ -1,6 +1,7 @@
 /* Created by louenn on 14/03/23. */
 
-#include <gtk/gtk.h>
+#include <gtk/gtk.h>*
+#include "../Model/Project.h"
 
 #ifndef UNLOCKMAKER_VIEWAPPLICATION_H
 #define UNLOCKMAKER_VIEWAPPLICATION_H
@@ -15,17 +16,24 @@ void load_css();
 
 GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id);
 
-void openModifyCardWindow_cb(gpointer data);
+void addLinkBtn(Link* l, Card* parent, Card* child);
+
+void openModifyCardWindow_cb();
+
+void openModifyLinkWindow_cb();
 
 void entryPropertiesFromCheck(GtkWidget *checkButton, gpointer entry);
 
 void openStartingWindow(GtkBuilder *builder, GObject *mainWindow);
 
+//A mettre dans controleur
 void cardColorUserChange_cb(GtkWidget *widget);
+void linkTypeUserChange_cb(GtkWidget *widget);
+
 
 void destroyWindow_cb(gpointer window);
 
-void openWindow_cb(gpointer window);
+void openMainWindow_cb(gpointer window);
 
 void openProjectSearchWindow(GtkBuilder *builder);
 
@@ -39,6 +47,10 @@ void reloadCenterImage();
 
 void disableRightCardButtons();
 
+void disableRightLinkButtons();
+
 void enableRightCardButtons();
+
+void enableRightLinkButtons();
 
 #endif //UNLOCKMAKER_VIEWAPPLICATION_H
