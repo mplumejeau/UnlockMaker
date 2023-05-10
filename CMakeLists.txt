@@ -10,7 +10,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 
 # VIEW EXECUTABLE
 
-# add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c View/GraphHandler.c View/GraphHandler.h)
+add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c View/GraphHandler.c View/GraphHandler.h)
 
 # CONTROLLER EXECUTABLE
 
