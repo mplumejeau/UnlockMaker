@@ -7,9 +7,8 @@
 
 #include "Struct.h"
 
-extern int idLinks;
-
 Link* allocLink(void);
+void initEmptyLink(Link* l);
 void freeLink(Link* l);
 
 void setLinkType(Link* l, linkType t);

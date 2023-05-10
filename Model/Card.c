@@ -9,8 +9,6 @@
 #include "VertexList.h"
 #include "EdgeList.h"
 
-int idCards = 0;
-
 /**
  * Allocate a Card in the dynamic space memory
  * Give it a unique id based on idLinks
@@ -19,9 +17,16 @@ int idCards = 0;
  */
 Card* allocCard(void){
     Card* c = (Card*) malloc(sizeof(Card));
+    return c;
+}
+
+/**
+ * Initialize an empty card
+ * @param c the card to initialieze
+ */
+void initEmptyCard(Card* c){
     if (c != NULL) {
-        c->id = idCards;
-        idCards ++;
+        c->id = -1;
         c->type = GREY;
         c->number = -1;
         c->fixedNumber = 0;
@@ -33,7 +38,6 @@ Card* allocCard(void){
     } else {
         fprintf(stderr, "error : card bad allocation\n");
     }
-    return c;
 }
 
 /**
@@ -43,7 +47,6 @@ Card* allocCard(void){
 void freeCard(Card* c){
     // Free the card structure itself
     free(c);
-    idCards --;
 }
 
 /**
@@ -66,7 +69,7 @@ void setCardType(Card* c, cardType t){
  * @param n the new number of the card
  */
 
-void setCardNumber(Card* c, char n){
+void setCardNumber(Card* c, int n){
     if (c != NULL) {
         c->number = n;
     } else {
@@ -79,7 +82,7 @@ void setCardNumber(Card* c, char n){
  * @param c the card to modify
  * @param n the new number of the card
  */
-void fixCardNumber(Card* c, char n){
+void fixCardNumber(Card* c, int n){
     if (c != NULL) {
         c->number = n;
         c->fixedNumber = 1;
@@ -98,35 +101,6 @@ void unfixCardNumber(Card* c){
     } else {
         fprintf(stderr, "error : card bad allocation\n");
     }
-}
-
-/**
- * Enables the card's image parameter to indicate that this card has an image in the folder (card images are named with the id of the card)
- * @param c the card to modify
- */
-void addCardImage(Card* c)
-{
-    char filename[100];
-    sprintf(filename, "card_%d.png", c->id);
-    // si une imame existe déja dans le projet
-    FILE* file = fopen(filename, "r");
-    if (file == NULL) {
-        printf("Error: image file %s does not exist in project folder.\n", filename);
-        return;
-    }
-    fclose(file);
-    c->image = 1;
-
-}
-
-/**
- * Disables the card's image parameter to indicate that this card no longer has an image associated to it in the folder
- * @param c the card to modify
- */
-void removeCardImage(Card* c)
-{
-    c->image = 0;
-
 }
 
 /**

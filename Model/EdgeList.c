@@ -178,14 +178,14 @@ int countEdgeElements(EdgeList *el){
 /**
  * create a new Edge pointing a given Link and insert it at the end of a list of Links
  * @param el the list of Links
- * @param c the Link to add in the list
+ * @param l the Link to add in the list
  * @return 0 if it is a success, -1 if it isn't
  */
-int insertEdgeLast(EdgeList *el, Link* c){
+int insertEdgeLast(EdgeList *el, Link* l){
     Edge* e = NULL;
     if (el != NULL){
         e = allocEdge();
-        initEdge(e,c,NULL,NULL);
+        initEdge(e,l,NULL,NULL);
         if(isEdgeListEmpty(el)){
             el->sentinelFirst.next = e;
             e->previous = &el->sentinelFirst;
@@ -206,7 +206,7 @@ int insertEdgeLast(EdgeList *el, Link* c){
 /**
  * seek a given Link in a list of Links
  * @param el the list of Links
- * @param c the Link to seek
+ * @param l the Link to seek
  * @return 1 if the Link is in the list, 0 if not
  */
 int findLink(EdgeList *el, Link* l){
@@ -228,16 +228,16 @@ int findLink(EdgeList *el, Link* l){
 /**
  * delete a Edge pointing a given Link from a list of Links if it exists and free the Edge deleted memory
  * @param el the list of Links
- * @param c the Link to be deleted
+ * @param l the Link to be deleted
  * @return 0 if it's a success, -1 if not
  */
 int deleteEdge(EdgeList* el, Link* l){
     if (el != NULL){
-        if(findLink(el,l)){
+        if(findLink(el,l) == 1){
             el->current->previous->next = el->current->next;
             el->current->next->previous = el->current->previous;
             freeEdge(el->current);
-            setOnNextEdge(el);
+            setOnPreviousEdge(el);
             return 0;
         }
         return -1;

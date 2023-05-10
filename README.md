@@ -43,5 +43,9 @@ To get the cmocka library, repeat the same steps with the following command : `$
 
 #### GraphViz
 
-To get the Graphviz library, tap following command on the terminal : `$ pip install graphviz`
+To get the Graphviz library, tap the following commands on the terminal :
+```
+	$ sudo apt-get install python3-pip
+	$ pip install graphviz
+```
 

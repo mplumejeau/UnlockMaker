@@ -7,18 +7,16 @@
 
 #include "Struct.h"
 
-extern int idCards;
-
 Card* allocCard(void);
+void initEmptyCard(Card* c);
 void freeCard(Card* c);
 
 void setCardType(Card* c, cardType t);
-void setCardNumber(Card* c, char n);
-void fixCardNumber(Card* c, char n);
+void setCardNumber(Card* c, int n);
+void fixCardNumber(Card* c, int n);
 void unfixCardNumber(Card* c);
-void addCardImage(Card* c);
-void removeCardImage(Card* c);
 
+/*
 Link* addParent(Card* c, Card* parent);
 Link* addChild(Card* c, Card* child);
 void removeParent(Card* c, Card* parent);
@@ -33,5 +31,6 @@ void loadCardBinary(Card* c, char* file);
 void findCompatibility(Card* c);
 
 void printCard(Card* c);
+*/
 
 #endif /*UNLOCKMAKER_CARD_H*/
