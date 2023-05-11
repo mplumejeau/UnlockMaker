@@ -56,7 +56,7 @@ int checkLoops(Project* p) {
                 setOnNextEdge(&currentCard->children);
             }
              */
-
+            /*
             // Check all links of the current card
             for (int i = 0; i < currentCard->nbLinks; i++) {
                 Card* linkedCard = currentCard->Link[i]->toCard;
@@ -68,6 +68,8 @@ int checkLoops(Project* p) {
                 // Add the linked card to the visited list
                 insertVertexLast(&visitedCards, linkedCard);
             }
+            */
+
             // Move to the next card
             if (isOutOfListVertex(&visitedCards)) {
                 // If all cards have been visited, exit the loop

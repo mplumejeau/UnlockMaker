@@ -16,6 +16,7 @@
 
 #include "../Project.h"
 #include "../VertexList.h"
+#include "../EdgeList.h"
 
 //main
 
@@ -136,7 +137,7 @@ int main(void){
     Link* l5 = NULL;
     Link* l6 = NULL;
 
-    /*
+
     // demo 1 : creation, completion and save of a project
 
     p1 = allocProject();
@@ -163,16 +164,18 @@ int main(void){
     l2 = addLink(p1, c1, c5, DEFAULT);
     l3 = addLink(p1, c4, c5, COMBINE);
 
-    l4 = addLink(p1, c5, c2, DEFAULT);
+    //l4 = addLink(p1, c5, c2, DEFAULT);
 
     deleteLink(p1, l2);
 
     deleteCard(p1, c3);
 
+    deleteLinkFromCards(p1,c4,c5);
+
     saveProject(p1);
 
     //deleteProject(&p1);
-    */
+
 
     /*
     // demo 2 : load a project from a path, modification and save it
