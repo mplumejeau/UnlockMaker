@@ -18,7 +18,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
-
+pkg_check_modules(LIBGVC REQUIRED libgvc)
 
 add_executable(UnlockMaker
         Model/main.c Model/Struct.h
@@ -35,6 +35,9 @@ add_executable(UnlockMaker
 #target_link_libraries(UnlockView ${GTK4_LIBRARIES})
 #target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
 #target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
+target_link_libraries(UnlockView ${LIBGVC_LIBRARIES})
+target_include_directories(UnlockView PUBLIC ${LIBGVC_INCLUDE_DIRS})
+target_compile_options(UnlockView PUBLIC ${LIBGVC_CFLAGS_OTHER})
 
 # UNIT TESTS EXECUTABLE
 
