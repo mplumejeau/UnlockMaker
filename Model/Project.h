@@ -33,6 +33,7 @@ void unassignIdLink(Project* p, Link* l);
 Link* addLink(Project* p, Card* parent, Card* child, linkType type);
 Link* addLinkForLoad(Project* p, int id, linkType type, Card* parent, Card* child);
 int deleteLink(Project* p, Link* l);
+int deleteLinkFromCards(Project* p, Card* parent, Card* child);
 
 int setBackImage(Project* p, char* pathImage);
 int setTopImage(Project* p, char* pathImage);

@@ -8,15 +8,15 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
 
-# VIEW EXECUTABLE
+# VIEW EXECUTABLE (broken)
 
-add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c View/GraphHandler.c View/GraphHandler.h)
+# add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c View/GraphHandler.c View/GraphHandler.h)
 
 # CONTROLLER EXECUTABLE
 
 add_executable(UnlockControl
         Controller/Controller.c Controller/Controller.h
-        View/viewApplication.c View/viewApplication.h
+        View/ViewApplication.c View/ViewApplication.h
         View/GraphHandler.h View/GraphHandler.c
         Model/Project.h Model/Project.c
         Model/algo.h Model/algo.c
@@ -46,13 +46,13 @@ add_executable(UnlockMaker
         Model/EdgeList.h Model/EdgeList.c
         Model/Link.h Model/Link.c)
 
-target_link_libraries(UnlockView ${GLIB_LIBRARIES})
-target_link_libraries(UnlockView ${GTK4_LIBRARIES})
-target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
-target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
-target_link_libraries(UnlockView ${LIBGVC_LIBRARIES})
-target_include_directories(UnlockView PUBLIC ${LIBGVC_INCLUDE_DIRS})
-target_compile_options(UnlockView PUBLIC ${LIBGVC_CFLAGS_OTHER})
+#target_link_libraries(UnlockView ${GLIB_LIBRARIES})
+#target_link_libraries(UnlockView ${GTK4_LIBRARIES})
+#target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
+#target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
+#target_link_libraries(UnlockView ${LIBGVC_LIBRARIES})
+#target_include_directories(UnlockView PUBLIC ${LIBGVC_INCLUDE_DIRS})
+#target_compile_options(UnlockView PUBLIC ${LIBGVC_CFLAGS_OTHER})
 
 target_link_libraries(UnlockControl ${GLIB_LIBRARIES})
 target_link_libraries(UnlockControl ${GTK4_LIBRARIES})

@@ -3,14 +3,11 @@
 */
 #include <stdio.h>
 #include <string.h>
-#include <graphviz/gvc.h>
-#include <sys/stat.h>
 #include <errno.h>
 
-#include "../View/viewApplication.h"
+#include "../View/ViewApplication.h"
 #include "../View/GraphHandler.h"
 
-#include "../Model/Project.h"
 #include "../Model/VertexList.h"
 #include "../Model/EdgeList.h"
 #include "../Model/Card.h"
@@ -23,9 +20,7 @@ Card *cardSelected = NULL;
 Link *linkSelected = NULL;
 GtkWidget *cardSelectedBtn = NULL;
 GtkWidget *linkSelectedBtn = NULL;
-extern bool secondWindowOpen;
-char graphDirPath[MAXPATH+6] = "";
-char graphDataPath[MAXPATH+20] = "";
+extern GObject *secondWindowOpen;
 
 int main(int argc, char* argv[]) {
 #ifdef GTK_SRCDIR
@@ -34,7 +29,7 @@ int main(int argc, char* argv[]) {
 
     int status;
 
-    GtkApplication *app = gtk_application_new("org.unlock-maker", 0);
+    GtkApplication *app = gtk_application_new(NULL, 0);
     g_signal_connect (app, "activate", G_CALLBACK(activate), NULL);
 
     status = g_application_run(G_APPLICATION (app), argc, argv);
@@ -43,153 +38,137 @@ int main(int argc, char* argv[]) {
     return status;
 }
 
-void createNewProject_cb(GtkApplication *app, gpointer user_data){
+void createNewProject_cb(){
 
     curProject = allocProject();
-    /*Temporary projet path and name, to change depending on OS*/
-    char projectPath[MAXPATH];
-    strcpy(projectPath, "/home/");
-    strcat(projectPath, getlogin());
-    strcat(projectPath, "/Documents");
-    initProject(curProject, projectPath, "Sans Titre");
-    initGraphFile();
-}
 
-void initGraphFile() {
-    strcat(graphDirPath, curProject->path);
-    strcat(graphDirPath, "/");
-    strcat(graphDirPath, curProject->name);
-    strcat(graphDirPath, "/Graph");
-    char graphPNGPath[MAXPATH+16];
-    strcpy(graphDataPath, graphDirPath);
-    strcat(graphDataPath, "/graphData.txt");
-    strcpy(graphPNGPath, graphDirPath);
-    strcat(graphPNGPath, "/graph.png");
-    if (mkdir(graphDirPath, 0755) != 0 ) {
-        fprintf( stderr, "error : creation of the directory %s is impossible\n", graphDirPath);
+    if(curProject != NULL) {
+        /*Temporary projet path and name, to change depending on OS*/
+        initProject(curProject, (char*)g_get_tmp_dir(), "Sans Titre");
+        initGraphFiles(curProject);
+    } else {
+        fprintf(stderr, "error : creation of the project is impossible\n");
         fprintf(stderr,"%d\n", errno);
     }
-    FILE* fp = NULL;
-    fp = fopen(graphDataPath, "w");
-    if(fp == NULL) {
-        fprintf(stderr, "error : creation of the file %s is impossible\n", graphDataPath);
-        fprintf(stderr,"%d\n", errno);
+}
+
+void onAddCard_cb(gpointer box) {
+    if(secondWindowOpen!=NULL) {
+        destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
     }
-    fprintf(fp, "digraph G{bgcolor=lightgrey;node[style=filled;shape=circle];\n}");
-    fclose(fp);
-    exportPNGGraphFromFile(graphDataPath, graphPNGPath);
-    setCenterImagePath(graphPNGPath);
-}
-
-
-int refreshGraphPNG() {
-    char graphPNGPath[MAXPATH+10];
-    strcpy(graphPNGPath, graphDirPath);
-    strcat(graphPNGPath, "/graph.png");
-    exportPNGGraphFromFile(graphDataPath, graphPNGPath);
-    reloadCenterImage();
-}
-
-int exportPNGGraphFromFile(char* dataInput, char* PNGOutput) {
-    Agraph_t *g;
-    GVC_t *gvc;
-    gvc = gvContext();
-    //g = agopen("G", Agdirected, NULL);
-    FILE *fp = NULL;
-    fp = fopen(dataInput, "r");
-    if(fp == NULL) return 0;
-    g = agread(fp, NULL);
-    gvLayout(gvc, g, "dot");
-    gvRenderFilename(gvc, g, "png", PNGOutput);
-    gvFreeLayout(gvc,g);
-    agclose(g);
-    gvFreeContext(gvc);
-    fclose(fp);
-    return 1;
-}
-
-void onAddCard_cb(GtkWidget *widget, gpointer data) {
-    if(secondWindowOpen==false) {
-        Card* c = addEmptyCard(curProject);
-        char btnLabel[12] = "Carte n°";
+    Card* c = addEmptyCard(curProject);
+    if(c!=NULL) {
+        addCardBtn(c, GTK_WIDGET(box));
         char cardId[3];
         sprintf(cardId, "%d", c->id);
-        strcat(btnLabel,cardId);
-        GtkWidget *button = gtk_button_new_with_label(btnLabel);
-        gtk_widget_set_name(GTK_WIDGET(button), "UnselectedGreyCardBtn");
-        g_signal_connect (button, "clicked", G_CALLBACK(onSelectCard_cb), c);
-        gtk_box_append(GTK_BOX(data), GTK_WIDGET(button));
-        addCardGraphData(graphDataPath, cardId, GREY);
+        addCardGraphData(cardId, GREY);
         refreshGraphPNG();
+    } else {
+        ///TODO : Message d'erreur en bas à droite : Nombre de cartes maximum atteint (60)
     }
 }
 
-void onSelectCard_cb(GtkWidget *widget, gpointer data) {
-    if(secondWindowOpen==false) {
-        char unselectedCardNames[4][23] = {"UnselectedGreyCardBtn", "UnselectedBlueCardBtn", "UnselectedRedCardBtn", "UnselectedGreenCardBtn"};
-        char selectedCardNames[4][21] = {"SelectedGreyCardBtn", "SelectedBlueCardBtn", "SelectedRedCardBtn", "SelectedGreenCardBtn"};
-        if(cardSelected != NULL) {
-            gtk_widget_set_name(cardSelectedBtn, unselectedCardNames[cardSelected->type]);
-        }
-        cardSelected = data;
-        cardSelectedBtn = widget;
-        gtk_widget_set_name(cardSelectedBtn, selectedCardNames[cardSelected->type]);
-        char panelLabel[26] = "Carte sélectionnée : ";
-        char cardId[3];
-        sprintf(cardId, "%d", ((Card*)data)->id);
-        strcat(panelLabel,cardId);
-        modifyInfoPanel(panelLabel);
-        enableRightCardButtons();
+void onSelectCard_cb(GtkWidget *cardBtn, gpointer card) {
+    char unselectedCardNames[4][23] = {"UnselectedGreyCardBtn", "UnselectedBlueCardBtn", "UnselectedRedCardBtn", "UnselectedGreenCardBtn"};
+    char selectedCardNames[4][21] = {"SelectedGreyCardBtn", "SelectedBlueCardBtn", "SelectedRedCardBtn", "SelectedGreenCardBtn"};
+    if(cardSelected != NULL) {
+        gtk_widget_set_name(cardSelectedBtn, unselectedCardNames[cardSelected->type]);
     }
+    cardSelected = (Card*)card;
+    cardSelectedBtn = cardBtn;
+    gtk_widget_set_name(cardSelectedBtn, selectedCardNames[cardSelected->type]);
+    char panelLabel[26] = "Carte sélectionnée : ";
+    char cardId[3];
+    sprintf(cardId, "%d", ((Card*)card)->id);
+    strcat(panelLabel,cardId);
+    modifyInfoPanel(panelLabel);
+    if(secondWindowOpen!=NULL) {
+        openModifyCardWindow_cb();
+    }
+    enableRightCardButtons();
+}
+
+void unselectCard() {
+    cardSelected = NULL;
+    cardSelectedBtn = NULL;
+    modifyInfoPanel("Aucune carte selectionnée");
+    disableRightCardButtons();
 }
 
 void onSelectLink_cb(GtkWidget *linkBtn, gpointer link) {
-    if(secondWindowOpen==false) {
-        char unselectedLinkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedFixedLinkBtn", "unselectedHintLinkBtn"};
-        char selectedLinkNames[4][21] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedFixedLinkBtn", "selectedHintLinkBtn"};
-        if(linkSelected != NULL) {
-            gtk_widget_set_name(linkSelectedBtn, unselectedLinkNames[linkSelected->type]);
-        }
-        linkSelected = (Link*)link;
-        linkSelectedBtn = linkBtn;
-        gtk_widget_set_name(linkSelectedBtn, selectedLinkNames[linkSelected->type]);
-        /*char panelLabel[26] = "Lien sélectionné : ";
-        char cardId[3];
-        sprintf(cardId, "%d", ((Card*)data)->id);
-        strcat(panelLabel,cardId);
-        modifyInfoPanel(panelLabel);*/
-        enableRightLinkButtons();
+    char unselectedLinkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedFixedLinkBtn", "unselectedHintLinkBtn"};
+    char selectedLinkNames[4][21] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedFixedLinkBtn", "selectedHintLinkBtn"};
+    if(linkSelected != NULL) {
+        gtk_widget_set_name(linkSelectedBtn, unselectedLinkNames[linkSelected->type]);
     }
+    linkSelected = (Link*)link;
+    linkSelectedBtn = linkBtn;
+    gtk_widget_set_name(linkSelectedBtn, selectedLinkNames[linkSelected->type]);
+    /*char panelLabel[26] = "Lien sélectionné : ";
+    char cardId[3];
+    sprintf(cardId, "%d", ((Card*)data)->id);
+    strcat(panelLabel,cardId);
+    modifyInfoPanel(panelLabel);*/
+    if(secondWindowOpen!=NULL) {
+        openModifyLinkWindow_cb();
+    }
+    enableRightLinkButtons();
 }
 
-void onPressDeleteCard_cb(GtkWidget *widget) {
-    if(cardSelected!=NULL && secondWindowOpen==false) {
+void unselectLink() {
+    linkSelected = NULL;
+    linkSelectedBtn = NULL;
+    //modifyInfoPanel("Aucune carte selectionnée");
+    disableRightLinkButtons();
+}
+
+void onPressDeleteCard_cb(gpointer box) {
+    if(cardSelected!=NULL) {
+        if(secondWindowOpen!=NULL) {
+            destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
+        }
         char cardId[3];
         sprintf(cardId, "%d", cardSelected->id);
-        removeCardGraphData(graphDataPath, cardId);
-        refreshGraphPNG();
+
+        //link deletion
+        setOnFirstEdge(&cardSelected->parents);
+        while(!isOutOfListEdge(&cardSelected->parents)) {
+            removeLinkBtnFromCards(cardSelected->parents.current->link->parent, cardSelected);
+            if(linkSelected == cardSelected->parents.current->link) {
+                unselectLink();
+            }
+            setOnNextEdge(&cardSelected->parents);
+        }
+        setOnFirstEdge(&cardSelected->children);
+        while(!isOutOfListEdge(&cardSelected->children)) {
+            removeLinkBtnFromCards(cardSelected, cardSelected->children.current->link->child);
+            if(linkSelected == cardSelected->children.current->link) {
+                unselectLink();
+            }
+            setOnNextEdge(&cardSelected->children);
+        }
         deleteCard(curProject, cardSelected);
-        gtk_widget_hide(cardSelectedBtn);
-        cardSelected = NULL;
-        cardSelectedBtn = NULL;
-        modifyInfoPanel("Aucune carte selectionnée");
-        disableRightCardButtons();
+        gtk_box_remove(GTK_BOX(box), cardSelectedBtn);
+        unselectCard();
+
+        removeCardGraphData(cardId);
+        refreshGraphPNG();
     }
 }
 
-void onPressDeleteLink_cb(GtkWidget *widget) {
-    if(linkSelected!=NULL && secondWindowOpen==false) {
+void onPressDeleteLink_cb(gpointer box) {
+    if(linkSelected!=NULL) {
+        if(secondWindowOpen!=NULL) {
+            destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
+        }
         char parentId[3], childId[3];
         sprintf(parentId, "%d", linkSelected->parent->id);
         sprintf(childId, "%d", linkSelected->child->id);
-        removeLinkGraphData(graphDataPath, parentId, childId);
+        removeLinkGraphData(parentId, childId);
         refreshGraphPNG();
         deleteLink(curProject, linkSelected);
-        gtk_widget_hide(linkSelectedBtn);
-        linkSelected = NULL;
-        linkSelectedBtn = NULL;
-        //modifyInfoPanel("Aucune carte selectionnée");
-        disableRightLinkButtons();
+        gtk_box_remove(GTK_BOX(box), linkSelectedBtn);
+        unselectLink();
     }
 }
 
@@ -197,7 +176,7 @@ void onModifyCardType_cb(int newType) {
     if(cardSelected != NULL) {
         char cardId[3];
         sprintf(cardId, "%d", cardSelected->id);
-        modifyCardTypeGraphData(graphDataPath, cardId, newType);
+        modifyCardTypeGraphData(cardId, newType);
         refreshGraphPNG();
         setCardType(cardSelected, newType);
         char cardNames[4][23] = {"SelectedGreyCardBtn", "SelectedBlueCardBtn", "SelectedRedCardBtn", "SelectedGreenCardBtn"};
@@ -210,7 +189,7 @@ void onModifyLinkType_cb(int newType) {
         char parentId[3], childId[3];
         sprintf(parentId, "%d", linkSelected->parent->id);
         sprintf(childId, "%d", linkSelected->child->id);
-        modifyLinkTypeGraphData(graphDataPath, parentId, childId, newType);
+        modifyLinkTypeGraphData(parentId, childId, newType);
         refreshGraphPNG();
         setLinkType(linkSelected, newType);
         char linkNames[4][23] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedFixedLinkBtn", "selectedHintLinkBtn"};
@@ -236,38 +215,27 @@ void onToggleCardRoot_cb(GtkWidget *checkButton) {
     char cardId[3]="";
     sprintf(cardId, "%d", cardSelected->id);
     if(gtk_check_button_get_active(GTK_CHECK_BUTTON(checkButton))) {
-        setCardAsRootGraphData(graphDataPath, cardId);
+        setCardAsRootGraphData(cardId);
         setRoot(curProject, cardSelected);
     } else {
-        removeCardAsRootGraphData(graphDataPath);
+        removeCardAsRootGraphData();
         setRoot(curProject, NULL);
     }
     refreshGraphPNG();
 
 }
 
-void retrieveParentsChildren(GtkWidget *gridParents, GtkWidget *gridChildren) {
+void retrieveParentsChildren(GtkBox *parentsBox, GtkBox *childrenBox) {
     setOnFirstVertex(&(curProject->cardList));
     Card* c;
-    GtkWidget *labelParent, *labelChild, *checkBtnParent, *checkBtnChild;
-    char btnLabel[12], cardId[3];
-    int i=0;
+    GtkWidget *checkBtnParent, *checkBtnChild;
     while(!isOutOfListVertex(&(curProject->cardList))) {
         c=curProject->cardList.current->card;
         if(c!=cardSelected) {
-            strcpy(btnLabel, "Carte n°");
-            sprintf(cardId, "%d", c->id);
-            strcat(btnLabel,cardId);
-            labelParent = gtk_label_new(btnLabel);
-            gtk_widget_set_name(GTK_WIDGET(labelParent), "ParentLabel");
-            labelChild = gtk_label_new(btnLabel);
-            gtk_widget_set_name(GTK_WIDGET(labelChild), "ChildLabel");
-            gtk_grid_attach(GTK_GRID(gridParents), labelParent, 0, i, 8, 1);
-            gtk_grid_attach(GTK_GRID(gridChildren), labelChild, 0, i, 8, 1);
             checkBtnParent = gtk_check_button_new();
-            gtk_grid_attach(GTK_GRID(gridParents), checkBtnParent, 7, i, 1, 1);
             checkBtnChild = gtk_check_button_new();
-            gtk_grid_attach(GTK_GRID(gridChildren), checkBtnChild, 7, i, 1, 1);
+            addCardLblForModify(c, checkBtnParent, GTK_WIDGET(parentsBox));
+            addCardLblForModify(c, checkBtnChild, GTK_WIDGET(childrenBox));
             //vérification de l'existence des liens
             setOnFirstEdge(&(cardSelected->parents));
             while(!isOutOfListEdge(&(cardSelected->parents))) {
@@ -287,7 +255,6 @@ void retrieveParentsChildren(GtkWidget *gridParents, GtkWidget *gridChildren) {
             g_signal_connect(checkBtnChild, "toggled", G_CALLBACK(onToggleAddChild_cb), c);
         }
         setOnNextVertex(&(curProject->cardList));
-        i++;
     }
 }
 
@@ -297,56 +264,126 @@ void onToggleAddParent_cb(GtkWidget *checkBtn, gpointer parent) {
     sprintf(parentId, "%d", ((Card*)parent)->id);
     sprintf(childId, "%d", cardSelected->id);
     if(active){
-        addLinkGraphData(graphDataPath, parentId, childId, DEFAULT);
-        addLinkBtn(addLink(curProject, (Card*)parent, cardSelected, DEFAULT), (Card*)parent, cardSelected);
+        Link* l = addLink(curProject, (Card*) parent, cardSelected, DEFAULT);
+        if(l!=NULL) {
+            addLinkGraphData(parentId, childId, DEFAULT);
+            addLinkBtn(l);
+        } else {
+            ///TODO : Message d'erreur en bas à droite : Nombre de liens maximum atteint (200)
+        }
     } else {
-        //supprimer le lien de façon propre
-        removeLinkGraphData(graphDataPath, parentId, childId); // temporaire
+        if(linkSelected!=NULL) {
+            if(linkSelected->parent == (Card*)parent && linkSelected->child == cardSelected) {
+                unselectLink();
+            }
+        }
+        deleteLinkFromCards(curProject, (Card*)parent, cardSelected);
+        removeLinkGraphData(parentId, childId);
+        removeLinkBtnFromCards(parent, cardSelected);
     }
     refreshGraphPNG();
-    ///addParent renvoie un Link* -> l'ajouter à la liste
 }
 
 void onToggleAddChild_cb(GtkWidget *checkBtn, gpointer child) {
     gboolean active = gtk_check_button_get_active(GTK_CHECK_BUTTON(checkBtn));
     char parentId[3], childId[3];
     sprintf(parentId, "%d", cardSelected->id);
-    sprintf(childId, "%d", ((Card*)child)->id);
-    if(active){
-        addLinkGraphData(graphDataPath, parentId, childId, DEFAULT);
-        addLinkBtn(addLink(curProject, cardSelected, ((Card*) child), DEFAULT), cardSelected, ((Card*) child));
+    sprintf(childId, "%d", ((Card *) child)->id);
+    if (active) {
+        addLinkGraphData(parentId, childId, DEFAULT);
+        Link *l = addLink(curProject, cardSelected, (Card *) child, DEFAULT);
+        if (l != NULL) {
+            addLinkBtn(l);
+        } else {
+            ///TODO : Message d'erreur en bas à droite : Nombre de liens maximum atteint (200)
+        }
     } else {
-        //supprimer le lien de façon propre
-        removeLinkGraphData(graphDataPath, parentId, childId); // temporaire
+        if(linkSelected != NULL) {
+            if(linkSelected->parent == cardSelected && linkSelected->child == (Card*)child) {
+                unselectLink();
+            }
+        }
+        deleteLinkFromCards(curProject, cardSelected, (Card *) child);
+        removeLinkGraphData(parentId, childId);
+        removeLinkBtnFromCards(cardSelected, (Card*)child);
     }
     refreshGraphPNG();
-    ///addChild renvoie un Link* -> l'ajouter à la liste
 }
 
-void closeProject(GtkApplication *app, gpointer user_data){
+void changeImageZoom_cb(GtkWidget *zoomBtn, gpointer image) {
+    gtk_widget_set_size_request(GTK_WIDGET(image), 1130+20*(int)gtk_scale_button_get_value(GTK_SCALE_BUTTON(zoomBtn)), 941+20*(int)gtk_scale_button_get_value(GTK_SCALE_BUTTON(zoomBtn)));
+}
+
+void onConfirmOpenProject_cb(GtkWidget *openProjectWindow) {
+    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(openProjectWindow));
+    GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
+    if(file != NULL) {
+        if ((curProject = loadProject(g_file_get_path(g_file_get_parent(g_file_get_parent(file))), g_file_get_basename(g_file_get_parent(file)))) != NULL) {
+            destroyWindow_cb(GTK_WINDOW(openProjectWindow));
+            ///TODO : créer les boutons des cartes et liens existants + graph
+        } else {
+            gtk_label_set_label(GTK_LABEL(gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(GTK_WIDGET(openProjectWindow))))), " Erreur : le fichier ouvert n'a pas un format valide");
+        }
+    }
+}
+
+//TODO : to be implemented
+void onConfirmSaveProjectAs_cb(GtkWidget *saveProjectWindow) {
+    //GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(saveProjectWindow));
+    /*GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
+    if(file != NULL) {
+        if ((curProject = loadProject(g_file_get_path(g_file_get_parent(g_file_get_parent(file))), g_file_get_basename(g_file_get_parent(file)))) != NULL) {
+            destroyWindow_cb(GTK_WINDOW(openProjectWindow));
+
+        } else {
+            gtk_label_set_label(GTK_LABEL(gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(GTK_WIDGET(openProjectWindow))))), " Erreur : le fichier ouvert n'a pas un format valide");
+        }
+    }*/
+}
+
+void onPressSaveProject_cb() {
+    if(strcmp(curProject->path, "/tmp") == 0) {
+        onPressSaveProjectAs_cb();
+    } else {
+        saveProject(curProject);
+    }
+}
+
+void onPressSaveProjectAs_cb() {
+    ///TODO : Enregistrer sous
+
+    /* Construct a GtkBuilder instance and load our UI description */
+    GtkBuilder *builder = gtk_builder_new();
+    gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
+
+    /* Connect signal handlers to the constructed widgets. */
+    GObject *saveProjectWindow, *fileChooser, *abortBtn, *confirmBtn;
+    saveProjectWindow = gtk_builder_get_object(builder, "saveProjectWindow");
+
+    fileChooser = gtk_builder_get_object(builder, "saveProjectBrowser");
+    char path[MAXPATH] = "/home/";
+    strcat(path, getlogin());
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fileChooser), g_file_new_for_path(path), NULL);
+
+    abortBtn = gtk_builder_get_object(builder, "saveProjectAbort");
+    g_signal_connect_swapped(abortBtn, "clicked", G_CALLBACK(destroyWindow_cb), saveProjectWindow);
+
+    confirmBtn = gtk_builder_get_object(builder, "saveProjectConfirm");
+    g_signal_connect_swapped(confirmBtn, "clicked", G_CALLBACK(onConfirmSaveProjectAs_cb), saveProjectWindow);
+
+    gtk_window_set_default_size(GTK_WINDOW(saveProjectWindow), 800, 500);
+
+    gtk_window_set_modal(GTK_WINDOW(saveProjectWindow), true);
+    gtk_widget_show(GTK_WIDGET (saveProjectWindow));
+    g_object_unref(builder);
+
+    saveProject(curProject);
+}
+
+//TODO : do not delete entirely the saved project when it is not in tmp !
+void closeProject(){
     if(curProject != NULL){
-        char graphPNGPath[MAXPATH+10];
-        strcpy(graphPNGPath, graphDirPath);
-        strcat(graphPNGPath, "/graph.png");
-
-        // remove the graph files
-
-        if(remove(graphDataPath) != 0){
-            fprintf(stderr, "error : deletion of the file %s is impossible\n",graphDataPath);
-            fprintf(stderr,"%d\n", errno);
-        }
-        if(remove(graphPNGPath) != 0){
-            fprintf(stderr, "error : deletion of the file %s is impossible\n", graphPNGPath);
-            fprintf(stderr,"%d\n", errno);
-        }
-
-        // remove the graph directory
-
-        if(rmdir(graphDirPath) != 0){
-            fprintf( stderr, "error : deletion of the directory %s is impossible\n", graphDirPath);
-            fprintf(stderr,"%d\n", errno);
-        }
-
+        deleteGraphFiles();
         deleteProject(curProject);
     }
 }

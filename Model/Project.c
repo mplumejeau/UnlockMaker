@@ -871,6 +871,41 @@ int deleteLink(Project* p, Link* l){
 }
 
 /**
+ * Remove a link from a project and free it
+ * @param p the project to which a link must be removed
+ * @param parent the parent card of the link to delete
+ * @param child the child card of the link to delete
+ * @return 0 if it's a success, -1 if not
+ */
+int deleteLinkFromCards(Project* p, Card* parent, Card* child){
+
+    Link* l;
+
+    if (p != NULL && parent != NULL && child != NULL){
+
+        setOnFirstEdge(&p->linkList);
+
+        while(!isOutOfListEdge(&p->linkList)){
+
+            l = p->linkList.current->link;
+
+            if(l->parent == parent && l->child == child){
+                return deleteLink(p, l);
+            }
+
+            setOnNextEdge(&p->linkList);
+        }
+
+        fprintf(stderr, "error : there is no link with this parent card and this child card\n");
+        return -1;
+
+    } else {
+        fprintf(stderr, "error : project or parent card or child card bad allocation\n");
+        return -1;
+    }
+}
+
+/**
  * Copy the content of the source file into the dest file (and create the dest file if it doesn't exist)
  * @param dest the path of the destination file
  * @param source the path of the source file

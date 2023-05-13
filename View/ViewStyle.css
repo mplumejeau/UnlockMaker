@@ -6,7 +6,7 @@
 
 #startWindow
 {
-
+   border-radius: 10px;
 }
 
 #startWindowGrid
@@ -15,22 +15,25 @@
    padding: 10px;
 }
 
-#startButton
+#startBtn
 {
    margin: 10px;
 }
 
-#newProjectEntry
+#openProjectGrid
 {
-   margin-bottom: 10px;
-   margin-top: 10px;
+   margin-left: 2px;
+   margin-right: 2px;
+   border-style: solid;
+   border-color: lightgrey;
+   border-width: 1px;
 }
 
 #generalGrid
 {
    background-color: lightgrey;
    border-width: 1px;
-   border-radius: 0px;
+   border-radius: 0;
 }
 
 button
@@ -278,6 +281,12 @@ button:active
    border-radius: 7px;
    margin: 2px;
 }
+
+#parentsBox
+{
+   margin: 5px 15px 5px 5px;
+}
+
 #ChildWindow
 {
    border-style: solid;
@@ -287,18 +296,44 @@ button:active
    margin: 2px;
 }
 
-#ChildLabel
+#childrenBox
 {
-   background-color: lightgrey;
-   border-radius: 6px;
-   margin-bottom: 2px;
+   margin: 5px 15px 5px 5px;
 }
 
-#ParentLabel
+#modifGreyLabel
 {
-   background-color: lightgrey;
-   border-radius: 6px;
+   background-color: grey;
+   border-radius: 4px;
    margin-bottom: 2px;
+   color:black;
+}
+#modifBlueLabel
+{
+   background-color: #0000CD;
+   border-radius: 4px;
+   margin-bottom: 2px;
+   color:black;
+}
+#modifRedLabel
+{
+   background-color: #EE0000;
+   border-radius: 4px;
+   margin-bottom: 2px;
+   color:black;
+}
+#modifGreenLabel
+{
+   background-color: #00BD00;
+   border-radius: 4px;
+   margin-bottom: 2px;
+   color:black;
+}
+
+#modifLabelCheck
+{
+   border-style: solid;
+   border-color: black;
 }
 
 #ScrolledWindowTitle
@@ -323,4 +358,14 @@ button:active
 #linkDropDown
 {
    margin-right: 15px;
+}
+
+#imageBox
+{
+   padding: 10px;
+}
+
+#zoomBtn
+{
+   background: none;
 }

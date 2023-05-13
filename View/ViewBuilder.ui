@@ -44,6 +44,11 @@
               </object>
             </child>
             <child>
+              <object id="saveBtn" class="GtkButton">
+                <property name="label">Sauvegarder</property>
+              </object>
+            </child>
+            <child>
               <object id="Quit" class="GtkButton">
                 <property name="label">Quitter</property>
               </object>
@@ -119,13 +124,41 @@
           </object>
         </child>
         <child>
-          <object id="GraphViewer" class="GtkImage">
+          <object class="GtkScrolledWindow">
+            <property name="vexpand">true</property>
+            <property name="name">imageWindow</property>
             <layout>
               <property name="column">7</property>
               <property name="row">11</property>
               <property name="column-span">25</property>
               <property name="row-span">200</property>
             </layout>
+            <child>
+              <object id="imageBox" class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="homogeneous">true</property>
+                <property name="name">imageBox</property>
+                <child type="center">
+                  <object id="graphViewer" class="GtkImage">
+                    <property name="name">graphViewer</property>
+                    <property name="height-request">100</property>
+                    <property name="width-request">100</property>
+                  </object>
+              </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+           <object id="zoomBtn" class="GtkScaleButton">
+             <property name="name">zoomBtn</property>
+             <property name="icons">zoom-in</property>
+             <layout>
+               <property name="column">31</property>
+               <property name="row">11</property>
+               <property name="column-span">1</property>
+               <property name="row-span">10</property>
+             </layout>
           </object>
         </child>
         <child>
@@ -201,6 +234,7 @@
   </object>
   <object id="cardWindow" class="GtkWindow">
     <property name="title">Modification window</property>
+    <property name="name">cardWindow</property>
     <child>
       <object class="GtkGrid">
         <property name="column-homogeneous">True</property>
@@ -342,9 +376,9 @@
               <property name="row-span">30</property>
             </layout>
             <child>
-              <object id="ParentGrid" class="GtkGrid">
-                <property name="column-homogeneous">True</property>
-                <property name="row-homogeneous">False</property>
+              <object id="parentsBox" class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="name">parentsBox</property>
               </object>
             </child>
           </object>
@@ -371,9 +405,9 @@
               <property name="row-span">30</property>
             </layout>
             <child>
-              <object id="ChildGrid" class="GtkGrid">
-                <property name="column-homogeneous">True</property>
-                <property name="row-homogeneous">False</property>
+              <object id="childrenBox" class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="name">childrenBox</property>
               </object>
             </child>
           </object>
@@ -394,6 +428,7 @@
   </object>
   <object id="linkWindow" class="GtkWindow">
     <property name="title">Modification window</property>
+    <property name="name">linkWindow</property>
     <child>
       <object class="GtkGrid">
         <property name="column-homogeneous">True</property>
@@ -462,64 +497,158 @@
             <layout>
               <property name="column">0</property>
               <property name="row">0</property>
-              <property name="column-span">2</property>
+              <property name="column-span">4</property>
+              <property name="row-span">1</property>
             </layout>
           </object>
         </child>
         <child>
-          <object id="newProjectButton" class="GtkButton">
+          <object id="newProjectBtn" class="GtkButton">
             <property name="label">Nouveau projet</property>
-            <property name="name">startButton</property>
+            <property name="name">startBtn</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">2</property>
+              <property name="row">1</property>
+              <property name="column-span">2</property>
+              <property name="row-span">2</property>
             </layout>
           </object>
         </child>
         <child>
-          <object id="openProjectButton" class="GtkButton">
+          <object id="openProjectBtn" class="GtkButton">
             <property name="label">Ouvrir un projet existant</property>
-            <property name="name">startButton</property>
+            <property name="name">startBtn</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">1</property>
+              <property name="column-span">2</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeStartingWindowBtn" class="GtkButton">
+            <property name="label">Quitter</property>
+            <property name="name">closeStartingWindowBtn</property>
             <layout>
               <property name="column">1</property>
-              <property name="row">2</property>
+              <property name="row">3</property>
+              <property name="column-span">2</property>
             </layout>
           </object>
         </child>
       </object>
     </child>
   </object>
-  <object id="singleLinkGrid" class="GtkGrid">
-    <property name="row-homogeneous">True</property>
-    <property name="column-homogeneous">True</property>
+  <object id="openProjectWindow" class="GtkWindow">
+    <property name="title">Ouvrir un projet</property>
+    <property name="name">openProjectWindow</property>
     <child>
-      <object id="linkBtn" class="GtkButton">
-        <property name="name">foundLinkBtn</property>
-        <layout>
-          <property name="column">0</property>
-          <property name="row">0</property>
-          <property name="column-span">1</property>
-        </layout>
-      </object>
-     </child>
-     <child>
-      <object id="linkDropDown" class="GtkDropDown">
-        <property name="name">linkDropDown</property>
-        <property name="model">
-          <object class="GtkStringList">
-            <items>
-              <item translatable="yes">Recherche</item>
-              <item translatable="yes">Combinaison</item>
-              <item translatable="yes">Numéro fixe</item>
-              <item translatable="yes">Indice</item>
-            </items>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">openProjectGrid</property>
+        <child>
+          <object id="openProjectBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
           </object>
-        </property>
-        <layout>
-          <property name="column">1</property>
-          <property name="row">0</property>
-          <property name="column-span">2</property>
-        </layout>
+        </child>
+        <child>
+          <object id="openProjectErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectConfirm" class="GtkButton">
+            <property name="label">Ouvrir</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object id="saveProjectWindow" class="GtkWindow">
+    <property name="title">Sauvegarder un projet</property>
+    <property name="name">saveProjectWindow</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">saveProjectGrid</property>
+        <child>
+          <object id="saveProjectBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_SAVE</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectConfirm" class="GtkButton">
+            <property name="label">Sauvegarder</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
       </object>
     </child>
   </object>

@@ -1,6 +1,6 @@
 /* Created by louenn on 14/03/23. */
 
-#include <gtk/gtk.h>*
+#include <gtk/gtk.h>
 #include "../Model/Project.h"
 
 #ifndef UNLOCKMAKER_VIEWAPPLICATION_H
@@ -8,15 +8,17 @@
 
 typedef enum {CARD, LINK} buttonType;
 
-void quit_cb(GtkWindow *window);
-
-void activate(GtkApplication *app, gpointer user_data);
+void activate(GtkApplication *app);
 
 void load_css();
 
-GObject* addGenericButton(GObject *button, GtkBuilder *builder, char* id);
+void addCardBtn(Card* c, GtkWidget* box);
 
-void addLinkBtn(Link* l, Card* parent, Card* child);
+void addCardLblForModify(Card* c, GtkWidget* checkBtn, GtkWidget* box);
+
+void addLinkBtn(Link* l);
+
+void removeLinkBtnFromCards(Card* parent, Card* child);
 
 void openModifyCardWindow_cb();
 
@@ -24,22 +26,22 @@ void openModifyLinkWindow_cb();
 
 void entryPropertiesFromCheck(GtkWidget *checkButton, gpointer entry);
 
-void openStartingWindow(GtkBuilder *builder, GObject *mainWindow);
+void openStartingWindow(GtkWindow *mainWindow);
 
 //A mettre dans controleur
 void cardColorUserChange_cb(GtkWidget *widget);
 void linkTypeUserChange_cb(GtkWidget *widget);
 
 
-void destroyWindow_cb(gpointer window);
+void destroyWindow_cb(GtkWindow *window);
 
 void openMainWindow_cb(gpointer window);
 
-void openProjectSearchWindow(GtkBuilder *builder);
+void openProjectBrowse_cb(GtkWidget* mainWindow);
 
 void modifyInfoPanel(char* text);
 
-void onDestroySecondWindow(GtkWidget *widget, gpointer data);
+void onDestroySecondWindow_cb();
 
 void setCenterImagePath(char* path);
 

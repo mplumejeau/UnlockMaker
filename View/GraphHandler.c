@@ -2,46 +2,124 @@
 // Created by louenn on 08/05/23.
 //
 #include <stdio.h>
-#include <stdlib.h>
 #include <string.h>
 #include <errno.h>
+#include <sys/stat.h>
+#include <graphviz/gvc.h>
 
 #include "GraphHandler.h"
+#include "ViewApplication.h"
 
+char graphDirPath[MAXPATH+6] = "";
+char graphDataPath[MAXPATH+20] = "";
+char graphPNGPath[MAXPATH+16] = "";
 
+void initGraphFiles(Project* p) {
+    strcat(graphDirPath, p->path);
+    strcat(graphDirPath, "/");
+    strcat(graphDirPath, p->name);
+    strcat(graphDirPath, "/Graph");
+    strcpy(graphDataPath, graphDirPath);
+    strcat(graphDataPath, "/graphData.txt");
+    strcpy(graphPNGPath, graphDirPath);
+    strcat(graphPNGPath, "/graph.png");
+    if (mkdir(graphDirPath, 0755) != 0 ) {
+        fprintf( stderr, "error : creation of the directory %s is impossible\n", graphDirPath);
+        fprintf(stderr,"%d\n", errno);
+    }
+    FILE* fp = NULL;
+    fp = fopen(graphDataPath, "w");
+    if(fp == NULL) {
+        fprintf(stderr, "error : creation of the file %s is impossible\n", graphDataPath);
+        fprintf(stderr,"%d\n", errno);
+        fclose(fp);
+        return;
+    }
+    fprintf(fp, "digraph G{bgcolor=lightgrey;node[style=filled;shape=circle];\n}");
+    fclose(fp);
+    exportPNGGraphFromFile(graphDataPath, graphPNGPath);
+    setCenterImagePath(graphPNGPath);
+}
 
-void addCardGraphData(char* graphDataPath, const char* id, int type) {
+void deleteGraphFiles() {
+    // remove the graph files
+
+    if(remove(graphDataPath) != 0){
+        fprintf(stderr, "error : deletion of the file %s is impossible\n",graphDataPath);
+        fprintf(stderr,"%d\n", errno);
+    }
+    if(remove(graphPNGPath) != 0){
+        fprintf(stderr, "error : deletion of the file %s is impossible\n", graphPNGPath);
+        fprintf(stderr,"%d\n", errno);
+    }
+
+    // remove the graph directory
+
+    if(rmdir(graphDirPath) != 0){
+        fprintf( stderr, "error : deletion of the directory %s is impossible\n", graphDirPath);
+        fprintf(stderr,"%d\n", errno);
+    }
+}
+
+int refreshGraphPNG() {
+    int result = exportPNGGraphFromFile(graphDataPath, graphPNGPath);
+    reloadCenterImage();
+    return result;
+}
+
+int exportPNGGraphFromFile(char* dataInput, char* PNGOutput) {
+    Agraph_t *g;
+    GVC_t *gvc;
+    gvc = gvContext();
+    //g = agopen("G", Agdirected, NULL);
+    FILE *fp = NULL;
+    fp = fopen(dataInput, "r");
+    if(fp == NULL) return 0;
+    g = agread(fp, NULL);
+    gvLayout(gvc, g, "dot");
+    gvRenderFilename(gvc, g, "png", PNGOutput);
+    gvFreeLayout(gvc,g);
+    agclose(g);
+    gvFreeContext(gvc);
+    fclose(fp);
+    return 1;
+}
+
+void addCardGraphData(const char* id, int type) {
     char cardType[4][7] = {"grey52","blue3 ","red2  ","green3"};
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r+");
     if(fp == NULL) {
         fprintf(stderr, "error : opening of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     fseek(fp, -3, SEEK_END);
     fprintf(fp,"\nnode[fillcolor=%s];%s;\n\n}",cardType[type],id);
     fclose(fp);
 }
-void addLinkGraphData(char* graphDataPath, char* idParent, char* idChild, int type) {
+void addLinkGraphData(char* idParent, char* idChild, int type) {
     char linkType[4][7] = {"black ","orchid","cyan3 ","orange"};
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r+");
     if(fp == NULL) {
         fprintf(stderr, "error : opening of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     fseek(fp, -3, SEEK_END);
     fprintf(fp,"\nedge[color=%s];%s->%s;\n\n}",linkType[type],idParent,idChild);
     fclose(fp);
 }
 
-void modifyCardTypeGraphData(char* graphDataPath, const char* id, int newType) {
+void modifyCardTypeGraphData(const char* id, int newType) {
     char cardType[4][7] = {"grey52","blue3 ","red2  ","green3"};
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r+");
     if(fp == NULL) {
         fprintf(stderr, "error : opening of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     char buffer[60];
     char returns[5];
@@ -60,13 +138,14 @@ void modifyCardTypeGraphData(char* graphDataPath, const char* id, int newType) {
     fclose(fp);
 }
 
-void modifyLinkTypeGraphData(char* graphDataPath, const char* idParent, const char* idChild, int newType) {
+void modifyLinkTypeGraphData(const char* idParent, const char* idChild, int newType) {
     char linkType[4][7] = {"black ","orchid","cyan3 ","orange"};
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r+");
     if(fp == NULL) {
         fprintf(stderr, "error : opening of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     char buffer[60];
     char returns[5];
@@ -88,12 +167,13 @@ void modifyLinkTypeGraphData(char* graphDataPath, const char* idParent, const ch
     fclose(fp);
 }
 
-void removeCardGraphData(char* graphDataPath, const char* id) {
+void removeCardGraphData(const char* id) {
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r");
     if(fp == NULL) {
         fprintf(stderr, "error : opening of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     fseek(fp, 0, SEEK_END);
     char cpy[ftell(fp)];
@@ -132,17 +212,19 @@ void removeCardGraphData(char* graphDataPath, const char* id) {
     if(fp == NULL) {
         fprintf(stderr, "error : opening/writing of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     fprintf(fp, "%s", cpy);
     fclose(fp);
 }
 
-void removeLinkGraphData(char* graphDataPath, const char* idParent, const char* idChild) {
+void removeLinkGraphData(const char* idParent, const char* idChild) {
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r");
     if(fp == NULL) {
         fprintf(stderr, "error : opening of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     fseek(fp, 0, SEEK_END);
     char cpy[ftell(fp)];
@@ -173,12 +255,13 @@ void removeLinkGraphData(char* graphDataPath, const char* idParent, const char* 
     if(fp == NULL) {
         fprintf(stderr, "error : opening/writing of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     fprintf(fp, "%s", cpy);
     fclose(fp);
 }
 
-void setCardAsRootGraphData(char* graphDataPath, const char* id) {
+void setCardAsRootGraphData(const char* id) {
     char cardId[5] = "";
     strcpy(cardId, id);
     if(strlen(cardId)==1) strcat(cardId, " ");
@@ -187,6 +270,7 @@ void setCardAsRootGraphData(char* graphDataPath, const char* id) {
     if(fp == NULL) {
         fprintf(stderr, "error : opening of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     char buffer[60];
     char returns[5];
@@ -206,12 +290,13 @@ void setCardAsRootGraphData(char* graphDataPath, const char* id) {
     fclose(fp);
 }
 
-void removeCardAsRootGraphData(char* graphDataPath) {
+void removeCardAsRootGraphData() {
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r");
     if(fp == NULL) {
         fprintf(stderr, "error : opening of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     fseek(fp, 0, SEEK_END);
     char cpy[ftell(fp)];
@@ -232,6 +317,7 @@ void removeCardAsRootGraphData(char* graphDataPath) {
     if(fp == NULL) {
         fprintf(stderr, "error : opening/writing of the file %s is impossible\n", graphDataPath);
         fprintf(stderr,"%d\n", errno);
+        return;
     }
     fprintf(fp, "%s", cpy);
     fclose(fp);
