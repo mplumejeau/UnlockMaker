@@ -15,17 +15,28 @@
    padding: 10px;
 }
 
+#startTitleLabel
+{
+   font-size : x-large;
+   font-weight: bold;
+}
+
+#startLabel
+{
+   font-size : 110%;
+}
+
 #startBtn
 {
    margin: 10px;
 }
 
-#openProjectGrid
+#saveProjectEntry
 {
-   margin-left: 2px;
-   margin-right: 2px;
+   margin:5px;
+   border-radius: 0;
    border-style: solid;
-   border-color: lightgrey;
+   border-color: black;
    border-width: 1px;
 }
 
@@ -307,6 +318,7 @@ button:active
    border-radius: 4px;
    margin-bottom: 2px;
    color:black;
+   font-weight: bold;
 }
 #modifBlueLabel
 {
@@ -314,6 +326,7 @@ button:active
    border-radius: 4px;
    margin-bottom: 2px;
    color:black;
+   font-weight: bold;
 }
 #modifRedLabel
 {
@@ -321,6 +334,7 @@ button:active
    border-radius: 4px;
    margin-bottom: 2px;
    color:black;
+   font-weight: bold;
 }
 #modifGreenLabel
 {
@@ -328,6 +342,7 @@ button:active
    border-radius: 4px;
    margin-bottom: 2px;
    color:black;
+   font-weight: bold;
 }
 
 #modifLabelCheck
@@ -369,3 +384,31 @@ button:active
 {
    background: none;
 }
+
+#closeAbortBtn
+{
+   margin: 10px 3px 10px 10px;
+}
+
+#closeNoSaveBtn {
+   margin: 10px 3px 10px 3px;
+}
+
+#closeWithSaveBtn
+{
+   background-color: darkgrey;
+   font-weight: bold;
+   margin: 10px 10px 10px 3px;
+}
+
+#closeWithSaveBtn:hover
+{
+   background-color: #888888;
+   font-weight: bold;
+}
+
+#closeConfirmLabel
+{
+   font-size : large;
+}
+

@@ -6,6 +6,7 @@
 #define UNLOCKMAKER_CONTROLLER_H
 
 void createNewProject_cb();
+void onConfirmNewProject_cb(GtkWidget *saveProjectWindow);
 
 void onAddCard_cb(gpointer box);
 void onSelectCard_cb(GtkWidget *cardBtn, gpointer card);
@@ -32,7 +33,5 @@ void onConfirmSaveProjectAs_cb(GtkWidget *saveProjectWindow);
 
 void onPressSaveProject_cb();
 void onPressSaveProjectAs_cb();
-
-void closeProject();
 
 #endif /*UNLOCKMAKER_CONTROLLER_H*/

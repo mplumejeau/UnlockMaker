@@ -200,9 +200,8 @@ void openStartingWindow(GtkWindow *mainWindow) {
         closeStartingWindowBtn = gtk_builder_get_object(builder, "closeStartingWindowBtn");
         gtk_window_set_default_size(GTK_WINDOW(startWindow), 300, 150);
         //Création du projet
-        g_signal_connect(newProjectBtn, "clicked", G_CALLBACK(createNewProject_cb), NULL);
+        g_signal_connect_swapped(newProjectBtn, "clicked", G_CALLBACK(newProjectBrowse_cb), mainWindow);
 
-        g_signal_connect_swapped(newProjectBtn, "clicked", G_CALLBACK(openMainWindow_cb), mainWindow);
         g_signal_connect_swapped(newProjectBtn, "clicked", G_CALLBACK(destroyWindow_cb), startWindow);
         g_signal_connect_swapped(openProjectBtn, "clicked", G_CALLBACK(openProjectBrowse_cb), mainWindow);
         g_signal_connect_swapped(openProjectBtn, "clicked", G_CALLBACK(destroyWindow_cb), startWindow);
@@ -212,6 +211,36 @@ void openStartingWindow(GtkWindow *mainWindow) {
     } else {
         openMainWindow_cb(mainWindow);
     }
+}
+
+void newProjectBrowse_cb(GtkWidget* mainWindow) {
+    /* Construct a GtkBuilder instance and load our UI description */
+    GtkBuilder *builder = gtk_builder_new();
+    gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
+
+    /* Connect signal handlers to the constructed widgets. */
+    GObject *saveProjectWindow, *fileChooser, *abortBtn, *confirmBtn, *nameEntry;
+    saveProjectWindow = gtk_builder_get_object(builder, "saveNewProjectWindow");
+    g_signal_connect_swapped(saveProjectWindow, "destroy", G_CALLBACK(openStartingWindow), mainWindow);
+
+    fileChooser = gtk_builder_get_object(builder, "saveNewProjectBrowser");
+    char path[MAXPATH] = "/home/";
+    strcat(path, getlogin());
+    gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fileChooser), g_file_new_for_path(path), NULL);
+
+    nameEntry = gtk_builder_get_object(builder, "saveNewProjectEntry");
+    gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry)), "SansTitre", 9);
+
+    abortBtn = gtk_builder_get_object(builder, "saveNewProjectAbort");
+    g_signal_connect_swapped(abortBtn, "clicked", G_CALLBACK(destroyWindow_cb), saveProjectWindow);
+
+    confirmBtn = gtk_builder_get_object(builder, "saveNewProjectConfirm");
+    g_signal_connect_swapped(confirmBtn, "clicked", G_CALLBACK(onConfirmNewProject_cb), saveProjectWindow);
+
+    gtk_window_set_default_size(GTK_WINDOW(saveProjectWindow), 800, 500);
+
+    gtk_widget_show(GTK_WIDGET (saveProjectWindow));
+    g_object_unref(builder);
 }
 
 void openProjectBrowse_cb(GtkWidget* mainWindow) {
@@ -238,13 +267,36 @@ void destroyWindow_cb(GtkWindow *window) {
     gtk_window_close(GTK_WINDOW(window));
 }
 
-void openMainWindow_cb(gpointer window) {
+void openMainWindow_cb(GtkWindow *window) {
     char windowName[MAXNAME+14] = "";
     strcpy(windowName, curProject->name);
     strcat(windowName, " - UnlockMaker");
     gtk_window_set_title(GTK_WINDOW(window), windowName);
     gtk_widget_show(GTK_WIDGET(window));
     gtk_window_maximize(GTK_WINDOW(window));
+}
+
+int openConfirmationWindow_cb(GtkWindow *mainWindow) {
+    GtkBuilder *builder = gtk_builder_new();
+    gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
+    GObject *confirmWindow, *closeAbortBtn, *closeNoSaveBtn, *closeWithSaveBtn;
+    confirmWindow = gtk_builder_get_object(builder, "closeConfirmWindow");
+    gtk_window_set_default_size(GTK_WINDOW(confirmWindow), 300, 150);
+
+    closeAbortBtn = gtk_builder_get_object(builder, "closeAbortBtn");
+    g_signal_connect_swapped(closeAbortBtn, "clicked", G_CALLBACK(destroyWindow_cb), confirmWindow);
+
+    closeNoSaveBtn = gtk_builder_get_object(builder, "closeNoSaveBtn");
+    g_signal_connect_swapped(closeNoSaveBtn, "clicked", G_CALLBACK(g_application_quit), gtk_window_get_application(GTK_WINDOW(mainWindow)));
+
+    closeWithSaveBtn = gtk_builder_get_object(builder, "closeWithSaveBtn");
+    g_signal_connect_swapped(closeWithSaveBtn, "clicked", G_CALLBACK(saveProject), curProject);
+    g_signal_connect_swapped(closeWithSaveBtn, "clicked", G_CALLBACK(g_application_quit), gtk_window_get_application(GTK_WINDOW(mainWindow)));
+
+    gtk_widget_show(GTK_WIDGET (confirmWindow));
+
+    g_object_unref(builder);
+    return true;
 }
 
 void modifyInfoPanel(char* text) {
@@ -284,14 +336,6 @@ void enableRightLinkButtons() {
     gtk_widget_set_can_target(GTK_WIDGET(btnDeleteLink),true);
 }
 
-void disableWindow_cb(GtkWidget* window) {
-    gtk_widget_set_can_target(window, false);
-}
-
-void enableWindow_cb(GtkWidget* window) {
-    gtk_widget_set_can_target(window, true);
-}
-
 
 void activate(GtkApplication *app) {
 
@@ -308,16 +352,19 @@ void activate(GtkApplication *app) {
     window = gtk_builder_get_object(builder, "mainWindow");
     gtk_window_set_default_size(GTK_WINDOW(window), 1700, 900);
     gtk_window_set_application(GTK_WINDOW(window), app);
+    //gtk_window_set_deletable(GTK_WINDOW(window), false);
 
-    button = gtk_builder_get_object(builder, "Quit");
-    g_signal_connect_swapped (button, "clicked", G_CALLBACK(destroyWindow_cb), window);
-    g_signal_connect(window, "destroy", G_CALLBACK(closeProject), NULL);
+    //button = gtk_builder_get_object(builder, "Quit");
+    //g_signal_connect_swapped (button, "clicked", G_CALLBACK(openConfirmationWindow_cb), window);
+    //g_signal_connect(window, "destroy", G_CALLBACK(deleteTmpProject), NULL);
 
     button = gtk_builder_get_object(builder, "saveBtn");
     g_signal_connect(button, "clicked", G_CALLBACK(onPressSaveProject_cb), NULL);
 
-    ///TODO : A UTILISER POUR DEMANDER LA CONFIRMATION POUR FERMER LA FENETRE ( /!\ BLOCKS THE CLOSING OF THE WINDOW)
-    //g_signal_connect(window, "close-request", G_CALLBACK(openConfirmationWindow), window);
+    /*button = gtk_builder_get_object(builder, "saveAsBtn");
+    g_signal_connect(button, "clicked", G_CALLBACK(onPressSaveProjectAs_cb), NULL);*/
+
+    g_signal_connect(GTK_WINDOW(window), "close-request", G_CALLBACK(openConfirmationWindow_cb), window);
 
     box = gtk_builder_get_object(builder, "CardBox");
 

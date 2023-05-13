@@ -27,6 +27,8 @@ void openModifyLinkWindow_cb();
 void entryPropertiesFromCheck(GtkWidget *checkButton, gpointer entry);
 
 void openStartingWindow(GtkWindow *mainWindow);
+void newProjectBrowse_cb(GtkWidget* mainWindow);
+void openProjectBrowse_cb(GtkWidget* mainWindow);
 
 //A mettre dans controleur
 void cardColorUserChange_cb(GtkWidget *widget);
@@ -35,9 +37,9 @@ void linkTypeUserChange_cb(GtkWidget *widget);
 
 void destroyWindow_cb(GtkWindow *window);
 
-void openMainWindow_cb(gpointer window);
+void openMainWindow_cb(GtkWindow *window);
 
-void openProjectBrowse_cb(GtkWidget* mainWindow);
+int openConfirmationWindow_cb(GtkWindow *mainWindow);
 
 void modifyInfoPanel(char* text);
 

@@ -52,6 +52,25 @@ void createNewProject_cb(){
     }
 }
 
+void onConfirmNewProject_cb(GtkWidget *saveProjectWindow) {
+    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(saveProjectWindow));
+    GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
+    GtkWidget *nameEntry = gtk_widget_get_next_sibling(gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(saveProjectWindow))));
+    if(file != NULL && strcmp(gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))), "") != 0) {
+        curProject = allocProject();
+
+        if(curProject != NULL) {
+            /*Temporary projet path and name, to change depending on OS*/
+            initProject(curProject, g_file_get_path(file), (char*)gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))));
+            initGraphFiles(curProject);
+        } else {
+            fprintf(stderr, "error : creation of the project is impossible\n");
+            fprintf(stderr,"%d\n", errno);
+        }
+    }
+    destroyWindow_cb(GTK_WINDOW(saveProjectWindow));
+}
+
 void onAddCard_cb(gpointer box) {
     if(secondWindowOpen!=NULL) {
         destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
@@ -207,7 +226,7 @@ void onToggleCardFixedNumber_cb(int number) {
 
 void onEnterCardFixedNumber_cb(GtkWidget *entry, gpointer checkButton) {
     if(gtk_check_button_get_active(GTK_CHECK_BUTTON(checkButton))) {
-        onToggleCardFixedNumber_cb(atoi(gtk_entry_buffer_get_text(GTK_ENTRY_BUFFER(G_OBJECT(gtk_entry_get_buffer(GTK_ENTRY(entry)))))));
+        onToggleCardFixedNumber_cb((int)strtol(gtk_entry_buffer_get_text(GTK_ENTRY_BUFFER(G_OBJECT(gtk_entry_get_buffer(GTK_ENTRY(entry))))),NULL, 10));
     }
 }
 
@@ -327,18 +346,29 @@ void onConfirmOpenProject_cb(GtkWidget *openProjectWindow) {
     }
 }
 
-//TODO : to be implemented
 void onConfirmSaveProjectAs_cb(GtkWidget *saveProjectWindow) {
-    //GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(saveProjectWindow));
-    /*GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
-    if(file != NULL) {
-        if ((curProject = loadProject(g_file_get_path(g_file_get_parent(g_file_get_parent(file))), g_file_get_basename(g_file_get_parent(file)))) != NULL) {
-            destroyWindow_cb(GTK_WINDOW(openProjectWindow));
-
+    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(saveProjectWindow));
+    GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
+    GtkWidget *nameEntry = gtk_widget_get_next_sibling(gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(saveProjectWindow))));
+    printf("Name : %s\n", gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))));
+    if(file != NULL && strcmp(gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))), "") != 0) {
+        printf("Valid name and path. Path : %s\n", g_file_get_path(file));
+        /* TODO : BESOIN D'UNE FONCTION saveProjectAs(char* newPath, char* newName) POUR CONTINUER (et adapter, + ajouter graph)
+        char newPath[strlen(g_file_get_path(file))+strlen(gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))))+2];
+        strcpy(newPath, g_file_get_path(file));
+        strcat(newPath, "/");
+        strcat(newPath, gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))));
+        if ( mkdir(newPath, 0755 ) != 0 && errno != 17) {
+            fprintf( stderr, "error : creation of the directory %s is impossible\n", newPath);
+            fprintf(stderr,"%d\n", errno);
         } else {
-            gtk_label_set_label(GTK_LABEL(gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(GTK_WIDGET(openProjectWindow))))), " Erreur : le fichier ouvert n'a pas un format valide");
-        }
-    }*/
+            strcpy(curProject->path, g_file_get_path(file));
+            strcpy(curProject->name, gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))));
+            saveProjectAs(curProject);
+
+        }*/
+        destroyWindow_cb(GTK_WINDOW(saveProjectWindow));
+    }
 }
 
 void onPressSaveProject_cb() {
@@ -350,20 +380,22 @@ void onPressSaveProject_cb() {
 }
 
 void onPressSaveProjectAs_cb() {
-    ///TODO : Enregistrer sous
 
     /* Construct a GtkBuilder instance and load our UI description */
     GtkBuilder *builder = gtk_builder_new();
     gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
 
     /* Connect signal handlers to the constructed widgets. */
-    GObject *saveProjectWindow, *fileChooser, *abortBtn, *confirmBtn;
+    GObject *saveProjectWindow, *fileChooser, *abortBtn, *confirmBtn, *nameEntry;
     saveProjectWindow = gtk_builder_get_object(builder, "saveProjectWindow");
 
     fileChooser = gtk_builder_get_object(builder, "saveProjectBrowser");
     char path[MAXPATH] = "/home/";
     strcat(path, getlogin());
     gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fileChooser), g_file_new_for_path(path), NULL);
+
+    nameEntry = gtk_builder_get_object(builder, "saveProjectEntry");
+    gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry)), curProject->name, (int)strlen(curProject->name));
 
     abortBtn = gtk_builder_get_object(builder, "saveProjectAbort");
     g_signal_connect_swapped(abortBtn, "clicked", G_CALLBACK(destroyWindow_cb), saveProjectWindow);
@@ -373,18 +405,7 @@ void onPressSaveProjectAs_cb() {
 
     gtk_window_set_default_size(GTK_WINDOW(saveProjectWindow), 800, 500);
 
-    gtk_window_set_modal(GTK_WINDOW(saveProjectWindow), true);
     gtk_widget_show(GTK_WIDGET (saveProjectWindow));
     g_object_unref(builder);
-
-    saveProject(curProject);
-}
-
-//TODO : do not delete entirely the saved project when it is not in tmp !
-void closeProject(){
-    if(curProject != NULL){
-        deleteGraphFiles();
-        deleteProject(curProject);
-    }
 }
 
