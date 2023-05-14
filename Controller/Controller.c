@@ -21,6 +21,8 @@ Link *linkSelected = NULL;
 GtkWidget *cardSelectedBtn = NULL;
 GtkWidget *linkSelectedBtn = NULL;
 extern GObject *secondWindowOpen;
+extern GObject *cardBox;
+extern GObject *linkBox;
 
 int main(int argc, char* argv[]) {
 #ifdef GTK_SRCDIR
@@ -71,16 +73,16 @@ void onConfirmNewProject_cb(GtkWidget *saveProjectWindow) {
     destroyWindow_cb(GTK_WINDOW(saveProjectWindow));
 }
 
-void onAddCard_cb(gpointer box) {
+void onAddCard_cb() {
     if(secondWindowOpen!=NULL) {
         destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
     }
     Card* c = addEmptyCard(curProject);
     if(c!=NULL) {
-        addCardBtn(c, GTK_WIDGET(box));
+        addCardBtn(c);
         char cardId[3];
         sprintf(cardId, "%d", c->id);
-        addCardGraphData(cardId, GREY);
+        addCardGraphData(cardId, c->type);
         refreshGraphPNG();
     } else {
         ///TODO : Message d'erreur en bas à droite : Nombre de cartes maximum atteint (60)
@@ -88,8 +90,14 @@ void onAddCard_cb(gpointer box) {
 }
 
 void onSelectCard_cb(GtkWidget *cardBtn, gpointer card) {
-    char unselectedCardNames[4][23] = {"UnselectedGreyCardBtn", "UnselectedBlueCardBtn", "UnselectedRedCardBtn", "UnselectedGreenCardBtn"};
-    char selectedCardNames[4][21] = {"SelectedGreyCardBtn", "SelectedBlueCardBtn", "SelectedRedCardBtn", "SelectedGreenCardBtn"};
+    char unselectedCardNames[4][23] = {"unselectedGreyCardBtn", "unselectedBlueCardBtn", "unselectedRedCardBtn", "unselectedGreenCardBtn"};
+    char selectedCardNames[4][21] = {"selectedGreyCardBtn", "selectedBlueCardBtn", "selectedRedCardBtn", "selectedGreenCardBtn"};
+    gboolean reopenSecondWindow = false;
+    if(secondWindowOpen!=NULL) {
+        destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
+        secondWindowOpen = NULL;
+        reopenSecondWindow = true;
+    }
     if(cardSelected != NULL) {
         gtk_widget_set_name(cardSelectedBtn, unselectedCardNames[cardSelected->type]);
     }
@@ -101,9 +109,7 @@ void onSelectCard_cb(GtkWidget *cardBtn, gpointer card) {
     sprintf(cardId, "%d", ((Card*)card)->id);
     strcat(panelLabel,cardId);
     modifyInfoPanel(panelLabel);
-    if(secondWindowOpen!=NULL) {
-        openModifyCardWindow_cb();
-    }
+    if(reopenSecondWindow) openModifyCardWindow_cb();
     enableRightCardButtons();
 }
 
@@ -117,6 +123,12 @@ void unselectCard() {
 void onSelectLink_cb(GtkWidget *linkBtn, gpointer link) {
     char unselectedLinkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedFixedLinkBtn", "unselectedHintLinkBtn"};
     char selectedLinkNames[4][21] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedFixedLinkBtn", "selectedHintLinkBtn"};
+    gboolean reopenSecondWindow = false;
+    if(secondWindowOpen!=NULL) {
+        destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
+        secondWindowOpen = NULL;
+        reopenSecondWindow = true;
+    }
     if(linkSelected != NULL) {
         gtk_widget_set_name(linkSelectedBtn, unselectedLinkNames[linkSelected->type]);
     }
@@ -128,9 +140,7 @@ void onSelectLink_cb(GtkWidget *linkBtn, gpointer link) {
     sprintf(cardId, "%d", ((Card*)data)->id);
     strcat(panelLabel,cardId);
     modifyInfoPanel(panelLabel);*/
-    if(secondWindowOpen!=NULL) {
-        openModifyLinkWindow_cb();
-    }
+    if(reopenSecondWindow) openModifyLinkWindow_cb();
     enableRightLinkButtons();
 }
 
@@ -141,7 +151,7 @@ void unselectLink() {
     disableRightLinkButtons();
 }
 
-void onPressDeleteCard_cb(gpointer box) {
+void onPressDeleteCard_cb() {
     if(cardSelected!=NULL) {
         if(secondWindowOpen!=NULL) {
             destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
@@ -167,7 +177,7 @@ void onPressDeleteCard_cb(gpointer box) {
             setOnNextEdge(&cardSelected->children);
         }
         deleteCard(curProject, cardSelected);
-        gtk_box_remove(GTK_BOX(box), cardSelectedBtn);
+        gtk_box_remove(GTK_BOX(cardBox), cardSelectedBtn);
         unselectCard();
 
         removeCardGraphData(cardId);
@@ -175,7 +185,7 @@ void onPressDeleteCard_cb(gpointer box) {
     }
 }
 
-void onPressDeleteLink_cb(gpointer box) {
+void onPressDeleteLink_cb() {
     if(linkSelected!=NULL) {
         if(secondWindowOpen!=NULL) {
             destroyWindow_cb(GTK_WINDOW(secondWindowOpen));
@@ -186,7 +196,7 @@ void onPressDeleteLink_cb(gpointer box) {
         removeLinkGraphData(parentId, childId);
         refreshGraphPNG();
         deleteLink(curProject, linkSelected);
-        gtk_box_remove(GTK_BOX(box), linkSelectedBtn);
+        gtk_box_remove(GTK_BOX(linkBox), linkSelectedBtn);
         unselectLink();
     }
 }
@@ -198,7 +208,7 @@ void onModifyCardType_cb(int newType) {
         modifyCardTypeGraphData(cardId, newType);
         refreshGraphPNG();
         setCardType(cardSelected, newType);
-        char cardNames[4][23] = {"SelectedGreyCardBtn", "SelectedBlueCardBtn", "SelectedRedCardBtn", "SelectedGreenCardBtn"};
+        char cardNames[4][23] = {"selectedGreyCardBtn", "selectedBlueCardBtn", "selectedRedCardBtn", "selectedGreenCardBtn"};
         gtk_widget_set_name(cardSelectedBtn, cardNames[newType]);
     }
 }
@@ -241,7 +251,6 @@ void onToggleCardRoot_cb(GtkWidget *checkButton) {
         setRoot(curProject, NULL);
     }
     refreshGraphPNG();
-
 }
 
 void retrieveParentsChildren(GtkBox *parentsBox, GtkBox *childrenBox) {
@@ -276,6 +285,8 @@ void retrieveParentsChildren(GtkBox *parentsBox, GtkBox *childrenBox) {
         setOnNextVertex(&(curProject->cardList));
     }
 }
+
+//TODO : Regrouper 2 fonctions Toggle ?
 
 void onToggleAddParent_cb(GtkWidget *checkBtn, gpointer parent) {
     gboolean active = gtk_check_button_get_active(GTK_CHECK_BUTTON(checkBtn));
@@ -337,12 +348,36 @@ void onConfirmOpenProject_cb(GtkWidget *openProjectWindow) {
     GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(openProjectWindow));
     GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
     if(file != NULL) {
-        if ((curProject = loadProject(g_file_get_path(g_file_get_parent(g_file_get_parent(file))), g_file_get_basename(g_file_get_parent(file)))) != NULL) {
-            destroyWindow_cb(GTK_WINDOW(openProjectWindow));
-            ///TODO : créer les boutons des cartes et liens existants + graph
+        if(g_file_info_get_file_type(g_file_query_info(file, "standard::", G_FILE_QUERY_INFO_NONE, NULL, NULL)) == G_FILE_TYPE_DIRECTORY) {
+            gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fileChooser), file, NULL);
         } else {
-            gtk_label_set_label(GTK_LABEL(gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(GTK_WIDGET(openProjectWindow))))), " Erreur : le fichier ouvert n'a pas un format valide");
+            if ((curProject = loadProject(g_file_get_path(g_file_get_parent(g_file_get_parent(file))), g_file_get_basename(g_file_get_parent(file)))) != NULL) {
+                destroyWindow_cb(GTK_WINDOW(openProjectWindow));
+                ///TODO : créer les boutons des cartes et liens existants + graph
+                initGraphFiles(curProject);
+                char cardId[3];
+                setOnFirstVertex(&(curProject->cardList));
+                while(!isOutOfListVertex(&(curProject->cardList))) {
+                    addCardBtn(curProject->cardList.current->card);
+                    sprintf(cardId, "%d", curProject->cardList.current->card->id);
+                    addCardGraphData(cardId, curProject->cardList.current->card->type);
+                    setOnNextVertex(&(curProject->cardList));
+                }
+                char cardId2[3];
+                setOnFirstEdge(&(curProject->linkList));
+                while(!isOutOfListEdge(&(curProject->linkList))) {
+                    addLinkBtn(curProject->linkList.current->link);
+                    sprintf(cardId, "%d", curProject->linkList.current->link->parent->id);
+                    sprintf(cardId2, "%d", curProject->linkList.current->link->child->id);
+                    addLinkGraphData(cardId, cardId2, curProject->linkList.current->link->type);
+                    setOnNextEdge(&(curProject->linkList));
+                }
+                refreshGraphPNG();
+            } else {
+                gtk_label_set_label(GTK_LABEL(gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(GTK_WIDGET(openProjectWindow))))), " Erreur : le fichier ouvert n'a pas un format valide");
+            }
         }
+
     }
 }
 
@@ -407,5 +442,16 @@ void onPressSaveProjectAs_cb() {
 
     gtk_widget_show(GTK_WIDGET (saveProjectWindow));
     g_object_unref(builder);
+}
+
+void onCloseNoSave_cb() {
+    deleteGraphFiles();
+    char saveFilePath[MAXPATH+2*MAXNAME+7];
+    sprintf(saveFilePath, "%s/%s/%s.txt", curProject->path, curProject->name, curProject->name);
+    FILE* fp;
+    if((fp = fopen(saveFilePath, "r")) == NULL) {
+        if(errno == 2) deleteProject(curProject);
+    }
+    fclose(fp);
 }
 

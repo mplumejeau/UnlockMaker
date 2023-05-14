@@ -199,7 +199,7 @@ button:active
    margin-right: 18px;
 }
 
-#UnselectedRedCardBtn
+#unselectedRedCardBtn
 {
    background-color: #EE0000;
    margin-bottom: 1px;
@@ -207,7 +207,7 @@ button:active
    margin-right: 18px;
 }
 
-#SelectedRedCardBtn
+#selectedRedCardBtn
 {
    background-color: #EE0000;
    margin-bottom: 1px;
@@ -218,7 +218,7 @@ button:active
    margin-right: 18px;
 }
 
-#UnselectedBlueCardBtn
+#unselectedBlueCardBtn
 {
    background-color: #0000CD;
    margin-bottom: 1px;
@@ -226,7 +226,7 @@ button:active
    margin-right: 18px;
 }
 
-#SelectedBlueCardBtn
+#selectedBlueCardBtn
 {
    background-color: #0000CD;
    margin-bottom: 1px;
@@ -237,7 +237,7 @@ button:active
    margin-right: 18px;
 }
 
-#UnselectedGreyCardBtn
+#unselectedGreyCardBtn
 {
    background-color: grey;
    margin-bottom: 1px;
@@ -245,7 +245,7 @@ button:active
    margin-right: 18px;
 }
 
-#SelectedGreyCardBtn
+#selectedGreyCardBtn
 {
    background-color: grey;
    margin-bottom: 1px;
@@ -256,7 +256,7 @@ button:active
    margin-right: 18px;
 }
 
-#UnselectedGreenCardBtn
+#unselectedGreenCardBtn
 {
    background-color: #00BD00;
    margin-bottom: 1px;
@@ -264,7 +264,7 @@ button:active
    margin-right: 18px;
 }
 
-#SelectedGreenCardBtn
+#selectedGreenCardBtn
 {
    background-color: #00BD00;
    margin-bottom: 1px;

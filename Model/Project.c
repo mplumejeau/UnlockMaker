@@ -463,8 +463,23 @@ Card* addEmptyCard(Project* p){
         if ( mkdir(pathCardDirectory, 0755 ) != 0 ) {
             fprintf( stderr, "error : creation of the directory %s is impossible\n", pathCardDirectory);
             fprintf(stderr,"%d\n", errno);
-            freeCard(c);
-            return NULL;
+            if(errno==EEXIST) {
+                //if the card's file already existed, it is emptied to be used as new
+                char pathCardImage[MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1+9+1];
+                strncpy(pathCardImage, pathCardDirectory, MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1);
+                strcat(pathCardImage, "/Image.jpg");
+
+                if(remove(pathCardImage) != 0){
+                    fprintf( stderr, "error : deletion of the file %s is impossible\n", pathCardImage);
+                    fprintf(stderr,"%d\n", errno);
+                }
+            } else {
+                //if the error is something else, delete the card in the project's card list
+                deleteVertex(&p->cardList, c);
+                p->nbCards --;
+                freeCard(c);
+                return NULL;
+            }
         }
 
         return c;
@@ -730,6 +745,7 @@ void unassignIdLink(Project* p, Link* l){
  * @param p the project to which a card must be added
  * @param parent the parent card of the link
  * @param child the child card of the link
+ * @param type the type of the link
  * @return a pointer towards the link created
  */
 Link* addLink(Project* p, Card* parent, Card* child, linkType type){

@@ -12,7 +12,7 @@ void activate(GtkApplication *app);
 
 void load_css();
 
-void addCardBtn(Card* c, GtkWidget* box);
+void addCardBtn(Card* c);
 
 void addCardLblForModify(Card* c, GtkWidget* checkBtn, GtkWidget* box);
 

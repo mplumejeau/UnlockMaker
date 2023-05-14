@@ -8,13 +8,13 @@
 void createNewProject_cb();
 void onConfirmNewProject_cb(GtkWidget *saveProjectWindow);
 
-void onAddCard_cb(gpointer box);
+void onAddCard_cb();
 void onSelectCard_cb(GtkWidget *cardBtn, gpointer card);
 void unselectCard();
 void onSelectLink_cb(GtkWidget *widget, gpointer data);
 void unselectLink();
-void onPressDeleteCard_cb(gpointer box);
-void onPressDeleteLink_cb(gpointer box);
+void onPressDeleteCard_cb();
+void onPressDeleteLink_cb();
 void onModifyCardType_cb(int newType);
 void onModifyLinkType_cb(int newType);
 void onToggleCardFixedNumber_cb(int number); // -1 if fixNumber disabled, the number otherwise
@@ -33,5 +33,7 @@ void onConfirmSaveProjectAs_cb(GtkWidget *saveProjectWindow);
 
 void onPressSaveProject_cb();
 void onPressSaveProjectAs_cb();
+
+void onCloseNoSave_cb();
 
 #endif /*UNLOCKMAKER_CONTROLLER_H*/

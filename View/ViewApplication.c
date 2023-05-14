@@ -5,6 +5,7 @@
 #include <string.h>
 
 #include "ViewApplication.h"
+#include "GraphHandler.h"
 
 #include "../Controller/Controller.h"
 
@@ -19,17 +20,19 @@ GObject *btnModifyCard = NULL;
 GObject *btnDeleteCard = NULL;
 GObject *btnModifyLink = NULL;
 GObject *btnDeleteLink = NULL;
+GObject *cardBox = NULL;
 GObject *linkBox = NULL;
 
-void addCardBtn(Card* c, GtkWidget* box) {
+void addCardBtn(Card* c) {
     char btnLabel[11] = "";
     sprintf(btnLabel, "Carte n°%d", c->id);
     GtkWidget *button = gtk_button_new_with_label(btnLabel);
-    gtk_widget_set_name(GTK_WIDGET(button), "UnselectedGreyCardBtn");
+    char cardNames[4][23] = {"unselectedGreyCardBtn", "unselectedBlueCardBtn", "unselectedRedCardBtn", "unselectedGreenCardBtn"};
+    gtk_widget_set_name(button, cardNames[c->type]);
     g_signal_connect (button, "clicked", G_CALLBACK(onSelectCard_cb), c);
 
     //Introduce the button at the good place in the box
-    GtkWidget *previousBtn = NULL, *btn = gtk_widget_get_first_child(box);
+    GtkWidget *previousBtn = NULL, *btn = gtk_widget_get_first_child(GTK_WIDGET(cardBox));
     while(btn != NULL) {
         if(strlen(btnLabel) > strlen(gtk_button_get_label(GTK_BUTTON(btn))) || (strcmp(btnLabel, gtk_button_get_label(GTK_BUTTON(btn))) > 0 && strlen(btnLabel) == strlen(gtk_button_get_label(GTK_BUTTON(btn))))) {
             previousBtn = btn;
@@ -39,9 +42,9 @@ void addCardBtn(Card* c, GtkWidget* box) {
         }
     }
     if(previousBtn == NULL) {
-        gtk_box_prepend(GTK_BOX(box), GTK_WIDGET(button));
+        gtk_box_prepend(GTK_BOX(cardBox), GTK_WIDGET(button));
     } else {
-        gtk_box_insert_child_after(GTK_BOX(box), GTK_WIDGET(button), GTK_WIDGET(previousBtn));
+        gtk_box_insert_child_after(GTK_BOX(cardBox), GTK_WIDGET(button), GTK_WIDGET(previousBtn));
     }
 }
 
@@ -78,9 +81,30 @@ void addLinkBtn(Link* l) {
     char btnLabel[9] = "";
     sprintf(btnLabel, "%d -> %d", l->parent->id, l->child->id);
     GtkWidget *button = gtk_button_new_with_label(btnLabel);
-    gtk_widget_set_name(GTK_WIDGET(button), "unselectedFoundLinkBtn");
+    char linkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedFixedLinkBtn", "unselectedHintLinkBtn"};
+    gtk_widget_set_name(button, linkNames[l->type]);
     g_signal_connect (button, "clicked", G_CALLBACK(onSelectLink_cb), l);
-    gtk_box_append(GTK_BOX(linkBox), GTK_WIDGET(button));
+
+    //Introduce the button at the good place in the box
+    GtkWidget *previousBtn = NULL, *btn = gtk_widget_get_first_child(GTK_WIDGET(linkBox));
+    int newLinkParentId = l->parent->id, newLinkChildId = l->child->id, btnParentId, btnChildId;
+    while(btn != NULL) {
+        btnParentId = (int)strtol(gtk_button_get_label(GTK_BUTTON(btn)), NULL, 10);
+        if(btnParentId>9) btnChildId = (int)strtol(gtk_button_get_label(GTK_BUTTON(btn))+6, NULL, 10);
+        else btnChildId = (int)strtol(gtk_button_get_label(GTK_BUTTON(btn))+5, NULL, 10);
+
+        if(newLinkParentId > btnParentId || (newLinkParentId == btnParentId && newLinkChildId > btnChildId)) {
+            previousBtn = btn;
+            btn = gtk_widget_get_next_sibling(GTK_WIDGET(btn));
+        } else {
+            btn = NULL;
+        }
+    }
+    if(previousBtn == NULL) {
+        gtk_box_prepend(GTK_BOX(linkBox), GTK_WIDGET(button));
+    } else {
+        gtk_box_insert_child_after(GTK_BOX(linkBox), GTK_WIDGET(button), GTK_WIDGET(previousBtn));
+    }
 }
 
 void removeLinkBtnFromCards(Card* parent, Card* child) {
@@ -135,9 +159,6 @@ void openModifyCardWindow_cb() {
         gtk_window_set_resizable(GTK_WINDOW(modifWindow),false);
         g_signal_connect(modifWindow, "destroy", G_CALLBACK(onDestroySecondWindow_cb), NULL);
         secondWindowOpen = modifWindow;
-        //disableRightCardButtons();
-        //disableRightLinkButtons();
-        //gtk_widget_set_can_target(GTK_WIDGET(btnAddCard),false);
         gtk_widget_show(GTK_WIDGET (modifWindow));
         g_object_unref(builder);
     }
@@ -287,10 +308,12 @@ int openConfirmationWindow_cb(GtkWindow *mainWindow) {
     g_signal_connect_swapped(closeAbortBtn, "clicked", G_CALLBACK(destroyWindow_cb), confirmWindow);
 
     closeNoSaveBtn = gtk_builder_get_object(builder, "closeNoSaveBtn");
+    g_signal_connect(closeNoSaveBtn, "clicked", G_CALLBACK(onCloseNoSave_cb), NULL);
     g_signal_connect_swapped(closeNoSaveBtn, "clicked", G_CALLBACK(g_application_quit), gtk_window_get_application(GTK_WINDOW(mainWindow)));
 
     closeWithSaveBtn = gtk_builder_get_object(builder, "closeWithSaveBtn");
     g_signal_connect_swapped(closeWithSaveBtn, "clicked", G_CALLBACK(saveProject), curProject);
+    g_signal_connect(closeWithSaveBtn, "clicked", G_CALLBACK(deleteGraphFiles), NULL);
     g_signal_connect_swapped(closeWithSaveBtn, "clicked", G_CALLBACK(g_application_quit), gtk_window_get_application(GTK_WINDOW(mainWindow)));
 
     gtk_widget_show(GTK_WIDGET (confirmWindow));
@@ -339,9 +362,7 @@ void enableRightLinkButtons() {
 
 void activate(GtkApplication *app) {
 
-    GObject *window;
-    GObject *button;
-    GObject *box;
+    GObject *window, *button;
     load_css();
 
     /* Construct a GtkBuilder instance and load our UI description */
@@ -366,23 +387,22 @@ void activate(GtkApplication *app) {
 
     g_signal_connect(GTK_WINDOW(window), "close-request", G_CALLBACK(openConfirmationWindow_cb), window);
 
-    box = gtk_builder_get_object(builder, "CardBox");
-
     button = gtk_builder_get_object(builder, "BtnAddCard");
-    g_signal_connect_swapped(button, "clicked", G_CALLBACK(onAddCard_cb), box);
+    g_signal_connect_swapped(button, "clicked", G_CALLBACK(onAddCard_cb), NULL);
 
     btnModifyCard = gtk_builder_get_object(builder, "BtnModifyCard");
     g_signal_connect_swapped (btnModifyCard, "clicked", G_CALLBACK(openModifyCardWindow_cb), builder);
 
+    cardBox = gtk_builder_get_object(builder, "cardBox");
     btnDeleteCard = gtk_builder_get_object(builder, "BtnDeleteCard");
-    g_signal_connect_swapped(btnDeleteCard, "clicked", G_CALLBACK(onPressDeleteCard_cb), box);
+    g_signal_connect_swapped(btnDeleteCard, "clicked", G_CALLBACK(onPressDeleteCard_cb), NULL);
 
     btnModifyLink = gtk_builder_get_object(builder, "BtnModifyLink");
     g_signal_connect_swapped (btnModifyLink, "clicked", G_CALLBACK(openModifyLinkWindow_cb), builder);
 
     linkBox = gtk_builder_get_object(builder, "linkBox");
     btnDeleteLink = gtk_builder_get_object(builder, "BtnDeleteLink");
-    g_signal_connect_swapped(btnDeleteLink, "clicked", G_CALLBACK(onPressDeleteLink_cb), linkBox);
+    g_signal_connect_swapped(btnDeleteLink, "clicked", G_CALLBACK(onPressDeleteLink_cb), NULL);
 
     disableRightCardButtons();
     disableRightLinkButtons();

@@ -45,7 +45,7 @@
             </child>
             <child>
               <object id="saveBtn" class="GtkButton">
-                <property name="label">Sauvegarder</property>
+                <property name="label">Enregistrer</property>
               </object>
             </child>
             <!--<child>
@@ -93,7 +93,7 @@
                 <property name="vexpand">true</property>
                 <property name="name">LeftWindow</property>
                 <child>
-                  <object id="CardBox" class="GtkBox">
+                  <object id="cardBox" class="GtkBox">
                     <property name="orientation">vertical</property>
                   </object>
                 </child>
@@ -246,7 +246,8 @@
         <property name="row-homogeneous">True</property>
         <child>
           <object class="GtkLabel">
-            <property name="label">Type de Carte</property>
+            <property name="label">          Type de Carte</property>
+            <property name="xalign">0.0</property>
             <layout>
               <property name="column">0</property>
               <property name="row">0</property>
@@ -260,10 +261,10 @@
             <property name="model">
               <object class="GtkStringList">
                 <items>
-                  <item translatable="yes">Gris</item>
-                  <item translatable="yes">Bleu</item>
+                  <item translatable="yes">Grise</item>
+                  <item translatable="yes">Bleue</item>
                   <item translatable="yes">Rouge</item>
-                  <item translatable="yes">Vert</item>
+                  <item translatable="yes">Verte</item>
                 </items>
               </object>
             </property>
@@ -287,7 +288,8 @@
         </child>
         <child>
           <object class="GtkLabel">
-            <property name="label">Fixer le numéro de carte</property>
+            <property name="label">          Fixer le numéro de carte</property>
+            <property name="xalign">0.0</property>
             <layout>
               <property name="column">0</property>
               <property name="row">7</property>
@@ -330,7 +332,8 @@
         </child>
         <child>
           <object class="GtkLabel">
-            <property name="label">Positionner la carte en tant que racine</property>
+            <property name="label">          Positionner la carte en tant que racine</property>
+            <property name="xalign">0.0</property>
             <layout>
               <property name="column">0</property>
               <property name="row">14</property>
@@ -361,10 +364,43 @@
         </child>
         <child>
           <object class="GtkLabel">
-            <property name="label">Sélectionner les parents de la carte</property>
+            <property name="label">          Ajouter une image à la carte</property>
+            <property name="xalign">0.0</property>
             <layout>
               <property name="column">0</property>
               <property name="row">21</property>
+              <property name="column-span">6</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="addImageCardBtn" class="GtkButton">
+            <property name="icon-name">document-open</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">22</property>
+              <property name="column-span">1</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">0</property>
+              <property name="column-span">8</property>
+              <property name="row">27</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Sélectionner les parents de la carte</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">28</property>
               <property name="column-span">8</property>
               <property name="row-span">6</property>
             </layout>
@@ -376,9 +412,9 @@
             <property name="name">ParentWindow</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">27</property>
+              <property name="row">34</property>
               <property name="column-span">8</property>
-              <property name="row-span">30</property>
+              <property name="row-span">20</property>
             </layout>
             <child>
               <object id="parentsBox" class="GtkBox">
@@ -393,7 +429,7 @@
             <property name="label">Sélectionner les enfants de la carte</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">57</property>
+              <property name="row">54</property>
               <property name="column-span">8</property>
               <property name="row-span">6</property>
             </layout>
@@ -405,9 +441,9 @@
             <property name="name">ChildWindow</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">63</property>
+              <property name="row">60</property>
               <property name="column-span">8</property>
-              <property name="row-span">30</property>
+              <property name="row-span">20</property>
             </layout>
             <child>
               <object id="childrenBox" class="GtkBox">
@@ -422,7 +458,7 @@
             <property name="label">Terminer</property>
             <layout>
               <property name="column">2</property>
-              <property name="row">93</property>
+              <property name="row">80</property>
               <property name="column-span">4</property>
               <property name="row-span">4</property>
             </layout>
