@@ -5,35 +5,48 @@
 #ifndef UNLOCKMAKER_CONTROLLER_H
 #define UNLOCKMAKER_CONTROLLER_H
 
-void createNewProject_cb();
-void onConfirmNewProject_cb(GtkWidget *saveProjectWindow);
+/** * * Classic fonctions * * **/
 
-void onAddCard_cb();
-void onSelectCard_cb(GtkWidget *cardBtn, gpointer card);
 void unselectCard();
-void onSelectLink_cb(GtkWidget *widget, gpointer data);
 void unselectLink();
-void onPressDeleteCard_cb();
-void onPressDeleteLink_cb();
-void onModifyCardType_cb(int newType);
-void onModifyLinkType_cb(int newType);
-void onToggleCardFixedNumber_cb(int number); // -1 if fixNumber disabled, the number otherwise
-void onEnterCardFixedNumber_cb(GtkWidget *entry, gpointer checkButton);
-void onToggleCardRoot_cb(GtkWidget *checkButton);
+
+void setCardFixNumber(int number); // number -1 if fixNumber disabled, the number otherwise
 
 void retrieveParentsChildren(GtkBox *parentsBox, GtkBox *childrenBox);
 
-void onToggleAddParent_cb(GtkWidget *widget, gpointer data);
-void onToggleAddChild_cb(GtkWidget *widget, gpointer data);
+void addLinkFromToggle(Card *parent, Card* child);
+void deleteLinkFromToggle(Card *parent, Card* child);
 
-void changeImageZoom_cb(GtkWidget *zoomBtn, gpointer image);
+/** * * Callbacks * * **/
 
-void onConfirmOpenProject_cb(GtkWidget *openProjectWindow);
-void onConfirmSaveProjectAs_cb(GtkWidget *saveProjectWindow);
+/* Project managing callbacks */
 
-void onPressSaveProject_cb();
-void onPressSaveProjectAs_cb();
+void onConfirmNewProject(GtkWidget *saveProjectWindow);
+void onConfirmOpenProject(GtkWidget *openProjectWindow);
+void onSaveProject();
+void onCloseNoSave();
 
-void onCloseNoSave_cb();
+/* Card managing callbacks */
+
+void onAddCard();
+void onSelectCard(GtkWidget *cardBtn, GtkWidget *card);
+void onModifyCardType(GtkWidget *dropDown);
+void onToggleSetCardAsRoot(GtkWidget *checkButton);
+void onToggleFixedNumberCheck(GtkWidget *checkButton, gpointer entry);
+void onEnterCardFixedNumber(GtkWidget *entry, gpointer checkButton);
+void onConfirmImportCardImage(GtkWidget *importImageWindow);
+void onToggleAddParent(GtkWidget *parentCheckBtn, Card *parentCard);
+void onToggleAddChild(GtkWidget *childCheckBtn, Card *childCard);
+void onPressDeleteCard();
+
+/* Link managing callbacks */
+
+void onSelectLink(GtkWidget *widget, gpointer data);
+void onModifyLinkType(GtkWidget *dropDown);
+void onPressDeleteLink();
+
+/* Image managing callbacks */
+
+void onChangeImageZoom(GtkWidget *zoomBtn, gpointer image);
 
 #endif /*UNLOCKMAKER_CONTROLLER_H*/

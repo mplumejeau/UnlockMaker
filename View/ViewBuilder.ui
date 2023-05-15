@@ -18,7 +18,7 @@
               <property name="column-span">40</property>
               <property name="row-span">10</property>
             </layout>
-            <child>
+            <!--<child>
               <object class="GtkButton">
                 <property name="label">Fichier</property>
               </object>
@@ -42,7 +42,7 @@
               <object class="GtkButton">
                 <property name="label">Aide</property>
               </object>
-            </child>
+            </child>-->
             <child>
               <object id="saveBtn" class="GtkButton">
                 <property name="label">Enregistrer</property>
@@ -83,15 +83,15 @@
               <property name="row-span">200</property>
             </layout>
             <child>
-              <object class="GtkLabel">
+              <object id="cardBoxLabel" class="GtkLabel">
                 <property name="label">Liste des cartes</property>
-                <property name="name">ScrolledWindowTitle</property>
+                <property name="name">leftWindowTitle</property>
               </object>
             </child>
             <child>
               <object class="GtkScrolledWindow">
                 <property name="vexpand">true</property>
-                <property name="name">LeftWindow</property>
+                <property name="name">leftWindow</property>
                 <child>
                   <object id="cardBox" class="GtkBox">
                     <property name="orientation">vertical</property>
@@ -100,15 +100,15 @@
               </object>
             </child>
             <child>
-              <object id="LinkBox" class="GtkLabel">
+              <object id="linkBoxLabel" class="GtkLabel">
                 <property name="label">Liste des liens</property>
-                <property name="name">ScrolledWindowTitle</property>
+                <property name="name">leftWindowTitle</property>
               </object>
             </child>
             <child>
               <object class="GtkScrolledWindow">
                 <property name="vexpand">true</property>
-                <property name="name">LeftWindow</property>
+                <property name="name">leftWindow</property>
                 <child>
                   <object id="linkBox" class="GtkBox">
                     <property name="orientation">vertical</property>
@@ -146,8 +146,6 @@
                 <child type="center">
                   <object id="graphViewer" class="GtkImage">
                     <property name="name">graphViewer</property>
-                    <property name="height-request">100</property>
-                    <property name="width-request">100</property>
                   </object>
               </child>
               </object>
@@ -179,59 +177,96 @@
         <child>
           <object class="GtkBox">
             <property name="orientation">vertical</property>
-            <property name="homogeneous">true</property>
+            <property name="homogeneous">false</property>
             <layout>
               <property name="column">33</property>
               <property name="row">11</property>
               <property name="column-span">7</property>
-              <property name="row-span">200</property>
+              <property name="row-span">100</property>
             </layout>
             <child>
-              <object id="BoxButtonsRight" class="GtkBox">
-                <property name="homogeneous">False</property>
-                <property name="orientation">vertical</property>
-                <child>
-                  <object id="BtnAddCard" class="GtkButton">
-                    <property name="label">Ajouter une carte</property>
-                    <property name="name">RightButton</property>
-                  </object>
-                </child>
-                <child>
-                  <object id="BtnModifyCard" class="GtkButton">
-                    <property name="label">Modifier la carte sélectionnée</property>
-                    <property name="name">RightButton</property>
-                  </object>
-                </child>
-                <child>
-                  <object id="BtnDeleteCard" class="GtkButton">
-                    <property name="label">Supprimer la carte sélectionnée</property>
-                    <property name="name">RightButton</property>
-                  </object>
-                </child>
-                <child>
-                  <object id="BtnModifyLink" class="GtkButton">
-                    <property name="label">Modifier le lien sélectionné</property>
-                    <property name="name">RightButton</property>
-                  </object>
-                </child>
-                <child>
-                  <object id="BtnDeleteLink" class="GtkButton">
-                    <property name="label">Supprimer le lien sélectionné</property>
-                    <property name="name">RightButton</property>
-                  </object>
-                </child>
+              <object id="BtnAddCard" class="GtkButton">
+                <property name="label">Ajouter une carte</property>
+                <property name="name">rightButton</property>
               </object>
             </child>
             <child>
-              <object id="infoPanel" class="GtkLabel">
-                <property name="justify">center</property>
-                <property name="lines">5</property>
-                <property name="wrap">True</property>
-                <property name="yalign">0.1</property>
-                <property name="label">Aucune carte selectionnée</property>
-                <property name="name">infoLabel</property>
-            </object>
+              <object id="BtnModifyCard" class="GtkButton">
+                <property name="label">Modifier la carte sélectionnée</property>
+                <property name="name">rightButton</property>
+              </object>
             </child>
+            <child>
+              <object id="BtnDeleteCard" class="GtkButton">
+                <property name="label">Supprimer la carte sélectionnée</property>
+                <property name="name">rightButton</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="orientation">horizontal</property>
+                <property name="name">rightSeparator</property>
+              </object>
+            </child>
+            <child>
+              <object id="BtnModifyLink" class="GtkButton">
+                <property name="label">Modifier le lien sélectionné</property>
+                <property name="name">rightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="BtnDeleteLink" class="GtkButton">
+                <property name="label">Supprimer le lien sélectionné</property>
+                <property name="name">rightButton</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object id="selectedCardLabel" class="GtkLabel">
+            <property name="justify">center</property>
+            <property name="lines">5</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.1</property>
+            <property name="label">Aucune carte sélectionnée</property>
+            <property name="name">selectedWidgetLabel</property>
+            <layout>
+              <property name="column">33</property>
+              <property name="row">141</property>
+              <property name="column-span">7</property>
+              <property name="row-span">15</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="selectedLinkLabel" class="GtkLabel">
+            <property name="justify">center</property>
+            <property name="lines">5</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.1</property>
+            <property name="label">Aucun lien sélectionné</property>
+            <property name="name">selectedWidgetLabel</property>
+            <layout>
+              <property name="column">33</property>
+              <property name="row">156</property>
+              <property name="column-span">7</property>
+              <property name="row-span">15</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="infoLabel" class="GtkLabel">
+            <property name="justify">center</property>
+            <property name="lines">5</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.1</property>
+            <property name="name">infoLabel</property>
+            <layout>
+              <property name="column">33</property>
+              <property name="row">171</property>
+              <property name="column-span">7</property>
+              <property name="row-span">40</property>
+            </layout>
           </object>
         </child>
       </object>
@@ -241,7 +276,7 @@
     <property name="title">Modification window</property>
     <property name="name">cardWindow</property>
     <child>
-      <object class="GtkGrid">
+      <object id="cardWindowGrid" class="GtkGrid">
         <property name="column-homogeneous">True</property>
         <property name="row-homogeneous">True</property>
         <child>
@@ -369,16 +404,27 @@
             <layout>
               <property name="column">0</property>
               <property name="row">21</property>
-              <property name="column-span">6</property>
+              <property name="column-span">5</property>
               <property name="row-span">6</property>
             </layout>
           </object>
         </child>
         <child>
-          <object id="addImageCardBtn" class="GtkButton">
+          <object id="addCardImageBtn" class="GtkButton">
             <property name="icon-name">document-open</property>
             <layout>
-              <property name="column">6</property>
+              <property name="column">5</property>
+              <property name="row">22</property>
+              <property name="column-span">1</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="viewCardImageBtn" class="GtkButton">
+            <property name="icon-name">document-properties</property>
+            <layout>
+              <property name="column">7</property>
               <property name="row">22</property>
               <property name="column-span">1</property>
               <property name="row-span">4</property>
@@ -409,7 +455,7 @@
         <child>
           <object class="GtkScrolledWindow">
             <property name="vexpand">true</property>
-            <property name="name">ParentWindow</property>
+            <property name="name">parentWindow</property>
             <layout>
               <property name="column">0</property>
               <property name="row">34</property>
@@ -438,7 +484,7 @@
         <child>
           <object class="GtkScrolledWindow">
             <property name="vexpand">true</property>
-            <property name="name">ChildWindow</property>
+            <property name="name">childWindow</property>
             <layout>
               <property name="column">0</property>
               <property name="row">60</property>
@@ -852,6 +898,78 @@ Voulez-vous enregistrer les modifications ?</property>
               <property name="row">2</property>
               <property name="column-span">2</property>
             </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object id="importCardWindow" class="GtkWindow">
+    <property name="title">Importer une image</property>
+    <property name="name">importCardWindow</property>
+    <property name="modal">true</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">importCardGrid</property>
+        <child>
+          <object id="importCardBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importCardErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner une image</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importCardConfirm" class="GtkButton">
+            <property name="label">Importer</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importCardAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object id="imageViewerWindow" class="GtkWindow">
+    <property name="title">Image</property>
+    <property name="modal">false</property>
+    <child>
+      <object class="GtkBox">
+        <property name="homogeneous">True</property>
+        <child>
+          <object id="imageViewer" class="GtkImage">
+            <property name="pixel-size">700</property>
           </object>
         </child>
       </object>
