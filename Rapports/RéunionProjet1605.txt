@@ -1,0 +1,27 @@
+Réunion projet info 16/05 :
+
+- logiciel fonctionnel et validé
+--> pas de bugs majeurs
+
+- se concentrer sur l'ajout de nouvelles features sur le logiciel plutôt que nouvelle appli
+--> plus que 2 semaines
+
+- rapport le 26 juin à faire --> 5 pages de contenus (annexes comprises)
+--> mettre en avant le côté ingéniérie (ce pour quoi on a réfléchi)
+--> ex : format de fichier de sauvegarde, algo numérotation, ...
+--> diagramme UML pour les structures de données
+--> présentation de la vue avec cadre coloré pour expliquer à quoi sert chaque widget
+--> mettre qq lignes avant la fin sur le gant prévisionnel et la réalité du projet
+--> ne pas être personnel dans le rapport à part cela !
+--> parler des perspectives (futurs éventuels) du projet en conclusion
+--> bien de mettre des illustrations dans le rapport --> les numéroter et les commenter !
+
+- soutenance (25 min) 
+--> même contenu que le rapport
+--> présenter le contexte du projet --> ce qu'est Unlock et à quoi sert le projet (montrer un petit graph ?) (à faire dans  le rapport aussi)
+--> faire une démonstration scénarisée
+--> respecter 25 +/- 1 min
+
+- bien penser à faire les tests, doxygen, valgrind, le readme pour un projet complet et finalisé
+
+- faire une vidéo promotionnelle si envie et temps (optionnel)
