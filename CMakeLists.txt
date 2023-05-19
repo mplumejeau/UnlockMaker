@@ -14,11 +14,16 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-cove
 
 # MAIN EXECUTABLE
 
-# a decommenter pour utiliser gtk
+# packages
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
-pkg_check_modules(LIBGVC REQUIRED libgvc)
+#pkg_check_modules(LIBGVC REQUIRED libgvc)
+
+# for libharu library
+
+set(LIB_DIR ${CMAKE_SOURCE_DIR}/lib)
+include_directories(${LIB_DIR})
 
 add_executable(UnlockMaker
         Model/main.c Model/Struct.h
@@ -35,9 +40,21 @@ add_executable(UnlockMaker
 #target_link_libraries(UnlockView ${GTK4_LIBRARIES})
 #target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
 #target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
-target_link_libraries(UnlockView ${LIBGVC_LIBRARIES})
-target_include_directories(UnlockView PUBLIC ${LIBGVC_INCLUDE_DIRS})
-target_compile_options(UnlockView PUBLIC ${LIBGVC_CFLAGS_OTHER})
+#target_link_libraries(UnlockView ${LIBGVC_LIBRARIES})
+#target_include_directories(UnlockView PUBLIC ${LIBGVC_INCLUDE_DIRS})
+#target_compile_options(UnlockView PUBLIC ${LIBGVC_CFLAGS_OTHER})
+
+target_link_libraries(UnlockMaker ${LIB_DIR}/libhpdfs.a)
+
+# liaison avec la bibliotheque zlib
+
+find_package(ZLIB REQUIRED)
+include_directories(${ZLIB_INCLUDE_DIRS})
+target_link_libraries(UnlockMaker ${ZLIB_LIBRARIES})
+
+# liaison avec la bibliotheque mathématique
+
+target_link_libraries(UnlockMaker m)
 
 # UNIT TESTS EXECUTABLE
 
@@ -55,6 +72,10 @@ add_executable(UnlockMakerTestsU
         Model/algo.h Model/algo.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)
+
+target_link_libraries(UnlockMakerTestsU ${LIB_DIR}/libhpdfs.a)
+target_link_libraries(UnlockMakerTestsU ${ZLIB_LIBRARIES})
+target_link_libraries(UnlockMakerTestsU m)
 
 add_custom_target(coverage
         COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage

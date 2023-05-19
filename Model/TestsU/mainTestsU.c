@@ -139,7 +139,7 @@ int main(void){
 
 
     // demo 1 : creation, completion and save of a project
-
+    /*
     p1 = allocProject();
     initProject(p1, "/home/maxime/Documents", "unlock1");
 
@@ -175,7 +175,7 @@ int main(void){
     saveProject(p1);
 
     //deleteProject(&p1);
-
+    */
 
     /*
     // demo 2 : load a project from a path, modification and save it

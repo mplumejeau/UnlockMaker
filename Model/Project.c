@@ -10,6 +10,8 @@
 #include <unistd.h>
 #include <errno.h>
 
+#include "hpdf.h"
+
 #include "Project.h"
 #include "VertexList.h"
 #include "EdgeList.h"
@@ -1317,5 +1319,8 @@ Project* loadProject(char* path, char* name){
  * @return 0 if it's a success, -1 if not
  */
 int createPrintable(Project* p){
+
+    HPDF_Doc pdf = HPDF_New(NULL,NULL);
+
     return -1;
 }
