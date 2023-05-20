@@ -890,8 +890,7 @@ int deleteLinkFromCards(Project* p, Card* parent, Card* child){
         while(!isOutOfListEdge(&p->linkList)){
 
             l = p->linkList.current->link;
-            printf("%d\n", l->parent->id);
-            printf("%d\n", l->child->id);
+
             if(l->parent == parent && l->child == child){
                 return deleteLink(p, l);
             }
@@ -1320,7 +1319,175 @@ Project* loadProject(char* path, char* name){
  */
 int createPrintable(Project* p){
 
-    HPDF_Doc pdf = HPDF_New(NULL,NULL);
+    HPDF_Doc pdf;
+    HPDF_Page page1;
+    HPDF_Image image1;
+    HPDF_Font font;
 
-    return -1;
+    char pathPDFFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
+
+    // resolution of the pdf
+
+    const float RESOLUTION_IN_DPI = 72;
+    const float SIZE_OF_AN_INCH_IN_CM = 2.54;
+    const float RESOLUTION_IN_CM = RESOLUTION_IN_DPI/SIZE_OF_AN_INCH_IN_CM;
+
+    // size of an A4 page in pixels
+
+    const float A4_PAGE_WIDTH = RESOLUTION_IN_CM*21;
+    const float A4_PAGE_HEIGHT = RESOLUTION_IN_CM*29.7;
+
+    // font type and sizes
+
+    const char* FONT_TYPE = "Helvetica";
+    const int SIZE_FONT_CARD_NUMBER = 40;
+    const int SIZE_FONT_PAGE_NUMBER = 10;
+
+    // size of margins in pixels
+
+    const float HORIZONTAL_SIDE_MARGIN = RESOLUTION_IN_CM*3;
+    const float HORIZONTAL_CENTER_MARGIN = RESOLUTION_IN_CM*2.8;
+    const float VERTICAL_SIDE_MARGIN = RESOLUTION_IN_CM*2.5;
+    const float VERTICAL_CENTER_MARGIN = RESOLUTION_IN_CM*2.3;
+
+    // size of images in pixels
+
+    const float BACK_IMAGE_WIDTH = RESOLUTION_IN_CM*6.1;
+    const float BACK_IMAGE_HEIGHT = RESOLUTION_IN_CM*11.2;
+    const float TOP_IMAGE_WIDTH = BACK_IMAGE_WIDTH;
+    const float TOP_IMAGE_HEIGHT = RESOLUTION_IN_CM*1.7;
+    const float BOTTOM_IMAGE_WIDTH = BACK_IMAGE_WIDTH;
+    const float BOTTOM_IMAGE_HEIGHT = RESOLUTION_IN_CM*2.2;
+    const float CARD_IMAGE_WIDTH = BACK_IMAGE_WIDTH;
+    const float CARD_IMAGE_HEIGHT = BACK_IMAGE_HEIGHT - TOP_IMAGE_HEIGHT - BOTTOM_IMAGE_HEIGHT;
+
+    // position of images in pixels (BL is for Bottom-Left, BR for Bottom-Right, etc)
+
+        // Bottom-Left image
+
+    const float X_BL_BOTTOM_IMAGE = HORIZONTAL_SIDE_MARGIN;
+    const float Y_BL_BOTTOM_IMAGE = VERTICAL_SIDE_MARGIN;
+    const float X_BL_CARD_IMAGE = X_BL_BOTTOM_IMAGE;
+    const float Y_BL_CARD_IMAGE = Y_BL_BOTTOM_IMAGE + BOTTOM_IMAGE_HEIGHT;
+    const float X_BL_TOP_IMAGE = X_BL_BOTTOM_IMAGE;
+    const float Y_BL_TOP_IMAGE = Y_BL_CARD_IMAGE + CARD_IMAGE_HEIGHT;
+    const float X_BL_BACK_IMAGE = X_BL_BOTTOM_IMAGE;
+    const float Y_BL_BACK_IMAGE = Y_BL_BOTTOM_IMAGE;
+    const float X_BL_FONT_NUMBER;
+    const float Y_BL_FONT_NUMBER;
+
+        // Bottom-Right image
+
+    const float X_BR_BOTTOM_IMAGE = A4_PAGE_WIDTH - HORIZONTAL_SIDE_MARGIN - BOTTOM_IMAGE_WIDTH;
+    const float Y_BR_BOTTOM_IMAGE = Y_BL_BOTTOM_IMAGE;
+    const float X_BR_CARD_IMAGE = X_BR_BOTTOM_IMAGE;
+    const float Y_BR_CARD_IMAGE = Y_BR_BOTTOM_IMAGE + BOTTOM_IMAGE_HEIGHT;
+    const float X_BR_TOP_IMAGE = X_BR_BOTTOM_IMAGE;
+    const float Y_BR_TOP_IMAGE = Y_BR_CARD_IMAGE + CARD_IMAGE_HEIGHT;
+    const float X_BR_BACK_IMAGE = X_BR_BOTTOM_IMAGE;
+    const float Y_BR_BACK_IMAGE = Y_BR_BOTTOM_IMAGE;
+    const float X_BR_FONT_NUMBER;
+    const float Y_BR_FONT_NUMBER;
+
+        // Top-Left image
+
+    const float X_TL_TOP_IMAGE = X_BL_BOTTOM_IMAGE;
+    const float Y_TL_TOP_IMAGE = A4_PAGE_HEIGHT - VERTICAL_SIDE_MARGIN - TOP_IMAGE_HEIGHT;
+    const float X_TL_CARD_IMAGE = X_TL_TOP_IMAGE;
+    const float Y_TL_CARD_IMAGE = Y_TL_TOP_IMAGE - CARD_IMAGE_HEIGHT;
+    const float X_TL_BOTTOM_IMAGE = X_TL_TOP_IMAGE;
+    const float Y_TL_BOTTOM_IMAGE = Y_TL_CARD_IMAGE - BOTTOM_IMAGE_HEIGHT;
+    const float X_TL_BACK_IMAGE = X_TL_BOTTOM_IMAGE;
+    const float Y_TL_BACK_IMAGE = Y_TL_BOTTOM_IMAGE;
+    const float X_TL_FONT_NUMBER;
+    const float Y_TL_FONT_NUMBER;
+
+        // Top-Right image
+
+    const float X_TR_TOP_IMAGE = X_BR_TOP_IMAGE;
+    const float Y_TR_TOP_IMAGE = Y_TL_TOP_IMAGE;
+    const float X_TR_CARD_IMAGE = X_TR_TOP_IMAGE;
+    const float Y_TR_CARD_IMAGE = Y_TR_TOP_IMAGE - CARD_IMAGE_HEIGHT;
+    const float X_TR_BOTTOM_IMAGE = X_TR_TOP_IMAGE;
+    const float Y_TR_BOTTOM_IMAGE = Y_TR_CARD_IMAGE - BOTTOM_IMAGE_HEIGHT;
+    const float X_TR_BACK_IMAGE = X_TR_BOTTOM_IMAGE;
+    const float Y_TR_BACK_IMAGE = Y_TR_BOTTOM_IMAGE;
+    const float X_TR_FONT_NUMBER;
+    const float Y_TR_FONT_NUMBER;
+
+    // Position of page number in pixels (to do)
+
+    const float X_FONT_PAGE_NUMBER;
+    const float Y_FONT_PAGE_NUMBER;
+
+    if(p == NULL){
+        fprintf(stderr, "error : project bad allocation\n");
+        return -1;
+    }
+
+    // creation of the pdf
+
+    pdf = HPDF_New(NULL,NULL);
+    if(!pdf){
+        fprintf(stderr, "error : impossible to create the pdf file\n");
+        return -1;
+    }
+
+    // setting attributes of the pdf
+
+    HPDF_SetCompressionMode(pdf, HPDF_COMP_ALL);
+    font = HPDF_GetFont(pdf, "Helvetica", NULL);
+
+    // creation of a page in the pdf
+
+    page1 = HPDF_AddPage(pdf);
+    if(!page1){
+        fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+        return -1;
+    }
+
+    // setting attributes of the page
+
+    HPDF_Page_SetWidth(page1, A4_PAGE_WIDTH);
+    HPDF_Page_SetHeight(page1, A4_PAGE_HEIGHT);
+
+    // addition of an image in the page
+
+    image1 = HPDF_LoadJpegImageFromFile(pdf,"/home/maxime/Pictures/IronMan.jpg");
+    HPDF_Page_DrawImage(page1, image1, X_BR_BOTTOM_IMAGE, Y_BR_BOTTOM_IMAGE,
+                        BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+
+    // addition of a text in the page
+
+    HPDF_Page_BeginText(page1);
+    HPDF_Page_SetFontAndSize(page1, font, 40);
+    HPDF_Page_MoveTextPos(page1, 85, 200);
+    HPDF_Page_ShowText(page1, "text test");
+    HPDF_Page_EndText(page1);
+
+    // creation of the pdf file path
+
+    strncpy(pathPDFFile, p->path, MAXPATH);
+    strcat(pathPDFFile,"/");
+    strncat(pathPDFFile, p->name, MAXNAME);
+    strcat(pathPDFFile,"/");
+    strncat(pathPDFFile, p->name, MAXNAME);
+    strcat(pathPDFFile,".pdf");
+
+    // remove precedent pdf file if it existed
+
+    if(remove(pathPDFFile) != 0){
+        fprintf( stderr, "error : deletion of the file %s is impossible\n", pathPDFFile);
+        fprintf(stderr,"%d\n", errno);
+    }
+
+    // saving pdf file
+
+    HPDF_SaveToFile(pdf, pathPDFFile);
+
+    // freeing the resources of the pdf
+
+    HPDF_Free(pdf);
+
+    return 0;
 }

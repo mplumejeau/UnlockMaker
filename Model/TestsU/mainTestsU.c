@@ -138,8 +138,8 @@ int main(void){
     Link* l6 = NULL;
 
 
-    // demo 1 : creation, completion and save of a project
-    /*
+    // demo 1 : creation, completion, creation of a pdf and save of a project
+
     p1 = allocProject();
     initProject(p1, "/home/maxime/Documents", "unlock1");
 
@@ -172,10 +172,12 @@ int main(void){
 
     deleteLinkFromCards(p1,c4,c5);
 
+    createPrintable(p1);
+
     saveProject(p1);
 
     //deleteProject(&p1);
-    */
+
 
     /*
     // demo 2 : load a project from a path, modification and save it
