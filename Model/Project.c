@@ -1320,11 +1320,37 @@ Project* loadProject(char* path, char* name){
 int createPrintable(Project* p){
 
     HPDF_Doc pdf;
-    HPDF_Page page1;
-    HPDF_Image image1;
+    HPDF_Page page;
+    HPDF_Image backImage;
+    HPDF_Image topImage;
+    HPDF_Image bottomImage;
+    HPDF_Image cardImageBL;
+    HPDF_Image cardImageBR;
+    HPDF_Image cardImageTL;
+    HPDF_Image cardImageTR;
     HPDF_Font font;
 
-    char pathPDFFile[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
+    char mainDirectoryPath[MAXPATH+1+MAXNAME+1];
+    char projectDirectoryPath[MAXPATH+1+MAXNAME+1+7+1];
+    char cardsDirectoryPathWithoutId[MAXPATH+1+MAXNAME+1+5+1+4+1];
+    char pdfFilePath[MAXPATH+1+MAXNAME+1+MAXNAME+4+1];
+    char backImagePath[MAXPATH+1+MAXNAME+1+7+1+13+1];
+    char topImagePath[MAXPATH+1+MAXNAME+1+7+1+12+1];
+    char bottomImagePath[MAXPATH+1+MAXNAME+1+7+1+15+1];
+    char cardImagePath[MAXPATH+1+MAXNAME+1+5+1+4+TAILLEMAXID+1+9+1];
+
+    int i;
+    int nbPackagesOf4Complete, nbCardsOutOfPackages;
+    int nbPagesTotal, currentPageNb;
+    char nbPagesString[10];
+    Card* currentCardBL = NULL;
+    Card* currentCardBR = NULL;
+    Card* currentCardTL = NULL;
+    Card* currentCardTR = NULL;
+    char idString[TAILLEMAXID];
+    int nbCardBL, nbCardBR, nbCardTL, nbCardTR;
+    char nbCardString[3];
+    float correctionXCardNumber;
 
     // resolution of the pdf
 
@@ -1339,9 +1365,9 @@ int createPrintable(Project* p){
 
     // font type and sizes
 
-    const char* FONT_TYPE = "Helvetica";
-    const int SIZE_FONT_CARD_NUMBER = 40;
-    const int SIZE_FONT_PAGE_NUMBER = 10;
+    const char* FONT_TYPE = "Times-Bold";
+    const int SIZE_FONT_CARD_NUMBER = 60;
+    const int SIZE_FONT_PAGE_NUMBER = 20;
 
     // size of margins in pixels
 
@@ -1349,6 +1375,8 @@ int createPrintable(Project* p){
     const float HORIZONTAL_CENTER_MARGIN = RESOLUTION_IN_CM*2.8;
     const float VERTICAL_SIDE_MARGIN = RESOLUTION_IN_CM*2.5;
     const float VERTICAL_CENTER_MARGIN = RESOLUTION_IN_CM*2.3;
+    const float HORIZONTAL_FONT_PAGE_NUMBER_MARGIN = RESOLUTION_IN_CM*2;
+    const float VERTICAL_FONT_PAGE_NUMBER_MARGIN = RESOLUTION_IN_CM*1;
 
     // size of images in pixels
 
@@ -1373,8 +1401,8 @@ int createPrintable(Project* p){
     const float Y_BL_TOP_IMAGE = Y_BL_CARD_IMAGE + CARD_IMAGE_HEIGHT;
     const float X_BL_BACK_IMAGE = X_BL_BOTTOM_IMAGE;
     const float Y_BL_BACK_IMAGE = Y_BL_BOTTOM_IMAGE;
-    const float X_BL_FONT_NUMBER;
-    const float Y_BL_FONT_NUMBER;
+    const float X_BL_FONT_NUMBER_INIT = X_BL_BACK_IMAGE + BACK_IMAGE_WIDTH/2;
+    const float Y_BL_FONT_NUMBER_INIT = Y_BL_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/4;
 
         // Bottom-Right image
 
@@ -1386,8 +1414,8 @@ int createPrintable(Project* p){
     const float Y_BR_TOP_IMAGE = Y_BR_CARD_IMAGE + CARD_IMAGE_HEIGHT;
     const float X_BR_BACK_IMAGE = X_BR_BOTTOM_IMAGE;
     const float Y_BR_BACK_IMAGE = Y_BR_BOTTOM_IMAGE;
-    const float X_BR_FONT_NUMBER;
-    const float Y_BR_FONT_NUMBER;
+    const float X_BR_FONT_NUMBER_INIT = X_BR_BACK_IMAGE + BACK_IMAGE_WIDTH/2;
+    const float Y_BR_FONT_NUMBER_INIT = Y_BR_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/4;
 
         // Top-Left image
 
@@ -1399,8 +1427,8 @@ int createPrintable(Project* p){
     const float Y_TL_BOTTOM_IMAGE = Y_TL_CARD_IMAGE - BOTTOM_IMAGE_HEIGHT;
     const float X_TL_BACK_IMAGE = X_TL_BOTTOM_IMAGE;
     const float Y_TL_BACK_IMAGE = Y_TL_BOTTOM_IMAGE;
-    const float X_TL_FONT_NUMBER;
-    const float Y_TL_FONT_NUMBER;
+    const float X_TL_FONT_NUMBER_INIT = X_TL_BACK_IMAGE + BACK_IMAGE_WIDTH/2;
+    const float Y_TL_FONT_NUMBER_INIT = Y_TL_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/4;
 
         // Top-Right image
 
@@ -1412,18 +1440,69 @@ int createPrintable(Project* p){
     const float Y_TR_BOTTOM_IMAGE = Y_TR_CARD_IMAGE - BOTTOM_IMAGE_HEIGHT;
     const float X_TR_BACK_IMAGE = X_TR_BOTTOM_IMAGE;
     const float Y_TR_BACK_IMAGE = Y_TR_BOTTOM_IMAGE;
-    const float X_TR_FONT_NUMBER;
-    const float Y_TR_FONT_NUMBER;
+    const float X_TR_FONT_NUMBER_INIT = X_TR_BACK_IMAGE + BACK_IMAGE_WIDTH/2;
+    const float Y_TR_FONT_NUMBER_INIT = Y_TR_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/4;
 
-    // Position of page number in pixels (to do)
+    // position of page number in pixels
 
-    const float X_FONT_PAGE_NUMBER;
-    const float Y_FONT_PAGE_NUMBER;
+    const float X_FONT_PAGE_NUMBER = A4_PAGE_WIDTH - HORIZONTAL_FONT_PAGE_NUMBER_MARGIN;
+    const float Y_FONT_PAGE_NUMBER = VERTICAL_FONT_PAGE_NUMBER_MARGIN;
+
+    // testing the correct allocation of the project
 
     if(p == NULL){
         fprintf(stderr, "error : project bad allocation\n");
         return -1;
     }
+
+    // creation of the directories and files paths
+
+    //first directory : [projectPath]/[projectName]
+
+    strncpy(mainDirectoryPath, p->path, MAXPATH);
+    strcat(mainDirectoryPath,"/");
+    strncat(mainDirectoryPath, p->name, MAXNAME);
+
+    //second directory : [projectPath]/[projectName]/Project
+
+    strncpy(projectDirectoryPath, mainDirectoryPath, MAXPATH+1+MAXNAME+1);
+    strcat(projectDirectoryPath, "/Project");
+
+    //third directory : [projectPath]/[projectName]/Cards
+
+    strncpy(cardsDirectoryPathWithoutId, mainDirectoryPath, MAXPATH+1+MAXNAME+1);
+    strcat(cardsDirectoryPathWithoutId, "/Cards/Card");
+
+    //project printable file
+
+    strncpy(pdfFilePath, mainDirectoryPath, MAXPATH+1+MAXNAME+1);
+    strcat(pdfFilePath,"/");
+    strncat(pdfFilePath, p->name, MAXNAME);
+    strcat(pdfFilePath,".pdf");
+
+    //project images
+
+    strncpy(backImagePath, projectDirectoryPath, MAXPATH+1+MAXNAME+1+7+1);
+    strcat(backImagePath, "/BackImage.jpg");
+
+    strncpy(topImagePath, projectDirectoryPath, MAXPATH+1+MAXNAME+1+7+1);
+    strcat(topImagePath, "/TopImage.jpg");
+
+    strncpy(bottomImagePath, projectDirectoryPath, MAXPATH+1+MAXNAME+1+7+1);
+    strcat(bottomImagePath, "/BottomImage.jpg");
+
+    // calculation of important variables for the algorithm
+
+    nbPackagesOf4Complete = p->nbCards/4;
+    nbCardsOutOfPackages = p->nbCards%4;
+
+    if(nbCardsOutOfPackages == 0){
+        nbPagesTotal = nbPackagesOf4Complete*2;
+    } else {
+        nbPagesTotal = nbPackagesOf4Complete*2 + 2;
+    }
+
+    currentPageNb = 0;
 
     // creation of the pdf
 
@@ -1436,54 +1515,516 @@ int createPrintable(Project* p){
     // setting attributes of the pdf
 
     HPDF_SetCompressionMode(pdf, HPDF_COMP_ALL);
-    font = HPDF_GetFont(pdf, "Helvetica", NULL);
+    font = HPDF_GetFont(pdf, FONT_TYPE, NULL);
 
-    // creation of a page in the pdf
+    // filling the pdf with complete pages
 
-    page1 = HPDF_AddPage(pdf);
-    if(!page1){
-        fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
-        return -1;
+    setOnFirstVertex(&p->cardList);
+
+    for(i=0;i<nbPackagesOf4Complete;i++){
+
+        // page with the front of the cards
+
+        // creation of a page
+
+        page = HPDF_AddPage(pdf);
+        if(!page){
+            fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+            return -1;
+        }
+        currentPageNb ++;
+
+        // setting attributes of the page
+
+        HPDF_Page_SetWidth(page, A4_PAGE_WIDTH);
+        HPDF_Page_SetHeight(page, A4_PAGE_HEIGHT);
+
+        // addition of top images of the 4 cards in the page
+
+        topImage = HPDF_LoadJpegImageFromFile(pdf, topImagePath);
+        if(topImage == NULL){
+            fprintf(stderr, "error : impossible to load the top image file\n");
+            return -1;
+        }
+        HPDF_Page_DrawImage(page,  topImage, X_BL_TOP_IMAGE, Y_BL_TOP_IMAGE,
+                            TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  topImage, X_BR_TOP_IMAGE, Y_BR_TOP_IMAGE,
+                            TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  topImage, X_TL_TOP_IMAGE, Y_TL_TOP_IMAGE,
+                            TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  topImage, X_TR_TOP_IMAGE, Y_TR_TOP_IMAGE,
+                            TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
+
+        // addition of bottom images of the 4 cards in the page
+
+        bottomImage = HPDF_LoadJpegImageFromFile(pdf, bottomImagePath);
+        if(bottomImage == NULL){
+            fprintf(stderr, "error : impossible to load the bottom image file\n");
+            return -1;
+        }
+        HPDF_Page_DrawImage(page,  bottomImage, X_BL_BOTTOM_IMAGE, Y_BL_BOTTOM_IMAGE,
+                            BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  bottomImage, X_BR_BOTTOM_IMAGE, Y_BR_BOTTOM_IMAGE,
+                            BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  bottomImage, X_TL_BOTTOM_IMAGE, Y_TL_BOTTOM_IMAGE,
+                            BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  bottomImage, X_TR_BOTTOM_IMAGE, Y_TR_BOTTOM_IMAGE,
+                            BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+
+        // addition of card image of the BL card in the page
+
+        currentCardBL = p->cardList.current->card;
+        nbCardBL = currentCardBL->number;
+
+            // creation of the path of the current card
+
+        strncpy(cardImagePath, cardsDirectoryPathWithoutId, MAXPATH+1+MAXNAME+1+5+1+4+1);
+        sprintf(idString, "%d", currentCardBL->id);
+        strncat(cardImagePath, idString, TAILLEMAXID);
+        strcat(cardImagePath, "/Image.jpg");
+
+        cardImageBL = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
+        if(cardImageBL == NULL){
+            fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            return -1;
+        }
+        HPDF_Page_DrawImage(page, cardImageBL, X_BL_CARD_IMAGE, Y_BL_CARD_IMAGE,
+                            CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+        setOnNextVertex(&p->cardList);
+
+        // addition of card image of the BR card in the page
+
+        currentCardBR = p->cardList.current->card;
+        nbCardBR = currentCardBR->number;
+
+            // creation of the path of the current card
+
+        strncpy(cardImagePath, cardsDirectoryPathWithoutId, MAXPATH+1+MAXNAME+1+5+1+4+1);
+        sprintf(idString, "%d", currentCardBR->id);
+        strncat(cardImagePath, idString, TAILLEMAXID);
+        strcat(cardImagePath, "/Image.jpg");
+
+        cardImageBR = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
+        if(cardImageBR == NULL){
+            fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            return -1;
+        }
+        HPDF_Page_DrawImage(page, cardImageBR, X_BR_CARD_IMAGE, Y_BR_CARD_IMAGE,
+                            CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+        setOnNextVertex(&p->cardList);
+
+        // addition of card image of the TL card in the page
+
+        currentCardTL = p->cardList.current->card;
+        nbCardTL = currentCardTL->number;
+
+            // creation of the path of the current card
+
+        strncpy(cardImagePath, cardsDirectoryPathWithoutId, MAXPATH+1+MAXNAME+1+5+1+4+1);
+        sprintf(idString, "%d", currentCardTL->id);
+        strncat(cardImagePath, idString, TAILLEMAXID);
+        strcat(cardImagePath, "/Image.jpg");
+
+        cardImageTL = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
+        if(cardImageTL == NULL){
+            fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            return -1;
+        }
+        HPDF_Page_DrawImage(page, cardImageTL, X_TL_CARD_IMAGE, Y_TL_CARD_IMAGE,
+                            CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+        setOnNextVertex(&p->cardList);
+
+        // addition of card image of the TR card in the page
+
+        currentCardTR = p->cardList.current->card;
+        nbCardTR = currentCardTR->number;
+
+            // creation of the path of the current card
+
+        strncpy(cardImagePath, cardsDirectoryPathWithoutId, MAXPATH+1+MAXNAME+1+5+1+4+1);
+        sprintf(idString, "%d", currentCardTR->id);
+        strncat(cardImagePath, idString, TAILLEMAXID);
+        strcat(cardImagePath, "/Image.jpg");
+
+        cardImageTR = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
+        if(cardImageTR == NULL){
+            fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            return -1;
+        }
+        HPDF_Page_DrawImage(page, cardImageTR, X_TR_CARD_IMAGE, Y_TR_CARD_IMAGE,
+                            CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+        setOnNextVertex(&p->cardList);
+
+        // addition of the page number
+
+        sprintf(nbPagesString, "%d/%d", currentPageNb, nbPagesTotal);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_PAGE_NUMBER);
+        HPDF_Page_MoveTextPos(page, X_FONT_PAGE_NUMBER, Y_FONT_PAGE_NUMBER);
+        HPDF_Page_ShowText(page, nbPagesString);
+        HPDF_Page_EndText(page);
+
+        // page with the back of the cards
+
+        // creation of a page
+
+        page = HPDF_AddPage(pdf);
+        if(!page){
+            fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+            return -1;
+        }
+        currentPageNb ++;
+
+        // setting attributes of the page
+
+        HPDF_Page_SetWidth(page, A4_PAGE_WIDTH);
+        HPDF_Page_SetHeight(page, A4_PAGE_HEIGHT);
+
+        // addition of back images of the 4 cards in the page
+
+        backImage = HPDF_LoadJpegImageFromFile(pdf, backImagePath);
+        if(backImage == NULL){
+            fprintf(stderr, "error : impossible to load the back image file\n");
+            return -1;
+        }
+        HPDF_Page_DrawImage(page,  backImage, X_BL_BACK_IMAGE, Y_BL_BACK_IMAGE,
+                            BACK_IMAGE_WIDTH, BACK_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  backImage, X_BR_BACK_IMAGE, Y_BR_BACK_IMAGE,
+                            BACK_IMAGE_WIDTH, BACK_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  backImage, X_TL_BACK_IMAGE, Y_TL_BACK_IMAGE,
+                            BACK_IMAGE_WIDTH, BACK_IMAGE_HEIGHT);
+        HPDF_Page_DrawImage(page,  backImage, X_TR_BACK_IMAGE, Y_TR_BACK_IMAGE,
+                            BACK_IMAGE_WIDTH, BACK_IMAGE_HEIGHT);
+
+        // addition of the cards number (inversion in right and left in order to fit front and back when printing in recto-verso mode)
+
+            // BL card number
+
+        sprintf(nbCardString, "%d", nbCardBL);
+        if(nbCardBL>=0 && nbCardBL<10){
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/4;
+        } else {
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/2;
+        }
+
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER);
+        // inversion in right and left in order to fit front and back when printing in recto-verso mode
+        HPDF_Page_MoveTextPos(page, X_BR_FONT_NUMBER_INIT - correctionXCardNumber, Y_BR_FONT_NUMBER_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
+
+            // BR card number
+
+        sprintf(nbCardString, "%d", nbCardBR);
+        if(nbCardBR>=0 && nbCardBR<10){
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/4;
+        } else {
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/2;
+        }
+
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER);
+        // inversion in right and left in order to fit front and back when printing in recto-verso mode
+        HPDF_Page_MoveTextPos(page, X_BL_FONT_NUMBER_INIT - correctionXCardNumber, Y_BL_FONT_NUMBER_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
+
+            // TL card number
+
+        sprintf(nbCardString, "%d", nbCardTL);
+        if(nbCardTL>=0 && nbCardTL<10){
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/4;
+        } else {
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/2;
+        }
+
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER);
+        // inversion in right and left in order to fit front and back when printing in recto-verso mode
+        HPDF_Page_MoveTextPos(page, X_TR_FONT_NUMBER_INIT - correctionXCardNumber, Y_TR_FONT_NUMBER_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
+
+            // TR card number
+
+        sprintf(nbCardString, "%d", nbCardTR);
+        if(nbCardTR>=0 && nbCardTR<10){
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/4;
+        } else {
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/2;
+        }
+
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER);
+        // inversion in right and left in order to fit front and back when printing in recto-verso mode
+        HPDF_Page_MoveTextPos(page, X_TL_FONT_NUMBER_INIT - correctionXCardNumber, Y_TL_FONT_NUMBER_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
+
+        // addition of the page number
+
+        sprintf(nbPagesString, "%d/%d", currentPageNb, nbPagesTotal);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_PAGE_NUMBER);
+        HPDF_Page_MoveTextPos(page, X_FONT_PAGE_NUMBER, Y_FONT_PAGE_NUMBER);
+        HPDF_Page_ShowText(page, nbPagesString);
+        HPDF_Page_EndText(page);
+
     }
 
-    // setting attributes of the page
+    // filling the pdf with the non-complete page
 
-    HPDF_Page_SetWidth(page1, A4_PAGE_WIDTH);
-    HPDF_Page_SetHeight(page1, A4_PAGE_HEIGHT);
+    if(nbCardsOutOfPackages >= 1){
 
-    // addition of an image in the page
+        // page with the front of the cards
 
-    image1 = HPDF_LoadJpegImageFromFile(pdf,"/home/maxime/Pictures/IronMan.jpg");
-    HPDF_Page_DrawImage(page1, image1, X_BR_BOTTOM_IMAGE, Y_BR_BOTTOM_IMAGE,
-                        BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+        // creation of a page
 
-    // addition of a text in the page
+        page = HPDF_AddPage(pdf);
+        if(!page){
+            fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+            return -1;
+        }
+        currentPageNb ++;
 
-    HPDF_Page_BeginText(page1);
-    HPDF_Page_SetFontAndSize(page1, font, 40);
-    HPDF_Page_MoveTextPos(page1, 85, 200);
-    HPDF_Page_ShowText(page1, "text test");
-    HPDF_Page_EndText(page1);
+        // setting attributes of the page
 
-    // creation of the pdf file path
+        HPDF_Page_SetWidth(page, A4_PAGE_WIDTH);
+        HPDF_Page_SetHeight(page, A4_PAGE_HEIGHT);
 
-    strncpy(pathPDFFile, p->path, MAXPATH);
-    strcat(pathPDFFile,"/");
-    strncat(pathPDFFile, p->name, MAXNAME);
-    strcat(pathPDFFile,"/");
-    strncat(pathPDFFile, p->name, MAXNAME);
-    strcat(pathPDFFile,".pdf");
+        // addition of top image of the TL card in the page
+
+        HPDF_Page_DrawImage(page,  topImage, X_TL_TOP_IMAGE, Y_TL_TOP_IMAGE,
+                            TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
+
+        // addition of bottom image of the TL card in the page
+
+        HPDF_Page_DrawImage(page,  bottomImage, X_TL_BOTTOM_IMAGE, Y_TL_BOTTOM_IMAGE,
+                            BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+
+        // addition of card image of the TL card in the page
+
+        currentCardTL = p->cardList.current->card;
+        nbCardTL = currentCardTL->number;
+
+            // creation of the path of the current card
+
+        strncpy(cardImagePath, cardsDirectoryPathWithoutId, MAXPATH+1+MAXNAME+1+5+1+4+1);
+        sprintf(idString, "%d", currentCardTL->id);
+        strncat(cardImagePath, idString, TAILLEMAXID);
+        strcat(cardImagePath, "/Image.jpg");
+
+        cardImageTL = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
+        if(cardImageTL == NULL){
+            fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            return -1;
+        }
+        HPDF_Page_DrawImage(page, cardImageTL, X_TL_CARD_IMAGE, Y_TL_CARD_IMAGE,
+                            CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+        setOnNextVertex(&p->cardList);
+
+        if(nbCardsOutOfPackages >=2){
+
+            // addition of top image of the TR card in the page
+
+            HPDF_Page_DrawImage(page,  topImage, X_TR_TOP_IMAGE, Y_TR_TOP_IMAGE,
+                                TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
+
+            // addition of bottom image of the TR card in the page
+
+            HPDF_Page_DrawImage(page,  bottomImage, X_TR_BOTTOM_IMAGE, Y_TR_BOTTOM_IMAGE,
+                                BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+
+            // addition of card image of the TR card in the page
+
+            currentCardTR = p->cardList.current->card;
+            nbCardTR = currentCardTR->number;
+
+            // creation of the path of the current card
+
+            strncpy(cardImagePath, cardsDirectoryPathWithoutId, MAXPATH+1+MAXNAME+1+5+1+4+1);
+            sprintf(idString, "%d", currentCardTR->id);
+            strncat(cardImagePath, idString, TAILLEMAXID);
+            strcat(cardImagePath, "/Image.jpg");
+
+            cardImageTR = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
+            if(cardImageTR == NULL){
+                fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+                return -1;
+            }
+            HPDF_Page_DrawImage(page, cardImageTR, X_TR_CARD_IMAGE, Y_TR_CARD_IMAGE,
+                                CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+            setOnNextVertex(&p->cardList);
+
+        }
+
+        if(nbCardsOutOfPackages >= 3){
+
+            // addition of top image of the BL card in the page
+
+            HPDF_Page_DrawImage(page,  topImage, X_BL_TOP_IMAGE, Y_BL_TOP_IMAGE,
+                                TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
+
+            // addition of bottom image of the BL card in the page
+
+            HPDF_Page_DrawImage(page,  bottomImage, X_BL_BOTTOM_IMAGE, Y_BL_BOTTOM_IMAGE,
+                                BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
+
+            // addition of card image of the BL card in the page
+
+            currentCardBL = p->cardList.current->card;
+            nbCardBL = currentCardBL->number;
+
+            // creation of the path of the current card
+
+            strncpy(cardImagePath, cardsDirectoryPathWithoutId, MAXPATH+1+MAXNAME+1+5+1+4+1);
+            sprintf(idString, "%d", currentCardBL->id);
+            strncat(cardImagePath, idString, TAILLEMAXID);
+            strcat(cardImagePath, "/Image.jpg");
+
+            cardImageBL = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
+            if(cardImageBL == NULL){
+                fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+                return -1;
+            }
+            HPDF_Page_DrawImage(page, cardImageBL, X_BL_CARD_IMAGE, Y_BL_CARD_IMAGE,
+                                CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+            setOnNextVertex(&p->cardList);
+
+        }
+
+        // addition of the page number
+
+        sprintf(nbPagesString, "%d/%d", currentPageNb, nbPagesTotal);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_PAGE_NUMBER);
+        HPDF_Page_MoveTextPos(page, X_FONT_PAGE_NUMBER, Y_FONT_PAGE_NUMBER);
+        HPDF_Page_ShowText(page, nbPagesString);
+        HPDF_Page_EndText(page);
+
+        // page with the back of the cards
+
+        // creation of a page
+
+        page = HPDF_AddPage(pdf);
+        if(!page){
+            fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+            return -1;
+        }
+        currentPageNb ++;
+
+        // setting attributes of the page
+
+        HPDF_Page_SetWidth(page, A4_PAGE_WIDTH);
+        HPDF_Page_SetHeight(page, A4_PAGE_HEIGHT);
+
+        // addition of back images of the TL card in the page
+        // inversion in right and left in order to fit front and back when printing in recto-verso mode
+
+        HPDF_Page_DrawImage(page,  backImage, X_TR_BACK_IMAGE, Y_TR_BACK_IMAGE,
+                            BACK_IMAGE_WIDTH, BACK_IMAGE_HEIGHT);
+
+        // addition of the TL card number (inversion in right and left in order to fit front and back when printing in recto-verso mode)
+
+        sprintf(nbCardString, "%d", nbCardTL);
+        if(nbCardTL>=0 && nbCardTL<10){
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/4;
+        } else {
+            correctionXCardNumber = SIZE_FONT_CARD_NUMBER/2;
+        }
+
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER);
+        // inversion in right and left in order to fit front and back when printing in recto-verso mode
+        HPDF_Page_MoveTextPos(page, X_TR_FONT_NUMBER_INIT - correctionXCardNumber, Y_TR_FONT_NUMBER_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
+
+        if(nbCardsOutOfPackages >= 2){
+
+            // addition of back images of the TR card in the page
+            // inversion in right and left in order to fit front and back when printing in recto-verso mode
+
+            HPDF_Page_DrawImage(page,  backImage, X_TL_BACK_IMAGE, Y_TL_BACK_IMAGE,
+                                BACK_IMAGE_WIDTH, BACK_IMAGE_HEIGHT);
+
+            // addition of the TR card number (inversion in right and left in order to fit front and back when printing in recto-verso mode)
+
+            sprintf(nbCardString, "%d", nbCardTR);
+            if(nbCardTR>=0 && nbCardTR<10){
+                correctionXCardNumber = SIZE_FONT_CARD_NUMBER/4;
+            } else {
+                correctionXCardNumber = SIZE_FONT_CARD_NUMBER/2;
+            }
+
+            HPDF_Page_BeginText(page);
+            HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER);
+            // inversion in right and left in order to fit front and back when printing in recto-verso mode
+            HPDF_Page_MoveTextPos(page, X_TL_FONT_NUMBER_INIT - correctionXCardNumber, Y_TL_FONT_NUMBER_INIT);
+            HPDF_Page_ShowText(page, nbCardString);
+            HPDF_Page_EndText(page);
+
+        }
+
+        if(nbCardsOutOfPackages >= 3){
+
+            // addition of back images of the BL card in the page
+            // inversion in right and left in order to fit front and back when printing in recto-verso mode
+
+            HPDF_Page_DrawImage(page,  backImage, X_BR_BACK_IMAGE, Y_BR_BACK_IMAGE,
+                                BACK_IMAGE_WIDTH, BACK_IMAGE_HEIGHT);
+
+            // addition of the TL card number (inversion in right and left in order to fit front and back when printing in recto-verso mode)
+
+            sprintf(nbCardString, "%d", nbCardBL);
+            if(nbCardBL>=0 && nbCardBL<10){
+                correctionXCardNumber = SIZE_FONT_CARD_NUMBER/4;
+            } else {
+                correctionXCardNumber = SIZE_FONT_CARD_NUMBER/2;
+            }
+
+            HPDF_Page_BeginText(page);
+            HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER);
+            // inversion in right and left in order to fit front and back when printing in recto-verso mode
+            HPDF_Page_MoveTextPos(page, X_BR_FONT_NUMBER_INIT - correctionXCardNumber, Y_BR_FONT_NUMBER_INIT);
+            HPDF_Page_ShowText(page, nbCardString);
+            HPDF_Page_EndText(page);
+
+        }
+
+        // addition of the page number
+
+        sprintf(nbPagesString, "%d/%d", currentPageNb, nbPagesTotal);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_PAGE_NUMBER);
+        HPDF_Page_MoveTextPos(page, X_FONT_PAGE_NUMBER, Y_FONT_PAGE_NUMBER);
+        HPDF_Page_ShowText(page, nbPagesString);
+        HPDF_Page_EndText(page);
+
+    }
 
     // remove precedent pdf file if it existed
 
-    if(remove(pathPDFFile) != 0){
-        fprintf( stderr, "error : deletion of the file %s is impossible\n", pathPDFFile);
+    if(remove(pdfFilePath) != 0){
+        fprintf( stderr, "error : deletion of the file %s is impossible\n", pdfFilePath);
         fprintf(stderr,"%d\n", errno);
     }
 
     // saving pdf file
 
-    HPDF_SaveToFile(pdf, pathPDFFile);
+    if(HPDF_SaveToFile(pdf, pdfFilePath) != HPDF_OK){
+        fprintf( stderr, "error : creation of the file %s is impossible\n", pdfFilePath);
+        fprintf(stderr,"%d\n", errno);
+        return -1;
+    }
 
     // freeing the resources of the pdf
 

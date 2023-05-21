@@ -15,6 +15,7 @@
 #include "LinkTestsU.h"
 
 #include "../Project.h"
+#include "../Card.h"
 #include "../VertexList.h"
 #include "../EdgeList.h"
 
@@ -119,6 +120,7 @@ int main(void){
 
     Project* p1 = NULL;
     Project* p2 = NULL;
+    Project* p3 = NULL;
 
     Card* c1 = NULL;
     Card* c2 = NULL;
@@ -129,6 +131,18 @@ int main(void){
     Card* c7 = NULL;
     Card* c8 = NULL;
     Card* c9 = NULL;
+    Card* c10 = NULL;
+    Card* c11 = NULL;
+    Card* c12 = NULL;
+    Card* c13 = NULL;
+    Card* c14 = NULL;
+    Card* c15 = NULL;
+    Card* c16 = NULL;
+    Card* c17 = NULL;
+    Card* c18 = NULL;
+    Card* c19 = NULL;
+    Card* c20 = NULL;
+
 
     Link* l1 = NULL;
     Link* l2 = NULL;
@@ -137,7 +151,7 @@ int main(void){
     Link* l5 = NULL;
     Link* l6 = NULL;
 
-
+    /*
     // demo 1 : creation, completion, creation of a pdf and save of a project
 
     p1 = allocProject();
@@ -172,12 +186,10 @@ int main(void){
 
     deleteLinkFromCards(p1,c4,c5);
 
-    createPrintable(p1);
-
     saveProject(p1);
 
     //deleteProject(&p1);
-
+    */
 
     /*
     // demo 2 : load a project from a path, modification and save it
@@ -216,6 +228,56 @@ int main(void){
 
     saveProject(p2);
     */
+
+
+    // demo 3 : creation of several cards with images and creation of a pdf file
+
+    p3 = allocProject();
+    initProject(p3, "/home/maxime/Documents", "unlock3");
+
+    setBackImage(p3, "/home/maxime/Pictures/DosCarte.jpg");
+    setTopImage(p3, "/home/maxime/Pictures/Banniere.jpg");
+    setBottomImage(p3, "/home/maxime/Pictures/TexteBasDePage.jpg");
+
+    c10 = addEmptyCard(p3);
+    c11 = addEmptyCard(p3);
+    c12 = addEmptyCard(p3);
+    c13 = addEmptyCard(p3);
+    c14 = addEmptyCard(p3);
+    c15 = addEmptyCard(p3);
+    c16 = addEmptyCard(p3);
+    c17 = addEmptyCard(p3);
+    c18 = addEmptyCard(p3);
+    c19 = addEmptyCard(p3);
+    c20 = addEmptyCard(p3);
+
+    setCardImage(p3,c10, "/home/maxime/Pictures/Chateau.jpg");
+    setCardImage(p3,c11, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c12, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c13, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c14, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c15, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c16, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c17, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c16, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c18, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c19, "/home/maxime/Pictures/Chateau.jpg");
+    setCardImage(p3,c20, "/home/maxime/Pictures/IronMan.jpg");
+
+    setCardNumber(c10, 34);
+    setCardNumber(c11, 6);
+    setCardNumber(c12, 12);
+    setCardNumber(c13, 1);
+    setCardNumber(c14, 42);
+    setCardNumber(c15, 23);
+    setCardNumber(c16, 66);
+    setCardNumber(c17, 7);
+    setCardNumber(c18, 3);
+    setCardNumber(c19, 45);
+    setCardNumber(c20, 99);
+
+    createPrintable(p3);
+    saveProject(p3);
 
     return 0;
 }
