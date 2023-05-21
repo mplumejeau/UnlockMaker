@@ -1367,6 +1367,7 @@ int createPrintable(Project* p){
 
     const char* FONT_TYPE = "Times-Bold";
     const int SIZE_FONT_CARD_NUMBER = 60;
+    const int SIZE_FONT_CARD_NUMBER_SMALL = 30;
     const int SIZE_FONT_PAGE_NUMBER = 20;
 
     // size of margins in pixels
@@ -1377,6 +1378,8 @@ int createPrintable(Project* p){
     const float VERTICAL_CENTER_MARGIN = RESOLUTION_IN_CM*2.3;
     const float HORIZONTAL_FONT_PAGE_NUMBER_MARGIN = RESOLUTION_IN_CM*2;
     const float VERTICAL_FONT_PAGE_NUMBER_MARGIN = RESOLUTION_IN_CM*1;
+    const float HORIZONTAL_FONT_CARD_NUMBER_SMALL_MARGIN = RESOLUTION_IN_CM*0.5;
+    const float VERTICAL_FONT_CARD_NUMBER_SMALL_MARGIN = RESOLUTION_IN_CM*0.5;
 
     // size of images in pixels
 
@@ -1402,7 +1405,9 @@ int createPrintable(Project* p){
     const float X_BL_BACK_IMAGE = X_BL_BOTTOM_IMAGE;
     const float Y_BL_BACK_IMAGE = Y_BL_BOTTOM_IMAGE;
     const float X_BL_FONT_NUMBER_INIT = X_BL_BACK_IMAGE + BACK_IMAGE_WIDTH/2;
-    const float Y_BL_FONT_NUMBER_INIT = Y_BL_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/4;
+    const float Y_BL_FONT_NUMBER_INIT = Y_BL_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/3;
+    const float X_BL_FONT_NUMBER_SMALL_INIT = X_BL_TOP_IMAGE + SIZE_FONT_CARD_NUMBER_SMALL/2;
+    const float Y_BL_FONT_NUMBER_SMALL_INIT = Y_BL_TOP_IMAGE + TOP_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER_SMALL/3;
 
         // Bottom-Right image
 
@@ -1415,7 +1420,9 @@ int createPrintable(Project* p){
     const float X_BR_BACK_IMAGE = X_BR_BOTTOM_IMAGE;
     const float Y_BR_BACK_IMAGE = Y_BR_BOTTOM_IMAGE;
     const float X_BR_FONT_NUMBER_INIT = X_BR_BACK_IMAGE + BACK_IMAGE_WIDTH/2;
-    const float Y_BR_FONT_NUMBER_INIT = Y_BR_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/4;
+    const float Y_BR_FONT_NUMBER_INIT = Y_BR_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/3;
+    const float X_BR_FONT_NUMBER_SMALL_INIT = X_BR_TOP_IMAGE + SIZE_FONT_CARD_NUMBER_SMALL/2;
+    const float Y_BR_FONT_NUMBER_SMALL_INIT = Y_BR_TOP_IMAGE + TOP_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER_SMALL/3;
 
         // Top-Left image
 
@@ -1428,7 +1435,9 @@ int createPrintable(Project* p){
     const float X_TL_BACK_IMAGE = X_TL_BOTTOM_IMAGE;
     const float Y_TL_BACK_IMAGE = Y_TL_BOTTOM_IMAGE;
     const float X_TL_FONT_NUMBER_INIT = X_TL_BACK_IMAGE + BACK_IMAGE_WIDTH/2;
-    const float Y_TL_FONT_NUMBER_INIT = Y_TL_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/4;
+    const float Y_TL_FONT_NUMBER_INIT = Y_TL_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/3;
+    const float X_TL_FONT_NUMBER_SMALL_INIT = X_TL_TOP_IMAGE + SIZE_FONT_CARD_NUMBER_SMALL/2;
+    const float Y_TL_FONT_NUMBER_SMALL_INIT = Y_TL_TOP_IMAGE + TOP_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER_SMALL/3;
 
         // Top-Right image
 
@@ -1441,7 +1450,9 @@ int createPrintable(Project* p){
     const float X_TR_BACK_IMAGE = X_TR_BOTTOM_IMAGE;
     const float Y_TR_BACK_IMAGE = Y_TR_BOTTOM_IMAGE;
     const float X_TR_FONT_NUMBER_INIT = X_TR_BACK_IMAGE + BACK_IMAGE_WIDTH/2;
-    const float Y_TR_FONT_NUMBER_INIT = Y_TR_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/4;
+    const float Y_TR_FONT_NUMBER_INIT = Y_TR_BACK_IMAGE + BACK_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER/3;
+    const float X_TR_FONT_NUMBER_SMALL_INIT = X_TR_TOP_IMAGE + SIZE_FONT_CARD_NUMBER_SMALL/2;
+    const float Y_TR_FONT_NUMBER_SMALL_INIT = Y_TR_TOP_IMAGE + TOP_IMAGE_HEIGHT/2 - SIZE_FONT_CARD_NUMBER_SMALL/3;
 
     // position of page number in pixels
 
@@ -1453,6 +1464,32 @@ int createPrintable(Project* p){
     if(p == NULL){
         fprintf(stderr, "error : project bad allocation\n");
         return -1;
+    }
+
+    // testing the presence of images for the project
+
+    if(p->backImage != 1){
+        fprintf(stderr, "error : project has no back image\n");
+        return -1;
+    }
+    if(p->topImage != 1){
+        fprintf(stderr, "error : project has no top image\n");
+        return -1;
+    }
+    if(p->bottomImage != 1){
+        fprintf(stderr, "error : project has no bottom image\n");
+        return -1;
+    }
+
+    // testing the presence of images for each card
+
+    setOnFirstVertex(&p->cardList);
+    while(!isOutOfListVertex(&p->cardList)){
+        if(p->cardList.current->card->image != 1){
+            fprintf(stderr, "error : card with id : %d has no image\n", p->cardList.current->card->id);
+            return -1;
+        }
+        setOnNextVertex(&p->cardList);
     }
 
     // creation of the directories and files paths
@@ -1591,6 +1628,15 @@ int createPrintable(Project* p){
         HPDF_Page_DrawImage(page, cardImageBL, X_BL_CARD_IMAGE, Y_BL_CARD_IMAGE,
                             CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
 
+        // addition of small card number of the BL card
+
+        sprintf(nbCardString, "%d", nbCardBL);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER_SMALL);
+        HPDF_Page_MoveTextPos(page, X_BL_FONT_NUMBER_SMALL_INIT, Y_BL_FONT_NUMBER_SMALL_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
+
         setOnNextVertex(&p->cardList);
 
         // addition of card image of the BR card in the page
@@ -1612,6 +1658,15 @@ int createPrintable(Project* p){
         }
         HPDF_Page_DrawImage(page, cardImageBR, X_BR_CARD_IMAGE, Y_BR_CARD_IMAGE,
                             CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+        // addition of small card number of the BR card
+
+        sprintf(nbCardString, "%d", nbCardBR);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER_SMALL);
+        HPDF_Page_MoveTextPos(page, X_BR_FONT_NUMBER_SMALL_INIT, Y_BR_FONT_NUMBER_SMALL_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
 
         setOnNextVertex(&p->cardList);
 
@@ -1635,6 +1690,15 @@ int createPrintable(Project* p){
         HPDF_Page_DrawImage(page, cardImageTL, X_TL_CARD_IMAGE, Y_TL_CARD_IMAGE,
                             CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
 
+        // addition of small card number of the TL card
+
+        sprintf(nbCardString, "%d", nbCardTL);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER_SMALL);
+        HPDF_Page_MoveTextPos(page, X_TL_FONT_NUMBER_SMALL_INIT, Y_TL_FONT_NUMBER_SMALL_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
+
         setOnNextVertex(&p->cardList);
 
         // addition of card image of the TR card in the page
@@ -1656,6 +1720,15 @@ int createPrintable(Project* p){
         }
         HPDF_Page_DrawImage(page, cardImageTR, X_TR_CARD_IMAGE, Y_TR_CARD_IMAGE,
                             CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+        // addition of small card number of the TR card
+
+        sprintf(nbCardString, "%d", nbCardTR);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER_SMALL);
+        HPDF_Page_MoveTextPos(page, X_TR_FONT_NUMBER_SMALL_INIT, Y_TR_FONT_NUMBER_SMALL_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
 
         setOnNextVertex(&p->cardList);
 
@@ -1799,12 +1872,12 @@ int createPrintable(Project* p){
 
         // addition of top image of the TL card in the page
 
-        HPDF_Page_DrawImage(page,  topImage, X_TL_TOP_IMAGE, Y_TL_TOP_IMAGE,
+        HPDF_Page_DrawImage(page, topImage, X_TL_TOP_IMAGE, Y_TL_TOP_IMAGE,
                             TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
 
         // addition of bottom image of the TL card in the page
 
-        HPDF_Page_DrawImage(page,  bottomImage, X_TL_BOTTOM_IMAGE, Y_TL_BOTTOM_IMAGE,
+        HPDF_Page_DrawImage(page, bottomImage, X_TL_BOTTOM_IMAGE, Y_TL_BOTTOM_IMAGE,
                             BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
 
         // addition of card image of the TL card in the page
@@ -1826,6 +1899,15 @@ int createPrintable(Project* p){
         }
         HPDF_Page_DrawImage(page, cardImageTL, X_TL_CARD_IMAGE, Y_TL_CARD_IMAGE,
                             CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+        // addition of small card number of the TL card
+
+        sprintf(nbCardString, "%d", nbCardTL);
+        HPDF_Page_BeginText(page);
+        HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER_SMALL);
+        HPDF_Page_MoveTextPos(page, X_TL_FONT_NUMBER_SMALL_INIT, Y_TL_FONT_NUMBER_SMALL_INIT);
+        HPDF_Page_ShowText(page, nbCardString);
+        HPDF_Page_EndText(page);
 
         setOnNextVertex(&p->cardList);
 
@@ -1861,6 +1943,15 @@ int createPrintable(Project* p){
             HPDF_Page_DrawImage(page, cardImageTR, X_TR_CARD_IMAGE, Y_TR_CARD_IMAGE,
                                 CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
 
+            // addition of small card number of the TR card
+
+            sprintf(nbCardString, "%d", nbCardTR);
+            HPDF_Page_BeginText(page);
+            HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER_SMALL);
+            HPDF_Page_MoveTextPos(page, X_TR_FONT_NUMBER_SMALL_INIT, Y_TR_FONT_NUMBER_SMALL_INIT);
+            HPDF_Page_ShowText(page, nbCardString);
+            HPDF_Page_EndText(page);
+
             setOnNextVertex(&p->cardList);
 
         }
@@ -1869,12 +1960,12 @@ int createPrintable(Project* p){
 
             // addition of top image of the BL card in the page
 
-            HPDF_Page_DrawImage(page,  topImage, X_BL_TOP_IMAGE, Y_BL_TOP_IMAGE,
+            HPDF_Page_DrawImage(page, topImage, X_BL_TOP_IMAGE, Y_BL_TOP_IMAGE,
                                 TOP_IMAGE_WIDTH, TOP_IMAGE_HEIGHT);
 
             // addition of bottom image of the BL card in the page
 
-            HPDF_Page_DrawImage(page,  bottomImage, X_BL_BOTTOM_IMAGE, Y_BL_BOTTOM_IMAGE,
+            HPDF_Page_DrawImage(page, bottomImage, X_BL_BOTTOM_IMAGE, Y_BL_BOTTOM_IMAGE,
                                 BOTTOM_IMAGE_WIDTH, BOTTOM_IMAGE_HEIGHT);
 
             // addition of card image of the BL card in the page
@@ -1896,6 +1987,15 @@ int createPrintable(Project* p){
             }
             HPDF_Page_DrawImage(page, cardImageBL, X_BL_CARD_IMAGE, Y_BL_CARD_IMAGE,
                                 CARD_IMAGE_WIDTH, CARD_IMAGE_HEIGHT);
+
+            // addition of small card number of the BL card
+
+            sprintf(nbCardString, "%d", nbCardBL);
+            HPDF_Page_BeginText(page);
+            HPDF_Page_SetFontAndSize(page, font, SIZE_FONT_CARD_NUMBER_SMALL);
+            HPDF_Page_MoveTextPos(page, X_BL_FONT_NUMBER_SMALL_INIT, Y_BL_FONT_NUMBER_SMALL_INIT);
+            HPDF_Page_ShowText(page, nbCardString);
+            HPDF_Page_EndText(page);
 
             setOnNextVertex(&p->cardList);
 
