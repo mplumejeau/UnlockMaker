@@ -1,6 +1,4 @@
-/*
-// Created by vboxuser on 01/05/23.
-*/
+
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
@@ -48,23 +46,24 @@ int main(int argc, char *argv[]) {
 void unselectCard() {
     selectedCard = NULL;
     selectedCardBtn = NULL;
-    changeSelectedCardLabel("Aucune carte selectionnée");
+    refreshSelectedCardLabel();
     disableRightCardButtons();
 }
 
 void unselectLink() {
     selectedLink = NULL;
     selectedLinkBtn = NULL;
-    changeSelectedLinkLabel("Aucun lien selectionné");
+    refreshSelectedLinkLabel();
     disableRightLinkButtons();
 }
 
-void setCardFixNumber(int number) {
-    if (number == -1) {
+void setCardFixNumber(int n) {
+    printf("Call : %d\n", n);
+    if (n == -1) {
         unfixCardNumber(selectedCard);
         changeInfoLabel("Le numéro de la carte sélectionnée n'est plus fixé");
     } else {
-        fixCardNumber(selectedCard, (char) number);
+        fixCardNumber(selectedCard, (char) n);
         changeInfoLabel("Le numéro de la carte sélectionnée est maintenant fixé");
     }
 }
@@ -102,7 +101,7 @@ void retrieveParentsChildren(GtkBox *parentsBox, GtkBox *childrenBox) {
     }
 }
 
-void addLinkFromToggle(Card *parent, Card* child) {
+void addLinkFromToggle(Card *parent, Card *child) {
     char parentId[3], childId[3];
     sprintf(parentId, "%d", parent->id);
     sprintf(childId, "%d", child->id);
@@ -122,7 +121,7 @@ void addLinkFromToggle(Card *parent, Card* child) {
     }
 }
 
-void deleteLinkFromToggle(Card *parent, Card* child) {
+void deleteLinkFromToggle(Card *parent, Card *child) {
     char parentId[3], childId[3];
     sprintf(parentId, "%d", parent->id);
     sprintf(childId, "%d", child->id);
@@ -143,11 +142,11 @@ void deleteLinkFromToggle(Card *parent, Card* child) {
 
 /* Project managing callbacks */
 
-void onConfirmNewProject(GtkWidget *saveProjectWindow) {
-    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(saveProjectWindow));
+void onConfirmNewProject(GtkWidget *newProjectWindow) {
+    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(newProjectWindow));
     GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
     GtkWidget *nameEntry = gtk_widget_get_next_sibling(
-            gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(saveProjectWindow))));
+            gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(newProjectWindow))));
     if (file != NULL && strcmp(gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))), "") != 0) {
         curProject = allocProject();
 
@@ -156,14 +155,14 @@ void onConfirmNewProject(GtkWidget *saveProjectWindow) {
             initProject(curProject, g_file_get_path(file),
                         (char *) gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))));
             initGraphFiles(curProject);
-            refreshCardLabel();
-            refreshLinkLabel();
+            refreshCardBoxLabel();
+            refreshLinkBoxLabel();
         } else {
             fprintf(stderr, "error : creation of the project is impossible\n");
             fprintf(stderr, "%d\n", errno);
         }
     }
-    gtk_window_close(GTK_WINDOW(saveProjectWindow));
+    gtk_window_close(GTK_WINDOW(newProjectWindow));
     unsavedChanges = false;
     changeInfoLabel("Bienvenue dans UnlockMaker ! Commencez votre projet en ajoutant une carte");
 }
@@ -202,8 +201,8 @@ void onConfirmOpenProject(GtkWidget *openProjectWindow) {
                     setOnNextEdge(&(curProject->linkList));
                 }
                 refreshGraphPNG();
-                refreshCardLabel();
-                refreshLinkLabel();
+                refreshCardBoxLabel();
+                refreshLinkBoxLabel();
             } else {
                 gtk_label_set_label(GTK_LABEL(gtk_widget_get_next_sibling(
                                             gtk_widget_get_first_child(gtk_widget_get_first_child(GTK_WIDGET(openProjectWindow))))),
@@ -251,7 +250,7 @@ void onAddCard() {
         sprintf(cardId, "%d", c->id);
         addCardGraphData(cardId, c->type);
         refreshGraphPNG();
-        refreshCardLabel();
+        refreshCardBoxLabel();
         char message[45];
         sprintf(message, "La carte n°%d a été ajoutée avec succès.", c->id);
         changeInfoLabel(message);
@@ -265,7 +264,7 @@ void onAddCard() {
     }
 }
 
-void onSelectCard(GtkWidget *cardBtn, GtkWidget *card) {
+void onSelectCard(GtkWidget *cardBtn, Card *card) {
     char unselectedCardNames[4][23] = {"unselectedGreyCardBtn", "unselectedBlueCardBtn", "unselectedRedCardBtn",
                                        "unselectedGreenCardBtn"};
     char selectedCardNames[4][21] = {"selectedGreyCardBtn", "selectedBlueCardBtn", "selectedRedCardBtn",
@@ -278,16 +277,12 @@ void onSelectCard(GtkWidget *cardBtn, GtkWidget *card) {
     if (selectedCard != NULL) {
         gtk_widget_set_name(selectedCardBtn, unselectedCardNames[selectedCard->type]);
     }
-    selectedCard = (Card *) card;
+    selectedCard = card;
     selectedCardBtn = cardBtn;
     gtk_widget_set_name(selectedCardBtn, selectedCardNames[selectedCard->type]);
-    char cardId[3];
-    sprintf(cardId, "%d", ((Card *) card)->id);
     if (reopenSecondWindow) openModifyCardWindow();
     enableRightCardButtons();
-    char panelLabel[26] = "Carte sélectionnée : ";
-    strcat(panelLabel, cardId);
-    changeSelectedCardLabel(panelLabel);
+    refreshSelectedCardLabel();
 }
 
 void onModifyCardType(GtkWidget *dropDown) {
@@ -306,19 +301,19 @@ void onModifyCardType(GtkWidget *dropDown) {
     }
 }
 
-void onToggleFixedNumberCheck(GtkWidget *checkButton, gpointer entry) {
+void onToggleFixedNumberCheck(GtkWidget *checkButton, GtkWidget *entry) {
     gboolean active = gtk_check_button_get_active(GTK_CHECK_BUTTON(checkButton));
     if (!active) {
         setCardFixNumber(-1);
         gtk_entry_buffer_set_text(GTK_ENTRY_BUFFER(G_OBJECT(gtk_entry_get_buffer(GTK_ENTRY(entry)))), "", 0);
     } else {
-        setCardFixNumber(0);
+        setCardFixNumber((int)strtol(gtk_entry_buffer_get_text(GTK_ENTRY_BUFFER(G_OBJECT(gtk_entry_get_buffer(GTK_ENTRY(entry))))), NULL, 10));
     }
     gtk_widget_set_can_target(GTK_WIDGET(entry), active);
     unsavedChanges = true;
 }
 
-void onEnterCardFixedNumber(GtkWidget *entry, gpointer checkButton) {
+void onEnterCardFixedNumber(GtkWidget *entry, GtkWidget *checkButton) {
     if (gtk_check_button_get_active(GTK_CHECK_BUTTON(checkButton))) {
         setCardFixNumber((int) strtol(
                 gtk_entry_buffer_get_text(GTK_ENTRY_BUFFER(G_OBJECT(gtk_entry_get_buffer(GTK_ENTRY(entry))))), NULL,
@@ -334,7 +329,7 @@ void onToggleSetCardAsRoot(GtkWidget *checkButton) {
         setCardAsRootGraphData(cardId);
         setRoot(curProject, selectedCard);
     } else {
-        removeCardAsRootGraphData();
+        removeCardsAsRootGraphData();
         setRoot(curProject, NULL);
     }
     refreshGraphPNG();
@@ -366,7 +361,7 @@ void onToggleAddParent(GtkWidget *parentCheckBtn, Card *parentCard) {
         deleteLinkFromToggle(parentCard, selectedCard);
     }
     refreshGraphPNG();
-    refreshLinkLabel();
+    refreshLinkBoxLabel();
     unsavedChanges = true;
 }
 
@@ -378,7 +373,7 @@ void onToggleAddChild(GtkWidget *childCheckBtn, Card *childCard) {
         deleteLinkFromToggle(selectedCard, childCard);
     }
     refreshGraphPNG();
-    refreshLinkLabel();
+    refreshLinkBoxLabel();
     unsavedChanges = true;
 }
 
@@ -413,8 +408,8 @@ void onPressDeleteCard() {
 
         removeCardGraphData(cardId);
         refreshGraphPNG();
-        refreshCardLabel();
-        refreshLinkLabel();
+        refreshCardBoxLabel();
+        refreshLinkBoxLabel();
         char message[63];
         sprintf(message, "La carte n°%s et ses liens ont été supprimés avec succès.", cardId);
         changeInfoLabel(message);
@@ -424,7 +419,7 @@ void onPressDeleteCard() {
 
 /* Link managing callbacks */
 
-void onSelectLink(GtkWidget *widget, gpointer data) {
+void onSelectLink(GtkWidget *linkBtn, Link *link) {
     char unselectedLinkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedFixedLinkBtn",
                                        "unselectedHintLinkBtn"};
     char selectedLinkNames[4][21] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedFixedLinkBtn",
@@ -437,14 +432,12 @@ void onSelectLink(GtkWidget *widget, gpointer data) {
     if (selectedLink != NULL) {
         gtk_widget_set_name(selectedLinkBtn, unselectedLinkNames[selectedLink->type]);
     }
-    selectedLink = (Link *) data;
-    selectedLinkBtn = widget;
+    selectedLink = (Link *) link;
+    selectedLinkBtn = linkBtn;
     gtk_widget_set_name(selectedLinkBtn, selectedLinkNames[selectedLink->type]);
     if (reopenSecondWindow) openModifyLinkWindow();
     enableRightLinkButtons();
-    char panelLabel[30];
-    sprintf(panelLabel, "Lien sélectionné : %d -> %d", selectedLink->parent->id, selectedLink->child->id);
-    changeSelectedLinkLabel(panelLabel);
+    refreshSelectedLinkLabel();
 }
 
 void onModifyLinkType(GtkWidget *dropDown) {
@@ -477,7 +470,7 @@ void onPressDeleteLink() {
         unselectLink();
         removeLinkGraphData(parentId, childId);
         refreshGraphPNG();
-        refreshLinkLabel();
+        refreshLinkBoxLabel();
         char message[49];
         sprintf(message, "Le lien %s -> %s a été supprimé avec succès.", parentId, childId);
         changeInfoLabel(message);

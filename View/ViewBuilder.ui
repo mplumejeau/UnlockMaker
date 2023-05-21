@@ -1,6 +1,219 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- This is an example of an XML description displaying a window and 3 buttons -->
+
+<!-- This file describes the GUI's windows layout -->
 <interface>
+
+  <!-- ==================== Start window description ==================== -->
+  <object id="startWindow" class="GtkWindow">
+    <property name="title">Starting window</property>
+    <property name="decorated">False</property>
+    <property name="name">startWindow</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">startWindowGrid</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="name">startTitleLabel</property>
+            <property name="justify">center</property>
+            <property name="lines">1</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.5</property>
+            <property name="label">Bienvenue dans UnlockMaker !</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">4</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="name">startLabel</property>
+            <property name="justify">center</property>
+            <property name="lines">1</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.5</property>
+            <property name="label">Souhaitez-vous vous créer un nouveau projet ou ouvrir un projet existant ?</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
+              <property name="column-span">4</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="newProjectBtn" class="GtkButton">
+            <property name="label">Nouveau projet</property>
+            <property name="name">startBtn</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">3</property>
+              <property name="column-span">2</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectBtn" class="GtkButton">
+            <property name="label">Ouvrir un projet existant</property>
+            <property name="name">startBtn</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">3</property>
+              <property name="column-span">2</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeStartingWindowBtn" class="GtkButton">
+            <property name="label">Quitter</property>
+            <property name="name">closeStartingWindowBtn</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">5</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Project creating window description ==================== -->
+  <object id="saveNewProjectWindow" class="GtkWindow">
+    <property name="title">Création du projet</property>
+    <property name="name">saveProjectWindow</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">saveProjectGrid</property>
+        <child>
+          <object id="saveNewProjectBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveNewProjectErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner un dossier et entrer le nom du projet</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveNewProjectEntry" class="GtkEntry">
+            <property name="name">saveProjectEntry</property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveNewProjectConfirm" class="GtkButton">
+            <property name="label">Créer le projet</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveNewProjectAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Project opening window description ==================== -->
+  <object id="openProjectWindow" class="GtkWindow">
+    <property name="title">Ouvrir un projet</property>
+    <property name="name">openProjectWindow</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">openProjectGrid</property>
+        <child>
+          <object id="openProjectBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner un fichier</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectConfirm" class="GtkButton">
+            <property name="label">Ouvrir</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Main window description ==================== -->
   <object id="mainWindow" class="GtkWindow">
     <property name="title">Sans titre - UnlockMaker</property>
     <property name="name">mainWindow</property>
@@ -18,46 +231,11 @@
               <property name="column-span">40</property>
               <property name="row-span">10</property>
             </layout>
-            <!--<child>
-              <object class="GtkButton">
-                <property name="label">Fichier</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="label">Editer</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="label">Affichage</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="label">Outils</property>
-              </object>
-            </child>
-            <child>
-              <object class="GtkButton">
-                <property name="label">Aide</property>
-              </object>
-            </child>-->
             <child>
               <object id="saveBtn" class="GtkButton">
                 <property name="label">Enregistrer</property>
               </object>
             </child>
-            <!--<child>
-              <object id="saveAsBtn" class="GtkButton">
-                <property name="label">Enregistrer Sous...</property>
-              </object>
-            </child>
-            <child>
-              <object id="Quit" class="GtkButton">
-                <property name="label">Quitter</property>
-              </object>
-            </child>-->
           </object>
         </child>
         <child>
@@ -272,11 +450,83 @@
       </object>
     </child>
   </object>
-  <object id="cardWindow" class="GtkWindow">
-    <property name="title">Modification window</property>
-    <property name="name">cardWindow</property>
+
+  <!-- ==================== Project saving window description ==================== -->
+  <object id="saveProjectWindow" class="GtkWindow">
+    <property name="title">Sauvegarder le projet</property>
+    <property name="name">saveProjectWindow</property>
+    <property name="modal">true</property>
     <child>
-      <object id="cardWindowGrid" class="GtkGrid">
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">saveProjectGrid</property>
+        <child>
+          <object id="saveProjectBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner un dossier et entrer le nom du projet</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectEntry" class="GtkEntry">
+            <property name="name">saveProjectEntry</property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectConfirm" class="GtkButton">
+            <property name="label">Sauvegarder</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Card modification window description ==================== -->
+  <object id="modifCardWindow" class="GtkWindow">
+    <property name="title">Modification window</property>
+    <child>
+      <object id="modifCardGrid" class="GtkGrid">
         <property name="column-homogeneous">True</property>
         <property name="row-homogeneous">True</property>
         <child>
@@ -292,7 +542,7 @@
           </object>
         </child>
         <child>
-          <object id="colorDropDown" class="GtkDropDown">
+          <object id="modifColorDropDown" class="GtkDropDown">
             <property name="model">
               <object class="GtkStringList">
                 <items>
@@ -334,7 +584,7 @@
           </object>
         </child>
         <child>
-          <object id="numberCheck" class="GtkCheckButton">
+          <object id="modifNumberCheck" class="GtkCheckButton">
             <layout>
               <property name="column">5</property>
               <property name="row">7</property>
@@ -344,9 +594,9 @@
           </object>
         </child>
         <child>
-          <object id="numberEntry" class="GtkEntry">
+          <object id="modifNumberEntry" class="GtkEntry">
             <property name="input-purpose">GTK_INPUT_PURPOSE_DIGITS</property>
-            <property name="name">numberEntry</property>
+            <property name="name">modifNumberEntry</property>
             <layout>
               <property name="column">6</property>
               <property name="row">8</property>
@@ -378,7 +628,7 @@
           </object>
         </child>
         <child>
-          <object id="rootCheck" class="GtkCheckButton">
+          <object id="modifRootCheck" class="GtkCheckButton">
             <layout>
               <property name="column">7</property>
               <property name="row">14</property>
@@ -410,7 +660,7 @@
           </object>
         </child>
         <child>
-          <object id="addCardImageBtn" class="GtkButton">
+          <object id="modifCardAddImageBtn" class="GtkButton">
             <property name="icon-name">document-open</property>
             <layout>
               <property name="column">5</property>
@@ -421,7 +671,7 @@
           </object>
         </child>
         <child>
-          <object id="viewCardImageBtn" class="GtkButton">
+          <object id="modifCardViewImageBtn" class="GtkButton">
             <property name="icon-name">document-properties</property>
             <layout>
               <property name="column">7</property>
@@ -455,7 +705,7 @@
         <child>
           <object class="GtkScrolledWindow">
             <property name="vexpand">true</property>
-            <property name="name">parentWindow</property>
+            <property name="name">modifParentWindow</property>
             <layout>
               <property name="column">0</property>
               <property name="row">34</property>
@@ -463,9 +713,9 @@
               <property name="row-span">20</property>
             </layout>
             <child>
-              <object id="parentsBox" class="GtkBox">
+              <object id="modifParentsBox" class="GtkBox">
                 <property name="orientation">vertical</property>
-                <property name="name">parentsBox</property>
+                <property name="name">modifParentsBox</property>
               </object>
             </child>
           </object>
@@ -484,7 +734,7 @@
         <child>
           <object class="GtkScrolledWindow">
             <property name="vexpand">true</property>
-            <property name="name">childWindow</property>
+            <property name="name">modifChildWindow</property>
             <layout>
               <property name="column">0</property>
               <property name="row">60</property>
@@ -492,15 +742,15 @@
               <property name="row-span">20</property>
             </layout>
             <child>
-              <object id="childrenBox" class="GtkBox">
+              <object id="modifChildrenBox" class="GtkBox">
                 <property name="orientation">vertical</property>
-                <property name="name">childrenBox</property>
+                <property name="name">modifChildrenBox</property>
               </object>
             </child>
           </object>
         </child>
         <child>
-          <object id="closeCardWindowBtn" class="GtkButton">
+          <object id="closeModifCardWindowBtn" class="GtkButton">
             <property name="label">Terminer</property>
             <layout>
               <property name="column">2</property>
@@ -513,9 +763,86 @@
       </object>
     </child>
   </object>
-  <object id="linkWindow" class="GtkWindow">
+
+  <!-- ==================== Card image import window description ==================== -->
+  <object id="importCardWindow" class="GtkWindow">
+    <property name="title">Importer une image</property>
+    <property name="name">importCardWindow</property>
+    <property name="modal">true</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">importCardGrid</property>
+        <child>
+          <object id="importCardBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importCardErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner une image</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importCardConfirm" class="GtkButton">
+            <property name="label">Importer</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importCardAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Card image viewer window description ==================== -->
+  <object id="imageViewerWindow" class="GtkWindow">
+    <property name="title">Image</property>
+    <property name="modal">false</property>
+    <child>
+      <object class="GtkBox">
+        <property name="homogeneous">True</property>
+        <child>
+          <object id="imageViewer" class="GtkImage">
+            <property name="pixel-size">700</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Link modification window description ==================== -->
+  <object id="modifLinkWindow" class="GtkWindow">
     <property name="title">Modification window</property>
-    <property name="name">linkWindow</property>
     <child>
       <object class="GtkGrid">
         <property name="column-homogeneous">True</property>
@@ -532,7 +859,7 @@
           </object>
         </child>
         <child>
-          <object id="typeDropDown" class="GtkDropDown">
+          <object id="modifTypeDropDown" class="GtkDropDown">
             <property name="model">
               <object class="GtkStringList">
                 <items>
@@ -552,7 +879,7 @@
           </object>
         </child>
         <child>
-          <object id="closeLinkWindowBtn" class="GtkButton">
+          <object id="closeModifLinkWindowBtn" class="GtkButton">
             <property name="label">Terminer</property>
             <layout>
               <property name="column">2</property>
@@ -565,279 +892,8 @@
       </object>
     </child>
   </object>
-  <object id="startWindow" class="GtkWindow">
-    <property name="title">Starting window</property>
-    <property name="decorated">False</property>
-    <property name="name">startWindow</property>
-    <child>
-      <object class="GtkGrid">
-        <property name="column-homogeneous">True</property>
-        <property name="row-homogeneous">True</property>
-        <property name="name">startWindowGrid</property>
-        <child>
-          <object class="GtkLabel">
-            <property name="name">startTitleLabel</property>
-            <property name="justify">center</property>
-            <property name="lines">1</property>
-            <property name="wrap">True</property>
-            <property name="yalign">0.5</property>
-            <property name="label">Bienvenue dans UnlockMaker !</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-              <property name="column-span">4</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object class="GtkLabel">
-            <property name="name">startLabel</property>
-            <property name="justify">center</property>
-            <property name="lines">1</property>
-            <property name="wrap">True</property>
-            <property name="yalign">0.5</property>
-            <property name="label">Souhaitez-vous vous créer un nouveau projet ou ouvrir un projet existant ?</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">1</property>
-              <property name="column-span">4</property>
-              <property name="row-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="newProjectBtn" class="GtkButton">
-            <property name="label">Nouveau projet</property>
-            <property name="name">startBtn</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">3</property>
-              <property name="column-span">2</property>
-              <property name="row-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="openProjectBtn" class="GtkButton">
-            <property name="label">Ouvrir un projet existant</property>
-            <property name="name">startBtn</property>
-            <layout>
-              <property name="column">2</property>
-              <property name="row">3</property>
-              <property name="column-span">2</property>
-              <property name="row-span">2</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="closeStartingWindowBtn" class="GtkButton">
-            <property name="label">Quitter</property>
-            <property name="name">closeStartingWindowBtn</property>
-            <layout>
-              <property name="column">1</property>
-              <property name="row">5</property>
-              <property name="column-span">2</property>
-            </layout>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object id="openProjectWindow" class="GtkWindow">
-    <property name="title">Ouvrir un projet</property>
-    <property name="name">openProjectWindow</property>
-    <child>
-      <object class="GtkGrid">
-        <property name="column-homogeneous">True</property>
-        <property name="row-homogeneous">True</property>
-        <property name="name">openProjectGrid</property>
-        <child>
-          <object id="openProjectBrowser" class="GtkFileChooserWidget">
-            <property name="select_multiple">false</property>
-            <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-              <property name="column-span">7</property>
-              <property name="row-span">10</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="openProjectErrorLabel" class="GtkLabel">
-            <property name="xalign">0.0</property>
-            <property name="label"> Sélectionner un fichier</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">10</property>
-              <property name="column-span">5</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="openProjectConfirm" class="GtkButton">
-            <property name="label">Ouvrir</property>
-            <layout>
-              <property name="column">5</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="openProjectAbort" class="GtkButton">
-            <property name="label">Annuler</property>
-            <layout>
-              <property name="column">6</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object id="saveProjectWindow" class="GtkWindow">
-    <property name="title">Sauvegarder le projet</property>
-    <property name="name">saveProjectWindow</property>
-    <property name="modal">true</property>
-    <child>
-      <object class="GtkGrid">
-        <property name="column-homogeneous">True</property>
-        <property name="row-homogeneous">True</property>
-        <property name="name">saveProjectGrid</property>
-        <child>
-          <object id="saveProjectBrowser" class="GtkFileChooserWidget">
-            <property name="select_multiple">false</property>
-            <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-              <property name="column-span">7</property>
-              <property name="row-span">10</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="saveProjectErrorLabel" class="GtkLabel">
-            <property name="xalign">0.0</property>
-            <property name="label"> Sélectionner un dossier et entrer le nom du projet</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">10</property>
-              <property name="column-span">5</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-        <object id="saveProjectEntry" class="GtkEntry">
-          <property name="name">saveProjectEntry</property>
-          <layout>
-            <property name="column">4</property>
-            <property name="row">10</property>
-            <property name="column-span">1</property>
-            <property name="row-span">1</property>
-          </layout>
-        </object>
-      </child>
-        <child>
-          <object id="saveProjectConfirm" class="GtkButton">
-            <property name="label">Sauvegarder</property>
-            <layout>
-              <property name="column">5</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="saveProjectAbort" class="GtkButton">
-            <property name="label">Annuler</property>
-            <layout>
-              <property name="column">6</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object id="saveNewProjectWindow" class="GtkWindow">
-    <property name="title">Création du projet</property>
-    <property name="name">saveProjectWindow</property>
-    <child>
-      <object class="GtkGrid">
-        <property name="column-homogeneous">True</property>
-        <property name="row-homogeneous">True</property>
-        <property name="name">saveProjectGrid</property>
-        <child>
-          <object id="saveNewProjectBrowser" class="GtkFileChooserWidget">
-            <property name="select_multiple">false</property>
-            <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-              <property name="column-span">7</property>
-              <property name="row-span">10</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="saveNewProjectErrorLabel" class="GtkLabel">
-            <property name="xalign">0.0</property>
-            <property name="label"> Sélectionner un dossier et entrer le nom du projet</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">10</property>
-              <property name="column-span">5</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="saveNewProjectEntry" class="GtkEntry">
-            <property name="name">saveProjectEntry</property>
-            <layout>
-              <property name="column">4</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="saveNewProjectConfirm" class="GtkButton">
-            <property name="label">Créer le projet</property>
-            <layout>
-              <property name="column">5</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="saveNewProjectAbort" class="GtkButton">
-            <property name="label">Annuler</property>
-            <layout>
-              <property name="column">6</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
+
+  <!-- ==================== Close confirmation window description ==================== -->
   <object id="closeConfirmWindow" class="GtkWindow">
     <property name="name">closeConfirmWindow</property>
     <property name="modal">true</property>
@@ -898,78 +954,6 @@ Voulez-vous enregistrer les modifications ?</property>
               <property name="row">2</property>
               <property name="column-span">2</property>
             </layout>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object id="importCardWindow" class="GtkWindow">
-    <property name="title">Importer une image</property>
-    <property name="name">importCardWindow</property>
-    <property name="modal">true</property>
-    <child>
-      <object class="GtkGrid">
-        <property name="column-homogeneous">True</property>
-        <property name="row-homogeneous">True</property>
-        <property name="name">importCardGrid</property>
-        <child>
-          <object id="importCardBrowser" class="GtkFileChooserWidget">
-            <property name="select_multiple">false</property>
-            <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">0</property>
-              <property name="column-span">7</property>
-              <property name="row-span">10</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="importCardErrorLabel" class="GtkLabel">
-            <property name="xalign">0.0</property>
-            <property name="label"> Sélectionner une image</property>
-            <layout>
-              <property name="column">0</property>
-              <property name="row">10</property>
-              <property name="column-span">5</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="importCardConfirm" class="GtkButton">
-            <property name="label">Importer</property>
-            <layout>
-              <property name="column">5</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-        <child>
-          <object id="importCardAbort" class="GtkButton">
-            <property name="label">Annuler</property>
-            <layout>
-              <property name="column">6</property>
-              <property name="row">10</property>
-              <property name="column-span">1</property>
-              <property name="row-span">1</property>
-            </layout>
-          </object>
-        </child>
-      </object>
-    </child>
-  </object>
-  <object id="imageViewerWindow" class="GtkWindow">
-    <property name="title">Image</property>
-    <property name="modal">false</property>
-    <child>
-      <object class="GtkBox">
-        <property name="homogeneous">True</property>
-        <child>
-          <object id="imageViewer" class="GtkImage">
-            <property name="pixel-size">700</property>
           </object>
         </child>
       </object>
