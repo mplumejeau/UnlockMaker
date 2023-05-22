@@ -58,7 +58,6 @@ void unselectLink() {
 }
 
 void setCardFixNumber(int n) {
-    printf("Call : %d\n", n);
     if (n == -1) {
         unfixCardNumber(selectedCard);
         changeInfoLabel("Le numéro de la carte sélectionnée n'est plus fixé");
@@ -235,6 +234,54 @@ void onCloseNoSave() {
     } else {
         fclose(fp);
     }
+}
+
+void onConfirmImportTopImage(GtkWidget *importImageWindow) {
+    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(importImageWindow));
+    GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
+    if (file != NULL) {
+        if (g_file_info_get_file_type(g_file_query_info(file, "standard::", G_FILE_QUERY_INFO_NONE, NULL, NULL)) ==
+            G_FILE_TYPE_DIRECTORY) {
+            gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fileChooser), file, NULL);
+        } else {
+            gtk_window_close(GTK_WINDOW(importImageWindow));
+            setTopImage(curProject, g_file_get_path(file));
+        }
+    }
+    changeInfoLabel("Une nouvelle image pour le haut des cartes a bien été importée.");
+    unsavedChanges = true;
+}
+
+void onConfirmImportBottomImage(GtkWidget *importImageWindow) {
+    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(importImageWindow));
+    GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
+    if (file != NULL) {
+        if (g_file_info_get_file_type(g_file_query_info(file, "standard::", G_FILE_QUERY_INFO_NONE, NULL, NULL)) ==
+            G_FILE_TYPE_DIRECTORY) {
+            gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fileChooser), file, NULL);
+        } else {
+            gtk_window_close(GTK_WINDOW(importImageWindow));
+            setBottomImage(curProject, g_file_get_path(file));
+        }
+    }
+    changeInfoLabel("Une nouvelle image pour le haut des cartes a bien été importée.");
+    unsavedChanges = true;
+}
+
+void onConfirmImportBackImage(GtkWidget *importImageWindow) {
+    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(importImageWindow));
+    GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
+    if (file != NULL) {
+        if (g_file_info_get_file_type(g_file_query_info(file, "standard::", G_FILE_QUERY_INFO_NONE, NULL, NULL)) ==
+            G_FILE_TYPE_DIRECTORY) {
+            gtk_file_chooser_set_current_folder(GTK_FILE_CHOOSER(fileChooser), file, NULL);
+        } else {
+            gtk_window_close(GTK_WINDOW(importImageWindow));
+            setBackImage(curProject, g_file_get_path(file));
+        }
+    }
+    changeInfoLabel("Une nouvelle image pour le haut des cartes a bien été importée.");
+    unsavedChanges = true;
 }
 
 /* Card managing callbacks */

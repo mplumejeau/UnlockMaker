@@ -32,6 +32,7 @@ GObject *selectedLinkLabel = NULL;
 GObject *infoLabel = NULL;
 
 GObject *secondWindowOpen = NULL;
+GObject *imageViewerWindow = NULL;
 
 /* View initialization functions */
 
@@ -48,30 +49,33 @@ void initView(GtkApplication *app) {
     window = gtk_builder_get_object(builder, "mainWindow");
     gtk_window_set_default_size(GTK_WINDOW(window), 1700, 900);
     gtk_window_set_application(GTK_WINDOW(window), app);
-    g_signal_connect(GTK_WINDOW(window), "close-request", G_CALLBACK(openCloseConfirmationWindow), window);
+    g_signal_connect(GTK_WINDOW(window), "close-request", G_CALLBACK(openCloseConfirmationWindow), NULL);
 
     button = gtk_builder_get_object(builder, "saveBtn");
     g_signal_connect(button, "clicked", G_CALLBACK(onSaveProject), NULL);
 
     button = gtk_builder_get_object(builder, "BtnAddCard");
-    g_signal_connect_swapped(button, "clicked", G_CALLBACK(onAddCard), NULL);
+    g_signal_connect(button, "clicked", G_CALLBACK(onAddCard), NULL);
 
     button = gtk_builder_get_object(builder, "zoomBtn");
     g_signal_connect(button, "value-changed", G_CALLBACK(onChangeImageZoom), centerImage);
 
     modifyCardBtn = gtk_builder_get_object(builder, "BtnModifyCard");
-    g_signal_connect_swapped (modifyCardBtn, "clicked", G_CALLBACK(openModifyCardWindow), builder);
+    g_signal_connect(modifyCardBtn, "clicked", G_CALLBACK(openModifyCardWindow), NULL);
 
     cardBox = gtk_builder_get_object(builder, "cardBox");
     deleteCardBtn = gtk_builder_get_object(builder, "BtnDeleteCard");
-    g_signal_connect_swapped(deleteCardBtn, "clicked", G_CALLBACK(onPressDeleteCard), NULL);
+    g_signal_connect(deleteCardBtn, "clicked", G_CALLBACK(onPressDeleteCard), NULL);
 
     modifyLinkBtn = gtk_builder_get_object(builder, "BtnModifyLink");
-    g_signal_connect_swapped (modifyLinkBtn, "clicked", G_CALLBACK(openModifyLinkWindow), builder);
+    g_signal_connect(modifyLinkBtn, "clicked", G_CALLBACK(openModifyLinkWindow), NULL);
 
     linkBox = gtk_builder_get_object(builder, "linkBox");
     deleteLinkBtn = gtk_builder_get_object(builder, "BtnDeleteLink");
-    g_signal_connect_swapped(deleteLinkBtn, "clicked", G_CALLBACK(onPressDeleteLink), NULL);
+    g_signal_connect(deleteLinkBtn, "clicked", G_CALLBACK(onPressDeleteLink), NULL);
+
+    button = gtk_builder_get_object(builder, "BtnModifyProject");
+    g_signal_connect(button, "clicked", G_CALLBACK(openModifyProjectWindow), NULL);
 
     disableRightCardButtons();
     disableRightLinkButtons();
@@ -305,42 +309,54 @@ void openModifyCardWindow() {
         }
         GtkBuilder *builder = gtk_builder_new();
         GObject *colorList, *numberCheck, *numberEntry, *rootCheck, *parentsBox, *childrenBox, *closeWindowBtn, *importImageBtn, *viewImageBtn;
+        gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
+
+        /* Window */
         char windowTitle[31];
         sprintf(windowTitle, "Modification de la carte n°%d", selectedCard->id);
-        gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
         secondWindowOpen = gtk_builder_get_object(builder, "modifCardWindow");
         gtk_window_set_title(GTK_WINDOW(secondWindowOpen), windowTitle);
-        numberCheck = gtk_builder_get_object(builder, "modifNumberCheck");
-        numberEntry = gtk_builder_get_object(builder, "modifNumberEntry");
-        rootCheck = gtk_builder_get_object(builder, "modifRootCheck");
-        colorList = gtk_builder_get_object(builder, "modifColorDropDown");
-        parentsBox = gtk_builder_get_object(builder, "modifParentsBox");
-        childrenBox = gtk_builder_get_object(builder, "modifChildrenBox");
-        gtk_drop_down_set_selected(GTK_DROP_DOWN(colorList), selectedCard->type);
-        gtk_check_button_set_active(GTK_CHECK_BUTTON(numberCheck), selectedCard->fixedNumber);
-        if (selectedCard->fixedNumber == 1) {
-            GObject *entryBuffer = G_OBJECT(gtk_entry_get_buffer(GTK_ENTRY(numberEntry)));
-            char numberFixed[3];
-            sprintf(numberFixed, "%d", selectedCard->number);
-            printf("Card id %d nbr : %s\n", selectedCard->id, numberFixed);
-            gtk_entry_buffer_set_text(GTK_ENTRY_BUFFER(entryBuffer), numberFixed, (int) strlen(numberFixed));
-        }
-        gtk_check_button_set_active(GTK_CHECK_BUTTON(rootCheck), curProject->root == selectedCard);
-        retrieveParentsChildren(GTK_BOX(parentsBox), GTK_BOX(childrenBox));
-        onToggleFixedNumberCheck(GTK_WIDGET(numberCheck), GTK_WIDGET(numberEntry));
-        g_signal_connect(GTK_WIDGET(colorList), "notify", G_CALLBACK(onModifyCardType), colorList);
-        g_signal_connect(GTK_WIDGET(numberEntry), "changed", G_CALLBACK(onEnterCardFixedNumber), numberCheck);
-        g_signal_connect(GTK_WIDGET(numberCheck), "toggled", G_CALLBACK(onToggleFixedNumberCheck), numberEntry);
-        g_signal_connect(GTK_WIDGET(rootCheck), "toggled", G_CALLBACK(onToggleSetCardAsRoot), NULL);
-        closeWindowBtn = gtk_builder_get_object(builder, "closeModifCardWindowBtn");
-        g_signal_connect_swapped(closeWindowBtn, "clicked", G_CALLBACK(gtk_window_close), secondWindowOpen);
-        importImageBtn = gtk_builder_get_object(builder, "modifCardAddImageBtn");
-        g_signal_connect(importImageBtn, "clicked", G_CALLBACK(openImportCardImageBrowser), NULL);
-        viewImageBtn = gtk_builder_get_object(builder, "modifCardViewImageBtn");
-        g_signal_connect(viewImageBtn, "clicked", G_CALLBACK(openCardImageViewer), NULL);
+        g_signal_connect(secondWindowOpen, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
         gtk_window_set_default_size(GTK_WINDOW(secondWindowOpen), 350, 700);
         gtk_window_set_resizable(GTK_WINDOW(secondWindowOpen), false);
-        g_signal_connect(secondWindowOpen, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
+
+        /* Color modification */
+        colorList = gtk_builder_get_object(builder, "modifColorDropDown");
+        g_signal_connect(GTK_WIDGET(colorList), "notify", G_CALLBACK(onModifyCardType), colorList);
+        gtk_drop_down_set_selected(GTK_DROP_DOWN(colorList), selectedCard->type);
+
+        /* Number modification */
+        numberCheck = gtk_builder_get_object(builder, "modifNumberCheck");
+        numberEntry = gtk_builder_get_object(builder, "modifNumberEntry");
+        gtk_check_button_set_active(GTK_CHECK_BUTTON(numberCheck), selectedCard->fixedNumber);
+        if (selectedCard->fixedNumber == 1) {
+            char numberFixed[3];
+            sprintf(numberFixed, "%d", selectedCard->number);
+            gtk_entry_buffer_set_text(gtk_entry_get_buffer(GTK_ENTRY(numberEntry)), numberFixed, (int) strlen(numberFixed));
+        }
+        g_signal_connect(GTK_WIDGET(numberEntry), "changed", G_CALLBACK(onEnterCardFixedNumber), numberCheck);
+        g_signal_connect(GTK_WIDGET(numberCheck), "toggled", G_CALLBACK(onToggleFixedNumberCheck), numberEntry);
+
+        /* Root modification */
+        rootCheck = gtk_builder_get_object(builder, "modifRootCheck");
+        g_signal_connect(GTK_WIDGET(rootCheck), "toggled", G_CALLBACK(onToggleSetCardAsRoot), NULL);
+        gtk_check_button_set_active(GTK_CHECK_BUTTON(rootCheck), curProject->root == selectedCard);
+
+        /* Image modification */
+        importImageBtn = gtk_builder_get_object(builder, "modifCardAddImageBtn");
+        viewImageBtn = gtk_builder_get_object(builder, "modifCardViewImageBtn");
+        g_signal_connect_swapped(importImageBtn, "clicked", G_CALLBACK(openImportImageBrowser), "Card");
+        g_signal_connect_swapped(viewImageBtn, "clicked", G_CALLBACK(openImageViewer), "Card");
+
+        /* Parents/Children modification */
+        parentsBox = gtk_builder_get_object(builder, "modifParentsBox");
+        childrenBox = gtk_builder_get_object(builder, "modifChildrenBox");
+        retrieveParentsChildren(GTK_BOX(parentsBox), GTK_BOX(childrenBox));
+
+        /* Window closing */
+        closeWindowBtn = gtk_builder_get_object(builder, "closeModifCardWindowBtn");
+        g_signal_connect_swapped(closeWindowBtn, "clicked", G_CALLBACK(gtk_window_close), secondWindowOpen);
+
         gtk_widget_show(GTK_WIDGET (secondWindowOpen));
         g_object_unref(builder);
         changeInfoLabel("");
@@ -354,69 +370,180 @@ void openModifyLinkWindow() {
         }
         GtkBuilder *builder = gtk_builder_new();
         GObject *typeList, *closeWindowBtn;
+        gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
+
+        /* Window */
         char windowTitle[32];
         sprintf(windowTitle, "Modification du lien %d -> %d", selectedLink->parent->id, selectedLink->child->id);
-        gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
         secondWindowOpen = gtk_builder_get_object(builder, "modifLinkWindow");
         gtk_window_set_title(GTK_WINDOW(secondWindowOpen), windowTitle);
-        typeList = gtk_builder_get_object(builder, "modifTypeDropDown");
-        gtk_drop_down_set_selected(GTK_DROP_DOWN(typeList), selectedLink->type);
-        g_signal_connect(GTK_WIDGET(typeList), "notify", G_CALLBACK(onModifyLinkType), typeList);
-        closeWindowBtn = gtk_builder_get_object(builder, "closeModifLinkWindowBtn");
-        g_signal_connect_swapped(closeWindowBtn, "clicked", G_CALLBACK(gtk_window_close), secondWindowOpen);
         gtk_window_set_default_size(GTK_WINDOW(secondWindowOpen), 350, 100);
         gtk_window_set_resizable(GTK_WINDOW(secondWindowOpen), false);
         g_signal_connect(secondWindowOpen, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
+
+        /* Type choice */
+        typeList = gtk_builder_get_object(builder, "modifTypeDropDown");
+        gtk_drop_down_set_selected(GTK_DROP_DOWN(typeList), selectedLink->type);
+        g_signal_connect(GTK_WIDGET(typeList), "notify", G_CALLBACK(onModifyLinkType), typeList);
+
+        /* Window closing */
+        closeWindowBtn = gtk_builder_get_object(builder, "closeModifLinkWindowBtn");
+        g_signal_connect_swapped(closeWindowBtn, "clicked", G_CALLBACK(gtk_window_close), secondWindowOpen);
+
         gtk_widget_show(GTK_WIDGET (secondWindowOpen));
         g_object_unref(builder);
         changeInfoLabel("");
     }
 }
 
-void onDestroySecondWindow() {
-    secondWindowOpen = NULL;
+void openModifyProjectWindow() {
+    if (secondWindowOpen != NULL) {
+        gtk_window_close(GTK_WINDOW(secondWindowOpen));
+    }
+    GtkBuilder *builder = gtk_builder_new();
+    GObject *closeWindowBtn, *importImageBtn, *viewImageBtn;
+    gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
+
+    /* Window */
+    char windowTitle[] = "Ajout d'images génériques au projet";
+    secondWindowOpen = gtk_builder_get_object(builder, "modifProjectWindow");
+    gtk_window_set_title(GTK_WINDOW(secondWindowOpen), windowTitle);
+    g_signal_connect(secondWindowOpen, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
+    gtk_window_set_default_size(GTK_WINDOW(secondWindowOpen), 400, 100);
+    gtk_window_set_resizable(GTK_WINDOW(secondWindowOpen), false);
+
+    /* Top image */
+    importImageBtn = gtk_builder_get_object(builder, "addTopImageBtn");
+    viewImageBtn = gtk_builder_get_object(builder, "viewTopImageBtn");
+    g_signal_connect_swapped(importImageBtn, "clicked", G_CALLBACK(openImportImageBrowser), "Top");
+    g_signal_connect_swapped(viewImageBtn, "clicked", G_CALLBACK(openImageViewer), "Top");
+
+    /* Bottom image */
+    importImageBtn = gtk_builder_get_object(builder, "addBottomImageBtn");
+    viewImageBtn = gtk_builder_get_object(builder, "viewBottomImageBtn");
+    g_signal_connect_swapped(importImageBtn, "clicked", G_CALLBACK(openImportImageBrowser), "Bottom");
+    g_signal_connect_swapped(viewImageBtn, "clicked", G_CALLBACK(openImageViewer), "Bottom");
+
+    /* Back image */
+    importImageBtn = gtk_builder_get_object(builder, "addBackImageBtn");
+    viewImageBtn = gtk_builder_get_object(builder, "viewBackImageBtn");
+    g_signal_connect_swapped(importImageBtn, "clicked", G_CALLBACK(openImportImageBrowser), "Back");
+    g_signal_connect_swapped(viewImageBtn, "clicked", G_CALLBACK(openImageViewer), "Back");
+
+    /* Window closing */
+    closeWindowBtn = gtk_builder_get_object(builder, "closeModifProjectWindowBtn");
+    g_signal_connect_swapped(closeWindowBtn, "clicked", G_CALLBACK(gtk_window_close), secondWindowOpen);
+
+    gtk_widget_show(GTK_WIDGET (secondWindowOpen));
+    g_object_unref(builder);
     changeInfoLabel("");
 }
 
-void openImportCardImageBrowser() {
+void onDestroySecondWindow() {
+    secondWindowOpen = NULL;
+    if (imageViewerWindow != NULL) {
+        gtk_window_close(GTK_WINDOW(imageViewerWindow));
+    }
+    changeInfoLabel("");
+}
+
+void openImportImageBrowser(char* target) {
+    if(imageViewerWindow != NULL) {
+        gtk_window_close(GTK_WINDOW(imageViewerWindow));
+    }
     GtkBuilder *builder = gtk_builder_new();
     gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
 
     GObject *importImageBrowser, *abortBtn, *confirmBtn;
-    importImageBrowser = gtk_builder_get_object(builder, "importCardWindow");
+    importImageBrowser = gtk_builder_get_object(builder, "importImageWindow");
+    gtk_window_set_default_size(GTK_WINDOW(importImageBrowser), 800, 500);
 
-    abortBtn = gtk_builder_get_object(builder, "importCardAbort");
+    abortBtn = gtk_builder_get_object(builder, "importImageAbort");
+    confirmBtn = gtk_builder_get_object(builder, "importImageConfirm");
+
     g_signal_connect_swapped(abortBtn, "clicked", G_CALLBACK(gtk_window_close), importImageBrowser);
 
-    confirmBtn = gtk_builder_get_object(builder, "importCardConfirm");
-    g_signal_connect_swapped(confirmBtn, "clicked", G_CALLBACK(onConfirmImportCardImage), importImageBrowser);
-
-    gtk_window_set_default_size(GTK_WINDOW(importImageBrowser), 800, 500);
+    if(strcmp(target, "Card") == 0) {
+        g_signal_connect_swapped(confirmBtn, "clicked", G_CALLBACK(onConfirmImportCardImage), importImageBrowser);
+        gtk_window_set_title(GTK_WINDOW(importImageBrowser), "Importer une image pour la carte sélectionnée");
+    }
+    if(strcmp(target, "Top") == 0) {
+        g_signal_connect_swapped(confirmBtn, "clicked", G_CALLBACK(onConfirmImportTopImage), importImageBrowser);
+        gtk_window_set_title(GTK_WINDOW(importImageBrowser), "Importer une image de haut de carte");
+    }
+    if(strcmp(target, "Bottom") == 0) {
+        g_signal_connect_swapped(confirmBtn, "clicked", G_CALLBACK(onConfirmImportBottomImage), importImageBrowser);
+        gtk_window_set_title(GTK_WINDOW(importImageBrowser), "Importer une image de bas de carte");
+    }
+    if(strcmp(target, "Back") == 0) {
+        g_signal_connect_swapped(confirmBtn, "clicked", G_CALLBACK(onConfirmImportBackImage), importImageBrowser);
+        gtk_window_set_title(GTK_WINDOW(importImageBrowser), "Importer une image de dos de carte");
+    }
 
     gtk_widget_show(GTK_WIDGET (importImageBrowser));
     g_object_unref(builder);
 }
 
-void openCardImageViewer() {
-    if(selectedCard->image) {
+void openImageViewer(char* target) {
+    if(imageViewerWindow != NULL) {
+        gtk_window_close(GTK_WINDOW(imageViewerWindow));
+    }
+    int cardImage = 0;
+    if (selectedCard != NULL) {
+        cardImage = selectedCard->image;
+    }
+    if((cardImage && strcmp(target, "Card") == 0) || (curProject->topImage && strcmp(target, "Top") == 0) || (curProject->bottomImage && strcmp(target, "Bottom") == 0 ) || (curProject->backImage && strcmp(target, "Back") == 0)) {
         GtkBuilder *builder = gtk_builder_new();
         gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
 
-        GObject *imageViewerWindow, *imageViewer;
+        GObject *imageViewer;
         imageViewerWindow = gtk_builder_get_object(builder, "imageViewerWindow");
         imageViewer = gtk_builder_get_object(builder, "imageViewer");
-        char path[MAXPATH+MAXNAME+25];
-        sprintf(path, "%s/%s/Cards/Card%d/Image.jpg", curProject->path, curProject->name, selectedCard->id);
+        char path[MAXPATH+MAXNAME+25] = "";
+
+        if(strcmp(target, "Card") == 0) {
+            sprintf(path, "%s/%s/Cards/Card%d/Image.jpg", curProject->path, curProject->name, selectedCard->id);
+            gtk_window_set_title(GTK_WINDOW(imageViewerWindow), "Image de la carte sélectionnée");
+
+        }
+        if(strcmp(target, "Top") == 0) {
+            sprintf(path, "%s/%s/Project/TopImage.jpg", curProject->path, curProject->name);
+            gtk_window_set_title(GTK_WINDOW(imageViewerWindow), "Image de haut de carte");
+        }
+        if(strcmp(target, "Bottom") == 0) {
+            sprintf(path, "%s/%s/Project/BottomImage.jpg", curProject->path, curProject->name);
+            gtk_window_set_title(GTK_WINDOW(imageViewerWindow), "Image de bas de carte");
+        }
+        if(strcmp(target, "Back") == 0) {
+            sprintf(path, "%s/%s/Project/BackImage.jpg", curProject->path, curProject->name);
+            gtk_window_set_title(GTK_WINDOW(imageViewerWindow), "Image de dos de carte");
+        }
+
         gtk_image_set_from_file(GTK_IMAGE(imageViewer), path);
-        g_signal_connect_swapped(secondWindowOpen, "destroy", G_CALLBACK(gtk_window_close), imageViewerWindow);
+        g_signal_connect(imageViewerWindow, "destroy", G_CALLBACK(onDestroyImageViewer), NULL);
         gtk_widget_show(GTK_WIDGET (imageViewerWindow));
         g_object_unref(builder);
 
         changeInfoLabel(path);
     } else {
-        changeInfoLabel("La carte sélectionnée n'a pas d'image associée pour le moment.");
+        if(strcmp(target, "Card") == 0) {
+            changeInfoLabel("La carte sélectionnée n'a pas d'image associée pour le moment.");
+        }
+        if(strcmp(target, "Top") == 0) {
+            changeInfoLabel("Le projet n'a pas d'image de haut de carte associée pour le moment.");
+        }
+        if(strcmp(target, "Bottom") == 0) {
+            changeInfoLabel("Le projet n'a pas d'image de bas de carte associée pour le moment.");
+        }
+        if(strcmp(target, "Back") == 0) {
+            changeInfoLabel("Le projet n'a pas d'image de dos de carte associée pour le moment.");
+        }
     }
+}
 
+void onDestroyImageViewer() {
+    imageViewerWindow = NULL;
+    changeInfoLabel("");
 }
 
 int openCloseConfirmationWindow(GtkWindow *mainWindow) {

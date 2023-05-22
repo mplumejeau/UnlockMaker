@@ -78,6 +78,33 @@ void onSaveProject();
  */
 void onCloseNoSave();
 
+/**
+ * This Callback is called when the Confirmation button of the Import-Top-Image window is pressed\n\n
+ * If a directory is selected, it opens it in the browser ; if a file is selected, it calls
+ * the setTopImage function to assign the selected image to the top of the cards in the current project,
+ * then closes the window
+ * @param importImageWindow a pointer to the Import-Top-Image window
+ */
+void onConfirmImportTopImage(GtkWidget *importImageWindow);
+
+/**
+ * This Callback is called when the Confirmation button of the Import-Bottom-Image window is pressed\n\n
+ * If a directory is selected, it opens it in the browser ; if a file is selected, it calls
+ * the setBottomImage function to assign the selected image to the bottom of the cards in the current project,
+ * then closes the window
+ * @param importImageWindow a pointer to the Import-Bottom-Image window
+ */
+void onConfirmImportBottomImage(GtkWidget *importImageWindow);
+
+/**
+ * This Callback is called when the Confirmation button of the Import-Back-Image window is pressed\n\n
+ * If a directory is selected, it opens it in the browser ; if a file is selected, it calls
+ * the setBackImage function to assign the selected image to the back of the cards in the current project,
+ * then closes the window
+ * @param importImageWindow a pointer to the Import-Back-Image window
+ */
+void onConfirmImportBackImage(GtkWidget *importImageWindow);
+
 /* Card managing callbacks */
 
 /**

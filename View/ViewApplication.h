@@ -91,21 +91,38 @@ void openModifyCardWindow();
 void openModifyLinkWindow();
 
 /**
+ * Opens the window that will allow to add images to the project
+ */
+void openModifyProjectWindow();
+
+/**
  * This function is called when either the modify Link or Card window is closed.
  * It changes the variable secondWindowOpen to NULL
  */
 void onDestroySecondWindow();
 
 /**
- * Opens the window that will allow to browse in the files to choose an image
- * to add to a card
+ * Opens the window that will allow to browse in the files to choose an image.
+ * The image chosen will depend on the parameter 'cible' that will have the values
+ * "card", "top", "bottom" and "back" corresponding to the image card and the
+ * 3 generic images of the project
+ * @param target the target of the browser
  */
-void openImportCardImageBrowser();
+void openImportImageBrowser(char* target);
 
 /**
- * Opens the window that will allow to view a card's image
+ * Opens the window that will allow to view an image. The image shown will depend
+ * on the parameter 'target' that will have the values "card", "top", "bottom" and
+ * "back" corresponding to the image card and the 3 generic images of the project
+ * @param target the target of the viewer
  */
-void openCardImageViewer();
+void openImageViewer(char* target);
+
+/**
+ * This function is called when the imageViewer is closed.
+ * It changes the variable imageViewerWindow to NULL
+ */
+void onDestroyImageViewer();
 
 /**
  * This function is called when the user asks to close the main window.
