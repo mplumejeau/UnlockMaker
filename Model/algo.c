@@ -34,15 +34,19 @@ int checkLoops(Project* p) {
                 // If the card has already been visited, return 1 to indicate a loop
                 return 1;
             }
+            printf(" current card id : %d\n", currentCard->id);
             // Add the current card to the visited list
             insertVertexLast(&visitedCards, currentCard);
 
-            /*
+
             setOnFirstEdge(&currentCard->children);
 
             while(!isOutOfListEdge(&currentCard->children)){
 
                 Card* linkedCard = currentCard->children.current->link->child;
+
+                printf(" linked card id : %d\n", linkedCard->id);
+
 
                 // Check if the linked card has already been visited
                 if (findCard(&visitedCards, linkedCard) != 0) {
@@ -55,7 +59,7 @@ int checkLoops(Project* p) {
 
                 setOnNextEdge(&currentCard->children);
             }
-             */
+
             /*
             // Check all links of the current card
             for (int i = 0; i < currentCard->nbLinks; i++) {
@@ -110,5 +114,44 @@ void runDiscard(Project* p){
  * @return 0 if it's a success, -1 if not
  */
 int assignNumbers(Project* p){
+
+        // Initialisation
+        setOnFirstVertex(&(p->cardList));
+        int number = 1;
+
+        // Parcours de la liste des cartes
+        while (!isOutOfListVertex(&(p->cardList))) {
+            Card* currentCard = p->cardList.current->card;
+
+            // Vérification des parents
+            setOnFirstVertex(&(currentCard->parents));
+            while (!isOutOfListVertex(&(currentCard->parents))) {
+                Card* parentCard = currentCard->parents.current->link->parent;
+                if (parentCard->number == -1) {
+                    // La carte parente n'a pas encore de numéro attribué, passe à la suivante
+                    setOnNextVertex(&(currentCard->parents));
+                    continue;
+                }
+                number += parentCard->number;  // Ajoute le numéro du parent
+                setOnNextVertex(&(currentCard->parents));
+            }
+
+
+            // Attribue le numéro à la carte actuelle
+            currentCard->number = number;
+
+            // Passage à la carte suivante
+            number++;
+            setOnNextVertex(&(p->cardList));
+
+        }
     return -1;
-}
+    }
+
+/* parcourir le tableau de liens du projet, des que j'ai un lien combine je stock la carte child du lien dans un current card ensuite on vérifie que tous les liens parents de cette carde sont des liens combine si c'est pas le cas je revoie un -1 avec un message d'erreur
+         * apres avoir verifier que c'est un lien combine onattribut des petits numéros aux paretns et je mets la somme des numéros des parents dans le child. faut stocker les numéros dèja utiliser dans un tableau.
+         * apres parcourir toute la liste de carte du projet et j'attribue un numéro pas encore attribué.
+
+
+
+

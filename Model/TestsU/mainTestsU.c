@@ -18,6 +18,7 @@
 #include "../Card.h"
 #include "../VertexList.h"
 #include "../EdgeList.h"
+#include "../algo.h"
 
 //main
 
@@ -144,12 +145,31 @@ int main(void){
     Card* c20 = NULL;
 
 
+
+
     Link* l1 = NULL;
     Link* l2 = NULL;
     Link* l3 = NULL;
     Link* l4 = NULL;
     Link* l5 = NULL;
     Link* l6 = NULL;
+    Link* l7 = NULL;
+    Link* l8 = NULL;
+    Link* l9 = NULL;
+    Link* l10 = NULL;
+    Link* l11 = NULL;
+    Link* l12 = NULL;
+    Link* l13 = NULL;
+    Link* l14 = NULL;
+    Link* l15 = NULL;
+    Link* l16 = NULL;
+    Link* l17 = NULL;
+    Link* l18 = NULL;
+    Link* l19 = NULL;
+    Link* l20 = NULL;
+    Link* l21 = NULL;
+
+
 
     /*
     // demo 1 : creation, completion, creation of a pdf and save of a project
@@ -229,7 +249,7 @@ int main(void){
     saveProject(p2);
     */
 
-
+    /*
     // demo 3 : creation of several cards with images and creation of a pdf file
 
     p3 = allocProject();
@@ -278,6 +298,35 @@ int main(void){
 
     createPrintable(p3);
     saveProject(p3);
+     */
+
+
+    p3 = allocProject();
+    initProject(p3, "/home/miniya/Documents", "unlock3");
+
+    c10 = addEmptyCard(p3);
+    c11 = addEmptyCard(p3);
+    c12 = addEmptyCard(p3);
+    c13 = addEmptyCard(p3);
+    c14 = addEmptyCard(p3);
+    c15 = addEmptyCard(p3);
+    c16 = addEmptyCard(p3);
+    c17 = addEmptyCard(p3);
+    c18 = addEmptyCard(p3);
+    c19 = addEmptyCard(p3);
+    c20 = addEmptyCard(p3);
+
+    setRoot(p3, c11);
+
+    l1 = addLink(p3, c11, c12, DEFAULT);
+    l2 = addLink(p3, c12, c15, DEFAULT);
+    l3 = addLink(p3, c15, c11, DEFAULT);
+
+    int res = assignNumbers(p3);
+    printf("%d\n", c11->number);
+    printf("%d\n", c12->number);
+    printf("%d\n", c15->number);
+
 
     return 0;
 }
