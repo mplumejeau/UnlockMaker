@@ -18,6 +18,7 @@ To learn more about CSS format, follow this link : https://developer.mozilla.org
    border-radius: 0;
 }
 
+
 button
 {
    margin: 3px;
@@ -216,8 +217,20 @@ button:active
 }
 
 /* ----- Right Widgets ----- */
+#disabledRightButton
+{
+   margin-bottom: 15px;
+   margin-left: 15px;
+   margin-right: 15px;
+   border-color: grey;
+   border-width: 2px;
+   border-style: solid;
+   background-color: #BBB;
+   color: black;
+   box-shadow: 0 9px #AAA;
+}
 
-#rightButton
+#enabledRightButton
 {
    margin-bottom: 15px;
    margin-left: 15px;
@@ -230,13 +243,13 @@ button:active
    box-shadow: 0 9px #999;
 }
 
-#rightButton:hover
+#enabledRightButton:hover
 {
    background-color: grey;
    color:white;
 }
 
-#rightButton:active
+#enabledRightButton:active
 {
    box-shadow: 0 4px #666;
    transform: translateY(5px);

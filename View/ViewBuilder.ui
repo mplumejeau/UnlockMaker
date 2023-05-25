@@ -229,7 +229,7 @@
             <property name="orientation">vertical</property>
             <layout>
               <property name="column">0</property>
-              <property name="row">11</property>
+              <property name="row">0</property>
               <property name="column-span">6</property>
               <property name="row-span">200</property>
             </layout>
@@ -274,7 +274,7 @@
             <layout>
               <property name="column">6</property>
               <property name="column-span">1</property>
-              <property name="row">11</property>
+              <property name="row">0</property>
               <property name="row-span">200</property>
             </layout>
           </object>
@@ -285,7 +285,7 @@
             <property name="name">imageWindow</property>
             <layout>
               <property name="column">7</property>
-              <property name="row">11</property>
+              <property name="row">0</property>
               <property name="column-span">25</property>
               <property name="row-span">200</property>
             </layout>
@@ -298,21 +298,21 @@
                   <object id="graphViewer" class="GtkImage">
                     <property name="name">graphViewer</property>
                   </object>
-              </child>
+                </child>
               </object>
             </child>
           </object>
         </child>
         <child>
-           <object id="zoomBtn" class="GtkScaleButton">
-             <property name="name">zoomBtn</property>
-             <property name="icons">zoom-in</property>
-             <layout>
-               <property name="column">31</property>
-               <property name="row">11</property>
-               <property name="column-span">1</property>
-               <property name="row-span">10</property>
-             </layout>
+          <object id="zoomBtn" class="GtkScaleButton">
+            <property name="name">zoomBtn</property>
+            <property name="icons">zoom-in</property>
+            <layout>
+              <property name="column">31</property>
+              <property name="row">0</property>
+              <property name="column-span">1</property>
+              <property name="row-span">10</property>
+            </layout>
           </object>
         </child>
         <child>
@@ -320,7 +320,7 @@
             <layout>
               <property name="column">32</property>
               <property name="column-span">1</property>
-              <property name="row">11</property>
+              <property name="row">0</property>
               <property name="row-span">200</property>
             </layout>
           </object>
@@ -331,26 +331,26 @@
             <property name="homogeneous">false</property>
             <layout>
               <property name="column">33</property>
-              <property name="row">11</property>
+              <property name="row">0</property>
               <property name="column-span">7</property>
-              <property name="row-span">100</property>
+              <property name="row-span">140</property>
             </layout>
             <child>
               <object id="BtnAddCard" class="GtkButton">
                 <property name="label">Ajouter une carte</property>
-                <property name="name">rightButton</property>
+                <property name="name">enabledRightButton</property>
               </object>
             </child>
             <child>
               <object id="BtnModifyCard" class="GtkButton">
                 <property name="label">Modifier la carte sélectionnée</property>
-                <property name="name">rightButton</property>
+                <property name="name">disabledRightButton</property>
               </object>
             </child>
             <child>
               <object id="BtnDeleteCard" class="GtkButton">
                 <property name="label">Supprimer la carte sélectionnée</property>
-                <property name="name">rightButton</property>
+                <property name="name">disabledRightButton</property>
               </object>
             </child>
             <child>
@@ -362,13 +362,25 @@
             <child>
               <object id="BtnModifyLink" class="GtkButton">
                 <property name="label">Modifier le lien sélectionné</property>
-                <property name="name">rightButton</property>
+                <property name="name">disabledRightButton</property>
               </object>
             </child>
             <child>
               <object id="BtnDeleteLink" class="GtkButton">
                 <property name="label">Supprimer le lien sélectionné</property>
-                <property name="name">rightButton</property>
+                <property name="name">disabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="orientation">horizontal</property>
+                <property name="name">rightSeparator</property>
+              </object>
+            </child>
+            <child>
+              <object id="BtnModifyProject" class="GtkButton">
+                <property name="label">Ajouter des images génériques</property>
+                <property name="name">enabledRightButton</property>
               </object>
             </child>
             <child>
@@ -380,13 +392,19 @@
             <child>
               <object id="saveBtn" class="GtkButton">
                 <property name="label">Enregistrer le projet</property>
-                <property name="name">rightButton</property>
+                <property name="name">enabledRightButton</property>
               </object>
             </child>
             <child>
-              <object id="BtnModifyProject" class="GtkButton">
-                <property name="label">Ajouter des images génériques</property>
-                <property name="name">rightButton</property>
+              <object id="debugBtn" class="GtkButton">
+                <property name="label">Vérifier le graph</property>
+                <property name="name">enabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="exportBtn" class="GtkButton">
+                <property name="label">Exporter le projet</property>
+                <property name="name">disabledRightButton</property>
               </object>
             </child>
           </object>
@@ -401,7 +419,7 @@
             <property name="name">selectedWidgetLabel</property>
             <layout>
               <property name="column">33</property>
-              <property name="row">141</property>
+              <property name="row">140</property>
               <property name="column-span">7</property>
               <property name="row-span">15</property>
             </layout>
@@ -417,7 +435,7 @@
             <property name="name">selectedWidgetLabel</property>
             <layout>
               <property name="column">33</property>
-              <property name="row">156</property>
+              <property name="row">155</property>
               <property name="column-span">7</property>
               <property name="row-span">15</property>
             </layout>
@@ -432,9 +450,9 @@
             <property name="name">infoLabel</property>
             <layout>
               <property name="column">33</property>
-              <property name="row">171</property>
+              <property name="row">170</property>
               <property name="column-span">7</property>
-              <property name="row-span">40</property>
+              <property name="row-span">30</property>
             </layout>
           </object>
         </child>
@@ -1048,7 +1066,7 @@
             <property name="yalign">0.5</property>
             <property name="label">Vous êtes sur le point de quitter votre projet en cours
 
-Voulez-vous enregistrer les modifications ?</property>
+              Voulez-vous enregistrer les modifications ?</property>
             <layout>
               <property name="column">0</property>
               <property name="row">0</property>

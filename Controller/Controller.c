@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
+#include <dirent.h>
+
 
 #include "../View/ViewApplication.h"
 #include "../View/GraphHandler.h"
@@ -10,6 +12,7 @@
 #include "../Model/EdgeList.h"
 #include "../Model/Card.h"
 #include "../Model/Link.h"
+#include "../Model/algo.h"
 
 #include "Controller.h"
 
@@ -42,6 +45,51 @@ int main(int argc, char *argv[]) {
 }
 
 /** * * Classic functions * * **/
+
+
+/*void onCheckLoop(Project *p) {
+    int result = checkLoops(p);
+    if (result == 1) {
+        printf("Loop detected in the project.\n");
+        // Perform actions to handle the presence of a loop
+        // ...
+    } else if (result == 0) {
+        printf("No loops found in the project.\n");
+        // Perform actions when no loops are found
+        // ...
+    } else {
+        fprintf(stderr, "Error: Project allocation failed.\n");
+        // Perform error handling
+        // ...
+    }
+} */
+
+/* DO NOT DELETE FOR SENTIMENTAL REASONS - louenn
+
+int projectNameExists(const char *projectName, GtkWidget *newProjectWindow) {
+    DIR *dir;
+    struct dirent *entry;
+    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(newProjectWindow));
+    GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
+
+    dir = opendir(g_file_get_path(file)); // Open the current directory
+    if (dir == NULL) {
+        fprintf(stderr, "Error: Failed to open directory\n");
+        return 0; // Return false if failed to open directory
+    }
+
+    // Iterate over directory entries
+    while ((entry = readdir(dir)) != NULL) {
+        fprintf(stderr, "%s\n", entry->d_name);
+        if (strcmp(entry->d_name, projectName) == 0) {
+            closedir(dir);
+            return 1; // Return true if directory with projectName exists
+        }
+    }
+
+    closedir(dir);
+    return 0; // Return false if directory with projectName doesn't exist
+} */
 
 void unselectCard() {
     selectedCard = NULL;
@@ -147,23 +195,41 @@ void onConfirmNewProject(GtkWidget *newProjectWindow) {
     GtkWidget *nameEntry = gtk_widget_get_next_sibling(
             gtk_widget_get_next_sibling(gtk_widget_get_first_child(gtk_widget_get_first_child(newProjectWindow))));
     if (file != NULL && strcmp(gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))), "") != 0) {
-        curProject = allocProject();
 
-        if (curProject != NULL) {
-            /*Temporary projet path and name, to change depending on OS*/
-            initProject(curProject, g_file_get_path(file),
-                        (char *) gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))));
-            initGraphFiles(curProject);
-            refreshCardBoxLabel();
-            refreshLinkBoxLabel();
+        char newFilePath[MAXPATH + 2 * MAXNAME + 7];
+        sprintf(newFilePath, "%s/%s/%s.txt", g_file_get_path(file), gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))), gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))));
+        FILE *fp;
+        if ((fp = fopen(newFilePath, "r")) == NULL) {
+            if (errno == 2) {
+                curProject = allocProject();
+
+                if (curProject != NULL) {
+
+                    /*Temporary projet path and name, to change depending on OS*/
+                    initProject(curProject, g_file_get_path(file),
+                                (char *) gtk_entry_buffer_get_text(gtk_entry_get_buffer(GTK_ENTRY(nameEntry))));
+                    initGraphFiles(curProject);
+                    refreshCardBoxLabel();
+                    refreshLinkBoxLabel();
+
+                    gtk_window_close(GTK_WINDOW(newProjectWindow));
+                    unsavedChanges = false;
+                    changeInfoLabel("Bienvenue dans UnlockMaker ! Commencez votre projet en ajoutant une carte");
+                } else {
+                    gtk_label_set_label(GTK_LABEL(gtk_widget_get_next_sibling(
+                                                gtk_widget_get_first_child(gtk_widget_get_first_child(GTK_WIDGET(newProjectWindow))))),
+                                        " Erreur : Impossible de créer le projet");
+                    fprintf(stderr, "error : creation of the project is impossible\n");
+                    fprintf(stderr, "%d\n", errno);
+                }
+            }
         } else {
-            fprintf(stderr, "error : creation of the project is impossible\n");
-            fprintf(stderr, "%d\n", errno);
+            gtk_label_set_label(GTK_LABEL(gtk_widget_get_next_sibling(
+                                        gtk_widget_get_first_child(gtk_widget_get_first_child(GTK_WIDGET(newProjectWindow))))),
+                                " Erreur : un projet avec ce nom existe déjà dans le dossier sélectionné");
+            fclose(fp);
         }
     }
-    gtk_window_close(GTK_WINDOW(newProjectWindow));
-    unsavedChanges = false;
-    changeInfoLabel("Bienvenue dans UnlockMaker ! Commencez votre projet en ajoutant une carte");
 }
 
 void onConfirmOpenProject(GtkWidget *openProjectWindow) {
@@ -176,6 +242,24 @@ void onConfirmOpenProject(GtkWidget *openProjectWindow) {
         } else {
             if ((curProject = loadProject(g_file_get_path(g_file_get_parent(g_file_get_parent(file))),
                                           g_file_get_basename(g_file_get_parent(file)))) != NULL) {
+
+                /*int loopResult = checkLoops(curProject);
+                if (loopResult == 1) {
+                    // Loop detected in the project
+                    printf("Loop detected in the project.\n");
+                    // Perform actions to handle the presence of a loop
+                    // ...
+                } else if (loopResult == 0) {
+                    // No loops found in the project
+                    printf("No loops found in the project.\n");
+                    // Proceed with initializing and displaying the project
+                    gtk_window_close(GTK_WINDOW(openProjectWindow));
+                    // Rest of the code...
+                } else {
+                    fprintf(stderr, "Error: Project allocation failed.\n");
+                    // Perform error handling
+                    // ...
+                }*/
                 gtk_window_close(GTK_WINDOW(openProjectWindow));
                 // création des boutons des cartes et des liens existants + mise à jour du graph
                 initGraphFiles(curProject);

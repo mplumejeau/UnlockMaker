@@ -228,10 +228,10 @@ int removeCardGraphData(const char* id) {
             }
         }
         else if(buffer[0]!='}'&&buffer[0]!='\0') {
-            if(!(buffer[0]==id[0]&&(buffer[1]==id[1]||(buffer[1]==' '&&id[1]=='\0')))) {
-                strcat(cpy, buffer);
-                strcat(cpy, "\n");
-            }
+
+            strcat(cpy, buffer);
+            strcat(cpy, "\n");
+
         }
     } while(buffer[0]!='}'&&buffer[0]!='\0');
     strcat(cpy, "\n}");
@@ -313,7 +313,7 @@ int removeLinkGraphData(const char* idParent, const char* idChild) {
             strcat(cpy, buffer);
             strcat(cpy, "\n");
         }
-        if(buffer[0] == 'e') {
+        else if(buffer[0] == 'e') {
             if(buffer[20]=='-') edgeChiffre1 = 1;
             else                edgeChiffre1 = 2;
 
@@ -321,6 +321,9 @@ int removeLinkGraphData(const char* idParent, const char* idChild) {
                 strcat(cpy, buffer);
                 strcat(cpy, "\n");
             }
+        } else if(buffer[0]!='}'&&buffer[0]!='\0') {
+            strcat(cpy, buffer);
+            strcat(cpy, "\n");
         }
     } while(buffer[0]!='}'&&buffer[0]!='\0');
     strcat(cpy, "\n}");

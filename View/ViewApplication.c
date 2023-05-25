@@ -57,6 +57,8 @@ void initView(GtkApplication *app) {
     button = gtk_builder_get_object(builder, "BtnAddCard");
     g_signal_connect(button, "clicked", G_CALLBACK(onAddCard), NULL);
 
+    centerImage = gtk_builder_get_object(builder, "graphViewer");
+
     button = gtk_builder_get_object(builder, "zoomBtn");
     g_signal_connect(button, "value-changed", G_CALLBACK(onChangeImageZoom), centerImage);
 
@@ -86,7 +88,6 @@ void initView(GtkApplication *app) {
     selectedCardLabel = gtk_builder_get_object(builder, "selectedCardLabel");
     selectedLinkLabel = gtk_builder_get_object(builder, "selectedLinkLabel");
     infoLabel = gtk_builder_get_object(builder, "infoLabel");
-    centerImage = gtk_builder_get_object(builder, "graphViewer");
 
     secondWindowOpen = NULL;
     openStartingWindow(GTK_WINDOW(window));
@@ -499,7 +500,7 @@ void openImageViewer(char* target) {
         GObject *imageViewer;
         imageViewerWindow = gtk_builder_get_object(builder, "imageViewerWindow");
         imageViewer = gtk_builder_get_object(builder, "imageViewer");
-        char path[MAXPATH+MAXNAME+25] = "";
+        char path[MAXPATH+MAXNAME+26] = "";
 
         if(strcmp(target, "Card") == 0) {
             sprintf(path, "%s/%s/Cards/Card%d/Image.jpg", curProject->path, curProject->name, selectedCard->id);
@@ -614,9 +615,9 @@ void refreshSelectedCardLabel() {
 void refreshSelectedLinkLabel() {
     char text[30];
     if(selectedLink == NULL) {
-        sprintf(text, "Aucun lien sélectionnée");
+        sprintf(text, "Aucun lien sélectionné");
     } else {
-        sprintf(text, "Lien sélectionnée : %d -> %d", selectedLink->parent->id, selectedLink->child->id);
+        sprintf(text, "Lien sélectionné : %d -> %d", selectedLink->parent->id, selectedLink->child->id);
     }
     gtk_label_set_label(GTK_LABEL(selectedLinkLabel), text);
     changeInfoLabel("");
@@ -638,19 +639,27 @@ void reloadCenterImage() {
 void disableRightCardButtons() {
     gtk_widget_set_can_target(GTK_WIDGET(modifyCardBtn), false);
     gtk_widget_set_can_target(GTK_WIDGET(deleteCardBtn), false);
+    gtk_widget_set_name(GTK_WIDGET(modifyCardBtn), "disabledRightButton");
+    gtk_widget_set_name(GTK_WIDGET(deleteCardBtn), "disabledRightButton");
 }
 
 void disableRightLinkButtons() {
     gtk_widget_set_can_target(GTK_WIDGET(modifyLinkBtn), false);
     gtk_widget_set_can_target(GTK_WIDGET(deleteLinkBtn), false);
+    gtk_widget_set_name(GTK_WIDGET(modifyLinkBtn), "disabledRightButton");
+    gtk_widget_set_name(GTK_WIDGET(deleteLinkBtn), "disabledRightButton");
 }
 
 void enableRightCardButtons() {
     gtk_widget_set_can_target(GTK_WIDGET(modifyCardBtn), true);
     gtk_widget_set_can_target(GTK_WIDGET(deleteCardBtn), true);
+    gtk_widget_set_name(GTK_WIDGET(modifyCardBtn), "enabledRightButton");
+    gtk_widget_set_name(GTK_WIDGET(deleteCardBtn), "enabledRightButton");
 }
 
 void enableRightLinkButtons() {
     gtk_widget_set_can_target(GTK_WIDGET(modifyLinkBtn), true);
     gtk_widget_set_can_target(GTK_WIDGET(deleteLinkBtn), true);
+    gtk_widget_set_name(GTK_WIDGET(modifyLinkBtn), "enabledRightButton");
+    gtk_widget_set_name(GTK_WIDGET(deleteLinkBtn), "enabledRightButton");
 }
