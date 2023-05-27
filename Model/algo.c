@@ -113,8 +113,8 @@ void assignNumbers(Project* p) {
                 Card* childCard = currentLink->child;
 
                 // Vérification des parents
-                setOnFirstVertex(&(childCard->parents));
-                while (!isOutOfListVertex(&(childCard->parents))) {
+                setOnFirstEdge(&(childCard->parents));
+                while (!isOutOfListEdge(&(childCard->parents))) {
                     Link* parentLink = childCard->parents.current->link;
                     if (parentLink->type != COMBINE) {
                         printf("Erreur : Les parents de la carte %d doivent être des liens de type COMBINE.\n", childCard->id);
@@ -122,7 +122,7 @@ void assignNumbers(Project* p) {
                     }
                     assignedNumbers[assignedNumbersIndex] = parentLink->parent->number;
                     assignedNumbersIndex++;
-                    setOnNextVertex(&(childCard->parents));
+                    setOnNextEdge(&(childCard->parents));
                 }
 
                 // Attribution du numéro au child
