@@ -60,19 +60,7 @@ int checkLoops(Project* p) {
                 setOnNextEdge(&currentCard->children);
             }
 
-            /*
-            // Check all links of the current card
-            for (int i = 0; i < currentCard->nbLinks; i++) {
-                Card* linkedCard = currentCard->Link[i]->toCard;
-                // Check if the linked card has already been visited
-                if (findCard(&visitedCards, linkedCard) != 0) {
-                    // If the card has already been visited, return 1 to indicate a loop
-                    return 1;
-                }
-                // Add the linked card to the visited list
-                insertVertexLast(&visitedCards, linkedCard);
-            }
-            */
+
 
             // Move to the next card
             if (isOutOfListVertex(&visitedCards)) {
@@ -113,44 +101,60 @@ void runDiscard(Project* p){
  * @param p the project
  * @return 0 if it's a success, -1 if not
  */
-int assignNumbers(Project* p){
+void assignNumbers(Project* p) {
+        int assignedNumbers[MAXCARD] = {0}; // Tableau pour stocker les numéros déjà attribués
+        int assignedNumbersIndex = 0; // Indice du tableau assignedNumbers
 
-        // Initialisation
-        setOnFirstVertex(&(p->cardList));
-        int number = 1;
+        // Parcours des liens pour attribuer les numéros aux parents
+        setOnFirstEdge(&(p->linkList));
+        while (!isOutOfListEdge(&(p->linkList))) {
+            Link* currentLink = p->linkList.current->link;
+            if (currentLink->type == COMBINE) {
+                Card* childCard = currentLink->child;
 
-        // Parcours de la liste des cartes
-        while (!isOutOfListVertex(&(p->cardList))) {
-            Card* currentCard = p->cardList.current->card;
-
-            // Vérification des parents
-            setOnFirstVertex(&(currentCard->parents));
-            while (!isOutOfListVertex(&(currentCard->parents))) {
-                Card* parentCard = currentCard->parents.current->link->parent;
-                if (parentCard->number == -1) {
-                    // La carte parente n'a pas encore de numéro attribué, passe à la suivante
-                    setOnNextVertex(&(currentCard->parents));
-                    continue;
+                // Vérification des parents
+                setOnFirstVertex(&(childCard->parents));
+                while (!isOutOfListVertex(&(childCard->parents))) {
+                    Link* parentLink = childCard->parents.current->link;
+                    if (parentLink->type != COMBINE) {
+                        printf("Erreur : Les parents de la carte %d doivent être des liens de type COMBINE.\n", childCard->id);
+                        return;
+                    }
+                    assignedNumbers[assignedNumbersIndex] = parentLink->parent->number;
+                    assignedNumbersIndex++;
+                    setOnNextVertex(&(childCard->parents));
                 }
-                number += parentCard->number;  // Ajoute le numéro du parent
-                setOnNextVertex(&(currentCard->parents));
+
+                // Attribution du numéro au child
+                int sum = 0;
+                for (int i = 0; i < assignedNumbersIndex; i++) {
+                    sum += assignedNumbers[i];
+                }
+                childCard->number = sum;
+
+                // Réinitialisation des numéros attribués pour le prochain child
+                assignedNumbersIndex = 0;
             }
 
-
-            // Attribue le numéro à la carte actuelle
-            currentCard->number = number;
-
-            // Passage à la carte suivante
-            number++;
-            setOnNextVertex(&(p->cardList));
-
+            setOnNextEdge(&(p->linkList));
         }
-    return -1;
-    }
 
-/* parcourir le tableau de liens du projet, des que j'ai un lien combine je stock la carte child du lien dans un current card ensuite on vérifie que tous les liens parents de cette carde sont des liens combine si c'est pas le cas je revoie un -1 avec un message d'erreur
-         * apres avoir verifier que c'est un lien combine onattribut des petits numéros aux paretns et je mets la somme des numéros des parents dans le child. faut stocker les numéros dèja utiliser dans un tableau.
-         * apres parcourir toute la liste de carte du projet et j'attribue un numéro pas encore attribué.
+        // Parcours de la liste des cartes pour attribuer les numéros restants
+        setOnFirstVertex(&(p->cardList));
+        int currentNumber = 1;
+        while (!isOutOfListVertex(&(p->cardList))) {
+            Card* currentCard = p->cardList.current->card;
+            if (currentCard->number == -1) {
+                while (assignedNumbers[assignedNumbersIndex] != 0) {
+                    assignedNumbersIndex++;
+                }
+                currentCard->number = currentNumber + assignedNumbersIndex;
+                assignedNumbersIndex++;
+            }
+            currentNumber++;
+            setOnNextVertex(&(p->cardList));
+        }
+    }
 
 
 
