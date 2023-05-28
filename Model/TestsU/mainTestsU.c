@@ -109,6 +109,7 @@ int main(void){
 
     const struct CMUnitTest testsProject[] =
             {
+                    cmocka_unit_test_setup_teardown(testSetRoot, setupInitProject, teardownInitProject),
                     cmocka_unit_test_setup_teardown(testAddEmptyCard, setupInitProject, teardownInitProject),
                     cmocka_unit_test_setup_teardown(testSetCardImage, setupInitProject, teardownInitProject),
                     cmocka_unit_test_setup_teardown(testDeleteCard, setupInitProject, teardownInitProject),
@@ -117,7 +118,8 @@ int main(void){
                     cmocka_unit_test_setup_teardown(testDeleteLinkFromCards, setupInitProject, teardownInitProject),
                     cmocka_unit_test_setup_teardown(testSetBackImage, setupInitProject, teardownInitProject),
                     cmocka_unit_test_setup_teardown(testSetTopImage, setupInitProject, teardownInitProject),
-                    cmocka_unit_test_setup_teardown(testSetBottomImage, setupInitProject, teardownInitProject)
+                    cmocka_unit_test_setup_teardown(testSetBottomImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSaveAndLoadProject, setupInitProject, teardownInitProject)
             };
 
     const struct CMUnitTest testsAlgo[] =
