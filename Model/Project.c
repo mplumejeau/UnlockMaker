@@ -1546,6 +1546,7 @@ int createPrintable(Project* p){
     pdf = HPDF_New(NULL,NULL);
     if(!pdf){
         fprintf(stderr, "error : impossible to create the pdf file\n");
+        HPDF_Free(pdf);
         return -1;
     }
 
@@ -1567,6 +1568,7 @@ int createPrintable(Project* p){
         page = HPDF_AddPage(pdf);
         if(!page){
             fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+            HPDF_Free(pdf);
             return -1;
         }
         currentPageNb ++;
@@ -1581,6 +1583,7 @@ int createPrintable(Project* p){
         topImage = HPDF_LoadJpegImageFromFile(pdf, topImagePath);
         if(topImage == NULL){
             fprintf(stderr, "error : impossible to load the top image file\n");
+            HPDF_Free(pdf);
             return -1;
         }
         HPDF_Page_DrawImage(page,  topImage, X_BL_TOP_IMAGE, Y_BL_TOP_IMAGE,
@@ -1597,6 +1600,7 @@ int createPrintable(Project* p){
         bottomImage = HPDF_LoadJpegImageFromFile(pdf, bottomImagePath);
         if(bottomImage == NULL){
             fprintf(stderr, "error : impossible to load the bottom image file\n");
+            HPDF_Free(pdf);
             return -1;
         }
         HPDF_Page_DrawImage(page,  bottomImage, X_BL_BOTTOM_IMAGE, Y_BL_BOTTOM_IMAGE,
@@ -1623,6 +1627,7 @@ int createPrintable(Project* p){
         cardImageBL = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
         if(cardImageBL == NULL){
             fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            HPDF_Free(pdf);
             return -1;
         }
         HPDF_Page_DrawImage(page, cardImageBL, X_BL_CARD_IMAGE, Y_BL_CARD_IMAGE,
@@ -1654,6 +1659,7 @@ int createPrintable(Project* p){
         cardImageBR = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
         if(cardImageBR == NULL){
             fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            HPDF_Free(pdf);
             return -1;
         }
         HPDF_Page_DrawImage(page, cardImageBR, X_BR_CARD_IMAGE, Y_BR_CARD_IMAGE,
@@ -1685,6 +1691,7 @@ int createPrintable(Project* p){
         cardImageTL = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
         if(cardImageTL == NULL){
             fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            HPDF_Free(pdf);
             return -1;
         }
         HPDF_Page_DrawImage(page, cardImageTL, X_TL_CARD_IMAGE, Y_TL_CARD_IMAGE,
@@ -1716,6 +1723,7 @@ int createPrintable(Project* p){
         cardImageTR = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
         if(cardImageTR == NULL){
             fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            HPDF_Free(pdf);
             return -1;
         }
         HPDF_Page_DrawImage(page, cardImageTR, X_TR_CARD_IMAGE, Y_TR_CARD_IMAGE,
@@ -1748,6 +1756,7 @@ int createPrintable(Project* p){
         page = HPDF_AddPage(pdf);
         if(!page){
             fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+            HPDF_Free(pdf);
             return -1;
         }
         currentPageNb ++;
@@ -1762,6 +1771,7 @@ int createPrintable(Project* p){
         backImage = HPDF_LoadJpegImageFromFile(pdf, backImagePath);
         if(backImage == NULL){
             fprintf(stderr, "error : impossible to load the back image file\n");
+            HPDF_Free(pdf);
             return -1;
         }
         HPDF_Page_DrawImage(page,  backImage, X_BL_BACK_IMAGE, Y_BL_BACK_IMAGE,
@@ -1861,6 +1871,7 @@ int createPrintable(Project* p){
         page = HPDF_AddPage(pdf);
         if(!page){
             fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+            HPDF_Free(pdf);
             return -1;
         }
         currentPageNb ++;
@@ -1895,6 +1906,7 @@ int createPrintable(Project* p){
         cardImageTL = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
         if(cardImageTL == NULL){
             fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+            HPDF_Free(pdf);
             return -1;
         }
         HPDF_Page_DrawImage(page, cardImageTL, X_TL_CARD_IMAGE, Y_TL_CARD_IMAGE,
@@ -1938,6 +1950,7 @@ int createPrintable(Project* p){
             cardImageTR = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
             if(cardImageTR == NULL){
                 fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+                HPDF_Free(pdf);
                 return -1;
             }
             HPDF_Page_DrawImage(page, cardImageTR, X_TR_CARD_IMAGE, Y_TR_CARD_IMAGE,
@@ -1983,6 +1996,7 @@ int createPrintable(Project* p){
             cardImageBL = HPDF_LoadJpegImageFromFile(pdf, cardImagePath);
             if(cardImageBL == NULL){
                 fprintf(stderr, "error : impossible to load the image file for the card with id : %s\n", idString);
+                HPDF_Free(pdf);
                 return -1;
             }
             HPDF_Page_DrawImage(page, cardImageBL, X_BL_CARD_IMAGE, Y_BL_CARD_IMAGE,
@@ -2017,6 +2031,7 @@ int createPrintable(Project* p){
         page = HPDF_AddPage(pdf);
         if(!page){
             fprintf(stderr, "error : impossible to add a new page to the pdf file\n");
+            HPDF_Free(pdf);
             return -1;
         }
         currentPageNb ++;
@@ -2123,6 +2138,7 @@ int createPrintable(Project* p){
     if(HPDF_SaveToFile(pdf, pdfFilePath) != HPDF_OK){
         fprintf( stderr, "error : creation of the file %s is impossible\n", pdfFilePath);
         fprintf(stderr,"%d\n", errno);
+        HPDF_Free(pdf);
         return -1;
     }
 

@@ -68,7 +68,7 @@ add_executable(UnlockMakerTestsU
         Model/Edge.h Model/Edge.c Model/TestsU/EdgeTestsU.h Model/TestsU/EdgeTestsU.c
         Model/EdgeList.h Model/EdgeList.c Model/TestsU/EdgeListTestsU.h Model/TestsU/EdgeListTestsU.c
         Model/Link.h Model/Link.c Model/TestsU/LinkTestsU.h Model/TestsU/LinkTestsU.c
-        Model/Project.h Model/Project.c
+        Model/Project.h Model/Project.c Model/TestsU/ProjectTestsU.h Model/TestsU/ProjectTestsU.c
         Model/algo.h Model/algo.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)
@@ -77,16 +77,16 @@ target_link_libraries(UnlockMakerTestsU ${LIB_DIR}/libhpdfs.a)
 target_link_libraries(UnlockMakerTestsU ${ZLIB_LIBRARIES})
 target_link_libraries(UnlockMakerTestsU m)
 
-add_custom_target(coverage
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E remove *
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E env CTEST_OUTPUT_ON_FAILURE=1 ${CMAKE_CTEST_COMMAND} -j4
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --directory . --capture --output-file coverage.info
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --remove coverage.info '/usr/*' "${PROJECT_SOURCE_DIR}/tests/*" --output-file coverage.info.cleaned
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage genhtml --output-directory html coverage.info.cleaned
-        DEPENDS UnlockMakerTestsU)
+#add_custom_target(coverage
+ #       COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage
+  #      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E remove *
+   #     COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E env CTEST_OUTPUT_ON_FAILURE=1 ${CMAKE_CTEST_COMMAND} -j4
+    #    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --directory . --capture --output-file coverage.info
+     #   COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --remove coverage.info '/usr/*' "${PROJECT_SOURCE_DIR}/tests/*" --output-file coverage.info.cleaned
+      #  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage genhtml --output-directory html coverage.info.cleaned
+       # DEPENDS UnlockMakerTestsU)
 
-add_dependencies(${PROJECT_NAME} coverage)
+#add_dependencies(${PROJECT_NAME} coverage)
 
 # Here are the commands to write in a terminal to create a .html file about the code coverage for the Model
 # You have to be in the unlock-maker directory
