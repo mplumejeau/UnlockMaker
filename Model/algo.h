@@ -13,7 +13,7 @@ void runCompatibility(Project* p);
 
 void runDiscard(Project* p);
 
-void assignNumbers(Project* p);
+int assignNumbers(Project* p);
 
 #endif //UNLOCKMAKER_ALGO_H
 

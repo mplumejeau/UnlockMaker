@@ -92,7 +92,8 @@ void runDiscard(Project* p){
  * @param p the project
  * @return 0 if it's a success, -1 if not
  */
-void assignNumbers(Project* p) {
+
+    int assignNumbers(Project* p) {
         int assignedNumbers[MAXCARD] = {0}; // Tableau pour stocker les numéros déjà attribués
         int assignedNumbersIndex = 0; // Indice du tableau assignedNumbers
 
@@ -109,8 +110,15 @@ void assignNumbers(Project* p) {
                     Link* parentLink = childCard->parents.current->link;
                     if (parentLink->type != COMBINE) {
                         printf("Erreur : Les parents de la carte %d doivent être des liens de type COMBINE.\n", childCard->id);
-                        return;
+                        return -1;
                     }
+
+                    // Vérification si le parent a déjà un numéro attribué
+                    if (parentLink->parent->number == -1) {
+                        printf("Erreur : La carte parente %d doit avoir un numéro attribué avant la carte %d.\n", parentLink->parent->id, childCard->id);
+                        return -1;
+                    }
+
                     assignedNumbers[assignedNumbersIndex] = parentLink->parent->number;
                     assignedNumbersIndex++;
                     setOnNextEdge(&(childCard->parents));
@@ -145,7 +153,14 @@ void assignNumbers(Project* p) {
             currentNumber++;
             setOnNextVertex(&(p->cardList));
         }
+
+        // Renvoie le numéro de la carte en bas des liens
+        return p->root->number;
     }
+
+
+
+
 
 
 

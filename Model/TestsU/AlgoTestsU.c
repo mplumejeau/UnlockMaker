@@ -14,7 +14,7 @@
 
 #include "AlgoTestsU.h"
 
-const char* projectPath2 = "/home/maxime/Documents";
+const char* projectPath2 = "/home/miniya/Documents";
 
 int setupInitProjectAlgo(void** state){
     Project* p = allocProject();
