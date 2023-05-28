@@ -16,9 +16,12 @@
 
 #include "ProjectTestsU.h"
 
+const char* projectPath = "/home/maxime/Documents";
+const char* imagePath = "/home/maxime/Pictures/IronMan.jpg";
+
 int setupInitProject(void** state){
     Project* p = allocProject();
-    initProject(p, "/home/maxime/Documents", "unlockTestsU");
+    initProject(p, projectPath, "unlockTestsU");
     Card* c0 = addEmptyCard(p);
     Card* c1 = addEmptyCard(p);
     Card* c2 = addEmptyCard(p);
@@ -48,7 +51,7 @@ void testAddEmptyCard(void** state){
 void testSetCardImage(void** state){
     Project* p = (Project*) (*state);
     setOnFirstVertex(&p->cardList);
-    setCardImage(p, p->cardList.current->card, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p, p->cardList.current->card, imagePath);
     assert_int_equal(1, p->cardList.current->card->image);
 }
 
@@ -95,24 +98,18 @@ void testDeleteLinkFromCards(void** state){
 
 void testSetBackImage(void** state){
     Project* p = (Project*) (*state);
-    setBackImage(p, "/home/maxime/Pictures/IronMan.jpg");
+    setBackImage(p, imagePath);
     assert_int_equal(1, p->backImage);
 }
 
 void testSetTopImage(void** state){
     Project* p = (Project*) (*state);
-    setTopImage(p, "/home/maxime/Pictures/IronMan.jpg");
+    setTopImage(p, imagePath);
     assert_int_equal(1, p->topImage);
 }
 
 void testSetBottomImage(void** state){
     Project* p = (Project*) (*state);
-    setBottomImage(p, "/home/maxime/Pictures/IronMan.jpg");
+    setBottomImage(p, imagePath);
     assert_int_equal(1, p->bottomImage);
 }
-
-
-
-
-
-

@@ -64,12 +64,12 @@ add_executable(UnlockMakerTestsU
         Model/TestsU/mainTestsU.c Model/Struct.h
         Model/Vertex.h Model/Vertex.c Model/TestsU/VertexTestsU.h Model/TestsU/VertexTestsU.c
         Model/VertexList.h Model/VertexList.c Model/TestsU/VertexListTestsU.h Model/TestsU/VertexListTestsU.c
-        Model/Card.h Model/Card.c
+        Model/Card.h Model/Card.c Model/TestsU/CardTestsU.h Model/TestsU/CardTestsU.c
         Model/Edge.h Model/Edge.c Model/TestsU/EdgeTestsU.h Model/TestsU/EdgeTestsU.c
         Model/EdgeList.h Model/EdgeList.c Model/TestsU/EdgeListTestsU.h Model/TestsU/EdgeListTestsU.c
         Model/Link.h Model/Link.c Model/TestsU/LinkTestsU.h Model/TestsU/LinkTestsU.c
         Model/Project.h Model/Project.c Model/TestsU/ProjectTestsU.h Model/TestsU/ProjectTestsU.c
-        Model/algo.h Model/algo.c)
+        Model/algo.h Model/algo.c Model/TestsU/AlgoTestsU.h Model/TestsU/AlgoTestsU.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)
 

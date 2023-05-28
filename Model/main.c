@@ -36,9 +36,6 @@ int main()
     Card* c19 = NULL;
     Card* c20 = NULL;
 
-
-
-
     Link* l1 = NULL;
     Link* l2 = NULL;
     Link* l3 = NULL;
@@ -60,8 +57,6 @@ int main()
     Link* l19 = NULL;
     Link* l20 = NULL;
     Link* l21 = NULL;
-
-
 
     /*
     // demo 1 : creation, completion, creation of a pdf and save of a project
