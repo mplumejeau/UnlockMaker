@@ -19,65 +19,54 @@
 
 int checkLoops(Project* p) {
 
-    // Initialize the vertex list to keep track of visited cards
-    VertexList visitedCards;
-    initEmptyVertexList(&visitedCards);
+    // Initialisation de la liste de vertex pour suivre les cartes visitées
+        VertexList visitedCards;
+        initEmptyVertexList(&visitedCards);
 
-    if (p != NULL ){
+        if (p != NULL) {
 
-        // Set the current card to the root of the project
-        Card* currentCard = p->root;
+            // Définition de la carte courante comme étant la racine du projet
+            Card* currentCard = p->root;
 
-        while (currentCard != NULL) {
-            // Check if the current card has already been visited
-            if (findCard(&visitedCards, currentCard) != 0) {
-                // If the card has already been visited, return 1 to indicate a loop
-                return 1;
-            }
-            //printf(" current card id : %d\n", currentCard->id);
-            // Add the current card to the visited list
-            insertVertexLast(&visitedCards, currentCard);
-
-
-            setOnFirstEdge(&currentCard->children);
-
-            while(!isOutOfListEdge(&currentCard->children)){
-
-                Card* linkedCard = currentCard->children.current->link->child;
-
-                //printf(" linked card id : %d\n", linkedCard->id);
-
-
-                // Check if the linked card has already been visited
-                if (findCard(&visitedCards, linkedCard) != 0) {
-                    // If the card has already been visited, return 1 to indicate a loop
+            while (currentCard != NULL) {
+                // Vérification si la carte courante a déjà été visitée
+                if (findCard(&visitedCards, currentCard) != 0) {
+                    // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
                     return 1;
                 }
 
-                // Add the linked card to the visited list
-                insertVertexLast(&visitedCards, linkedCard);
+                // Ajout de la carte courante à la liste des cartes visitées
+                insertVertexLast(&visitedCards, currentCard);
 
-                setOnNextEdge(&currentCard->children);
+                // Parcours des liens sortants de la carte courante
+                setOnFirstEdge(&currentCard->children);
+                while (!isOutOfListEdge(&currentCard->children)) {
+                    Card* linkedCard = currentCard->children.current->link->child;
+
+                    // Vérification si la carte liée a déjà été visitée
+                    if (findCard(&visitedCards, linkedCard) != 0) {
+                        // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
+                        return 1;
+                    }
+
+                    // Passage au lien suivant
+                    setOnNextEdge(&currentCard->children);
+                }
+
+                // Passage à la carte suivante
+                setOnNextVertex(&visitedCards);
+                currentCard = (Card*)visitedCards.current->card;
             }
 
+            // Aucune boucle trouvée, retourne 0
+            return 0;
 
-
-            // Move to the next card
-            if (isOutOfListVertex(&visitedCards)) {
-                // If all cards have been visited, exit the loop
-                break;
-            }
-            setOnNextVertex(&visitedCards);
-            currentCard = (Card*)visitedCards.current->card;
+        } else {
+            fprintf(stderr, "Erreur : mauvaise allocation du projet.\n");
+            return -1;
         }
-        // No loops were found, return 0
-        return 0;
-
-    } else {
-        fprintf(stderr, "error : project bad allocation\n");
-        return -1;
     }
-}
+
 
 /**
  * Run an algorithm to fill every card's compatibility list
@@ -103,7 +92,8 @@ void runDiscard(Project* p){
  * @param p the project
  * @return 0 if it's a success, -1 if not
  */
-void assignNumbers(Project* p) {
+
+    int assignNumbers(Project* p) {
         int assignedNumbers[MAXCARD] = {0}; // Tableau pour stocker les numéros déjà attribués
         int assignedNumbersIndex = 0; // Indice du tableau assignedNumbers
 
@@ -120,8 +110,15 @@ void assignNumbers(Project* p) {
                     Link* parentLink = childCard->parents.current->link;
                     if (parentLink->type != COMBINE) {
                         printf("Erreur : Les parents de la carte %d doivent être des liens de type COMBINE.\n", childCard->id);
-                        return;
+                        return -1;
                     }
+
+                    // Vérification si le parent a déjà un numéro attribué
+                    if (parentLink->parent->number == -1) {
+                        printf("Erreur : La carte parente %d doit avoir un numéro attribué avant la carte %d.\n", parentLink->parent->id, childCard->id);
+                        return -1;
+                    }
+
                     assignedNumbers[assignedNumbersIndex] = parentLink->parent->number;
                     assignedNumbersIndex++;
                     setOnNextEdge(&(childCard->parents));
@@ -156,7 +153,14 @@ void assignNumbers(Project* p) {
             currentNumber++;
             setOnNextVertex(&(p->cardList));
         }
+
+        // Renvoie le numéro de la carte en bas des liens
+        return p->root->number;
     }
+
+
+
+
 
 
 
