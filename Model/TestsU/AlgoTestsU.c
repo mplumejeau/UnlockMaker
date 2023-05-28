@@ -25,6 +25,7 @@ int setupInitProjectAlgo(void** state){
     Card* c3 = addEmptyCard(p);
     Card* c4 = addEmptyCard(p);
     Card* c5 = addEmptyCard(p);
+    setRoot(p,c0);
     Link* l0 = addLink(p, c0, c1, DEFAULT);
     Link* l1 = addLink(p, c0, c2, DEFAULT);
     Link* l2 = addLink(p, c2, c3, DEFAULT);
@@ -48,6 +49,7 @@ int setupInitProjectAlgoWithLoops(void** state){
     Card* c3 = addEmptyCard(p);
     Card* c4 = addEmptyCard(p);
     Card* c5 = addEmptyCard(p);
+    setRoot(p,c0);
     Link* l0 = addLink(p, c0, c1, DEFAULT);
     Link* l1 = addLink(p, c0, c2, DEFAULT);
     Link* l2 = addLink(p, c2, c3, DEFAULT);

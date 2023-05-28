@@ -34,7 +34,7 @@ int checkLoops(Project* p) {
                 // If the card has already been visited, return 1 to indicate a loop
                 return 1;
             }
-            printf(" current card id : %d\n", currentCard->id);
+            //printf(" current card id : %d\n", currentCard->id);
             // Add the current card to the visited list
             insertVertexLast(&visitedCards, currentCard);
 
@@ -45,7 +45,7 @@ int checkLoops(Project* p) {
 
                 Card* linkedCard = currentCard->children.current->link->child;
 
-                printf(" linked card id : %d\n", linkedCard->id);
+                //printf(" linked card id : %d\n", linkedCard->id);
 
 
                 // Check if the linked card has already been visited
@@ -83,18 +83,20 @@ int checkLoops(Project* p) {
  * Run an algorithm to fill every card's compatibility list
  * @param p the project
  */
+/*
 void runCompatibility(Project* p){
 
 }
-
+*/
 /**
  * Run an algorithm to fill every card's discard list
  * @param p the project
  */
+/*
 void runDiscard(Project* p){
 
 }
-
+*/
 /**
  * Run an algorithm to automatically assign a number between 1 and 99 to every card that hasn't a number yet
  * Must take in account that several specific numbers may have been already assigned by the user
