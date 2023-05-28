@@ -16,9 +16,9 @@
 
 #include "ProjectTestsU.h"
 
-const char* projectPath = "/home/miniya/Documents";
-const char* projectName = "unlockTestsU";
-const char* imagePath = "/home/miniya/Pictures/IronMan.jpg";
+char* projectPath = "/home/maxime/Documents";
+char* projectName = "unlockTestsU";
+char* imagePath = "/home/maxime/Pictures/IronMan.jpg";
 
 int setupInitProject(void** state){
     Project* p = allocProject();
