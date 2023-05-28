@@ -45,12 +45,20 @@ void addCardLblForModify(Card* c, GtkWidget* checkBtn, GtkWidget* box);
 void addLinkBtn(Link* l);
 
 /**
- * Remove all buttons in the Link Box that has the given parent and child cards
+ * Remove all buttons in the Link Box that have the given parent and child cards
  * (there should only be one removed at max)
  * @param parent a pointer to the parent card
  * @param child a pointer to the child card
  */
 void removeLinkBtnFromCards(Card* parent, Card* child);
+
+/**
+ * Change the color of all buttons in the Link Box that have the given parent and
+ * child cards to match the new type (there should only be one changed at max)
+ * @param parent a pointer to the parent card
+ * @param child a pointer to the child card
+ */
+void changeLinkBtnTypeFromCards(Card *parent, Card *child, int newType);
 
 /* Window opening functions */
 

@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <errno.h>
-#include <dirent.h>
 
 
 #include "../View/ViewApplication.h"
@@ -64,33 +63,6 @@ int main(int argc, char *argv[]) {
     }
 } */
 
-/* DO NOT DELETE FOR SENTIMENTAL REASONS - louenn
-
-int projectNameExists(const char *projectName, GtkWidget *newProjectWindow) {
-    DIR *dir;
-    struct dirent *entry;
-    GtkWidget *fileChooser = gtk_widget_get_first_child(gtk_widget_get_first_child(newProjectWindow));
-    GFile *file = gtk_file_chooser_get_file(GTK_FILE_CHOOSER(fileChooser));
-
-    dir = opendir(g_file_get_path(file)); // Open the current directory
-    if (dir == NULL) {
-        fprintf(stderr, "Error: Failed to open directory\n");
-        return 0; // Return false if failed to open directory
-    }
-
-    // Iterate over directory entries
-    while ((entry = readdir(dir)) != NULL) {
-        fprintf(stderr, "%s\n", entry->d_name);
-        if (strcmp(entry->d_name, projectName) == 0) {
-            closedir(dir);
-            return 1; // Return true if directory with projectName exists
-        }
-    }
-
-    closedir(dir);
-    return 0; // Return false if directory with projectName doesn't exist
-} */
-
 void unselectCard() {
     selectedCard = NULL;
     selectedCardBtn = NULL;
@@ -108,11 +80,34 @@ void unselectLink() {
 void setCardFixNumber(int n) {
     if (n == -1) {
         unfixCardNumber(selectedCard);
+        //change all links pointing toward the current card to default
+        setOnFirstEdge(&(selectedCard->parents));
+        while (!isOutOfListEdge(&(selectedCard->parents))) {
+            setLinkType(selectedCard->parents.current->link, DEFAULT);
+            changeLinkBtnTypeFromCards(selectedCard->parents.current->link->parent, selectedCard, DEFAULT);
+            char parentId[3], childId[3];
+            sprintf(parentId, "%d", selectedCard->parents.current->link->parent->id);
+            sprintf(childId, "%d", selectedCard->id);
+            modifyLinkTypeGraphData(parentId, childId, DEFAULT);
+            setOnNextEdge(&(selectedCard->parents));
+        }
         changeInfoLabel("Le numéro de la carte sélectionnée n'est plus fixé");
     } else {
         fixCardNumber(selectedCard, (char) n);
+        //change all links pointing toward the current card to fixed number
+        setOnFirstEdge(&(selectedCard->parents));
+        while (!isOutOfListEdge(&(selectedCard->parents))) {
+            setLinkType(selectedCard->parents.current->link, FIXED);
+            changeLinkBtnTypeFromCards(selectedCard->parents.current->link->parent, selectedCard, FIXED);
+            char parentId[3], childId[3];
+            sprintf(parentId, "%d", selectedCard->parents.current->link->parent->id);
+            sprintf(childId, "%d", selectedCard->id);
+            modifyLinkTypeGraphData(parentId, childId, FIXED);
+            setOnNextEdge(&(selectedCard->parents));
+        }
         changeInfoLabel("Le numéro de la carte sélectionnée est maintenant fixé");
     }
+    refreshGraphPNG();
 }
 
 void retrieveParentsChildren(GtkBox *parentsBox, GtkBox *childrenBox) {
@@ -152,12 +147,17 @@ void addLinkFromToggle(Card *parent, Card *child) {
     char parentId[3], childId[3];
     sprintf(parentId, "%d", parent->id);
     sprintf(childId, "%d", child->id);
-    addLinkGraphData(parentId, childId, DEFAULT);
-    Link *l = addLink(curProject, parent, child, DEFAULT);
+    Link *l = NULL;
+    if(child->fixedNumber == 1) {
+        l = addLink(curProject, parent, child, FIXED);
+    } else {
+        l = addLink(curProject, parent, child, DEFAULT);
+    }
     if (l != NULL) {
+        addLinkGraphData(parentId, childId, l->type);
         addLinkBtn(l);
-        char message[46];
-        sprintf(message, "Le lien %d -> %d a été ajouté avec succès.", parent->id, child->id);
+        char message[48];
+        sprintf(message, "Le lien %d → %d a été ajouté avec succès.", parent->id, child->id);
         changeInfoLabel(message);
     } else {
         if (curProject->nbLinks == MAXLINK) {
@@ -180,8 +180,8 @@ void deleteLinkFromToggle(Card *parent, Card *child) {
     deleteLinkFromCards(curProject, parent, child);
     removeLinkGraphData(parentId, childId);
     removeLinkBtnFromCards(parent, child);
-    char message[48];
-    sprintf(message, "Le lien %d -> %d a été supprimé avec succès.",parent->id , child->id);
+    char message[50];
+    sprintf(message, "Le lien %d → %d a été supprimé avec succès.",parent->id , child->id);
     changeInfoLabel(message);
 }
 
@@ -551,10 +551,10 @@ void onPressDeleteCard() {
 /* Link managing callbacks */
 
 void onSelectLink(GtkWidget *linkBtn, Link *link) {
-    char unselectedLinkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedFixedLinkBtn",
-                                       "unselectedHintLinkBtn"};
-    char selectedLinkNames[4][21] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedFixedLinkBtn",
-                                     "selectedHintLinkBtn"};
+    char unselectedLinkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedHintLinkBtn",
+                                       "unselectedFixedLinkBtn"};
+    char selectedLinkNames[4][21] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedHintLinkBtn",
+                                     "selectedFixedLinkBtn"};
     gboolean reopenSecondWindow = false;
     if (secondWindowOpen != NULL) {
         gtk_window_close(GTK_WINDOW(secondWindowOpen));
@@ -574,15 +574,14 @@ void onSelectLink(GtkWidget *linkBtn, Link *link) {
 void onModifyLinkType(GtkWidget *dropDown) {
     if (selectedLink != NULL) {
         int newType = (int) gtk_drop_down_get_selected(GTK_DROP_DOWN(dropDown));
+        setLinkType(selectedLink, newType);
+        char linkNames[4][23] = {"selectedFoundLinkBtn", "selectedCombLinkBtn","selectedHintLinkBtn"};
+        gtk_widget_set_name(selectedLinkBtn, linkNames[newType]);
         char parentId[3], childId[3];
         sprintf(parentId, "%d", selectedLink->parent->id);
         sprintf(childId, "%d", selectedLink->child->id);
         modifyLinkTypeGraphData(parentId, childId, newType);
         refreshGraphPNG();
-        setLinkType(selectedLink, newType);
-        char linkNames[4][23] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedFixedLinkBtn",
-                                 "selectedHintLinkBtn"};
-        gtk_widget_set_name(selectedLinkBtn, linkNames[newType]);
         changeInfoLabel("Le type du lien sélectionné a été modifié");
         unsavedChanges = true;
     }
@@ -602,8 +601,8 @@ void onPressDeleteLink() {
         removeLinkGraphData(parentId, childId);
         refreshGraphPNG();
         refreshLinkBoxLabel();
-        char message[49];
-        sprintf(message, "Le lien %s -> %s a été supprimé avec succès.", parentId, childId);
+        char message[51];
+        sprintf(message, "Le lien %s → %s a été supprimé avec succès.", parentId, childId);
         changeInfoLabel(message);
         unsavedChanges = true;
     }

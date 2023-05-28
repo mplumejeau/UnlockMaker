@@ -11,6 +11,7 @@
 char imagePath[MAXPATH + 16] = "";
 extern Card *selectedCard;
 extern Link *selectedLink;
+extern GtkWidget *selectedLinkBtn;
 extern Project *curProject;
 extern bool unsavedChanges;
 
@@ -174,11 +175,11 @@ void addCardLblForModify(Card *c, GtkWidget *checkBtn, GtkWidget *box) {
 }
 
 void addLinkBtn(Link *l) {
-    char btnLabel[9] = "";
-    sprintf(btnLabel, "%d -> %d", l->parent->id, l->child->id);
+    char btnLabel[11] = "";
+    sprintf(btnLabel, "%d → %d", l->parent->id, l->child->id);
     GtkWidget *button = gtk_button_new_with_label(btnLabel);
-    char linkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedFixedLinkBtn",
-                             "unselectedHintLinkBtn"};
+    char linkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedHintLinkBtn",
+                             "unselectedFixedLinkBtn"};
     gtk_widget_set_name(button, linkNames[l->type]);
     g_signal_connect (button, "clicked", G_CALLBACK(onSelectLink), l);
 
@@ -206,12 +207,33 @@ void addLinkBtn(Link *l) {
 
 void removeLinkBtnFromCards(Card *parent, Card *child) {
     GtkWidget *tmp, *btn = gtk_widget_get_first_child(GTK_WIDGET(linkBox));
-    char btnLabel[12] = "";
-    sprintf(btnLabel, "%d -> %d", parent->id, child->id);
+    char btnLabel[11] = "";
+    sprintf(btnLabel, "%d → %d", parent->id, child->id);
     while (btn != NULL) {
         tmp = gtk_widget_get_next_sibling(GTK_WIDGET(btn));
         if (strcmp(btnLabel, gtk_button_get_label(GTK_BUTTON(btn))) == 0) {
             gtk_box_remove(GTK_BOX(linkBox), btn);
+        }
+        btn = tmp;
+    }
+}
+
+void changeLinkBtnTypeFromCards(Card *parent, Card *child, int newType) {
+    char unselectedLinkNames[4][23] = {"unselectedFoundLinkBtn", "unselectedCombLinkBtn", "unselectedHintLinkBtn",
+                             "unselectedFixedLinkBtn"};
+    char selectedLinkNames[4][23] = {"selectedFoundLinkBtn", "selectedCombLinkBtn", "selectedHintLinkBtn",
+                                       "selectedFixedLinkBtn"};
+    GtkWidget *tmp, *btn = gtk_widget_get_first_child(GTK_WIDGET(linkBox));
+    char btnLabel[11] = "";
+    sprintf(btnLabel, "%d → %d", parent->id, child->id);
+    while (btn != NULL) {
+        tmp = gtk_widget_get_next_sibling(GTK_WIDGET(btn));
+        if (strcmp(btnLabel, gtk_button_get_label(GTK_BUTTON(btn))) == 0) {
+            if (btn == selectedLinkBtn) {
+                gtk_widget_set_name(GTK_WIDGET(btn), selectedLinkNames[newType]);
+            } else {
+                gtk_widget_set_name(GTK_WIDGET(btn), unselectedLinkNames[newType]);
+            }
         }
         btn = tmp;
     }
@@ -366,34 +388,38 @@ void openModifyCardWindow() {
 
 void openModifyLinkWindow() {
     if (selectedLink != NULL) {
-        if (secondWindowOpen != NULL) {
-            gtk_window_close(GTK_WINDOW(secondWindowOpen));
+        if(selectedLink->type != FIXED) {
+            if (secondWindowOpen != NULL) {
+                gtk_window_close(GTK_WINDOW(secondWindowOpen));
+            }
+            GtkBuilder *builder = gtk_builder_new();
+            GObject *typeList, *closeWindowBtn;
+            gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
+
+            /* Window */
+            char windowTitle[34];
+            sprintf(windowTitle, "Modification du lien %d → %d", selectedLink->parent->id, selectedLink->child->id);
+            secondWindowOpen = gtk_builder_get_object(builder, "modifLinkWindow");
+            gtk_window_set_title(GTK_WINDOW(secondWindowOpen), windowTitle);
+            gtk_window_set_default_size(GTK_WINDOW(secondWindowOpen), 350, 100);
+            gtk_window_set_resizable(GTK_WINDOW(secondWindowOpen), false);
+            g_signal_connect(secondWindowOpen, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
+
+            /* Type choice */
+            typeList = gtk_builder_get_object(builder, "modifTypeDropDown");
+            gtk_drop_down_set_selected(GTK_DROP_DOWN(typeList), selectedLink->type);
+            g_signal_connect(GTK_WIDGET(typeList), "notify", G_CALLBACK(onModifyLinkType), typeList);
+
+            /* Window closing */
+            closeWindowBtn = gtk_builder_get_object(builder, "closeModifLinkWindowBtn");
+            g_signal_connect_swapped(closeWindowBtn, "clicked", G_CALLBACK(gtk_window_close), secondWindowOpen);
+
+            gtk_widget_show(GTK_WIDGET (secondWindowOpen));
+            g_object_unref(builder);
+            changeInfoLabel("");
+        } else {
+            changeInfoLabel("Le lien sélectionné pointe vers une carte fixe, il est impossible de le modifier");
         }
-        GtkBuilder *builder = gtk_builder_new();
-        GObject *typeList, *closeWindowBtn;
-        gtk_builder_add_from_file(builder, "../View/ViewBuilder.ui", NULL);
-
-        /* Window */
-        char windowTitle[32];
-        sprintf(windowTitle, "Modification du lien %d -> %d", selectedLink->parent->id, selectedLink->child->id);
-        secondWindowOpen = gtk_builder_get_object(builder, "modifLinkWindow");
-        gtk_window_set_title(GTK_WINDOW(secondWindowOpen), windowTitle);
-        gtk_window_set_default_size(GTK_WINDOW(secondWindowOpen), 350, 100);
-        gtk_window_set_resizable(GTK_WINDOW(secondWindowOpen), false);
-        g_signal_connect(secondWindowOpen, "destroy", G_CALLBACK(onDestroySecondWindow), NULL);
-
-        /* Type choice */
-        typeList = gtk_builder_get_object(builder, "modifTypeDropDown");
-        gtk_drop_down_set_selected(GTK_DROP_DOWN(typeList), selectedLink->type);
-        g_signal_connect(GTK_WIDGET(typeList), "notify", G_CALLBACK(onModifyLinkType), typeList);
-
-        /* Window closing */
-        closeWindowBtn = gtk_builder_get_object(builder, "closeModifLinkWindowBtn");
-        g_signal_connect_swapped(closeWindowBtn, "clicked", G_CALLBACK(gtk_window_close), secondWindowOpen);
-
-        gtk_widget_show(GTK_WIDGET (secondWindowOpen));
-        g_object_unref(builder);
-        changeInfoLabel("");
     }
 }
 
@@ -613,11 +639,11 @@ void refreshSelectedCardLabel() {
 }
 
 void refreshSelectedLinkLabel() {
-    char text[30];
+    char text[32];
     if(selectedLink == NULL) {
         sprintf(text, "Aucun lien sélectionné");
     } else {
-        sprintf(text, "Lien sélectionné : %d -> %d", selectedLink->parent->id, selectedLink->child->id);
+        sprintf(text, "Lien sélectionné : %d → %d", selectedLink->parent->id, selectedLink->child->id);
     }
     gtk_label_set_label(GTK_LABEL(selectedLinkLabel), text);
     changeInfoLabel("");

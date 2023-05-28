@@ -8,10 +8,6 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
 
-# VIEW EXECUTABLE (broken)
-
-# add_executable(UnlockView View/viewApplication.c View/viewApplication.h View/mainView.c View/GraphHandler.c View/GraphHandler.h)
-
 # CONTROLLER EXECUTABLE
 
 add_executable(UnlockControl
@@ -29,7 +25,7 @@ add_executable(UnlockControl
 
 # MAIN EXECUTABLE
 
-# a decommenter pour utiliser gtk
+# à dé-commenter pour utiliser gtk et gvc
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
@@ -45,14 +41,6 @@ add_executable(UnlockMaker
         Model/Edge.h Model/Edge.c
         Model/EdgeList.h Model/EdgeList.c
         Model/Link.h Model/Link.c)
-
-#target_link_libraries(UnlockView ${GLIB_LIBRARIES})
-#target_link_libraries(UnlockView ${GTK4_LIBRARIES})
-#target_include_directories(UnlockView PUBLIC ${GTK4_INCLUDE_DIRS})
-#target_compile_options(UnlockView PUBLIC ${GTK4_CFLAGS_OTHER})
-#target_link_libraries(UnlockView ${LIBGVC_LIBRARIES})
-#target_include_directories(UnlockView PUBLIC ${LIBGVC_INCLUDE_DIRS})
-#target_compile_options(UnlockView PUBLIC ${LIBGVC_CFLAGS_OTHER})
 
 target_link_libraries(UnlockControl ${GLIB_LIBRARIES})
 target_link_libraries(UnlockControl ${GTK4_LIBRARIES})

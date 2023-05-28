@@ -248,7 +248,7 @@ int removeCardGraphData(const char* id) {
 }
 
 int addLinkGraphData(char* idParent, char* idChild, int type) {
-    char linkType[4][7] = {"black ","orchid","cyan3 ","orange"};
+    char linkType[4][7] = {"black ","orchid","orange","cyan3 "};
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r+");
     if(fp == NULL) {
@@ -263,7 +263,7 @@ int addLinkGraphData(char* idParent, char* idChild, int type) {
 }
 
 int modifyLinkTypeGraphData(const char* idParent, const char* idChild, int newType) {
-    char linkType[4][7] = {"black ","orchid","cyan3 ","orange"};
+    char linkType[4][7] = {"black ","orchid","orange","cyan3 "};
     FILE* fp = NULL;
     fp = fopen(graphDataPath, "r+");
     if(fp == NULL) {

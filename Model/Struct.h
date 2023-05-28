@@ -28,7 +28,7 @@ typedef enum {GREY, BLUE, RED, GREEN} cardType;
  *  SEARCH :
  *  HINT :
  */
-typedef enum {DEFAULT, COMBINE, FIXED, HINT} linkType;
+typedef enum {DEFAULT, COMBINE, HINT, FIXED} linkType;
 
 typedef struct Card Card;
 typedef struct Link Link;
