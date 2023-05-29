@@ -17,65 +17,68 @@
  */
 
 
-int checkLoops(Project* p) {
+int checkLoops(Project* p)  {
 
-    // Initialisation de la liste de vertex pour suivre les cartes visitées
-    VertexList visitedCards;
-    initEmptyVertexList(&visitedCards);
+        // Initialisation de la liste de vertex pour suivre les cartes visitées
+        VertexList visitedCards;
+        initEmptyVertexList(&visitedCards);
 
-    if (p != NULL) {
+        if (p != NULL) {
 
-        // Définition de la carte courante comme étant la racine du projet
-        Card* currentCard = p->root;
+            // Définition de la carte courante comme étant la racine du projet
+            Card* currentCard = p->root;
 
-        while (currentCard != NULL) {
-            // Vérification si la carte courante a déjà été visitée
-            if (findCard(&visitedCards, currentCard) != 0) {
-                // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
-                printf("Boucle détectée pour la carte %d\n", currentCard->id);
-                return 1;
-            }
-
-            // Ajout de la carte courante à la liste des cartes visitées
-            insertVertexLast(&visitedCards, currentCard);
-
-            // Parcours des liens sortants de la carte courante
-            setOnFirstEdge(&currentCard->children);
-            while (!isOutOfListEdge(&currentCard->children)) {
-                Card* linkedCard = currentCard->children.current->link->child;
-
-                // Vérification si la carte liée a déjà été visitée
-                if (findCard(&visitedCards, linkedCard) != 0) {
+            while (currentCard != NULL) {
+                // Vérification si la carte courante a déjà été visitée
+                if (findCard(&visitedCards, currentCard) != 0) {
                     // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
-                    printf("Boucle détectée pour la carte %d\n", linkedCard->id);
+                    printf("Boucle détectée pour la carte %d\n", currentCard->id);
                     return 1;
                 }
 
-                // Ajout de la carte liée à la liste des cartes visitées
-                insertVertexLast(&visitedCards, linkedCard);
+                // Ajout de la carte courante à la liste des cartes visitées
+                insertVertexLast(&visitedCards, currentCard);
 
-                // Passage au lien suivant
-                setOnNextEdge(&currentCard->children);
+                // Parcours des liens sortants de la carte courante
+                setOnFirstEdge(&currentCard->children);
+                while (!isOutOfListEdge(&currentCard->children)) {
+                    Card* linkedCard = currentCard->children.current->link->child;
+
+                    // Vérification si la carte liée a déjà été visitée
+                    if (findCard(&visitedCards, linkedCard) != 0) {
+                        // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
+                        printf("Boucle détectée pour la carte %d\n", linkedCard->id);
+                        return 1;
+                    }
+
+                    // Ajout de la carte liée à la liste des cartes visitées
+                    insertVertexLast(&visitedCards, linkedCard);
+
+                    // Passage au lien suivant
+                    setOnNextEdge(&currentCard->children);
+                }
+
+                // Passage à la carte suivante
+                if (isOutOfListVertex(&visitedCards)) {
+                    // Si toutes les cartes ont été visitées, sort de la boucle
+                    break;
+                }
+                setOnNextVertex(&visitedCards);
+                currentCard = (Card*)visitedCards.current->card;
             }
 
-            // Passage à la carte suivante
-            if (isOutOfListVertex(&visitedCards)) {
-                // Si toutes les cartes ont été visitées, sort de la boucle
-                break;
-            }
-            setOnNextVertex(&visitedCards);
-            currentCard = (Card*)visitedCards.current->card;
+            // Aucune boucle trouvée, retourne 0
+            printf("Aucune boucle détectée.\n");
+            return 0;
+
+        } else {
+            fprintf(stderr, "Erreur : mauvaise allocation du projet.\n");
+            return -1;
         }
-
-        // Aucune boucle trouvée, retourne 0
-        printf("Aucune boucle détectée.\n");
-        return 0;
-
-    } else {
-        fprintf(stderr, "Erreur : mauvaise allocation du projet.\n");
-        return -1;
     }
-}
+
+
+
 
 
 
@@ -96,7 +99,16 @@ void runCompatibility(Project* p){
  * @param p the project
  */
 /*
-void runDiscard(Project* p){
+void runDiscard(Project* p){int checkLoops(Project* p) {
+
+    // Initialisation de la liste de vertex pour suivre les cartes visitées
+    VertexList visitedCards;
+    initEmptyVertexList(&visitedCards);
+
+
+
+
+
 
 }
 */
