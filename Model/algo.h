@@ -15,6 +15,8 @@ void runDiscard(Project* p);
 
 void assignNumbers(Project* p);
 
+int iterateLoops(Card* targetCard, Card* currentCard);
+
 #endif //UNLOCKMAKER_ALGO_H
 
 
