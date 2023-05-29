@@ -17,71 +17,58 @@
  */
 
 
-int checkLoops(Project* p)  {
+int iterateLoops(Card* targetCard, Card* currentCard) {
+    // Vérification si la carte courante est la carte cible
 
-        // Initialisation de la liste de vertex pour suivre les cartes visitées
-        VertexList visitedCards;
-        initEmptyVertexList(&visitedCards);
-
-        if (p != NULL) {
-
-            // Définition de la carte courante comme étant la racine du projet
-            Card* currentCard = p->root;
-
-            while (currentCard != NULL) {
-                // Vérification si la carte courante a déjà été visitée
-                if (findCard(&visitedCards, currentCard) != 0) {
-                    // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
-                    printf("Boucle détectée pour la carte %d\n", currentCard->id);
-                    return 1;
-                }
-
-                // Ajout de la carte courante à la liste des cartes visitées
-                insertVertexLast(&visitedCards, currentCard);
-
-                // Parcours des liens sortants de la carte courante
-                setOnFirstEdge(&currentCard->children);
-                while (!isOutOfListEdge(&currentCard->children)) {
-                    Card* linkedCard = currentCard->children.current->link->child;
-
-                    // Vérification si la carte liée a déjà été visitée
-                    if (findCard(&visitedCards, linkedCard) != 0) {
-                        // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
-                        printf("Boucle détectée pour la carte %d\n", linkedCard->id);
-                        return 1;
-                    }
-
-                    // Ajout de la carte liée à la liste des cartes visitées
-                    insertVertexLast(&visitedCards, linkedCard);
-
-                    // Passage au lien suivant
-                    setOnNextEdge(&currentCard->children);
-                }
-
-                // Passage à la carte suivante
-                if (isOutOfListVertex(&visitedCards)) {
-                    // Si toutes les cartes ont été visitées, sort de la boucle
-                    break;
-                }
-                setOnNextVertex(&visitedCards);
-                currentCard = (Card*)visitedCards.current->card;
-            }
-
-            // Aucune boucle trouvée, retourne 0
-            printf("Aucune boucle détectée.\n");
-            return 0;
-
-        } else {
-            fprintf(stderr, "Erreur : mauvaise allocation du projet.\n");
-            return -1;
+    // Parcours des liens sortants de la carte courante
+    setOnFirstEdge(&currentCard->children);
+    while (!isOutOfListEdge(&currentCard->children)) {
+        Card* linkedCard = currentCard->children.current->link->child;
+        printf("Target : %d ; Pointed : %d\n", targetCard->id, linkedCard->id);
+        if (targetCard == linkedCard) {
+            return 1; // Boucle détectée
         }
+        // Appel récursif pour tester chaque carte enfant
+        if (iterateLoops(targetCard, linkedCard) != 0) {
+            return 1; // Boucle détectée dans la carte enfant
+        }
+
+        // Passage au lien suivant
+        setOnNextEdge(&currentCard->children);
     }
 
+    // Aucune boucle trouvée, retourne 0
+    return 0;
+}
 
+/**
+ * Run an algorithm to check that there is no loops in the graph structure of a project
+ * @param p the project to check
+ * @return 1 if there are loops, 0 if there aren't, -1 if there are errors
+ */
 
+int checkLoops(Project* p) {
 
+    if (p != NULL) {
 
+        Card* currentCard = NULL;
 
+        setOnFirstVertex(&p->cardList);
+        while(!isOutOfListVertex(&p->cardList)) {
+            currentCard = p->cardList.current->card;
+            printf("New Target : %d\n", currentCard->id);
+            if(iterateLoops(currentCard, currentCard) != 0) {
+                return 1;
+            }
+            setOnNextVertex(&p->cardList);
+        }
+        return 0;
+
+    } else {
+        fprintf(stderr, "Erreur : mauvaise allocation du projet.\n");
+        return -1;
+    }
+}
 
 
 
