@@ -8,6 +8,8 @@
 int setupInitProject(void** state);
 int teardownInitProject(void** state);
 
+void testSetRoot(void** state);
+
 void testAddEmptyCard(void** state);
 void testSetCardImage(void** state);
 void testDeleteCard(void** state);
@@ -19,5 +21,7 @@ void testDeleteLinkFromCards(void** state);
 void testSetBackImage(void** state);
 void testSetTopImage(void** state);
 void testSetBottomImage(void** state);
+
+void testSaveAndLoadProject(void** state);
 
 #endif //UNLOCKMAKER_PROJECTTESTSU_H

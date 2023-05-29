@@ -14,7 +14,7 @@
 
 #include "AlgoTestsU.h"
 
-const char* projectPath2 = "/home/miniya/Documents";
+char* projectPath2 = "/home/maxime/Documents";
 
 int setupInitProjectAlgo(void** state){
     Project* p = allocProject();
@@ -30,8 +30,8 @@ int setupInitProjectAlgo(void** state){
     Link* l1 = addLink(p, c0, c2, DEFAULT);
     Link* l2 = addLink(p, c2, c3, DEFAULT);
     Link* l3 = addLink(p, c2, c4, DEFAULT);
-    Link* l4 = addLink(p, c1, c5, DEFAULT);
-    Link* l5 = addLink(p, c3, c5, DEFAULT);
+    Link* l4 = addLink(p, c1, c5, COMBINE);
+    Link* l5 = addLink(p, c3, c5, COMBINE);
     if(p != NULL){
         *state = p;
         return 0;
@@ -69,6 +69,7 @@ int teardownInitProjectAlgo(void** state){
     Project* p = (Project*) (*state);
     deleteProject(p);
     free(p);
+    return 0;
 }
 
 void testCheckLoopsWithoutLoops(void** state){

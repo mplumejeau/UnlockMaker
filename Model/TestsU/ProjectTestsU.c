@@ -16,12 +16,13 @@
 
 #include "ProjectTestsU.h"
 
-const char* projectPath = "/home/miniya/Documents";
-const char* imagePath = "/home/miniya/Pictures/IronMan.jpg";
+char* projectPath = "/home/maxime/Documents";
+char* projectName = "unlockTestsU";
+char* imagePath = "/home/maxime/Pictures/IronMan.jpg";
 
 int setupInitProject(void** state){
     Project* p = allocProject();
-    initProject(p, projectPath, "unlockTestsU");
+    initProject(p, projectPath, projectName);
     Card* c0 = addEmptyCard(p);
     Card* c1 = addEmptyCard(p);
     Card* c2 = addEmptyCard(p);
@@ -39,6 +40,14 @@ int teardownInitProject(void** state){
     Project* p = (Project*) (*state);
     deleteProject(p);
     free(p);
+    return 0;
+}
+
+void testSetRoot(void** state){
+    Project* p = (Project*) (*state);
+    setOnFirstVertex(&p->cardList);
+    setRoot(p, p->cardList.current->card);
+    assert_int_equal(p->cardList.current->card->id, p->root->id);
 }
 
 void testAddEmptyCard(void** state){
@@ -112,4 +121,30 @@ void testSetBottomImage(void** state){
     Project* p = (Project*) (*state);
     setBottomImage(p, imagePath);
     assert_int_equal(1, p->bottomImage);
+}
+
+void testSaveAndLoadProject(void** state){
+    Project* p = (Project*) (*state);
+    int save = saveProject(p);
+    assert_int_equal(0,save);
+    Project* p2 = loadProject(projectPath,projectName);
+
+    setOnFirstVertex(&p->cardList);
+    setOnFirstVertex(&p2->cardList);
+    assert_int_equal(p->cardList.current->card->id, p2->cardList.current->card->id);
+    setOnNextVertex(&p->cardList);
+    setOnNextVertex(&p2->cardList);
+    assert_int_equal(p->cardList.current->card->id, p2->cardList.current->card->id);
+    setOnNextVertex(&p->cardList);
+    setOnNextVertex(&p2->cardList);
+    assert_int_equal(p->cardList.current->card->id, p2->cardList.current->card->id);
+
+    setOnFirstEdge(&p->linkList);
+    setOnFirstEdge(&p2->linkList);
+    assert_int_equal(p->linkList.current->link->id, p2->linkList.current->link->id);
+    setOnNextEdge(&p->linkList);
+    setOnNextEdge(&p2->linkList);
+    assert_int_equal(p->linkList.current->link->id, p2->linkList.current->link->id);
+
+    deleteProject(p2);
 }

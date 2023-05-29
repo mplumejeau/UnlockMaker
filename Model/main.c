@@ -15,6 +15,7 @@ int main()
     Project* p2 = NULL;
     Project* p3 = NULL;
 
+    Card* c0 = NULL;
     Card* c1 = NULL;
     Card* c2 = NULL;
     Card* c3 = NULL;
@@ -36,6 +37,7 @@ int main()
     Card* c19 = NULL;
     Card* c20 = NULL;
 
+    Link* l0 = NULL;
     Link* l1 = NULL;
     Link* l2 = NULL;
     Link* l3 = NULL;
@@ -59,39 +61,39 @@ int main()
     Link* l21 = NULL;
 
     /*
-    // demo 1 : creation, completion, creation of a pdf and save of a project
+    // demo 1 : creation, completion and save of a project
 
     p1 = allocProject();
-    initProject(p1, "/home/maxime/Documents", "unlock1");
+    initProject(p1, "/home/maxime/Documents", "unlock4");
 
     setBackImage(p1, "/home/maxime/Pictures/IronMan.jpg");
     setTopImage(p1, "/home/maxime/Pictures/IronMan.jpg");
     setBottomImage(p1, "/home/maxime/Pictures/IronMan.jpg");
 
+    c0 = addEmptyCard(p1);
     c1 = addEmptyCard(p1);
-    setCardImage(p1,c1, "/home/maxime/Pictures/IronMan.jpg");
-    //setCardImage(&p1,c1, "/home/maxime/Pictures/IronMan.jpg");
-
     c2 = addEmptyCard(p1);
     c3 = addEmptyCard(p1);
-
-    deleteCard(p1, c2);
-    c2 = NULL;
-
     c4 = addEmptyCard(p1);
     c5 = addEmptyCard(p1);
 
-    l1 = addLink(p1, c1, c3, DEFAULT);
-    l2 = addLink(p1, c1, c5, DEFAULT);
-    l3 = addLink(p1, c4, c5, COMBINE);
+    setRoot(p1,c0);
 
-    //l4 = addLink(p1, c5, c2, DEFAULT);
+    l0 = addLink(p1, c0, c1, DEFAULT);
+    l1 = addLink(p1, c0, c2, DEFAULT);
+    l2 = addLink(p1, c2, c3, DEFAULT);
+    l3 = addLink(p1, c2, c4, DEFAULT);
+    l4 = addLink(p1, c1, c5, COMBINE);
+    l5 = addLink(p1, c3, c5, COMBINE);
 
-    deleteLink(p1, l2);
+    setCardImage(p1,c0, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p1,c1, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p1,c3, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p1,c5, "/home/maxime/Pictures/IronMan.jpg");
 
-    deleteCard(p1, c3);
-
-    deleteLinkFromCards(p1,c4,c5);
+    setCardNumber(c1, 15);
+    setCardNumber(c2, 33);
+    setCardNumber(c4, 6);
 
     saveProject(p1);
 
@@ -143,8 +145,8 @@ int main()
     initProject(p3, "/home/maxime/Documents", "unlock3");
 
     setBackImage(p3, "/home/maxime/Pictures/DosCarte.jpg");
-    setTopImage(p3, "/home/maxime/Pictures/Banniere.jpg");
-    setBottomImage(p3, "/home/maxime/Pictures/TexteBasDePage.jpg");
+    setTopImage(p3, "/home/maxime/Pictures/BanniereChateau.jpg");
+    setBottomImage(p3, "/home/maxime/Pictures/Parchemin.jpg");
 
     c10 = addEmptyCard(p3);
     c11 = addEmptyCard(p3);
@@ -167,9 +169,9 @@ int main()
     setCardImage(p3,c16, "/home/maxime/Pictures/IronMan.jpg");
     setCardImage(p3,c17, "/home/maxime/Pictures/IronMan.jpg");
     setCardImage(p3,c16, "/home/maxime/Pictures/IronMan.jpg");
-    setCardImage(p3,c18, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c18, "/home/maxime/Pictures/Epee.jpg");
     setCardImage(p3,c19, "/home/maxime/Pictures/Chateau.jpg");
-    setCardImage(p3,c20, "/home/maxime/Pictures/IronMan.jpg");
+    setCardImage(p3,c20, "/home/maxime/Pictures/Foret.jpg");
 
     setCardNumber(c10, 34);
     setCardNumber(c11, 6);
@@ -185,7 +187,7 @@ int main()
 
     createPrintable(p3);
     saveProject(p3);
-     */
+    */
 
     /*
     // demo 4 : test de checkLoops et assignNumbers
