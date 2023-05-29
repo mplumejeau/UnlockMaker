@@ -20,52 +20,66 @@
 int checkLoops(Project* p) {
 
     // Initialisation de la liste de vertex pour suivre les cartes visitées
-        VertexList visitedCards;
-        initEmptyVertexList(&visitedCards);
+    VertexList visitedCards;
+    initEmptyVertexList(&visitedCards);
 
-        if (p != NULL) {
+    if (p != NULL) {
 
-            // Définition de la carte courante comme étant la racine du projet
-            Card* currentCard = p->root;
+        // Définition de la carte courante comme étant la racine du projet
+        Card* currentCard = p->root;
 
-            while (currentCard != NULL) {
-                // Vérification si la carte courante a déjà été visitée
-                if (findCard(&visitedCards, currentCard) != 0) {
+        while (currentCard != NULL) {
+            // Vérification si la carte courante a déjà été visitée
+            if (findCard(&visitedCards, currentCard) != 0) {
+                // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
+                printf("Boucle détectée pour la carte %d\n", currentCard->id);
+                return 1;
+            }
+
+            // Ajout de la carte courante à la liste des cartes visitées
+            insertVertexLast(&visitedCards, currentCard);
+
+            // Parcours des liens sortants de la carte courante
+            setOnFirstEdge(&currentCard->children);
+            while (!isOutOfListEdge(&currentCard->children)) {
+                Card* linkedCard = currentCard->children.current->link->child;
+
+                // Vérification si la carte liée a déjà été visitée
+                if (findCard(&visitedCards, linkedCard) != 0) {
                     // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
+                    printf("Boucle détectée pour la carte %d\n", linkedCard->id);
                     return 1;
                 }
 
-                // Ajout de la carte courante à la liste des cartes visitées
-                insertVertexLast(&visitedCards, currentCard);
+                // Ajout de la carte liée à la liste des cartes visitées
+                insertVertexLast(&visitedCards, linkedCard);
 
-                // Parcours des liens sortants de la carte courante
-                setOnFirstEdge(&currentCard->children);
-                while (!isOutOfListEdge(&currentCard->children)) {
-                    Card* linkedCard = currentCard->children.current->link->child;
-
-                    // Vérification si la carte liée a déjà été visitée
-                    if (findCard(&visitedCards, linkedCard) != 0) {
-                        // Si la carte a déjà été visitée, retourne 1 pour indiquer une boucle
-                        return 1;
-                    }
-
-                    // Passage au lien suivant
-                    setOnNextEdge(&currentCard->children);
-                }
-
-                // Passage à la carte suivante
-                setOnNextVertex(&visitedCards);
-                currentCard = (Card*)visitedCards.current->card;
+                // Passage au lien suivant
+                setOnNextEdge(&currentCard->children);
             }
 
-            // Aucune boucle trouvée, retourne 0
-            return 0;
-
-        } else {
-            fprintf(stderr, "Erreur : mauvaise allocation du projet.\n");
-            return -1;
+            // Passage à la carte suivante
+            if (isOutOfListVertex(&visitedCards)) {
+                // Si toutes les cartes ont été visitées, sort de la boucle
+                break;
+            }
+            setOnNextVertex(&visitedCards);
+            currentCard = (Card*)visitedCards.current->card;
         }
+
+        // Aucune boucle trouvée, retourne 0
+        printf("Aucune boucle détectée.\n");
+        return 0;
+
+    } else {
+        fprintf(stderr, "Erreur : mauvaise allocation du projet.\n");
+        return -1;
     }
+}
+
+
+
+
 
 
 /**
@@ -93,71 +107,62 @@ void runDiscard(Project* p){
  * @return 0 if it's a success, -1 if not
  */
 
-    int assignNumbers(Project* p) {
-        int assignedNumbers[MAXCARD] = {0}; // Tableau pour stocker les numéros déjà attribués
-        int assignedNumbersIndex = 0; // Indice du tableau assignedNumbers
+void assignNumbers(Project* p) {
+    int assignedNumbers[MAXCARD] = {0}; // Tableau pour stocker les numéros déjà attribués
+    int assignedNumbersIndex = 0; // Indice du tableau assignedNumbers
 
-        // Parcours des liens pour attribuer les numéros aux parents
-        setOnFirstEdge(&(p->linkList));
-        while (!isOutOfListEdge(&(p->linkList))) {
-            Link* currentLink = p->linkList.current->link;
-            if (currentLink->type == COMBINE) {
-                Card* childCard = currentLink->child;
+    // Parcours des liens pour attribuer les numéros aux parents
+    setOnFirstEdge(&(p->linkList));
+    while (!isOutOfListEdge(&(p->linkList))) {
+        Link* currentLink = p->linkList.current->link;
+        if (currentLink->type == COMBINE) {
+            Card* childCard = currentLink->child;
 
-                // Vérification des parents
-                setOnFirstEdge(&(childCard->parents));
-                while (!isOutOfListEdge(&(childCard->parents))) {
-                    Link* parentLink = childCard->parents.current->link;
-                    if (parentLink->type != COMBINE) {
-                        printf("Erreur : Les parents de la carte %d doivent être des liens de type COMBINE.\n", childCard->id);
-                        return -1;
-                    }
-
-                    // Vérification si le parent a déjà un numéro attribué
-                    if (parentLink->parent->number == -1) {
-                        printf("Erreur : La carte parente %d doit avoir un numéro attribué avant la carte %d.\n", parentLink->parent->id, childCard->id);
-                        return -1;
-                    }
-
-                    assignedNumbers[assignedNumbersIndex] = parentLink->parent->number;
-                    assignedNumbersIndex++;
-                    setOnNextEdge(&(childCard->parents));
+            // Vérification des parents
+            printf("Child Card ID: %d\n", childCard->id);
+            setOnFirstEdge(&(childCard->parents));
+            while (!isOutOfListEdge(&(childCard->parents))) {
+                Link* parentLink = childCard->parents.current->link;
+                printf("Parent Link ID: %d\n", parentLink->id);
+                if (parentLink->type != COMBINE) {
+                    printf("Erreur : Les parents de la carte %d doivent être des liens de type COMBINE.\n", childCard->id);
+                    return;
                 }
-
-                // Attribution du numéro au child
-                int sum = 0;
-                for (int i = 0; i < assignedNumbersIndex; i++) {
-                    sum += assignedNumbers[i];
-                }
-                childCard->number = sum;
-
-                // Réinitialisation des numéros attribués pour le prochain child
-                assignedNumbersIndex = 0;
-            }
-
-            setOnNextEdge(&(p->linkList));
-        }
-
-        // Parcours de la liste des cartes pour attribuer les numéros restants
-        setOnFirstVertex(&(p->cardList));
-        int currentNumber = 1;
-        while (!isOutOfListVertex(&(p->cardList))) {
-            Card* currentCard = p->cardList.current->card;
-            if (currentCard->number == -1) {
-                while (assignedNumbers[assignedNumbersIndex] != 0) {
-                    assignedNumbersIndex++;
-                }
-                currentCard->number = currentNumber + assignedNumbersIndex;
+                assignedNumbers[assignedNumbersIndex] = parentLink->parent->number;
                 assignedNumbersIndex++;
+                setOnNextEdge(&(childCard->parents));
             }
-            currentNumber++;
-            setOnNextVertex(&(p->cardList));
+
+            // Attribution du numéro au child
+            int sum = 0;
+            for (int i = 0; i < assignedNumbersIndex; i++) {
+                sum += assignedNumbers[i];
+            }
+            childCard->number = sum;
+
+            // Réinitialisation des numéros attribués pour le prochain child
+            assignedNumbersIndex = 0;
         }
 
-        // Renvoie le numéro de la carte en bas des liens
-        return p->root->number;
+        setOnNextEdge(&(p->linkList));
     }
 
+    // Parcours de la liste des cartes pour attribuer les numéros restants
+    setOnFirstVertex(&(p->cardList));
+    int currentNumber = 1;
+    while (!isOutOfListVertex(&(p->cardList))) {
+        Card* currentCard = p->cardList.current->card;
+        if (currentCard->number == -1) {
+            while (assignedNumbers[assignedNumbersIndex] != 0) {
+                assignedNumbersIndex++;
+            }
+            currentCard->number = currentNumber + assignedNumbersIndex;
+            assignedNumbersIndex++;
+        }
+        currentNumber++;
+        setOnNextVertex(&(p->cardList));
+    }
+}
 
 
 
