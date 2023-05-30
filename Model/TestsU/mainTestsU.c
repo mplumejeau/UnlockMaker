@@ -13,9 +13,8 @@
 #include "EdgeTestsU.h"
 #include "EdgeListTestsU.h"
 #include "LinkTestsU.h"
-
-#include "../Project.h"
-#include "../VertexList.h"
+#include "ProjectTestsU.h"
+#include "AlgoTestsU.h"
 
 //main
 
@@ -108,109 +107,37 @@ int main(void){
                     cmocka_unit_test_setup_teardown(testSetChild, setupAllocLink, teardownAllocLink)
             };
 
+    const struct CMUnitTest testsProject[] =
+            {
+                    cmocka_unit_test_setup_teardown(testSetRoot, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testAddEmptyCard, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSetCardImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testDeleteCard, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testAddLink, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testDeleteLink, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testDeleteLinkFromCards, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSetBackImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSetTopImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSetBottomImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSaveAndLoadProject, setupInitProject, teardownInitProject)
+            };
+
+    const struct CMUnitTest testsAlgo[] =
+            {
+                    cmocka_unit_test_setup_teardown(testCheckLoopsWithoutLoops, setupInitProjectAlgo, teardownInitProjectAlgo),
+                    cmocka_unit_test_setup_teardown(testCheckLoopsWithLoops, setupInitProjectAlgoWithLoops, teardownInitProjectAlgo),
+                    cmocka_unit_test_setup_teardown(testAssignNumbersWithEverythingOk, setupInitProjectAlgo, teardownInitProjectAlgo),
+            };
+
 
     cmocka_run_group_tests_name("Tests Vertex module", testsVertex, NULL, NULL);
     cmocka_run_group_tests_name("Tests VertexList module", testsVertexList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Edge module", testsEdge, NULL, NULL);
     cmocka_run_group_tests_name("Tests EdgeList module", testsEdgeList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Link module", testsLink, NULL, NULL);
+    cmocka_run_group_tests_name("Tests Project module", testsProject, NULL, NULL);
+    cmocka_run_group_tests_name("Tests Algo module", testsAlgo, NULL, NULL);
 
-
-    Project* p1 = NULL;
-    Project* p2 = NULL;
-
-    Card* c1 = NULL;
-    Card* c2 = NULL;
-    Card* c3 = NULL;
-    Card* c4 = NULL;
-    Card* c5 = NULL;
-    Card* c6 = NULL;
-    Card* c7 = NULL;
-    Card* c8 = NULL;
-    Card* c9 = NULL;
-
-    Link* l1 = NULL;
-    Link* l2 = NULL;
-    Link* l3 = NULL;
-    Link* l4 = NULL;
-    Link* l5 = NULL;
-    Link* l6 = NULL;
-
-    /*
-    // demo 1 : creation, completion and save of a project
-
-    p1 = allocProject();
-    initProject(p1, "/home/maxime/Documents", "unlock1");
-
-    setBackImage(p1, "/home/maxime/Pictures/IronMan.jpg");
-    setTopImage(p1, "/home/maxime/Pictures/IronMan.jpg");
-    setBottomImage(p1, "/home/maxime/Pictures/IronMan.jpg");
-
-    c1 = addEmptyCard(p1);
-    setCardImage(p1,c1, "/home/maxime/Pictures/IronMan.jpg");
-    //setCardImage(&p1,c1, "/home/maxime/Pictures/IronMan.jpg");
-
-    c2 = addEmptyCard(p1);
-    c3 = addEmptyCard(p1);
-
-    deleteCard(p1, c2);
-    c2 = NULL;
-
-    c4 = addEmptyCard(p1);
-    c5 = addEmptyCard(p1);
-
-    l1 = addLink(p1, c1, c3, DEFAULT);
-    l2 = addLink(p1, c1, c5, DEFAULT);
-    l3 = addLink(p1, c4, c5, COMBINE);
-
-    l4 = addLink(p1, c5, c2, DEFAULT);
-
-    deleteLink(p1, l2);
-
-    deleteCard(p1, c3);
-
-    saveProject(p1);
-
-    //deleteProject(&p1);
-    */
-
-    /*
-    // demo 2 : load a project from a path, modification and save it
-
-    p2 = loadProject("/home/maxime/Documents", "unlock2");
-
-    // attribute to c6 and c7 the card with id 2 and 3
-
-    setOnFirstVertex(&p2->cardList);
-    while(!isOutOfListVertex(&p2->cardList)){
-        if(p2->cardList.current->card->id == 2){
-            c6 = p2->cardList.current->card;
-        }
-        if(p2->cardList.current->card->id == 3){
-            c7 = p2->cardList.current->card;
-        }
-        setOnNextVertex(&p2->cardList);
-    }
-
-    c8 = addEmptyCard(p2);
-
-    l5 = addLink(p2, c6, c8, DEFAULT);
-    l6 = addLink(p2, c7, c8, COMBINE);
-
-    // attribute to c9 the card with id 4
-
-    setOnFirstVertex(&p2->cardList);
-    while(!isOutOfListVertex(&p2->cardList)){
-        if(p2->cardList.current->card->id == 4){
-            c9 = p2->cardList.current->card;
-        }
-        setOnNextVertex(&p2->cardList);
-    }
-
-    deleteCard(p2, c9);
-
-    saveProject(p2);
-    */
 
     return 0;
 }

@@ -25,11 +25,16 @@ add_executable(UnlockControl
 
 # MAIN EXECUTABLE
 
-# à dé-commenter pour utiliser gtk et gvc
+# packages
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
-pkg_check_modules(LIBGVC REQUIRED libgvc)
+#pkg_check_modules(LIBGVC REQUIRED libgvc)
+
+# for libharu library
+
+set(LIB_DIR ${CMAKE_SOURCE_DIR}/lib)
+include_directories(${LIB_DIR})
 
 add_executable(UnlockMaker
         Model/main.c Model/Struct.h
@@ -50,6 +55,18 @@ target_link_libraries(UnlockControl ${LIBGVC_LIBRARIES})
 target_include_directories(UnlockControl PUBLIC ${LIBGVC_INCLUDE_DIRS})
 target_compile_options(UnlockControl PUBLIC ${LIBGVC_CFLAGS_OTHER})
 
+target_link_libraries(UnlockMaker ${LIB_DIR}/libhpdfs.a)
+
+# liaison avec la bibliotheque zlib
+
+find_package(ZLIB REQUIRED)
+include_directories(${ZLIB_INCLUDE_DIRS})
+target_link_libraries(UnlockMaker ${ZLIB_LIBRARIES})
+
+# liaison avec la bibliotheque mathématique
+
+target_link_libraries(UnlockMaker m)
+
 # UNIT TESTS EXECUTABLE
 
 find_package(cmocka REQUIRED)
@@ -58,25 +75,29 @@ add_executable(UnlockMakerTestsU
         Model/TestsU/mainTestsU.c Model/Struct.h
         Model/Vertex.h Model/Vertex.c Model/TestsU/VertexTestsU.h Model/TestsU/VertexTestsU.c
         Model/VertexList.h Model/VertexList.c Model/TestsU/VertexListTestsU.h Model/TestsU/VertexListTestsU.c
-        Model/Card.h Model/Card.c
+        Model/Card.h Model/Card.c Model/TestsU/CardTestsU.h Model/TestsU/CardTestsU.c
         Model/Edge.h Model/Edge.c Model/TestsU/EdgeTestsU.h Model/TestsU/EdgeTestsU.c
         Model/EdgeList.h Model/EdgeList.c Model/TestsU/EdgeListTestsU.h Model/TestsU/EdgeListTestsU.c
         Model/Link.h Model/Link.c Model/TestsU/LinkTestsU.h Model/TestsU/LinkTestsU.c
-        Model/Project.h Model/Project.c
-        Model/algo.h Model/algo.c)
+        Model/Project.h Model/Project.c Model/TestsU/ProjectTestsU.h Model/TestsU/ProjectTestsU.c
+        Model/algo.h Model/algo.c Model/TestsU/AlgoTestsU.h Model/TestsU/AlgoTestsU.c)
 
 target_link_libraries(UnlockMakerTestsU cmocka)
 
-add_custom_target(coverage
-        COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E remove *
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E env CTEST_OUTPUT_ON_FAILURE=1 ${CMAKE_CTEST_COMMAND} -j4
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --directory . --capture --output-file coverage.info
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --remove coverage.info '/usr/*' "${PROJECT_SOURCE_DIR}/tests/*" --output-file coverage.info.cleaned
-        COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage genhtml --output-directory html coverage.info.cleaned
-        DEPENDS UnlockMakerTestsU)
+target_link_libraries(UnlockMakerTestsU ${LIB_DIR}/libhpdfs.a)
+target_link_libraries(UnlockMakerTestsU ${ZLIB_LIBRARIES})
+target_link_libraries(UnlockMakerTestsU m)
 
-add_dependencies(${PROJECT_NAME} coverage)
+#add_custom_target(coverage
+ #       COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage
+  #      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E remove *
+   #     COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E env CTEST_OUTPUT_ON_FAILURE=1 ${CMAKE_CTEST_COMMAND} -j4
+    #    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --directory . --capture --output-file coverage.info
+     #   COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --remove coverage.info '/usr/*' "${PROJECT_SOURCE_DIR}/tests/*" --output-file coverage.info.cleaned
+      #  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage genhtml --output-directory html coverage.info.cleaned
+       # DEPENDS UnlockMakerTestsU)
+
+#add_dependencies(${PROJECT_NAME} coverage)
 
 # Here are the commands to write in a terminal to create a .html file about the code coverage for the Model
 # You have to be in the unlock-maker directory
