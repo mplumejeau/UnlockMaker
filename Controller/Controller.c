@@ -28,7 +28,13 @@ bool unsavedChanges;
 /* Main */
 
 int main(int argc, char *argv[]) {
-#ifdef GTK_SRCDIR
+
+    Project *p = loadProject("/home/louenn/Desktop", "MasqueDeFer");
+    checkLoops(p);
+    assignNumbers(p);
+    createPrintable(p);
+
+    /*#ifdef GTK_SRCDIR
     g_chdir (GTK_SRCDIR);
 #endif
 
@@ -40,28 +46,43 @@ int main(int argc, char *argv[]) {
     status = g_application_run(G_APPLICATION (app), argc, argv);
     g_object_unref(app);
 
-    return status;
+    return status;*/
+    return 0;
 }
+
+
 
 /** * * Classic functions * * **/
 
 
-/*void onCheckLoop(Project *p) {
-    int result = checkLoops(p);
+void onCheckLoops() {
+    onSaveProject();
+    int result = checkLoops(curProject);
     if (result == 1) {
         printf("Loop detected in the project.\n");
-        // Perform actions to handle the presence of a loop
-        // ...
+        changeInfoLabel("Des boucles ont été détectées dans le projet. Vérifiez qu'aucun lien ne parte de bas en haut.");
+        disableExportButton();
     } else if (result == 0) {
         printf("No loops found in the project.\n");
-        // Perform actions when no loops are found
-        // ...
+        changeInfoLabel("Aucune boucle n'a été détectée, l'export est désormais possible.");
+        enableExportButton();
     } else {
         fprintf(stderr, "Error: Project allocation failed.\n");
-        // Perform error handling
-        // ...
     }
-} */
+}
+
+void onExport() {
+    if (assignNumbers(curProject) == 0) {
+        if (createPrintable(curProject) == 0) {
+            changeInfoLabel("L'export a été effectué avec succès");
+        } else {
+            changeInfoLabel("Une erreur est survenue lors de la création du pdf");
+        }
+        changeInfoLabel("Une erreur est survenue lors de l'export");
+    } else {
+        changeInfoLabel("Une erreur est survenue lors de l'assignation des numéros");
+    }
+}
 
 void unselectCard() {
     selectedCard = NULL;
@@ -243,23 +264,6 @@ void onConfirmOpenProject(GtkWidget *openProjectWindow) {
             if ((curProject = loadProject(g_file_get_path(g_file_get_parent(g_file_get_parent(file))),
                                           g_file_get_basename(g_file_get_parent(file)))) != NULL) {
 
-                /*int loopResult = checkLoops(curProject);
-                if (loopResult == 1) {
-                    // Loop detected in the project
-                    printf("Loop detected in the project.\n");
-                    // Perform actions to handle the presence of a loop
-                    // ...
-                } else if (loopResult == 0) {
-                    // No loops found in the project
-                    printf("No loops found in the project.\n");
-                    // Proceed with initializing and displaying the project
-                    gtk_window_close(GTK_WINDOW(openProjectWindow));
-                    // Rest of the code...
-                } else {
-                    fprintf(stderr, "Error: Project allocation failed.\n");
-                    // Perform error handling
-                    // ...
-                }*/
                 gtk_window_close(GTK_WINDOW(openProjectWindow));
                 // création des boutons des cartes et des liens existants + mise à jour du graph
                 initGraphFiles(curProject);
@@ -334,6 +338,7 @@ void onConfirmImportTopImage(GtkWidget *importImageWindow) {
     }
     changeInfoLabel("Une nouvelle image pour le haut des cartes a bien été importée.");
     unsavedChanges = true;
+    disableExportButton();
 }
 
 void onConfirmImportBottomImage(GtkWidget *importImageWindow) {
@@ -350,6 +355,7 @@ void onConfirmImportBottomImage(GtkWidget *importImageWindow) {
     }
     changeInfoLabel("Une nouvelle image pour le haut des cartes a bien été importée.");
     unsavedChanges = true;
+    disableExportButton();
 }
 
 void onConfirmImportBackImage(GtkWidget *importImageWindow) {
@@ -366,6 +372,7 @@ void onConfirmImportBackImage(GtkWidget *importImageWindow) {
     }
     changeInfoLabel("Une nouvelle image pour le haut des cartes a bien été importée.");
     unsavedChanges = true;
+    disableExportButton();
 }
 
 /* Card managing callbacks */
@@ -386,6 +393,7 @@ void onAddCard() {
         sprintf(message, "La carte n°%d a été ajoutée avec succès.", c->id);
         changeInfoLabel(message);
         unsavedChanges = true;
+        disableExportButton();
     } else {
         if(curProject->nbCards == MAXCARD) {
             changeInfoLabel("Impossible d'ajouter une nouvelle carte, le nombre maximum de cartes a été atteint.");
@@ -429,6 +437,7 @@ void onModifyCardType(GtkWidget *dropDown) {
         gtk_widget_set_name(selectedCardBtn, cardNames[newType]);
         changeInfoLabel("Le type de la carte sélectionnée a été modifié");
         unsavedChanges = true;
+        disableExportButton();
     }
 }
 
@@ -442,6 +451,7 @@ void onToggleFixedNumberCheck(GtkWidget *checkButton, GtkWidget *entry) {
     }
     gtk_widget_set_can_target(GTK_WIDGET(entry), active);
     unsavedChanges = true;
+    disableExportButton();
 }
 
 void onEnterCardFixedNumber(GtkWidget *entry, GtkWidget *checkButton) {
@@ -466,6 +476,7 @@ void onToggleSetCardAsRoot(GtkWidget *checkButton) {
     refreshGraphPNG();
     changeInfoLabel("La carte sélectionnée est maintenant la racine du projet");
     unsavedChanges = true;
+    disableExportButton();
 }
 
 void onConfirmImportCardImage(GtkWidget *importImageWindow) {
@@ -482,6 +493,7 @@ void onConfirmImportCardImage(GtkWidget *importImageWindow) {
     }
     changeInfoLabel("Une nouvelle image pour la carte sélectionnée a bien été importée.");
     unsavedChanges = true;
+    disableExportButton();
 }
 
 void onToggleAddParent(GtkWidget *parentCheckBtn, Card *parentCard) {
@@ -494,6 +506,7 @@ void onToggleAddParent(GtkWidget *parentCheckBtn, Card *parentCard) {
     refreshGraphPNG();
     refreshLinkBoxLabel();
     unsavedChanges = true;
+    disableExportButton();
 }
 
 void onToggleAddChild(GtkWidget *childCheckBtn, Card *childCard) {
@@ -506,6 +519,7 @@ void onToggleAddChild(GtkWidget *childCheckBtn, Card *childCard) {
     refreshGraphPNG();
     refreshLinkBoxLabel();
     unsavedChanges = true;
+    disableExportButton();
 }
 
 void onPressDeleteCard() {
@@ -545,6 +559,7 @@ void onPressDeleteCard() {
         sprintf(message, "La carte n°%s et ses liens ont été supprimés avec succès.", cardId);
         changeInfoLabel(message);
         unsavedChanges = true;
+        disableExportButton();
     }
 }
 
@@ -584,6 +599,7 @@ void onModifyLinkType(GtkWidget *dropDown) {
         refreshGraphPNG();
         changeInfoLabel("Le type du lien sélectionné a été modifié");
         unsavedChanges = true;
+        disableExportButton();
     }
 }
 
@@ -605,6 +621,7 @@ void onPressDeleteLink() {
         sprintf(message, "Le lien %s → %s a été supprimé avec succès.", parentId, childId);
         changeInfoLabel(message);
         unsavedChanges = true;
+        disableExportButton();
     }
 }
 

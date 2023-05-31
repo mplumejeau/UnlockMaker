@@ -51,25 +51,24 @@ int checkLoops(Project* p) {
 
     if (p != NULL) {
 
-        Card* currentCard = NULL;
+        Card *currentCard = NULL;
 
         setOnFirstVertex(&p->cardList);
-        while(!isOutOfListVertex(&p->cardList)) {
+        while (!isOutOfListVertex(&p->cardList)) {
             currentCard = p->cardList.current->card;
             printf("New Target : %d\n", currentCard->id);
-            if(iterateLoops(currentCard, currentCard) != 0) {
+            if (iterateLoops(currentCard, currentCard) != 0) {
                 return 1;
             }
             setOnNextVertex(&p->cardList);
         }
         return 0;
-/*
+
     } else {
         fprintf(stderr, "Erreur : mauvaise allocation du projet.\n");
         return -1;
-    }*/
+    }
 }
-
 
 
 /**
@@ -91,12 +90,6 @@ void runDiscard(Project* p){int checkLoops(Project* p) {
     // Initialisation de la liste de vertex pour suivre les cartes visitées
     VertexList visitedCards;
     initEmptyVertexList(&visitedCards);
-
-
-
-
-
-
 }
 */
 /**
@@ -106,7 +99,7 @@ void runDiscard(Project* p){int checkLoops(Project* p) {
  * @return 0 if it's a success, -1 if not
  */
 
-void assignNumbers(Project* p) {
+int assignNumbers(Project* p) {
     int assignedNumbers[MAXCARD] = {0}; // Tableau pour stocker les numéros déjà attribués
     int assignedNumbersIndex = 0; // Indice du tableau assignedNumbers
 
@@ -123,12 +116,10 @@ void assignNumbers(Project* p) {
             while (!isOutOfListEdge(&(childCard->parents))) {
                 Link* parentLink = childCard->parents.current->link;
                 printf("Parent Link ID: %d\n", parentLink->id);
-                if (parentLink->type != COMBINE) {
-                    printf("Erreur : Les parents de la carte %d doivent être des liens de type COMBINE.\n", childCard->id);
-                    return;
+                if (parentLink->type == COMBINE) {
+                    assignedNumbers[assignedNumbersIndex] = parentLink->parent->number;
+                    assignedNumbersIndex++;
                 }
-                assignedNumbers[assignedNumbersIndex] = parentLink->parent->number;
-                assignedNumbersIndex++;
                 setOnNextEdge(&(childCard->parents));
             }
 
@@ -161,6 +152,7 @@ void assignNumbers(Project* p) {
         currentNumber++;
         setOnNextVertex(&(p->cardList));
     }
+    return 0;
 }
 
 

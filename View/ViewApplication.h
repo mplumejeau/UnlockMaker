@@ -195,6 +195,12 @@ void disableRightCardButtons();
 void disableRightLinkButtons();
 
 /**
+ * Disables the export button to disallow interactions by the user. This function is called
+ * when a modification is done, so that the graph is not verified anymore
+ */
+void disableExportButton();
+
+/**
  * Enables the card modification and suppression buttons to allow interactions
  * by the user. This function is called when the selected card is set to a non-NULL value
  */
@@ -205,5 +211,11 @@ void enableRightCardButtons();
  * by the user. This function is called when the selected link is set to a non-NULL value
  */
 void enableRightLinkButtons();
+
+/**
+ * Enables the export button to allow interactions by the user. This function is called
+ * when the graph is verified to be correct
+ */
+void enableExportButton();
 
 #endif //UNLOCKMAKER_VIEWAPPLICATION_H

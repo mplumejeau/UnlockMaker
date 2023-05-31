@@ -1,0 +1,87 @@
+\hypertarget{VertexTestsU_8c}{}\doxysection{Model/\+Tests\+U/\+Vertex\+TestsU.c File Reference}
+\label{VertexTestsU_8c}\index{Model/TestsU/VertexTestsU.c@{Model/TestsU/VertexTestsU.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$setjmp.\+h$>$}\newline
+{\ttfamily \#include $<$cmocka.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Vertex.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Card.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Vertex\+Tests\+U.\+h\char`\"{}}\newline
+Include dependency graph for Vertex\+Tests\+U.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{VertexTestsU_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{VertexTestsU_8c_a5977a2623995cbb55e12382764050321}{setup\+Non\+Alloc\+Vertex}} (void $\ast$$\ast$state)
+\item 
+int \mbox{\hyperlink{VertexTestsU_8c_ad100b636097f4730b72464bdf98b53af}{setup\+Non\+Init\+Vertex}} (void $\ast$$\ast$state)
+\item 
+int \mbox{\hyperlink{VertexTestsU_8c_abd03eaa3eb147ebdc4022f3ece7abd5f}{setup\+Init\+Vertex}} (void $\ast$$\ast$state)
+\item 
+int \mbox{\hyperlink{VertexTestsU_8c_a759e717dd71d3fcabc3ea43760901797}{teardown\+Non\+Init\+Vertex}} (void $\ast$$\ast$state)
+\item 
+int \mbox{\hyperlink{VertexTestsU_8c_a717db6a94fff9214dbc907e58fad9b05}{teardown\+Init\+Vertex}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{VertexTestsU_8c_a8c32411ef1cd6787298e4d9add11404e}{test\+Init\+Vertex}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{VertexTestsU_8c_a3b0abdb0288353a0975a66e3b22cd9ff}{test\+Get\+Vertex\+Card}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{VertexTestsU_8c_a5667b7c404b0b89ec7ad73b200eb62bb}{test\+Get\+Vertex\+Card\+Bad\+Alloc}} (void $\ast$$\ast$state)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{VertexTestsU_8c_abd03eaa3eb147ebdc4022f3ece7abd5f}\label{VertexTestsU_8c_abd03eaa3eb147ebdc4022f3ece7abd5f}} 
+\index{VertexTestsU.c@{VertexTestsU.c}!setupInitVertex@{setupInitVertex}}
+\index{setupInitVertex@{setupInitVertex}!VertexTestsU.c@{VertexTestsU.c}}
+\doxysubsubsection{\texorpdfstring{setupInitVertex()}{setupInitVertex()}}
+{\footnotesize\ttfamily int setup\+Init\+Vertex (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{VertexTestsU_8c_a5977a2623995cbb55e12382764050321}\label{VertexTestsU_8c_a5977a2623995cbb55e12382764050321}} 
+\index{VertexTestsU.c@{VertexTestsU.c}!setupNonAllocVertex@{setupNonAllocVertex}}
+\index{setupNonAllocVertex@{setupNonAllocVertex}!VertexTestsU.c@{VertexTestsU.c}}
+\doxysubsubsection{\texorpdfstring{setupNonAllocVertex()}{setupNonAllocVertex()}}
+{\footnotesize\ttfamily int setup\+Non\+Alloc\+Vertex (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{VertexTestsU_8c_ad100b636097f4730b72464bdf98b53af}\label{VertexTestsU_8c_ad100b636097f4730b72464bdf98b53af}} 
+\index{VertexTestsU.c@{VertexTestsU.c}!setupNonInitVertex@{setupNonInitVertex}}
+\index{setupNonInitVertex@{setupNonInitVertex}!VertexTestsU.c@{VertexTestsU.c}}
+\doxysubsubsection{\texorpdfstring{setupNonInitVertex()}{setupNonInitVertex()}}
+{\footnotesize\ttfamily int setup\+Non\+Init\+Vertex (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{VertexTestsU_8c_a717db6a94fff9214dbc907e58fad9b05}\label{VertexTestsU_8c_a717db6a94fff9214dbc907e58fad9b05}} 
+\index{VertexTestsU.c@{VertexTestsU.c}!teardownInitVertex@{teardownInitVertex}}
+\index{teardownInitVertex@{teardownInitVertex}!VertexTestsU.c@{VertexTestsU.c}}
+\doxysubsubsection{\texorpdfstring{teardownInitVertex()}{teardownInitVertex()}}
+{\footnotesize\ttfamily int teardown\+Init\+Vertex (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{VertexTestsU_8c_a759e717dd71d3fcabc3ea43760901797}\label{VertexTestsU_8c_a759e717dd71d3fcabc3ea43760901797}} 
+\index{VertexTestsU.c@{VertexTestsU.c}!teardownNonInitVertex@{teardownNonInitVertex}}
+\index{teardownNonInitVertex@{teardownNonInitVertex}!VertexTestsU.c@{VertexTestsU.c}}
+\doxysubsubsection{\texorpdfstring{teardownNonInitVertex()}{teardownNonInitVertex()}}
+{\footnotesize\ttfamily int teardown\+Non\+Init\+Vertex (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{VertexTestsU_8c_a3b0abdb0288353a0975a66e3b22cd9ff}\label{VertexTestsU_8c_a3b0abdb0288353a0975a66e3b22cd9ff}} 
+\index{VertexTestsU.c@{VertexTestsU.c}!testGetVertexCard@{testGetVertexCard}}
+\index{testGetVertexCard@{testGetVertexCard}!VertexTestsU.c@{VertexTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testGetVertexCard()}{testGetVertexCard()}}
+{\footnotesize\ttfamily void test\+Get\+Vertex\+Card (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{VertexTestsU_8c_a5667b7c404b0b89ec7ad73b200eb62bb}\label{VertexTestsU_8c_a5667b7c404b0b89ec7ad73b200eb62bb}} 
+\index{VertexTestsU.c@{VertexTestsU.c}!testGetVertexCardBadAlloc@{testGetVertexCardBadAlloc}}
+\index{testGetVertexCardBadAlloc@{testGetVertexCardBadAlloc}!VertexTestsU.c@{VertexTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testGetVertexCardBadAlloc()}{testGetVertexCardBadAlloc()}}
+{\footnotesize\ttfamily void test\+Get\+Vertex\+Card\+Bad\+Alloc (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{VertexTestsU_8c_a8c32411ef1cd6787298e4d9add11404e}\label{VertexTestsU_8c_a8c32411ef1cd6787298e4d9add11404e}} 
+\index{VertexTestsU.c@{VertexTestsU.c}!testInitVertex@{testInitVertex}}
+\index{testInitVertex@{testInitVertex}!VertexTestsU.c@{VertexTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testInitVertex()}{testInitVertex()}}
+{\footnotesize\ttfamily void test\+Init\+Vertex (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+

@@ -1,0 +1,245 @@
+\hypertarget{GraphHandler_8c}{}\doxysection{View/\+Graph\+Handler.c File Reference}
+\label{GraphHandler_8c}\index{View/GraphHandler.c@{View/GraphHandler.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$graphviz/gvc.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Graph\+Handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}View\+Application.\+h\char`\"{}}\newline
+Include dependency graph for Graph\+Handler.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GraphHandler_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{GraphHandler_8c_aabb1eba2ec2ddad009d8c4a2019ce6f2}{init\+Graph\+Files}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_a55cf3eef46d0af9212711b001c426f42}{delete\+Graph\+Files}} ()
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_a215ef561953e7953d164044700555d73}{export\+Graph\+PNGFrom\+File}} (char $\ast$data\+Input, char $\ast$PNGOutput)
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_afb9885148f542353c969f07aee2c1bc4}{refresh\+Graph\+PNG}} ()
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_a5d4582b3385f0bde30a3dfafffe0d161}{add\+Card\+Graph\+Data}} (const char $\ast$id, int type)
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_a598cd496e65d05036dd1267433a4970d}{modify\+Card\+Type\+Graph\+Data}} (const char $\ast$id, int new\+Type)
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_a26df256edf9856f1e56565ed8ec1deff}{set\+Card\+As\+Root\+Graph\+Data}} (const char $\ast$id)
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_ae8373de85611ddb50358f8904ec89157}{remove\+Cards\+As\+Root\+Graph\+Data}} ()
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_a4491c083d6b7e0c9e02c17215b720ff4}{remove\+Card\+Graph\+Data}} (const char $\ast$id)
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_a0e15d1aa217ded8ad90eb46465af1abc}{add\+Link\+Graph\+Data}} (char $\ast$id\+Parent, char $\ast$id\+Child, int type)
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_aa9cb219cb028b7bc6ac174faabe5d546}{modify\+Link\+Type\+Graph\+Data}} (const char $\ast$id\+Parent, const char $\ast$id\+Child, int new\+Type)
+\item 
+int \mbox{\hyperlink{GraphHandler_8c_a48c3803e87b7fc316b135328dacbf1ea}{remove\+Link\+Graph\+Data}} (const char $\ast$id\+Parent, const char $\ast$id\+Child)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{GraphHandler_8c_a4622577a4f572f064e2835406708e979}{graph\+Dir\+Path}} \mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+6\mbox{]} = \char`\"{}\char`\"{}
+\item 
+char \mbox{\hyperlink{GraphHandler_8c_a3575fd4b705f485fb871b26c93c3e423}{graph\+Data\+Path}} \mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+20\mbox{]} = \char`\"{}\char`\"{}
+\item 
+char \mbox{\hyperlink{GraphHandler_8c_a9191c05e064c3b5fbc409ba1600653f1}{graph\+PNGPath}} \mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+16\mbox{]} = \char`\"{}\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{GraphHandler_8c_a5d4582b3385f0bde30a3dfafffe0d161}\label{GraphHandler_8c_a5d4582b3385f0bde30a3dfafffe0d161}} 
+\index{GraphHandler.c@{GraphHandler.c}!addCardGraphData@{addCardGraphData}}
+\index{addCardGraphData@{addCardGraphData}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{addCardGraphData()}{addCardGraphData()}}
+{\footnotesize\ttfamily int add\+Card\+Graph\+Data (\begin{DoxyParamCaption}\item[{const char $\ast$}]{id,  }\item[{int}]{type }\end{DoxyParamCaption})}
+
+Adds a card in the data file, with the given id and type (color).~\newline
+The format is the following \+: node\mbox{[}fillcolor=\{color\}\mbox{]};\{id\}; 
+\begin{DoxyParams}{Parameters}
+{\em id} & the id of the new card \\
+\hline
+{\em type} & the type (color) of the new card \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_a0e15d1aa217ded8ad90eb46465af1abc}\label{GraphHandler_8c_a0e15d1aa217ded8ad90eb46465af1abc}} 
+\index{GraphHandler.c@{GraphHandler.c}!addLinkGraphData@{addLinkGraphData}}
+\index{addLinkGraphData@{addLinkGraphData}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{addLinkGraphData()}{addLinkGraphData()}}
+{\footnotesize\ttfamily int add\+Link\+Graph\+Data (\begin{DoxyParamCaption}\item[{char $\ast$}]{id\+Parent,  }\item[{char $\ast$}]{id\+Child,  }\item[{int}]{type }\end{DoxyParamCaption})}
+
+Adds a link in the data file, with the given parent, child, and type.~\newline
+The format is the following \+: edge\mbox{[}color=\{color\}\mbox{]};\{parent\+Id\}-\/$>$\{child\+Id\}; 
+\begin{DoxyParams}{Parameters}
+{\em id\+Parent} & the id of the parent of the link \\
+\hline
+{\em id\+Child} & the id of the child of the link \\
+\hline
+{\em type} & the type of the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_a55cf3eef46d0af9212711b001c426f42}\label{GraphHandler_8c_a55cf3eef46d0af9212711b001c426f42}} 
+\index{GraphHandler.c@{GraphHandler.c}!deleteGraphFiles@{deleteGraphFiles}}
+\index{deleteGraphFiles@{deleteGraphFiles}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{deleteGraphFiles()}{deleteGraphFiles()}}
+{\footnotesize\ttfamily int delete\+Graph\+Files (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This function must be called BEFORE the destruction of the project files.~\newline
+~\newline
+It deletes the .txt and .png graph files, then the Graph directory from the \mbox{\hyperlink{structProject}{Project}}\textquotesingle{}s directory. \begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_a215ef561953e7953d164044700555d73}\label{GraphHandler_8c_a215ef561953e7953d164044700555d73}} 
+\index{GraphHandler.c@{GraphHandler.c}!exportGraphPNGFromFile@{exportGraphPNGFromFile}}
+\index{exportGraphPNGFromFile@{exportGraphPNGFromFile}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{exportGraphPNGFromFile()}{exportGraphPNGFromFile()}}
+{\footnotesize\ttfamily int export\+Graph\+PNGFrom\+File (\begin{DoxyParamCaption}\item[{char $\ast$}]{data\+Input,  }\item[{char $\ast$}]{PNGOutput }\end{DoxyParamCaption})}
+
+Takes a text data file in the graphviz format and exports it in a png format 
+\begin{DoxyParams}{Parameters}
+{\em data\+Input} & The input file containing the text graph data \\
+\hline
+{\em PNG0utput} & The output file containing the PNG graph image \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_aabb1eba2ec2ddad009d8c4a2019ce6f2}\label{GraphHandler_8c_aabb1eba2ec2ddad009d8c4a2019ce6f2}} 
+\index{GraphHandler.c@{GraphHandler.c}!initGraphFiles@{initGraphFiles}}
+\index{initGraphFiles@{initGraphFiles}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{initGraphFiles()}{initGraphFiles()}}
+{\footnotesize\ttfamily void init\+Graph\+Files (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+This function must be called AFTER the creation of the project files.~\newline
+~\newline
+It initializes the paths variables and the graph files \+: a Graph directory in the \mbox{\hyperlink{structProject}{Project}}\textquotesingle{}s directory, the .txt data file and the corresponding .png image inside. \mbox{\Hypertarget{GraphHandler_8c_a598cd496e65d05036dd1267433a4970d}\label{GraphHandler_8c_a598cd496e65d05036dd1267433a4970d}} 
+\index{GraphHandler.c@{GraphHandler.c}!modifyCardTypeGraphData@{modifyCardTypeGraphData}}
+\index{modifyCardTypeGraphData@{modifyCardTypeGraphData}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{modifyCardTypeGraphData()}{modifyCardTypeGraphData()}}
+{\footnotesize\ttfamily int modify\+Card\+Type\+Graph\+Data (\begin{DoxyParamCaption}\item[{const char $\ast$}]{id,  }\item[{int}]{new\+Type }\end{DoxyParamCaption})}
+
+Modifies the card with the corresponding id in the data file, giving it a new type (color) 
+\begin{DoxyParams}{Parameters}
+{\em id} & the id of the card to modify \\
+\hline
+{\em new\+Type} & the type (color) of the card after the modification \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_aa9cb219cb028b7bc6ac174faabe5d546}\label{GraphHandler_8c_aa9cb219cb028b7bc6ac174faabe5d546}} 
+\index{GraphHandler.c@{GraphHandler.c}!modifyLinkTypeGraphData@{modifyLinkTypeGraphData}}
+\index{modifyLinkTypeGraphData@{modifyLinkTypeGraphData}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{modifyLinkTypeGraphData()}{modifyLinkTypeGraphData()}}
+{\footnotesize\ttfamily int modify\+Link\+Type\+Graph\+Data (\begin{DoxyParamCaption}\item[{const char $\ast$}]{id\+Parent,  }\item[{const char $\ast$}]{id\+Child,  }\item[{int}]{new\+Type }\end{DoxyParamCaption})}
+
+Modifies the link with the corresponding parent and child in the data file, giving it a new type 
+\begin{DoxyParams}{Parameters}
+{\em id\+Parent} & the id of the parent of the link \\
+\hline
+{\em id\+Child} & the id of the child of the link \\
+\hline
+{\em new\+Type} & the new type of the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_afb9885148f542353c969f07aee2c1bc4}\label{GraphHandler_8c_afb9885148f542353c969f07aee2c1bc4}} 
+\index{GraphHandler.c@{GraphHandler.c}!refreshGraphPNG@{refreshGraphPNG}}
+\index{refreshGraphPNG@{refreshGraphPNG}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{refreshGraphPNG()}{refreshGraphPNG()}}
+{\footnotesize\ttfamily int refresh\+Graph\+PNG (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Calls the PNG export function then reloads the center image on the view \begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_a4491c083d6b7e0c9e02c17215b720ff4}\label{GraphHandler_8c_a4491c083d6b7e0c9e02c17215b720ff4}} 
+\index{GraphHandler.c@{GraphHandler.c}!removeCardGraphData@{removeCardGraphData}}
+\index{removeCardGraphData@{removeCardGraphData}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{removeCardGraphData()}{removeCardGraphData()}}
+{\footnotesize\ttfamily int remove\+Card\+Graph\+Data (\begin{DoxyParamCaption}\item[{const char $\ast$}]{id }\end{DoxyParamCaption})}
+
+Removes the card with the corresponding id from the data file 
+\begin{DoxyParams}{Parameters}
+{\em id} & the id of the card to remove \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_ae8373de85611ddb50358f8904ec89157}\label{GraphHandler_8c_ae8373de85611ddb50358f8904ec89157}} 
+\index{GraphHandler.c@{GraphHandler.c}!removeCardsAsRootGraphData@{removeCardsAsRootGraphData}}
+\index{removeCardsAsRootGraphData@{removeCardsAsRootGraphData}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{removeCardsAsRootGraphData()}{removeCardsAsRootGraphData()}}
+{\footnotesize\ttfamily int remove\+Cards\+As\+Root\+Graph\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Removes all lines setting cards as roots in the data file \begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_a48c3803e87b7fc316b135328dacbf1ea}\label{GraphHandler_8c_a48c3803e87b7fc316b135328dacbf1ea}} 
+\index{GraphHandler.c@{GraphHandler.c}!removeLinkGraphData@{removeLinkGraphData}}
+\index{removeLinkGraphData@{removeLinkGraphData}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{removeLinkGraphData()}{removeLinkGraphData()}}
+{\footnotesize\ttfamily int remove\+Link\+Graph\+Data (\begin{DoxyParamCaption}\item[{const char $\ast$}]{id\+Parent,  }\item[{const char $\ast$}]{id\+Child }\end{DoxyParamCaption})}
+
+Removes the link with the corresponding parent and child from the data file 
+\begin{DoxyParams}{Parameters}
+{\em id\+Parent} & the parent of the link to remove \\
+\hline
+{\em id\+Child} & the child of the link to remove \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{GraphHandler_8c_a26df256edf9856f1e56565ed8ec1deff}\label{GraphHandler_8c_a26df256edf9856f1e56565ed8ec1deff}} 
+\index{GraphHandler.c@{GraphHandler.c}!setCardAsRootGraphData@{setCardAsRootGraphData}}
+\index{setCardAsRootGraphData@{setCardAsRootGraphData}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{setCardAsRootGraphData()}{setCardAsRootGraphData()}}
+{\footnotesize\ttfamily int set\+Card\+As\+Root\+Graph\+Data (\begin{DoxyParamCaption}\item[{const char $\ast$}]{id }\end{DoxyParamCaption})}
+
+Set the card with the corresponding id as root in the data file, changing its shape, and removing all others roots.~\newline
+A new line is therefore added, or modified if it existed, and its format is the following \+: \{id\}\mbox{[}shape=Msquare\mbox{]}; 
+\begin{DoxyParams}{Parameters}
+{\em id} & the id of the card to set as root \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{GraphHandler_8c_a3575fd4b705f485fb871b26c93c3e423}\label{GraphHandler_8c_a3575fd4b705f485fb871b26c93c3e423}} 
+\index{GraphHandler.c@{GraphHandler.c}!graphDataPath@{graphDataPath}}
+\index{graphDataPath@{graphDataPath}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{graphDataPath}{graphDataPath}}
+{\footnotesize\ttfamily char graph\+Data\+Path\mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+20\mbox{]} = \char`\"{}\char`\"{}}
+
+\mbox{\Hypertarget{GraphHandler_8c_a4622577a4f572f064e2835406708e979}\label{GraphHandler_8c_a4622577a4f572f064e2835406708e979}} 
+\index{GraphHandler.c@{GraphHandler.c}!graphDirPath@{graphDirPath}}
+\index{graphDirPath@{graphDirPath}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{graphDirPath}{graphDirPath}}
+{\footnotesize\ttfamily char graph\+Dir\+Path\mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+6\mbox{]} = \char`\"{}\char`\"{}}
+
+\mbox{\Hypertarget{GraphHandler_8c_a9191c05e064c3b5fbc409ba1600653f1}\label{GraphHandler_8c_a9191c05e064c3b5fbc409ba1600653f1}} 
+\index{GraphHandler.c@{GraphHandler.c}!graphPNGPath@{graphPNGPath}}
+\index{graphPNGPath@{graphPNGPath}!GraphHandler.c@{GraphHandler.c}}
+\doxysubsubsection{\texorpdfstring{graphPNGPath}{graphPNGPath}}
+{\footnotesize\ttfamily char graph\+PNGPath\mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+16\mbox{]} = \char`\"{}\char`\"{}}
+

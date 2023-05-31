@@ -1,0 +1,222 @@
+\hypertarget{VertexList_8c}{}\doxysection{Model/\+Vertex\+List.c File Reference}
+\label{VertexList_8c}\index{Model/VertexList.c@{Model/VertexList.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Vertex\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Vertex.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Card.\+h\char`\"{}}\newline
+Include dependency graph for Vertex\+List.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{VertexList_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{VertexList_8c_ae24ac50843baa0a57d6c270ed358fff3}{init\+Empty\+Vertex\+List}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+int \mbox{\hyperlink{VertexList_8c_a557d6fa1f6baaa11d6ab197abd83a4a7}{is\+Vertex\+List\+Empty}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+int \mbox{\hyperlink{VertexList_8c_a06f873b51bf40f10919768bbd2434f7e}{is\+First\+Vertex}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+int \mbox{\hyperlink{VertexList_8c_ad24ad3c3b5a199d27c50eadea0281f7d}{is\+Last\+Vertex}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+int \mbox{\hyperlink{VertexList_8c_a2db708400bd31fa958e8342f73d03022}{is\+Out\+Of\+List\+Vertex}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+void \mbox{\hyperlink{VertexList_8c_a6735f36534a4b3f7097ace327154685d}{set\+On\+First\+Vertex}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+void \mbox{\hyperlink{VertexList_8c_af4786cb0a615f11544792e4163a88cd0}{set\+On\+Last\+Vertex}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+void \mbox{\hyperlink{VertexList_8c_a9e73f86390e21594a9aa8433485aea3f}{set\+On\+Next\+Vertex}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+void \mbox{\hyperlink{VertexList_8c_a10ea2344b0d63f227ff206382a208424}{set\+On\+Previous\+Vertex}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+int \mbox{\hyperlink{VertexList_8c_a3a81e6e0da89c02be275300d92540a15}{count\+Vertex\+Elements}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl)
+\item 
+int \mbox{\hyperlink{VertexList_8c_a7874a7fecccc2f1fbd787c1b4318f6e8}{insert\+Vertex\+Last}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl, \mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+int \mbox{\hyperlink{VertexList_8c_abf0669f29d604abe605615f1db9ebc7e}{find\+Card}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl, \mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+int \mbox{\hyperlink{VertexList_8c_a87941d5ba94bb89f83c5e21804551575}{delete\+Vertex}} (\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$vl, \mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{VertexList_8c_a3a81e6e0da89c02be275300d92540a15}\label{VertexList_8c_a3a81e6e0da89c02be275300d92540a15}} 
+\index{VertexList.c@{VertexList.c}!countVertexElements@{countVertexElements}}
+\index{countVertexElements@{countVertexElements}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{countVertexElements()}{countVertexElements()}}
+{\footnotesize\ttfamily int count\+Vertex\+Elements (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+print the content of a list of cards 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards return the number of element of a list of cards \\
+\hline
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of element of a list of cards 
+\end{DoxyReturn}
+\mbox{\Hypertarget{VertexList_8c_a87941d5ba94bb89f83c5e21804551575}\label{VertexList_8c_a87941d5ba94bb89f83c5e21804551575}} 
+\index{VertexList.c@{VertexList.c}!deleteVertex@{deleteVertex}}
+\index{deleteVertex@{deleteVertex}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{deleteVertex()}{deleteVertex()}}
+{\footnotesize\ttfamily int delete\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+delete a vertex pointing a given card from a list of cards if it exists and free the vertex deleted memory 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+{\em c} & the card to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{VertexList_8c_abf0669f29d604abe605615f1db9ebc7e}\label{VertexList_8c_abf0669f29d604abe605615f1db9ebc7e}} 
+\index{VertexList.c@{VertexList.c}!findCard@{findCard}}
+\index{findCard@{findCard}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{findCard()}{findCard()}}
+{\footnotesize\ttfamily int find\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+seek a given card in a list of cards 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+{\em c} & the card to seek \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the card is in the list, 0 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{VertexList_8c_ae24ac50843baa0a57d6c270ed358fff3}\label{VertexList_8c_ae24ac50843baa0a57d6c270ed358fff3}} 
+\index{VertexList.c@{VertexList.c}!initEmptyVertexList@{initEmptyVertexList}}
+\index{initEmptyVertexList@{initEmptyVertexList}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{initEmptyVertexList()}{initEmptyVertexList()}}
+{\footnotesize\ttfamily void init\+Empty\+Vertex\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+initialize an empty list of vertex and set the current pointer on sentinel\+First 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list to be initialized \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{VertexList_8c_a7874a7fecccc2f1fbd787c1b4318f6e8}\label{VertexList_8c_a7874a7fecccc2f1fbd787c1b4318f6e8}} 
+\index{VertexList.c@{VertexList.c}!insertVertexLast@{insertVertexLast}}
+\index{insertVertexLast@{insertVertexLast}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{insertVertexLast()}{insertVertexLast()}}
+{\footnotesize\ttfamily int insert\+Vertex\+Last (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+create a new vertex pointing a given card and insert it at the end of a list of cards 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+{\em c} & the card to add in the list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it is a success, -\/1 if it isn\textquotesingle{}t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{VertexList_8c_a06f873b51bf40f10919768bbd2434f7e}\label{VertexList_8c_a06f873b51bf40f10919768bbd2434f7e}} 
+\index{VertexList.c@{VertexList.c}!isFirstVertex@{isFirstVertex}}
+\index{isFirstVertex@{isFirstVertex}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{isFirstVertex()}{isFirstVertex()}}
+{\footnotesize\ttfamily int is\+First\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+return a boolean about the position of the current pointer in a list of cards 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the current pointer is on the first element of the list and 0 if it isn\textquotesingle{}t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{VertexList_8c_ad24ad3c3b5a199d27c50eadea0281f7d}\label{VertexList_8c_ad24ad3c3b5a199d27c50eadea0281f7d}} 
+\index{VertexList.c@{VertexList.c}!isLastVertex@{isLastVertex}}
+\index{isLastVertex@{isLastVertex}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{isLastVertex()}{isLastVertex()}}
+{\footnotesize\ttfamily int is\+Last\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+return a boolean about the position of the current pointer in a list of cards 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the current pointer is on the last element of the list and 0 if it isn\textquotesingle{}t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{VertexList_8c_a2db708400bd31fa958e8342f73d03022}\label{VertexList_8c_a2db708400bd31fa958e8342f73d03022}} 
+\index{VertexList.c@{VertexList.c}!isOutOfListVertex@{isOutOfListVertex}}
+\index{isOutOfListVertex@{isOutOfListVertex}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{isOutOfListVertex()}{isOutOfListVertex()}}
+{\footnotesize\ttfamily int is\+Out\+Of\+List\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+return a boolean about the position of the current pointer in a list of cards 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the current pointer is on one of both sentinels of the list and 0 if it isn\textquotesingle{}t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{VertexList_8c_a557d6fa1f6baaa11d6ab197abd83a4a7}\label{VertexList_8c_a557d6fa1f6baaa11d6ab197abd83a4a7}} 
+\index{VertexList.c@{VertexList.c}!isVertexListEmpty@{isVertexListEmpty}}
+\index{isVertexListEmpty@{isVertexListEmpty}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{isVertexListEmpty()}{isVertexListEmpty()}}
+{\footnotesize\ttfamily int is\+Vertex\+List\+Empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+return a boolean about the emptyness of a list of cards 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the list is empty and 0 if the list isn\textquotesingle{}t empty 
+\end{DoxyReturn}
+\mbox{\Hypertarget{VertexList_8c_a6735f36534a4b3f7097ace327154685d}\label{VertexList_8c_a6735f36534a4b3f7097ace327154685d}} 
+\index{VertexList.c@{VertexList.c}!setOnFirstVertex@{setOnFirstVertex}}
+\index{setOnFirstVertex@{setOnFirstVertex}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{setOnFirstVertex()}{setOnFirstVertex()}}
+{\footnotesize\ttfamily void set\+On\+First\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+set the current pointer of a list of cards on the first element of the list 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{VertexList_8c_af4786cb0a615f11544792e4163a88cd0}\label{VertexList_8c_af4786cb0a615f11544792e4163a88cd0}} 
+\index{VertexList.c@{VertexList.c}!setOnLastVertex@{setOnLastVertex}}
+\index{setOnLastVertex@{setOnLastVertex}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{setOnLastVertex()}{setOnLastVertex()}}
+{\footnotesize\ttfamily void set\+On\+Last\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+set the current pointer of a list of cards on the last element of the list 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{VertexList_8c_a9e73f86390e21594a9aa8433485aea3f}\label{VertexList_8c_a9e73f86390e21594a9aa8433485aea3f}} 
+\index{VertexList.c@{VertexList.c}!setOnNextVertex@{setOnNextVertex}}
+\index{setOnNextVertex@{setOnNextVertex}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{setOnNextVertex()}{setOnNextVertex()}}
+{\footnotesize\ttfamily void set\+On\+Next\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+set the current pointer of a list of cards on the next element of the list 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{VertexList_8c_a10ea2344b0d63f227ff206382a208424}\label{VertexList_8c_a10ea2344b0d63f227ff206382a208424}} 
+\index{VertexList.c@{VertexList.c}!setOnPreviousVertex@{setOnPreviousVertex}}
+\index{setOnPreviousVertex@{setOnPreviousVertex}!VertexList.c@{VertexList.c}}
+\doxysubsubsection{\texorpdfstring{setOnPreviousVertex()}{setOnPreviousVertex()}}
+{\footnotesize\ttfamily void set\+On\+Previous\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertexList}{Vertex\+List}} $\ast$}]{vl }\end{DoxyParamCaption})}
+
+set the current pointer of a list of cards on the previous element of the list 
+\begin{DoxyParams}{Parameters}
+{\em vl} & the list of cards \\
+\hline
+\end{DoxyParams}

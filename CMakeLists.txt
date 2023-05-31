@@ -29,7 +29,7 @@ add_executable(UnlockControl
 
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTK4 REQUIRED gtk4)
-#pkg_check_modules(LIBGVC REQUIRED libgvc)
+pkg_check_modules(LIBGVC REQUIRED libgvc)
 
 # for libharu library
 
@@ -56,16 +56,19 @@ target_include_directories(UnlockControl PUBLIC ${LIBGVC_INCLUDE_DIRS})
 target_compile_options(UnlockControl PUBLIC ${LIBGVC_CFLAGS_OTHER})
 
 target_link_libraries(UnlockMaker ${LIB_DIR}/libhpdfs.a)
+target_link_libraries(UnlockControl ${LIB_DIR}/libhpdfs.a)
 
 # liaison avec la bibliotheque zlib
 
 find_package(ZLIB REQUIRED)
 include_directories(${ZLIB_INCLUDE_DIRS})
 target_link_libraries(UnlockMaker ${ZLIB_LIBRARIES})
+target_link_libraries(UnlockControl ${ZLIB_LIBRARIES})
 
 # liaison avec la bibliotheque mathématique
 
 target_link_libraries(UnlockMaker m)
+target_link_libraries(UnlockControl m)
 
 # UNIT TESTS EXECUTABLE
 

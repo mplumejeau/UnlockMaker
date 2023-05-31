@@ -1,0 +1,508 @@
+\hypertarget{Controller_8c}{}\doxysection{Controller/\+Controller.c File Reference}
+\label{Controller_8c}\index{Controller/Controller.c@{Controller/Controller.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+View/\+View\+Application.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+View/\+Graph\+Handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Model/\+Vertex\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Model/\+Edge\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Model/\+Card.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Model/\+Link.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Model/algo.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Controller.\+h\char`\"{}}\newline
+Include dependency graph for Controller.\+c\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Controller_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{Controller_8c_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\item 
+void \mbox{\hyperlink{Controller_8c_a17aa9aa8fb919d309e862f45665ed2fe}{on\+Check\+Loops}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_a4d90d7466ce106a5b1ba25709270616b}{on\+Export}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_a5170eb8a72b4edefc9f79304b0b86cac}{unselect\+Card}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_a279347e556cdfc0a89f5792f84675b5c}{unselect\+Link}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_a975a9539bb9b0ecc254369effc56d5d6}{set\+Card\+Fix\+Number}} (int n)
+\item 
+void \mbox{\hyperlink{Controller_8c_a6d57eec316dcda2e5774f3354875fc24}{retrieve\+Parents\+Children}} (Gtk\+Box $\ast$parents\+Box, Gtk\+Box $\ast$children\+Box)
+\item 
+void \mbox{\hyperlink{Controller_8c_a9274ba52a9382070bd2db71c38097510}{add\+Link\+From\+Toggle}} (\mbox{\hyperlink{structCard}{Card}} $\ast$parent, \mbox{\hyperlink{structCard}{Card}} $\ast$child)
+\item 
+void \mbox{\hyperlink{Controller_8c_a9b93bf6a9b463b457162de5c58942b24}{delete\+Link\+From\+Toggle}} (\mbox{\hyperlink{structCard}{Card}} $\ast$parent, \mbox{\hyperlink{structCard}{Card}} $\ast$child)
+\item 
+void \mbox{\hyperlink{Controller_8c_aa784d5f6adc9668595201949d1d90d94}{on\+Confirm\+New\+Project}} (Gtk\+Widget $\ast$new\+Project\+Window)
+\item 
+void \mbox{\hyperlink{Controller_8c_a13a8d2833e0765a8c796cea7e3d22d9b}{on\+Confirm\+Open\+Project}} (Gtk\+Widget $\ast$open\+Project\+Window)
+\item 
+void \mbox{\hyperlink{Controller_8c_a171fb2b3ddcb84dafab53543f774776e}{on\+Save\+Project}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_ad123bba889c10bec13dfec02935e886f}{on\+Close\+No\+Save}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_ac4dde9cd3e9cef76689a027504c62b64}{on\+Confirm\+Import\+Top\+Image}} (Gtk\+Widget $\ast$import\+Image\+Window)
+\item 
+void \mbox{\hyperlink{Controller_8c_a9b3afe9cd4c76c35a52619ea4b5312e3}{on\+Confirm\+Import\+Bottom\+Image}} (Gtk\+Widget $\ast$import\+Image\+Window)
+\item 
+void \mbox{\hyperlink{Controller_8c_a8c26829757ef4ec01054d908a61da3c9}{on\+Confirm\+Import\+Back\+Image}} (Gtk\+Widget $\ast$import\+Image\+Window)
+\item 
+void \mbox{\hyperlink{Controller_8c_a539661dd78d032fc5c2a4bf724b68d74}{on\+Add\+Card}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_a90e8c99bca3fa74c2a1d294137c8122a}{on\+Select\+Card}} (Gtk\+Widget $\ast$card\+Btn, \mbox{\hyperlink{structCard}{Card}} $\ast$card)
+\item 
+void \mbox{\hyperlink{Controller_8c_a77f3281f67a964b806e3f854625579d1}{on\+Modify\+Card\+Type}} (Gtk\+Widget $\ast$drop\+Down)
+\item 
+void \mbox{\hyperlink{Controller_8c_a744048e708f898e8e78dfee7f8848f23}{on\+Toggle\+Fixed\+Number\+Check}} (Gtk\+Widget $\ast$check\+Button, Gtk\+Widget $\ast$entry)
+\item 
+void \mbox{\hyperlink{Controller_8c_a56690c5ffadb5497a17b332212f9d066}{on\+Enter\+Card\+Fixed\+Number}} (Gtk\+Widget $\ast$entry, Gtk\+Widget $\ast$check\+Button)
+\item 
+void \mbox{\hyperlink{Controller_8c_adc997085ef295fbae9217dda28d2a9e7}{on\+Toggle\+Set\+Card\+As\+Root}} (Gtk\+Widget $\ast$check\+Button)
+\item 
+void \mbox{\hyperlink{Controller_8c_a4a415356ba0e5e5f83b896c87200415b}{on\+Confirm\+Import\+Card\+Image}} (Gtk\+Widget $\ast$import\+Image\+Window)
+\item 
+void \mbox{\hyperlink{Controller_8c_aa90bb6867f9f6e17cb1fa1acdf7a152c}{on\+Toggle\+Add\+Parent}} (Gtk\+Widget $\ast$parent\+Check\+Btn, \mbox{\hyperlink{structCard}{Card}} $\ast$parent\+Card)
+\item 
+void \mbox{\hyperlink{Controller_8c_ad95a54d9c9ae520de6a57d68ae4d704e}{on\+Toggle\+Add\+Child}} (Gtk\+Widget $\ast$child\+Check\+Btn, \mbox{\hyperlink{structCard}{Card}} $\ast$child\+Card)
+\item 
+void \mbox{\hyperlink{Controller_8c_a116ebaae6ec2ca59064802d80031487e}{on\+Press\+Delete\+Card}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_a5c671a92e09e9bd59e7199294a6e0e8f}{on\+Select\+Link}} (Gtk\+Widget $\ast$link\+Btn, \mbox{\hyperlink{structLink}{Link}} $\ast$link)
+\item 
+void \mbox{\hyperlink{Controller_8c_a201e1efeaeea7d19cbed8d81b83c5174}{on\+Modify\+Link\+Type}} (Gtk\+Widget $\ast$drop\+Down)
+\item 
+void \mbox{\hyperlink{Controller_8c_ad0f31ad585924adca0e5ba6d0322b891}{on\+Press\+Delete\+Link}} ()
+\item 
+void \mbox{\hyperlink{Controller_8c_a3c283be85797d36e9854916d5fbd8c93}{on\+Change\+Image\+Zoom}} (Gtk\+Widget $\ast$zoom\+Btn, gpointer image)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structProject}{Project}} $\ast$ \mbox{\hyperlink{Controller_8c_ac399c321bf24020e2f033af16df215e2}{cur\+Project}} = NULL
+\item 
+\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{Controller_8c_a52299faeab3a1dd0cc832c74d0e11f72}{selected\+Card}} = NULL
+\item 
+\mbox{\hyperlink{structLink}{Link}} $\ast$ \mbox{\hyperlink{Controller_8c_acc815e556f5fbfb914d097bb75177bb6}{selected\+Link}} = NULL
+\item 
+Gtk\+Widget $\ast$ \mbox{\hyperlink{Controller_8c_a4c0fb90f3fbbc3f91779c3137519367a}{selected\+Card\+Btn}} = NULL
+\item 
+Gtk\+Widget $\ast$ \mbox{\hyperlink{Controller_8c_a9f0d4cbc6a5bd905c566e5132a6e440b}{selected\+Link\+Btn}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{Controller_8c_afb9b9781f2d2456a7a5ddd198b962130}{second\+Window\+Open}}
+\item 
+GObject $\ast$ \mbox{\hyperlink{Controller_8c_aef6cce0fba393cd1a9039817589cdc59}{card\+Box}}
+\item 
+GObject $\ast$ \mbox{\hyperlink{Controller_8c_afcaab67e001d3b46137b16de4d11636c}{link\+Box}}
+\item 
+bool \mbox{\hyperlink{Controller_8c_a572c1a1c006b22a99ea1ee2608e5bf5f}{unsaved\+Changes}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Controller_8c_a9274ba52a9382070bd2db71c38097510}\label{Controller_8c_a9274ba52a9382070bd2db71c38097510}} 
+\index{Controller.c@{Controller.c}!addLinkFromToggle@{addLinkFromToggle}}
+\index{addLinkFromToggle@{addLinkFromToggle}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{addLinkFromToggle()}{addLinkFromToggle()}}
+{\footnotesize\ttfamily void add\+Link\+From\+Toggle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{child }\end{DoxyParamCaption})}
+
+Adds a link in the project between a given parent and child 
+\begin{DoxyParams}{Parameters}
+{\em parent} & a pointer to the parent of the new link \\
+\hline
+{\em child} & a pointer to the child of the new link \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a9b93bf6a9b463b457162de5c58942b24}\label{Controller_8c_a9b93bf6a9b463b457162de5c58942b24}} 
+\index{Controller.c@{Controller.c}!deleteLinkFromToggle@{deleteLinkFromToggle}}
+\index{deleteLinkFromToggle@{deleteLinkFromToggle}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{deleteLinkFromToggle()}{deleteLinkFromToggle()}}
+{\footnotesize\ttfamily void delete\+Link\+From\+Toggle (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{child }\end{DoxyParamCaption})}
+
+Deletes a link in the project between a given parent and child 
+\begin{DoxyParams}{Parameters}
+{\em parent} & a pointer to the parent of the deleted link \\
+\hline
+{\em child} & a pointer to the child of the deleted link \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a0ddf1224851353fc92bfbff6f499fa97}\label{Controller_8c_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{Controller.c@{Controller.c}!main@{main}}
+\index{main@{main}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{Controller_8c_a539661dd78d032fc5c2a4bf724b68d74}\label{Controller_8c_a539661dd78d032fc5c2a4bf724b68d74}} 
+\index{Controller.c@{Controller.c}!onAddCard@{onAddCard}}
+\index{onAddCard@{onAddCard}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onAddCard()}{onAddCard()}}
+{\footnotesize\ttfamily void on\+Add\+Card (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This Callback is called when the Add-\/\+Card button is pressed~\newline
+~\newline
+It calls the functions to add the card in the project, in the graph, and in the view \mbox{\Hypertarget{Controller_8c_a3c283be85797d36e9854916d5fbd8c93}\label{Controller_8c_a3c283be85797d36e9854916d5fbd8c93}} 
+\index{Controller.c@{Controller.c}!onChangeImageZoom@{onChangeImageZoom}}
+\index{onChangeImageZoom@{onChangeImageZoom}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onChangeImageZoom()}{onChangeImageZoom()}}
+{\footnotesize\ttfamily void on\+Change\+Image\+Zoom (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{zoom\+Btn,  }\item[{gpointer}]{image }\end{DoxyParamCaption})}
+
+This Callback is called when the Zoom scale button has its cursor moved~\newline
+~\newline
+It changes the zoom of the center graph image in its window depending on the position of the cursor of the scale button 
+\begin{DoxyParams}{Parameters}
+{\em zoom\+Btn} & a pointer to the zoom scale button \\
+\hline
+{\em image} & a pointer to the graph image \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a17aa9aa8fb919d309e862f45665ed2fe}\label{Controller_8c_a17aa9aa8fb919d309e862f45665ed2fe}} 
+\index{Controller.c@{Controller.c}!onCheckLoops@{onCheckLoops}}
+\index{onCheckLoops@{onCheckLoops}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onCheckLoops()}{onCheckLoops()}}
+{\footnotesize\ttfamily void on\+Check\+Loops (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+\begin{DoxyItemize}
+\item $\ast$ Classic functions $\ast$ $\ast$ 
+\end{DoxyItemize}\mbox{\Hypertarget{Controller_8c_ad123bba889c10bec13dfec02935e886f}\label{Controller_8c_ad123bba889c10bec13dfec02935e886f}} 
+\index{Controller.c@{Controller.c}!onCloseNoSave@{onCloseNoSave}}
+\index{onCloseNoSave@{onCloseNoSave}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onCloseNoSave()}{onCloseNoSave()}}
+{\footnotesize\ttfamily void on\+Close\+No\+Save (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This Callback is called when the Close-\/\+Without-\/\+Save button of the closing window is pressed~\newline
+~\newline
+It deletes the project\textquotesingle{}s file if the project was never saved and stops the app \mbox{\Hypertarget{Controller_8c_a8c26829757ef4ec01054d908a61da3c9}\label{Controller_8c_a8c26829757ef4ec01054d908a61da3c9}} 
+\index{Controller.c@{Controller.c}!onConfirmImportBackImage@{onConfirmImportBackImage}}
+\index{onConfirmImportBackImage@{onConfirmImportBackImage}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onConfirmImportBackImage()}{onConfirmImportBackImage()}}
+{\footnotesize\ttfamily void on\+Confirm\+Import\+Back\+Image (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{import\+Image\+Window }\end{DoxyParamCaption})}
+
+This Callback is called when the Confirmation button of the Import-\/\+Back-\/\+Image window is pressed~\newline
+~\newline
+If a directory is selected, it opens it in the browser ; if a file is selected, it calls the set\+Back\+Image function to assign the selected image to the back of the cards in the current project, then closes the window 
+\begin{DoxyParams}{Parameters}
+{\em import\+Image\+Window} & a pointer to the Import-\/\+Back-\/\+Image window \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a9b3afe9cd4c76c35a52619ea4b5312e3}\label{Controller_8c_a9b3afe9cd4c76c35a52619ea4b5312e3}} 
+\index{Controller.c@{Controller.c}!onConfirmImportBottomImage@{onConfirmImportBottomImage}}
+\index{onConfirmImportBottomImage@{onConfirmImportBottomImage}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onConfirmImportBottomImage()}{onConfirmImportBottomImage()}}
+{\footnotesize\ttfamily void on\+Confirm\+Import\+Bottom\+Image (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{import\+Image\+Window }\end{DoxyParamCaption})}
+
+This Callback is called when the Confirmation button of the Import-\/\+Bottom-\/\+Image window is pressed~\newline
+~\newline
+If a directory is selected, it opens it in the browser ; if a file is selected, it calls the set\+Bottom\+Image function to assign the selected image to the bottom of the cards in the current project, then closes the window 
+\begin{DoxyParams}{Parameters}
+{\em import\+Image\+Window} & a pointer to the Import-\/\+Bottom-\/\+Image window \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a4a415356ba0e5e5f83b896c87200415b}\label{Controller_8c_a4a415356ba0e5e5f83b896c87200415b}} 
+\index{Controller.c@{Controller.c}!onConfirmImportCardImage@{onConfirmImportCardImage}}
+\index{onConfirmImportCardImage@{onConfirmImportCardImage}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onConfirmImportCardImage()}{onConfirmImportCardImage()}}
+{\footnotesize\ttfamily void on\+Confirm\+Import\+Card\+Image (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{import\+Image\+Window }\end{DoxyParamCaption})}
+
+This Callback is called when the Confirmation button of the Import-\/\+Card-\/\+Image window is pressed~\newline
+~\newline
+If a directory is selected, it opens it in the browser ; if a file is selected, it calls the set\+Card\+Image function to assign the selected image to the selected card in the current project, then closes the window 
+\begin{DoxyParams}{Parameters}
+{\em import\+Image\+Window} & a pointer to the Import-\/\+Card-\/\+Image window \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_ac4dde9cd3e9cef76689a027504c62b64}\label{Controller_8c_ac4dde9cd3e9cef76689a027504c62b64}} 
+\index{Controller.c@{Controller.c}!onConfirmImportTopImage@{onConfirmImportTopImage}}
+\index{onConfirmImportTopImage@{onConfirmImportTopImage}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onConfirmImportTopImage()}{onConfirmImportTopImage()}}
+{\footnotesize\ttfamily void on\+Confirm\+Import\+Top\+Image (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{import\+Image\+Window }\end{DoxyParamCaption})}
+
+This Callback is called when the Confirmation button of the Import-\/\+Top-\/\+Image window is pressed~\newline
+~\newline
+If a directory is selected, it opens it in the browser ; if a file is selected, it calls the set\+Top\+Image function to assign the selected image to the top of the cards in the current project, then closes the window 
+\begin{DoxyParams}{Parameters}
+{\em import\+Image\+Window} & a pointer to the Import-\/\+Top-\/\+Image window \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_aa784d5f6adc9668595201949d1d90d94}\label{Controller_8c_aa784d5f6adc9668595201949d1d90d94}} 
+\index{Controller.c@{Controller.c}!onConfirmNewProject@{onConfirmNewProject}}
+\index{onConfirmNewProject@{onConfirmNewProject}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onConfirmNewProject()}{onConfirmNewProject()}}
+{\footnotesize\ttfamily void on\+Confirm\+New\+Project (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{new\+Project\+Window }\end{DoxyParamCaption})}
+
+
+\begin{DoxyItemize}
+\item $\ast$ Callbacks $\ast$ $\ast$ 
+\end{DoxyItemize}\mbox{\Hypertarget{Controller_8c_a13a8d2833e0765a8c796cea7e3d22d9b}\label{Controller_8c_a13a8d2833e0765a8c796cea7e3d22d9b}} 
+\index{Controller.c@{Controller.c}!onConfirmOpenProject@{onConfirmOpenProject}}
+\index{onConfirmOpenProject@{onConfirmOpenProject}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onConfirmOpenProject()}{onConfirmOpenProject()}}
+{\footnotesize\ttfamily void on\+Confirm\+Open\+Project (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{open\+Project\+Window }\end{DoxyParamCaption})}
+
+This Callback is called when the Confirmation button of the open project window is pressed~\newline
+~\newline
+If a directory is selected, it opens it in the browser. If a file with the correct format is opened, it opens the chosen project and closes the starting windows to let place to the main window 
+\begin{DoxyParams}{Parameters}
+{\em open\+Project\+Window} & a pointer to the open project window to close it \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a56690c5ffadb5497a17b332212f9d066}\label{Controller_8c_a56690c5ffadb5497a17b332212f9d066}} 
+\index{Controller.c@{Controller.c}!onEnterCardFixedNumber@{onEnterCardFixedNumber}}
+\index{onEnterCardFixedNumber@{onEnterCardFixedNumber}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onEnterCardFixedNumber()}{onEnterCardFixedNumber()}}
+{\footnotesize\ttfamily void on\+Enter\+Card\+Fixed\+Number (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{entry,  }\item[{Gtk\+Widget $\ast$}]{check\+Button }\end{DoxyParamCaption})}
+
+This Callback is called when the Card-\/\+Fixed-\/\+Number entry in the card modification window is being interacted with~\newline
+~\newline
+If the fixed-\/number check\+Button is toggled ON, it calls the function set\+Card\+Fixed\+Number with the parameter equal to the number inside the entry 
+\begin{DoxyParams}{Parameters}
+{\em entry} & a pointer to the Fixed-\/\+Number entry \\
+\hline
+{\em check\+Button} & a pointer to the Fixed-\/\+Number check\+Button \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a4d90d7466ce106a5b1ba25709270616b}\label{Controller_8c_a4d90d7466ce106a5b1ba25709270616b}} 
+\index{Controller.c@{Controller.c}!onExport@{onExport}}
+\index{onExport@{onExport}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onExport()}{onExport()}}
+{\footnotesize\ttfamily void on\+Export (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This Callback is called when the Export button is pressed~\newline
+~\newline
+It calls the algorithm assign\+Numbers from the model and if it is successful, then calls create\+Printable who exports the project as a pdf file \mbox{\Hypertarget{Controller_8c_a77f3281f67a964b806e3f854625579d1}\label{Controller_8c_a77f3281f67a964b806e3f854625579d1}} 
+\index{Controller.c@{Controller.c}!onModifyCardType@{onModifyCardType}}
+\index{onModifyCardType@{onModifyCardType}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onModifyCardType()}{onModifyCardType()}}
+{\footnotesize\ttfamily void on\+Modify\+Card\+Type (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{drop\+Down }\end{DoxyParamCaption})}
+
+This Callback is called when the Color dropdown in the card modification window has its selected color changed~\newline
+~\newline
+It sets the selected card\textquotesingle{}s color to the new selected color in the dropdown 
+\begin{DoxyParams}{Parameters}
+{\em drop\+Down} & a pointer to the color modification dropdown \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a201e1efeaeea7d19cbed8d81b83c5174}\label{Controller_8c_a201e1efeaeea7d19cbed8d81b83c5174}} 
+\index{Controller.c@{Controller.c}!onModifyLinkType@{onModifyLinkType}}
+\index{onModifyLinkType@{onModifyLinkType}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onModifyLinkType()}{onModifyLinkType()}}
+{\footnotesize\ttfamily void on\+Modify\+Link\+Type (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{drop\+Down }\end{DoxyParamCaption})}
+
+This Callback is called when the Type dropdown in the link modification window has its selected type changed~\newline
+~\newline
+It sets the selected link\textquotesingle{}s type to the new selected type in the dropdown 
+\begin{DoxyParams}{Parameters}
+{\em drop\+Down} & a pointer to the type modification dropdown \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a116ebaae6ec2ca59064802d80031487e}\label{Controller_8c_a116ebaae6ec2ca59064802d80031487e}} 
+\index{Controller.c@{Controller.c}!onPressDeleteCard@{onPressDeleteCard}}
+\index{onPressDeleteCard@{onPressDeleteCard}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onPressDeleteCard()}{onPressDeleteCard()}}
+{\footnotesize\ttfamily void on\+Press\+Delete\+Card (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This Callback is called when the Delete-\/\+Card button is pressed~\newline
+~\newline
+It calls the functions to delete the card and all of its links in the project, in the graph, and in the view \mbox{\Hypertarget{Controller_8c_ad0f31ad585924adca0e5ba6d0322b891}\label{Controller_8c_ad0f31ad585924adca0e5ba6d0322b891}} 
+\index{Controller.c@{Controller.c}!onPressDeleteLink@{onPressDeleteLink}}
+\index{onPressDeleteLink@{onPressDeleteLink}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onPressDeleteLink()}{onPressDeleteLink()}}
+{\footnotesize\ttfamily void on\+Press\+Delete\+Link (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This Callback is called when the Delete-\/\+Link button is pressed~\newline
+~\newline
+It calls the functions to delete the link in the project, in the graph, and in the view \mbox{\Hypertarget{Controller_8c_a171fb2b3ddcb84dafab53543f774776e}\label{Controller_8c_a171fb2b3ddcb84dafab53543f774776e}} 
+\index{Controller.c@{Controller.c}!onSaveProject@{onSaveProject}}
+\index{onSaveProject@{onSaveProject}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onSaveProject()}{onSaveProject()}}
+{\footnotesize\ttfamily void on\+Save\+Project (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This Callback is called when a Save button is pressed~\newline
+~\newline
+It saves the informations of the project in a .txt file in a supported format \mbox{\Hypertarget{Controller_8c_a90e8c99bca3fa74c2a1d294137c8122a}\label{Controller_8c_a90e8c99bca3fa74c2a1d294137c8122a}} 
+\index{Controller.c@{Controller.c}!onSelectCard@{onSelectCard}}
+\index{onSelectCard@{onSelectCard}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onSelectCard()}{onSelectCard()}}
+{\footnotesize\ttfamily void on\+Select\+Card (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{card\+Btn,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{card }\end{DoxyParamCaption})}
+
+This Callback is called when a \mbox{\hyperlink{structCard}{Card}} button is pressed~\newline
+~\newline
+It sets the selected card to the card given in parameter and changes the appearance of the button pressed 
+\begin{DoxyParams}{Parameters}
+{\em card\+Btn} & a pointer to the new selected card\textquotesingle{}s button \\
+\hline
+{\em card} & a pointer to the new selected card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a5c671a92e09e9bd59e7199294a6e0e8f}\label{Controller_8c_a5c671a92e09e9bd59e7199294a6e0e8f}} 
+\index{Controller.c@{Controller.c}!onSelectLink@{onSelectLink}}
+\index{onSelectLink@{onSelectLink}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onSelectLink()}{onSelectLink()}}
+{\footnotesize\ttfamily void on\+Select\+Link (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{link\+Btn,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{link }\end{DoxyParamCaption})}
+
+This Callback is called when a \mbox{\hyperlink{structLink}{Link}} button is pressed~\newline
+~\newline
+It sets the selected link to the link given in parameter and changes the appearance of the button pressed 
+\begin{DoxyParams}{Parameters}
+{\em link\+Btn} & a pointer to the new selected link\textquotesingle{}s button \\
+\hline
+{\em link} & a pointer to the new selected link \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_ad95a54d9c9ae520de6a57d68ae4d704e}\label{Controller_8c_ad95a54d9c9ae520de6a57d68ae4d704e}} 
+\index{Controller.c@{Controller.c}!onToggleAddChild@{onToggleAddChild}}
+\index{onToggleAddChild@{onToggleAddChild}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onToggleAddChild()}{onToggleAddChild()}}
+{\footnotesize\ttfamily void on\+Toggle\+Add\+Child (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{child\+Check\+Btn,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{child\+Card }\end{DoxyParamCaption})}
+
+This Callback is called when a child check\+Button of the modification window is toggled~\newline
+~\newline
+If the box is toggled ON, it adds a link between the selected card and its child with the function add\+Link\+From\+Toggle ; if the box is toggled OFF, it deletes the link with the function delete\+Link\+From\+Toggle 
+\begin{DoxyParams}{Parameters}
+{\em child\+Check\+Btn} & a pointer to the card check\+Button toggled \\
+\hline
+{\em child\+Card} & a pointer to the card set or removed as child of the selected card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_aa90bb6867f9f6e17cb1fa1acdf7a152c}\label{Controller_8c_aa90bb6867f9f6e17cb1fa1acdf7a152c}} 
+\index{Controller.c@{Controller.c}!onToggleAddParent@{onToggleAddParent}}
+\index{onToggleAddParent@{onToggleAddParent}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onToggleAddParent()}{onToggleAddParent()}}
+{\footnotesize\ttfamily void on\+Toggle\+Add\+Parent (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{parent\+Check\+Btn,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{parent\+Card }\end{DoxyParamCaption})}
+
+This Callback is called when a parent check\+Button of the modification window is toggled~\newline
+~\newline
+If the box is toggled ON, it adds a link between the selected card and its parent with the function add\+Link\+From\+Toggle ; if the box is toggled OFF, it deletes the link with the function delete\+Link\+From\+Toggle 
+\begin{DoxyParams}{Parameters}
+{\em parent\+Check\+Btn} & a pointer to the parent check\+Button toggled \\
+\hline
+{\em parent\+Card} & a pointer to the card set or removed as parent of the selected card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a744048e708f898e8e78dfee7f8848f23}\label{Controller_8c_a744048e708f898e8e78dfee7f8848f23}} 
+\index{Controller.c@{Controller.c}!onToggleFixedNumberCheck@{onToggleFixedNumberCheck}}
+\index{onToggleFixedNumberCheck@{onToggleFixedNumberCheck}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onToggleFixedNumberCheck()}{onToggleFixedNumberCheck()}}
+{\footnotesize\ttfamily void on\+Toggle\+Fixed\+Number\+Check (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{check\+Button,  }\item[{Gtk\+Widget $\ast$}]{entry }\end{DoxyParamCaption})}
+
+This Callback is called when the Card-\/\+Fixed-\/\+Number check\+Button in the card modification window is toggled~\newline
+~\newline
+It calls the function set\+Card\+Fixed\+Number with the parameter -\/1 is the box is toggled OFF, or with the number in the number entry if it is toggled ON (0 if the entry is empty). It also disables the entry if the check\+Button is toggled OFF 
+\begin{DoxyParams}{Parameters}
+{\em check\+Button} & a pointer to the fixed-\/number check\+Button \\
+\hline
+{\em entry} & a pointer to the Fixed-\/\+Number entry \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_adc997085ef295fbae9217dda28d2a9e7}\label{Controller_8c_adc997085ef295fbae9217dda28d2a9e7}} 
+\index{Controller.c@{Controller.c}!onToggleSetCardAsRoot@{onToggleSetCardAsRoot}}
+\index{onToggleSetCardAsRoot@{onToggleSetCardAsRoot}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{onToggleSetCardAsRoot()}{onToggleSetCardAsRoot()}}
+{\footnotesize\ttfamily void on\+Toggle\+Set\+Card\+As\+Root (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{check\+Button }\end{DoxyParamCaption})}
+
+This Callback is called when the Set-\/\+As-\/\+Root check\+Button in the card modification window is toggled~\newline
+~\newline
+It sets the root attribute of the current project to the selected card if the box was toggled ON, or to NULL if the box was toggled OFF 
+\begin{DoxyParams}{Parameters}
+{\em check\+Button} & a pointer to the Set-\/\+As-\/\+Root check\+Button \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a6d57eec316dcda2e5774f3354875fc24}\label{Controller_8c_a6d57eec316dcda2e5774f3354875fc24}} 
+\index{Controller.c@{Controller.c}!retrieveParentsChildren@{retrieveParentsChildren}}
+\index{retrieveParentsChildren@{retrieveParentsChildren}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{retrieveParentsChildren()}{retrieveParentsChildren()}}
+{\footnotesize\ttfamily void retrieve\+Parents\+Children (\begin{DoxyParamCaption}\item[{Gtk\+Box $\ast$}]{parents\+Box,  }\item[{Gtk\+Box $\ast$}]{children\+Box }\end{DoxyParamCaption})}
+
+Retrieves all the existing cards of the current project (except the current card), adds them in both boxes of the modification window in the form of a label and a check\+Button and toggles ON all the cards that have a link with the selected card in the appropriate box 
+\begin{DoxyParams}{Parameters}
+{\em parents\+Box} & a pointer to the box containing all the parent links of the card \\
+\hline
+{\em children\+Box} & a pointer to the box containing all the child links of the card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a975a9539bb9b0ecc254369effc56d5d6}\label{Controller_8c_a975a9539bb9b0ecc254369effc56d5d6}} 
+\index{Controller.c@{Controller.c}!setCardFixNumber@{setCardFixNumber}}
+\index{setCardFixNumber@{setCardFixNumber}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{setCardFixNumber()}{setCardFixNumber()}}
+{\footnotesize\ttfamily void set\+Card\+Fix\+Number (\begin{DoxyParamCaption}\item[{int}]{n }\end{DoxyParamCaption})}
+
+Sets the card number to n if n is equal to 0 or above, or unfixes the card\textquotesingle{}s number if n is equal to -\/1 
+\begin{DoxyParams}{Parameters}
+{\em n} & the new number of the card, or -\/1 if the number must be unfixed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Controller_8c_a5170eb8a72b4edefc9f79304b0b86cac}\label{Controller_8c_a5170eb8a72b4edefc9f79304b0b86cac}} 
+\index{Controller.c@{Controller.c}!unselectCard@{unselectCard}}
+\index{unselectCard@{unselectCard}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{unselectCard()}{unselectCard()}}
+{\footnotesize\ttfamily void unselect\+Card (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Unselects the selected card, disabling the corresponding right buttons and displaying the information that no card is currently selected \mbox{\Hypertarget{Controller_8c_a279347e556cdfc0a89f5792f84675b5c}\label{Controller_8c_a279347e556cdfc0a89f5792f84675b5c}} 
+\index{Controller.c@{Controller.c}!unselectLink@{unselectLink}}
+\index{unselectLink@{unselectLink}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{unselectLink()}{unselectLink()}}
+{\footnotesize\ttfamily void unselect\+Link (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Unselects the selected link, disabling the corresponding right buttons and displaying the information that no link is currently selected 
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{Controller_8c_aef6cce0fba393cd1a9039817589cdc59}\label{Controller_8c_aef6cce0fba393cd1a9039817589cdc59}} 
+\index{Controller.c@{Controller.c}!cardBox@{cardBox}}
+\index{cardBox@{cardBox}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{cardBox}{cardBox}}
+{\footnotesize\ttfamily GObject$\ast$ card\+Box\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{Controller_8c_ac399c321bf24020e2f033af16df215e2}\label{Controller_8c_ac399c321bf24020e2f033af16df215e2}} 
+\index{Controller.c@{Controller.c}!curProject@{curProject}}
+\index{curProject@{curProject}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{curProject}{curProject}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structProject}{Project}}$\ast$ cur\+Project = NULL}
+
+\mbox{\Hypertarget{Controller_8c_afcaab67e001d3b46137b16de4d11636c}\label{Controller_8c_afcaab67e001d3b46137b16de4d11636c}} 
+\index{Controller.c@{Controller.c}!linkBox@{linkBox}}
+\index{linkBox@{linkBox}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{linkBox}{linkBox}}
+{\footnotesize\ttfamily GObject$\ast$ link\+Box\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{Controller_8c_afb9b9781f2d2456a7a5ddd198b962130}\label{Controller_8c_afb9b9781f2d2456a7a5ddd198b962130}} 
+\index{Controller.c@{Controller.c}!secondWindowOpen@{secondWindowOpen}}
+\index{secondWindowOpen@{secondWindowOpen}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{secondWindowOpen}{secondWindowOpen}}
+{\footnotesize\ttfamily GObject$\ast$ second\+Window\+Open\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{Controller_8c_a52299faeab3a1dd0cc832c74d0e11f72}\label{Controller_8c_a52299faeab3a1dd0cc832c74d0e11f72}} 
+\index{Controller.c@{Controller.c}!selectedCard@{selectedCard}}
+\index{selectedCard@{selectedCard}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{selectedCard}{selectedCard}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCard}{Card}}$\ast$ selected\+Card = NULL}
+
+\mbox{\Hypertarget{Controller_8c_a4c0fb90f3fbbc3f91779c3137519367a}\label{Controller_8c_a4c0fb90f3fbbc3f91779c3137519367a}} 
+\index{Controller.c@{Controller.c}!selectedCardBtn@{selectedCardBtn}}
+\index{selectedCardBtn@{selectedCardBtn}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{selectedCardBtn}{selectedCardBtn}}
+{\footnotesize\ttfamily Gtk\+Widget$\ast$ selected\+Card\+Btn = NULL}
+
+\mbox{\Hypertarget{Controller_8c_acc815e556f5fbfb914d097bb75177bb6}\label{Controller_8c_acc815e556f5fbfb914d097bb75177bb6}} 
+\index{Controller.c@{Controller.c}!selectedLink@{selectedLink}}
+\index{selectedLink@{selectedLink}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{selectedLink}{selectedLink}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structLink}{Link}}$\ast$ selected\+Link = NULL}
+
+\mbox{\Hypertarget{Controller_8c_a9f0d4cbc6a5bd905c566e5132a6e440b}\label{Controller_8c_a9f0d4cbc6a5bd905c566e5132a6e440b}} 
+\index{Controller.c@{Controller.c}!selectedLinkBtn@{selectedLinkBtn}}
+\index{selectedLinkBtn@{selectedLinkBtn}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{selectedLinkBtn}{selectedLinkBtn}}
+{\footnotesize\ttfamily Gtk\+Widget$\ast$ selected\+Link\+Btn = NULL}
+
+\mbox{\Hypertarget{Controller_8c_a572c1a1c006b22a99ea1ee2608e5bf5f}\label{Controller_8c_a572c1a1c006b22a99ea1ee2608e5bf5f}} 
+\index{Controller.c@{Controller.c}!unsavedChanges@{unsavedChanges}}
+\index{unsavedChanges@{unsavedChanges}!Controller.c@{Controller.c}}
+\doxysubsubsection{\texorpdfstring{unsavedChanges}{unsavedChanges}}
+{\footnotesize\ttfamily bool unsaved\+Changes}
+

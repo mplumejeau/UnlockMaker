@@ -67,7 +67,7 @@ void onConfirmNewProject(GtkWidget *newProjectWindow);
 void onConfirmOpenProject(GtkWidget *openProjectWindow);
 
 /**
- * This Callback is called when the Save button of the main window is pressed\n\n
+ * This Callback is called when a Save button is pressed\n\n
  * It saves the informations of the project in a .txt file in a supported format
  */
 void onSaveProject();
@@ -104,6 +104,20 @@ void onConfirmImportBottomImage(GtkWidget *importImageWindow);
  * @param importImageWindow a pointer to the Import-Back-Image window
  */
 void onConfirmImportBackImage(GtkWidget *importImageWindow);
+
+/**
+ * This Callback is called when the Debug button is pressed\n\n
+ * It saves the project, then calls the function checkLoops from the model to check the graph. If the
+ * graph is valid, then it enables the export button
+ */
+void onCheckLoops();
+
+/**
+ * This Callback is called when the Export button is pressed\n\n
+ * It calls the algorithm assignNumbers from the model and if it is successful, then calls createPrintable
+ * who exports the project as a pdf file
+ */
+void onExport();
 
 /* Card managing callbacks */
 

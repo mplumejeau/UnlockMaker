@@ -1,0 +1,8 @@
+<map id="Edge" name="Edge">
+<area shape="rect" id="node1" title=" " alt="" coords="251,7,306,33"/>
+<area shape="rect" id="node6" href="$structEdgeList.html" title=" " alt="" coords="188,127,265,153"/>
+<area shape="rect" id="node2" href="$structLink.html" title=" " alt="" coords="314,336,363,363"/>
+<area shape="rect" id="node3" href="$structCard.html" title=" " alt="" coords="173,231,225,257"/>
+<area shape="rect" id="node5" href="$structVertex.html" title=" " alt="" coords="5,336,69,363"/>
+<area shape="rect" id="node4" href="$structVertexList.html" title=" " alt="" coords="75,456,162,483"/>
+</map>

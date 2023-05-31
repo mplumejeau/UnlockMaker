@@ -1,0 +1,84 @@
+\hypertarget{Vertex_8h}{}\doxysection{Model/\+Vertex.h File Reference}
+\label{Vertex_8h}\index{Model/Vertex.h@{Model/Vertex.h}}
+{\ttfamily \#include \char`\"{}Struct.\+h\char`\"{}}\newline
+Include dependency graph for Vertex.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{Vertex_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Vertex_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structVertex}{Vertex}} $\ast$ \mbox{\hyperlink{Vertex_8h_a49c91a9f1859ea65f965ce250c1a099d}{alloc\+Vertex}} (void)
+\item 
+void \mbox{\hyperlink{Vertex_8h_aedcb7e2823a67d13ade79395898e32af}{init\+Vertex}} (\mbox{\hyperlink{structVertex}{Vertex}} $\ast$v, \mbox{\hyperlink{structCard}{Card}} $\ast$c, \mbox{\hyperlink{structVertex}{Vertex}} $\ast$n, \mbox{\hyperlink{structVertex}{Vertex}} $\ast$p)
+\item 
+\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{Vertex_8h_ab5bd87f8762de89c8a1a18027b5de0d2}{get\+Vertex\+Card}} (\mbox{\hyperlink{structVertex}{Vertex}} $\ast$v)
+\item 
+void \mbox{\hyperlink{Vertex_8h_a2e23a3da9bb4cbc2364ccbc2395e3ca7}{free\+Vertex}} (\mbox{\hyperlink{structVertex}{Vertex}} $\ast$v)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Vertex_8h_a49c91a9f1859ea65f965ce250c1a099d}\label{Vertex_8h_a49c91a9f1859ea65f965ce250c1a099d}} 
+\index{Vertex.h@{Vertex.h}!allocVertex@{allocVertex}}
+\index{allocVertex@{allocVertex}!Vertex.h@{Vertex.h}}
+\doxysubsubsection{\texorpdfstring{allocVertex()}{allocVertex()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structVertex}{Vertex}}$\ast$ alloc\+Vertex (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+allocate a \mbox{\hyperlink{structVertex}{Vertex}} in the dynamic space memory \begin{DoxyReturn}{Returns}
+Vertex$\ast$ the address of the allocated structure 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Vertex_8h_a2e23a3da9bb4cbc2364ccbc2395e3ca7}\label{Vertex_8h_a2e23a3da9bb4cbc2364ccbc2395e3ca7}} 
+\index{Vertex.h@{Vertex.h}!freeVertex@{freeVertex}}
+\index{freeVertex@{freeVertex}!Vertex.h@{Vertex.h}}
+\doxysubsubsection{\texorpdfstring{freeVertex()}{freeVertex()}}
+{\footnotesize\ttfamily void free\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertex}{Vertex}} $\ast$}]{v }\end{DoxyParamCaption})}
+
+free memory stored in a vertex without freeing the card pointed 
+\begin{DoxyParams}{Parameters}
+{\em v} & the vertex to be freed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Vertex_8h_ab5bd87f8762de89c8a1a18027b5de0d2}\label{Vertex_8h_ab5bd87f8762de89c8a1a18027b5de0d2}} 
+\index{Vertex.h@{Vertex.h}!getVertexCard@{getVertexCard}}
+\index{getVertexCard@{getVertexCard}!Vertex.h@{Vertex.h}}
+\doxysubsubsection{\texorpdfstring{getVertexCard()}{getVertexCard()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCard}{Card}}$\ast$ get\+Vertex\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertex}{Vertex}} $\ast$}]{v }\end{DoxyParamCaption})}
+
+return the address of the card pointed by the vertex 
+\begin{DoxyParams}{Parameters}
+{\em v} & the address of the vertex \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Card$\ast$ the address of the card 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Vertex_8h_aedcb7e2823a67d13ade79395898e32af}\label{Vertex_8h_aedcb7e2823a67d13ade79395898e32af}} 
+\index{Vertex.h@{Vertex.h}!initVertex@{initVertex}}
+\index{initVertex@{initVertex}!Vertex.h@{Vertex.h}}
+\doxysubsubsection{\texorpdfstring{initVertex()}{initVertex()}}
+{\footnotesize\ttfamily void init\+Vertex (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structVertex}{Vertex}} $\ast$}]{v,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c,  }\item[{\mbox{\hyperlink{structVertex}{Vertex}} $\ast$}]{n,  }\item[{\mbox{\hyperlink{structVertex}{Vertex}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+initialize data for a vertex 
+\begin{DoxyParams}{Parameters}
+{\em v} & the address of the vertex to be initialized \\
+\hline
+{\em c} & the address of the card pointed by the vertex \\
+\hline
+{\em n} & the address of the next vertex in the list \\
+\hline
+{\em p} & the address of the previous vertex in the list \\
+\hline
+\end{DoxyParams}

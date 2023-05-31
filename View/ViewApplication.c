@@ -27,6 +27,7 @@ GObject *modifyCardBtn = NULL;
 GObject *deleteCardBtn = NULL;
 GObject *modifyLinkBtn = NULL;
 GObject *deleteLinkBtn = NULL;
+GObject *exportBtn = NULL;
 
 GObject *selectedCardLabel = NULL;
 GObject *selectedLinkLabel = NULL;
@@ -80,8 +81,15 @@ void initView(GtkApplication *app) {
     button = gtk_builder_get_object(builder, "BtnModifyProject");
     g_signal_connect(button, "clicked", G_CALLBACK(openModifyProjectWindow), NULL);
 
+    button = gtk_builder_get_object(builder, "debugBtn");
+    g_signal_connect(button, "clicked", G_CALLBACK(onCheckLoops), NULL);
+
+    exportBtn = gtk_builder_get_object(builder, "exportBtn");
+    g_signal_connect(exportBtn, "clicked", G_CALLBACK(onExport), NULL);
+
     disableRightCardButtons();
     disableRightLinkButtons();
+    disableExportButton();
 
     /* Save pointers to other important widgets for later */
     cardBoxLabel = gtk_builder_get_object(builder, "cardBoxLabel");
@@ -89,6 +97,8 @@ void initView(GtkApplication *app) {
     selectedCardLabel = gtk_builder_get_object(builder, "selectedCardLabel");
     selectedLinkLabel = gtk_builder_get_object(builder, "selectedLinkLabel");
     infoLabel = gtk_builder_get_object(builder, "infoLabel");
+
+
 
     secondWindowOpen = NULL;
     openStartingWindow(GTK_WINDOW(window));
@@ -688,4 +698,14 @@ void enableRightLinkButtons() {
     gtk_widget_set_can_target(GTK_WIDGET(deleteLinkBtn), true);
     gtk_widget_set_name(GTK_WIDGET(modifyLinkBtn), "enabledRightButton");
     gtk_widget_set_name(GTK_WIDGET(deleteLinkBtn), "enabledRightButton");
+}
+
+void disableExportButton() {
+    gtk_widget_set_can_target(GTK_WIDGET(exportBtn), false);
+    gtk_widget_set_name(GTK_WIDGET(exportBtn), "disabledRightButton");
+}
+
+void enableExportButton() {
+    gtk_widget_set_can_target(GTK_WIDGET(exportBtn), true);
+    gtk_widget_set_name(GTK_WIDGET(exportBtn), "enabledRightButton");
 }

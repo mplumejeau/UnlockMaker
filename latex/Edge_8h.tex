@@ -1,0 +1,84 @@
+\hypertarget{Edge_8h}{}\doxysection{Model/\+Edge.h File Reference}
+\label{Edge_8h}\index{Model/Edge.h@{Model/Edge.h}}
+{\ttfamily \#include \char`\"{}Struct.\+h\char`\"{}}\newline
+Include dependency graph for Edge.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=163pt]{Edge_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Edge_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structEdge}{Edge}} $\ast$ \mbox{\hyperlink{Edge_8h_a10f8fc4e14dfc89bd9531caf9a220c25}{alloc\+Edge}} (void)
+\item 
+void \mbox{\hyperlink{Edge_8h_a2eab2f35a9827e2f08dfc9f005cccd08}{init\+Edge}} (\mbox{\hyperlink{structEdge}{Edge}} $\ast$e, \mbox{\hyperlink{structLink}{Link}} $\ast$l, \mbox{\hyperlink{structEdge}{Edge}} $\ast$n, \mbox{\hyperlink{structEdge}{Edge}} $\ast$p)
+\item 
+\mbox{\hyperlink{structLink}{Link}} $\ast$ \mbox{\hyperlink{Edge_8h_a17c284b26a64ea4f653a56d95fbbd6fa}{get\+Edge\+Link}} (\mbox{\hyperlink{structEdge}{Edge}} $\ast$e)
+\item 
+void \mbox{\hyperlink{Edge_8h_a62adc5d975337143240f099f8dbe595f}{free\+Edge}} (\mbox{\hyperlink{structEdge}{Edge}} $\ast$e)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Edge_8h_a10f8fc4e14dfc89bd9531caf9a220c25}\label{Edge_8h_a10f8fc4e14dfc89bd9531caf9a220c25}} 
+\index{Edge.h@{Edge.h}!allocEdge@{allocEdge}}
+\index{allocEdge@{allocEdge}!Edge.h@{Edge.h}}
+\doxysubsubsection{\texorpdfstring{allocEdge()}{allocEdge()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structEdge}{Edge}}$\ast$ alloc\+Edge (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+allocate an edge in the dynamic space memory \begin{DoxyReturn}{Returns}
+Edge$\ast$ the address of the allocated structure 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Edge_8h_a62adc5d975337143240f099f8dbe595f}\label{Edge_8h_a62adc5d975337143240f099f8dbe595f}} 
+\index{Edge.h@{Edge.h}!freeEdge@{freeEdge}}
+\index{freeEdge@{freeEdge}!Edge.h@{Edge.h}}
+\doxysubsubsection{\texorpdfstring{freeEdge()}{freeEdge()}}
+{\footnotesize\ttfamily void free\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdge}{Edge}} $\ast$}]{e }\end{DoxyParamCaption})}
+
+free memory stored in an edge without freeing the link pointed 
+\begin{DoxyParams}{Parameters}
+{\em v} & the edge to be freed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Edge_8h_a17c284b26a64ea4f653a56d95fbbd6fa}\label{Edge_8h_a17c284b26a64ea4f653a56d95fbbd6fa}} 
+\index{Edge.h@{Edge.h}!getEdgeLink@{getEdgeLink}}
+\index{getEdgeLink@{getEdgeLink}!Edge.h@{Edge.h}}
+\doxysubsubsection{\texorpdfstring{getEdgeLink()}{getEdgeLink()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structLink}{Link}}$\ast$ get\+Edge\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdge}{Edge}} $\ast$}]{e }\end{DoxyParamCaption})}
+
+return the address of the link pointed by the vertex 
+\begin{DoxyParams}{Parameters}
+{\em e} & the address of the edge \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Edge$\ast$ the address of the link 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Edge_8h_a2eab2f35a9827e2f08dfc9f005cccd08}\label{Edge_8h_a2eab2f35a9827e2f08dfc9f005cccd08}} 
+\index{Edge.h@{Edge.h}!initEdge@{initEdge}}
+\index{initEdge@{initEdge}!Edge.h@{Edge.h}}
+\doxysubsubsection{\texorpdfstring{initEdge()}{initEdge()}}
+{\footnotesize\ttfamily void init\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdge}{Edge}} $\ast$}]{e,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l,  }\item[{\mbox{\hyperlink{structEdge}{Edge}} $\ast$}]{n,  }\item[{\mbox{\hyperlink{structEdge}{Edge}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+initialize data for an edge 
+\begin{DoxyParams}{Parameters}
+{\em e} & the address of the edge to be initialized \\
+\hline
+{\em l} & the address of the link pointed by the vertex \\
+\hline
+{\em n} & the address of the next edge in the list \\
+\hline
+{\em p} & the address of the previous edge in the list \\
+\hline
+\end{DoxyParams}
