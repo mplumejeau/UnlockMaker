@@ -3,104 +3,205 @@ project(UnlockMaker C)
 
 set(CMAKE_C_STANDARD 99)
 
+######################################################################################
+
+# Variable to chose the target to compile
+# Write yes if you want to compile the unit tests target as a developer
+# Write no if you want to compile the user target
+
+set(UNIT_TESTS_MODE no)
+
+######################################################################################
+
+# Compilation options
+
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
-
-# CONTROLLER EXECUTABLE
-
-add_executable(UnlockControl
-        Controller/Controller.c Controller/Controller.h
-        View/ViewApplication.c View/ViewApplication.h
-        View/GraphHandler.h View/GraphHandler.c
-        Model/Project.h Model/Project.c
-        Model/algo.h Model/algo.c
-        Model/Vertex.h Model/Vertex.c
-        Model/VertexList.h Model/VertexList.c
-        Model/Card.h Model/Card.c
-        Model/Edge.h Model/Edge.c
-        Model/EdgeList.h Model/EdgeList.c
-        Model/Link.h Model/Link.c)
-
-# MAIN EXECUTABLE
-
-# packages
-
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GTK4 REQUIRED gtk4)
-pkg_check_modules(LIBGVC REQUIRED libgvc)
-
-# for libharu library
+# internal library path
 
 set(LIB_DIR ${CMAKE_SOURCE_DIR}/lib)
-include_directories(${LIB_DIR})
 
-add_executable(UnlockMaker
-        Model/main.c Model/Struct.h
-        Model/Project.h Model/Project.c
-        Model/algo.h Model/algo.c
-        Model/Vertex.h Model/Vertex.c
-        Model/VertexList.h Model/VertexList.c
-        Model/Card.h Model/Card.c
-        Model/Edge.h Model/Edge.c
-        Model/EdgeList.h Model/EdgeList.c
-        Model/Link.h Model/Link.c)
+# Model header files
 
-target_link_libraries(UnlockControl ${GLIB_LIBRARIES})
-target_link_libraries(UnlockControl ${GTK4_LIBRARIES})
-target_include_directories(UnlockControl PUBLIC ${GTK4_INCLUDE_DIRS})
-target_compile_options(UnlockControl PUBLIC ${GTK4_CFLAGS_OTHER})
-target_link_libraries(UnlockControl ${LIBGVC_LIBRARIES})
-target_include_directories(UnlockControl PUBLIC ${LIBGVC_INCLUDE_DIRS})
-target_compile_options(UnlockControl PUBLIC ${LIBGVC_CFLAGS_OTHER})
+set(MODEL_HEADERS
+        Model/Struct.h
+        Model/Project.h
+        Model/algo.h
+        Model/Card.h
+        Model/Link.h
+        Model/VertexList.h
+        Model/EdgeList.h
+        Model/Vertex.h
+        Model/Edge.h)
 
-target_link_libraries(UnlockMaker ${LIB_DIR}/libhpdfs.a)
-target_link_libraries(UnlockControl ${LIB_DIR}/libhpdfs.a)
+# Model source files
 
-# liaison avec la bibliotheque zlib
+set(MODEL_SOURCES
+        Model/Project.c
+        Model/algo.c
+        Model/Card.c
+        Model/Link.c
+        Model/VertexList.c
+        Model/EdgeList.c
+        Model/Vertex.c
+        Model/Edge.c)
 
-find_package(ZLIB REQUIRED)
-include_directories(${ZLIB_INCLUDE_DIRS})
-target_link_libraries(UnlockMaker ${ZLIB_LIBRARIES})
-target_link_libraries(UnlockControl ${ZLIB_LIBRARIES})
+# Model unit tests header files
 
-# liaison avec la bibliotheque mathématique
+set(UNIT_TESTS_HEADERS
+        Model/TestsU/ProjectTestsU.h
+        Model/TestsU/AlgoTestsU.h
+        Model/TestsU/CardTestsU.h
+        Model/TestsU/LinkTestsU.h
+        Model/TestsU/VertexListTestsU.h
+        Model/TestsU/EdgeListTestsU.h
+        Model/TestsU/VertexTestsU.h
+        Model/TestsU/EdgeTestsU.h)
 
-target_link_libraries(UnlockMaker m)
-target_link_libraries(UnlockControl m)
+# Model unit tests source files
 
-# UNIT TESTS EXECUTABLE
+set(UNIT_TESTS_SOURCES
+        Model/TestsU/ProjectTestsU.c
+        Model/TestsU/AlgoTestsU.c
+        Model/TestsU/CardTestsU.c
+        Model/TestsU/LinkTestsU.c
+        Model/TestsU/VertexListTestsU.c
+        Model/TestsU/EdgeListTestsU.c
+        Model/TestsU/VertexTestsU.c
+        Model/TestsU/EdgeTestsU.c)
 
-find_package(cmocka REQUIRED)
+# Model unit tests main
 
-add_executable(UnlockMakerTestsU
-        Model/TestsU/mainTestsU.c Model/Struct.h
-        Model/Vertex.h Model/Vertex.c Model/TestsU/VertexTestsU.h Model/TestsU/VertexTestsU.c
-        Model/VertexList.h Model/VertexList.c Model/TestsU/VertexListTestsU.h Model/TestsU/VertexListTestsU.c
-        Model/Card.h Model/Card.c Model/TestsU/CardTestsU.h Model/TestsU/CardTestsU.c
-        Model/Edge.h Model/Edge.c Model/TestsU/EdgeTestsU.h Model/TestsU/EdgeTestsU.c
-        Model/EdgeList.h Model/EdgeList.c Model/TestsU/EdgeListTestsU.h Model/TestsU/EdgeListTestsU.c
-        Model/Link.h Model/Link.c Model/TestsU/LinkTestsU.h Model/TestsU/LinkTestsU.c
-        Model/Project.h Model/Project.c Model/TestsU/ProjectTestsU.h Model/TestsU/ProjectTestsU.c
-        Model/algo.h Model/algo.c Model/TestsU/AlgoTestsU.h Model/TestsU/AlgoTestsU.c)
+set(UNIT_TESTS_MAIN Model/TestsU/mainTestsU.c)
 
-target_link_libraries(UnlockMakerTestsU cmocka)
+# View header files
 
-target_link_libraries(UnlockMakerTestsU ${LIB_DIR}/libhpdfs.a)
-target_link_libraries(UnlockMakerTestsU ${ZLIB_LIBRARIES})
-target_link_libraries(UnlockMakerTestsU m)
+set(VIEW_HEADERS
+        View/ViewApplication.h
+        View/GraphHandler.h)
 
-#add_custom_target(coverage
- #       COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/coverage
-  #      COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E remove *
-   #     COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage cmake -E env CTEST_OUTPUT_ON_FAILURE=1 ${CMAKE_CTEST_COMMAND} -j4
-    #    COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --directory . --capture --output-file coverage.info
-     #   COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage lcov --remove coverage.info '/usr/*' "${PROJECT_SOURCE_DIR}/tests/*" --output-file coverage.info.cleaned
-      #  COMMAND ${CMAKE_COMMAND} -E chdir ${CMAKE_BINARY_DIR}/coverage genhtml --output-directory html coverage.info.cleaned
-       # DEPENDS UnlockMakerTestsU)
+# View source files
 
-#add_dependencies(${PROJECT_NAME} coverage)
+set(VIEW_SOURCES
+        View/ViewApplication.c
+        View/GraphHandler.c)
+
+# Controller header files
+
+set(CONTROLLER_HEADERS Controller/Controller.h)
+
+# Controller source files
+
+set(CONTROLLER_SOURCES Controller/Controller.c)
+
+# Selection between unit tests mode or user mode
+
+if(UNIT_TESTS_MODE STREQUAL yes)
+
+    # Compilation options for generating information coverage about unit tests
+
+    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
+    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -fprofile-arcs -ftest-coverage")
+
+    # Unit tests executable
+
+    add_executable(UnlockMakerTestsU
+            ${MODEL_HEADERS} ${MODEL_SOURCES}
+            ${UNIT_TESTS_HEADERS} ${UNIT_TESTS_SOURCES}
+            ${UNIT_TESTS_MAIN})
+
+    # Package CMocka required for unit tests
+
+    find_package(cmocka REQUIRED)
+    if(cmocka_FOUND)
+        target_link_libraries(UnlockMakerTestsU cmocka)
+    else()
+        message(FATAL_ERROR "cmocka not found")
+    endif()
+
+    # Internal open source library libHaru for pdf generation
+
+    include_directories(${LIB_DIR})
+    target_link_libraries(UnlockMakerTestsU ${LIB_DIR}/libhpdfs.a)
+
+    # Package zlib required for libHaru utilisation
+
+    find_package(ZLIB REQUIRED)
+    if(ZLIB_FOUND)
+        include_directories(${ZLIB_INCLUDE_DIRS})
+        target_link_libraries(UnlockMakerTestsU ${ZLIB_LIBRARIES})
+    else()
+        message(FATAL_ERROR "zlib not found")
+    endif()
+
+    # Maths library required for libHaru utilisation
+
+    target_link_libraries(UnlockMakerTestsU m)
+
+else()
+
+    # User executable
+
+    add_executable(UnlockControl
+            ${MODEL_HEADERS} ${MODEL_SOURCES}
+            ${VIEW_HEADERS} ${VIEW_SOURCES}
+            ${CONTROLLER_HEADERS} ${CONTROLLER_SOURCES})
+
+    # Package PkgConfig required for checking libraries existence
+
+    find_package(PkgConfig REQUIRED)
+    if(NOT PkgConfig_FOUND)
+        message(FATAL_ERROR "PkgConfig not found")
+    endif()
+
+    # Package GTK4 for the graphical interface of the software
+
+    pkg_check_modules(GTK4 REQUIRED gtk4)
+    if(GTK4_FOUND)
+        target_include_directories(UnlockControl PUBLIC ${GTK4_INCLUDE_DIRS})
+        target_link_libraries(UnlockControl ${GTK4_LIBRARIES})
+        target_compile_options(UnlockControl PUBLIC ${GTK4_CFLAGS_OTHER})
+    else()
+        message(FATAL_ERROR "gtk4 not found")
+    endif()
+
+    # Package libgvc for the graphical interface of the software
+
+    pkg_check_modules(LIBGVC REQUIRED libgvc)
+    if(GTK4_FOUND)
+        target_include_directories(UnlockControl PUBLIC ${LIBGVC_INCLUDE_DIRS})
+        target_link_libraries(UnlockControl ${LIBGVC_LIBRARIES})
+        target_compile_options(UnlockControl PUBLIC ${LIBGVC_CFLAGS_OTHER})
+    else()
+        message(FATAL_ERROR "libgvc not found")
+    endif()
+
+    # Package glib for the graphical interface of the software
+
+    target_link_libraries(UnlockControl ${GLIB_LIBRARIES})
+
+    # Internal open source library libHaru for pdf generation
+
+    include_directories(${LIB_DIR})
+    target_link_libraries(UnlockControl ${LIB_DIR}/libhpdfs.a)
+
+    # Package zlib required for libHaru utilisation
+
+    find_package(ZLIB REQUIRED)
+    if(ZLIB_FOUND)
+        include_directories(${ZLIB_INCLUDE_DIRS})
+        target_link_libraries(UnlockControl ${ZLIB_LIBRARIES})
+    else()
+        message(FATAL_ERROR "zlib not found")
+    endif()
+
+    # Maths library required for libHaru utilisation
+
+    target_link_libraries(UnlockControl m)
+
+endif()
+
+
 
 # Here are the commands to write in a terminal to create a .html file about the code coverage for the Model
 # You have to be in the unlock-maker directory
