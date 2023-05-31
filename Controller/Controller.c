@@ -29,14 +29,9 @@ bool unsavedChanges;
 
 int main(int argc, char *argv[]) {
 
-    Project *p = loadProject("/home/louenn/Desktop", "MasqueDeFer");
-    checkLoops(p);
-    assignNumbers(p);
-    createPrintable(p);
-
-    /*#ifdef GTK_SRCDIR
+    #ifdef GTK_SRCDIR
     g_chdir (GTK_SRCDIR);
-#endif
+    #endif
 
     int status;
 
@@ -46,7 +41,7 @@ int main(int argc, char *argv[]) {
     status = g_application_run(G_APPLICATION (app), argc, argv);
     g_object_unref(app);
 
-    return status;*/
+    return status;
     return 0;
 }
 
