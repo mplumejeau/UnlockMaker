@@ -29,7 +29,7 @@ To get them you need to install the gtk4 packages.
 ```
 	$ sudo apt-get install libgtk-4-dev
 	$ sudo apt-get install glib-2.0
-```	
+```
    2) if you expect to use a gtk application, tap this command on the terminal:
 ```
 	$ sudo apt-get install libgtk-4-1
@@ -43,9 +43,14 @@ To get the cmocka library, repeat the same steps with the following command : `$
 
 #### GraphViz
 
-To get the Graphviz library, tap the following commands on the terminal :
+To get the Graphviz library, do these steps :
+
+1. Download the latest .gz archive of graphviz on the website https://graphviz.org/download/source/
+
+2. Extract the downloaded archive, open a terminal in the extracted graphviz directory and tap the following commands :
 ```
-	$ sudo apt-get install python3-pip
-	$ pip install graphviz
+	$ ./configure
+	$ make
+	$ sudo make install
 ```
 

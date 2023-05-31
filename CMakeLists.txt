@@ -142,7 +142,7 @@ else()
 
     # User executable
 
-    add_executable(UnlockControl
+    add_executable(UnlockMaker
             ${MODEL_HEADERS} ${MODEL_SOURCES}
             ${VIEW_HEADERS} ${VIEW_SOURCES}
             ${CONTROLLER_HEADERS} ${CONTROLLER_SOURCES})
@@ -158,9 +158,9 @@ else()
 
     pkg_check_modules(GTK4 REQUIRED gtk4)
     if(GTK4_FOUND)
-        target_include_directories(UnlockControl PUBLIC ${GTK4_INCLUDE_DIRS})
-        target_link_libraries(UnlockControl ${GTK4_LIBRARIES})
-        target_compile_options(UnlockControl PUBLIC ${GTK4_CFLAGS_OTHER})
+        target_include_directories(UnlockMaker PUBLIC ${GTK4_INCLUDE_DIRS})
+        target_link_libraries(UnlockMaker ${GTK4_LIBRARIES})
+        target_compile_options(UnlockMaker PUBLIC ${GTK4_CFLAGS_OTHER})
     else()
         message(FATAL_ERROR "gtk4 not found")
     endif()
@@ -169,35 +169,35 @@ else()
 
     pkg_check_modules(LIBGVC REQUIRED libgvc)
     if(GTK4_FOUND)
-        target_include_directories(UnlockControl PUBLIC ${LIBGVC_INCLUDE_DIRS})
-        target_link_libraries(UnlockControl ${LIBGVC_LIBRARIES})
-        target_compile_options(UnlockControl PUBLIC ${LIBGVC_CFLAGS_OTHER})
+        target_include_directories(UnlockMaker PUBLIC ${LIBGVC_INCLUDE_DIRS})
+        target_link_libraries(UnlockMaker ${LIBGVC_LIBRARIES})
+        target_compile_options(UnlockMaker PUBLIC ${LIBGVC_CFLAGS_OTHER})
     else()
         message(FATAL_ERROR "libgvc not found")
     endif()
 
     # Package glib for the graphical interface of the software
 
-    target_link_libraries(UnlockControl ${GLIB_LIBRARIES})
+    target_link_libraries(UnlockMaker ${GLIB_LIBRARIES})
 
     # Internal open source library libHaru for pdf generation
 
     include_directories(${LIB_DIR})
-    target_link_libraries(UnlockControl ${LIB_DIR}/libhpdfs.a)
+    target_link_libraries(UnlockMaker ${LIB_DIR}/libhpdfs.a)
 
     # Package zlib required for libHaru utilisation
 
     find_package(ZLIB REQUIRED)
     if(ZLIB_FOUND)
         include_directories(${ZLIB_INCLUDE_DIRS})
-        target_link_libraries(UnlockControl ${ZLIB_LIBRARIES})
+        target_link_libraries(UnlockMaker ${ZLIB_LIBRARIES})
     else()
         message(FATAL_ERROR "zlib not found")
     endif()
 
     # Maths library required for libHaru utilisation
 
-    target_link_libraries(UnlockControl m)
+    target_link_libraries(UnlockMaker m)
 
 endif()
 
