@@ -13,6 +13,7 @@
 #include "EdgeTestsU.h"
 #include "EdgeListTestsU.h"
 #include "LinkTestsU.h"
+#include "CardTestsU.h"
 #include "ProjectTestsU.h"
 
 //main
@@ -106,6 +107,15 @@ int main(void){
                     cmocka_unit_test_setup_teardown(testSetChild, setupAllocLink, teardownAllocLink)
             };
 
+    const struct CMUnitTest testsCard[] =
+            {
+                    cmocka_unit_test_setup_teardown(testsInitEmptyCard, setupAllocCard, teardownAllocCard),
+                    cmocka_unit_test_setup_teardown(testSetCardType, setupAllocCard, teardownAllocCard),
+                    cmocka_unit_test_setup_teardown(testSetCardNumber, setupAllocCard, teardownAllocCard),
+                    cmocka_unit_test_setup_teardown(testFixCardNumber, setupAllocCard, teardownAllocCard),
+                    cmocka_unit_test_setup_teardown(testUnfixCardNumber, setupAllocCard, teardownAllocCard)
+            };
+
     const struct CMUnitTest testsProject[] =
             {
                     cmocka_unit_test_setup_teardown(testSetRoot, setupInitProject, teardownInitProject),
@@ -127,6 +137,7 @@ int main(void){
     cmocka_run_group_tests_name("Tests Edge module", testsEdge, NULL, NULL);
     cmocka_run_group_tests_name("Tests EdgeList module", testsEdgeList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Link module", testsLink, NULL, NULL);
+    cmocka_run_group_tests_name("Tests Card module", testsCard, NULL, NULL);
     cmocka_run_group_tests_name("Tests Project module", testsProject, NULL, NULL);
 
 

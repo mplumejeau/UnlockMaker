@@ -76,8 +76,17 @@ If you want to compile and run only the model of this project, the only required
 
 #### CMocka
 
-CMocka library is required for running unit tests of the project.
-To install it on your computer, please follow these steps :
+CMocka library is required for running unit tests of the project. You can try to install it from 2 ways, you can try with the first one and if you have a problem during the generation of the unit tests executable because of CMocka, you can try the other way. 
+
+###### First way :
+
+To install CMocka on your computer, please tap the following command in  a terminal :
+```
+$ sudo apt-get install libcmocka-dev
+```
+###### Second way :
+
+To install CMocka on your computer, please follow these steps :
 
 1. Download the latest .tar.xz archive of cmocka on the website https://cmocka.org/
 
@@ -124,7 +133,7 @@ A major part of unit testing have been done for the model part of this project. 
 3. You have to set projectPath to a valid repertory path on your computer. This repertory will be used to install project repertories during unit testing, but everything will be automatically removed. 
 You have to set imagePath to a valid existing image path on your computer. This image will be used during unit testing, but it won't be modified or removed.
 
-4. Then, you have to go into the file CMakeLists.txt to change a target compilation variable located at the top of the file. You have to set UNI_TESTS_MODE as yes by replacing the "**no**" in the line set(UNI_TESTS_MODE no) by "**yes**". Then, you have to reload if the CMakeLists.txt asks you to do so. If you have correctly installed all required library, it should switch your compilation target to UnlockMakerTestsU.
+4. Then, you have to go into the file CMakeLists.txt to change a target compilation variable located at the top of the file. You have to set UNIT_TESTS_MODE as yes by replacing the "**no**" in the line set(UNI_TESTS_MODE no) by "**yes**". Then, you have to reload if the CMakeLists.txt asks you to do so. If you have correctly installed all required library, it should switch your compilation target to UnlockMakerTestsU.
 
 5. Then, you have to compile and run the unit tests executable UnlockMakerTestsU.
 
@@ -133,7 +142,7 @@ You have to set imagePath to a valid existing image path on your computer. This 
 $ lcov --capture --directory cmake-build-debug/CMakeFiles/UnlockMakerTestsU.dir/Model --output-file coverage.info
 $ genhtml coverage.info --output-directory cmake-build-debug
 ```
-When running unit tests, you will have lots of error messages in stderr. However, it's normal, and it's not a cause of failure of the tests. Most of them are error messages about a file impossible to delete, but the reason is this file didn't exist on your computer when you ran the tests. There are useful messages for debugging.
+When running unit tests, you will have lots of error messages in stderr. However, it's normal, and it's not a cause of failure of the tests. Most of them are error messages about a file impossible to delete, but the reason is this file didn't exist on your computer when you ran the tests. They are useful messages for debugging.
 
 ## Important warning about images
 
