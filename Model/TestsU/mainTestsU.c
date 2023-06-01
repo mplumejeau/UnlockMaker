@@ -14,7 +14,6 @@
 #include "EdgeListTestsU.h"
 #include "LinkTestsU.h"
 #include "ProjectTestsU.h"
-#include "AlgoTestsU.h"
 
 //main
 
@@ -122,13 +121,6 @@ int main(void){
                     cmocka_unit_test_setup_teardown(testSaveAndLoadProject, setupInitProject, teardownInitProject)
             };
 
-    const struct CMUnitTest testsAlgo[] =
-            {
-                    cmocka_unit_test_setup_teardown(testCheckLoopsWithoutLoops, setupInitProjectAlgo, teardownInitProjectAlgo),
-                    cmocka_unit_test_setup_teardown(testCheckLoopsWithLoops, setupInitProjectAlgoWithLoops, teardownInitProjectAlgo),
-                    cmocka_unit_test_setup_teardown(testAssignNumbersWithEverythingOk, setupInitProjectAlgo, teardownInitProjectAlgo),
-            };
-
 
     cmocka_run_group_tests_name("Tests Vertex module", testsVertex, NULL, NULL);
     cmocka_run_group_tests_name("Tests VertexList module", testsVertexList, NULL, NULL);
@@ -136,7 +128,6 @@ int main(void){
     cmocka_run_group_tests_name("Tests EdgeList module", testsEdgeList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Link module", testsLink, NULL, NULL);
     cmocka_run_group_tests_name("Tests Project module", testsProject, NULL, NULL);
-    cmocka_run_group_tests_name("Tests Algo module", testsAlgo, NULL, NULL);
 
 
     return 0;

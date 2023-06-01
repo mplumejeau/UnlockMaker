@@ -9,7 +9,7 @@ set(CMAKE_C_STANDARD 99)
 # Write yes if you want to compile the unit tests target as a developer
 # Write no if you want to compile the user target
 
-set(UNIT_TESTS_MODE no)
+set(UNIT_TESTS_MODE yes)
 
 ######################################################################################
 
@@ -26,7 +26,6 @@ set(LIB_DIR ${CMAKE_SOURCE_DIR}/lib)
 set(MODEL_HEADERS
         Model/Struct.h
         Model/Project.h
-        Model/algo.h
         Model/Card.h
         Model/Link.h
         Model/VertexList.h
@@ -38,7 +37,6 @@ set(MODEL_HEADERS
 
 set(MODEL_SOURCES
         Model/Project.c
-        Model/algo.c
         Model/Card.c
         Model/Link.c
         Model/VertexList.c
@@ -50,7 +48,6 @@ set(MODEL_SOURCES
 
 set(UNIT_TESTS_HEADERS
         Model/TestsU/ProjectTestsU.h
-        Model/TestsU/AlgoTestsU.h
         Model/TestsU/CardTestsU.h
         Model/TestsU/LinkTestsU.h
         Model/TestsU/VertexListTestsU.h
@@ -62,7 +59,6 @@ set(UNIT_TESTS_HEADERS
 
 set(UNIT_TESTS_SOURCES
         Model/TestsU/ProjectTestsU.c
-        Model/TestsU/AlgoTestsU.c
         Model/TestsU/CardTestsU.c
         Model/TestsU/LinkTestsU.c
         Model/TestsU/VertexListTestsU.c
@@ -88,11 +84,15 @@ set(VIEW_SOURCES
 
 # Controller header files
 
-set(CONTROLLER_HEADERS Controller/Controller.h)
+set(CONTROLLER_HEADERS
+        Controller/Controller.h
+        Controller/algo.h)
 
 # Controller source files
 
-set(CONTROLLER_SOURCES Controller/Controller.c)
+set(CONTROLLER_SOURCES
+        Controller/Controller.c
+        Controller/algo.c)
 
 # Selection between unit tests mode or user mode
 

@@ -5,7 +5,7 @@
 #ifndef UNLOCKMAKER_ALGO_H
 #define UNLOCKMAKER_ALGO_H
 
-#include "Struct.h"
+#include "../Model/Struct.h"
 
 int checkLoops(Project* p);
 

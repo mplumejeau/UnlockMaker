@@ -6,9 +6,9 @@
 #include <stddef.h>
 
 #include "algo.h"
-#include "VertexList.h"
-#include "Card.h"
-#include "EdgeList.h"
+#include "../Model/VertexList.h"
+#include "../Model/Card.h"
+#include "../Model/EdgeList.h"
 
 /**
  * Run an algorithm to check that there is no loops in the graph structure of a project

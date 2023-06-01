@@ -11,7 +11,8 @@
 #include "../Model/EdgeList.h"
 #include "../Model/Card.h"
 #include "../Model/Link.h"
-#include "../Model/algo.h"
+
+#include "algo.h"
 
 #include "Controller.h"
 
