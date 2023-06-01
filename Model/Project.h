@@ -14,7 +14,6 @@ int initProject(Project* p, char* path, char* name);
 int initProjectForLoad(Project* p, char* path, char* name);
 int deleteProject(Project* p);
 
-void setName(Project* p, char* name);
 void setRoot(Project* p, Card* root);
 
 int assignIdCard(Project* p, Card* c);
@@ -41,6 +40,5 @@ int setBottomImage(Project* p, char* pathImage);
 
 int saveProject(Project* p);
 Project* loadProject(char* path, char* name);
-int createPrintable(Project* p);
 
 #endif /*UNLOCKMAKER_PROJECT_H*/

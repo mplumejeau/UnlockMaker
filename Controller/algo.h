@@ -9,11 +9,9 @@
 
 int checkLoops(Project* p);
 
-void runCompatibility(Project* p);
-
-void runDiscard(Project* p);
-
 int assignNumbers(Project* p);
+
+int createPrintable(Project* p);
 
 #endif //UNLOCKMAKER_ALGO_H
 
