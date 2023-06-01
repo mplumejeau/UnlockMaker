@@ -15,38 +15,44 @@
 #include "../Model/EdgeList.h"
 
 /**
- * Run an algorithm to check that there is no loops in the graph structure of a project
- * @param p the project to check
- * @return 1 if there are loops, 0 if there isn't
+ * This recursive function is an DFS-type algorithm to check that there is no loops in the
+ * graph structure of a project. It runs through the links of the graph and checks that a
+ * card is not run through twice by comparing with an array of cards
+ * @param passedCards the array containing all the cards already encountered
+ * @param nbPassedCards the number of cards already encountered
+ * @param currentCard the current card the algorithm is on
+ * @return
  */
 
+int iterateLoops(Card *passedCards[], int nbPassedCards, Card* currentCard) {
+    // ajout de la carte courante dans passedCards
+    passedCards[nbPassedCards] = currentCard;
 
-int iterateLoops(Card* targetCard, Card* currentCard) {
-    // Vérification si la carte courante est la carte cible
-
-    // Parcours des liens sortants de la carte courante
+    //itération sur tous les liens sortants de la carte
     setOnFirstEdge(&currentCard->children);
     while (!isOutOfListEdge(&currentCard->children)) {
         Card* linkedCard = currentCard->children.current->link->child;
-        printf("Target : %d ; Pointed : %d\n", targetCard->id, linkedCard->id);
-        if (targetCard == linkedCard) {
-            return 1; // Boucle détectée
+        // Vérification si la carte pointée est une des cartes passées
+        for(int i = 0; i<nbPassedCards; i++) {
+            if (passedCards[i] == linkedCard) {
+                return 1; // Boucle détectée
+            }
         }
         // Appel récursif pour tester chaque carte enfant
-        if (iterateLoops(targetCard, linkedCard) != 0) {
+        if (iterateLoops(passedCards, nbPassedCards+1, linkedCard) != 0) {
             return 1; // Boucle détectée dans la carte enfant
         }
 
         // Passage au lien suivant
         setOnNextEdge(&currentCard->children);
     }
-
     // Aucune boucle trouvée, retourne 0
     return 0;
 }
 
 /**
- * Run an algorithm to check that there is no loops in the graph structure of a project
+ * Runs an algorithm to check that there is no loops in the graph structure of a project by
+ * calling the recursive function iterateLoops
  * @param p the project to check
  * @return 1 if there are loops, 0 if there aren't, -1 if there are errors
  */
@@ -55,13 +61,15 @@ int checkLoops(Project* p) {
 
     if (p != NULL) {
 
-        Card *currentCard = NULL;
+        Card* currentCard = NULL;
+
+        int nbPassedCards = 60;
+        Card *passedCards[nbPassedCards];
 
         setOnFirstVertex(&p->cardList);
         while (!isOutOfListVertex(&p->cardList)) {
             currentCard = p->cardList.current->card;
-            printf("New Target : %d\n", currentCard->id);
-            if (iterateLoops(currentCard, currentCard) != 0) {
+            if (iterateLoops(passedCards, 0, currentCard) != 0) {
                 return 1;
             }
             setOnNextVertex(&p->cardList);
