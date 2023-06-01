@@ -3,22 +3,17 @@
 //
 
 #include <stdio.h>
-#include <stdlib.h>
-
-#include <setjmp.h>
 #include <cmocka.h>
 
 #include "../Project.h"
-#include "../Link.h"
-#include "../Card.h"
 #include "../VertexList.h"
 #include "../EdgeList.h"
 
 #include "ProjectTestsU.h"
 
-char* projectPath = "/home/maxime/Documents";
+char* projectPath = "/home/yourLogin/Documents";
 char* projectName = "unlockTestsU";
-char* imagePath = "/home/maxime/Pictures/IronMan.jpg";
+char* imagePath = "/home/yourLogin/yourPicture.jpg";
 
 int setupInitProject(void** state){
     Project* p = allocProject();
