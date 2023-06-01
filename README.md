@@ -1,14 +1,15 @@
 # Unlock maker
 
 ## Description
-This README aims to present the UnlockMaker project. It will explain you the organization of the development and the installation processes, for a user of the software and for a developer who want to work on the project.
-You will see here how to install the needed libraries to run the program : gtk, glib, cmocka and graphviz. This project is developped on CLion and uses a CMakeLists for its compiling. Currently, the project is designed for Linux Ubuntu only. 
+This README aims to present the UnlockMaker project. It will explain you the organization of the development and the installation processes, for a user of the software and for a developer who want to work on the project. You will see here how to install the needed libraries to run the program : gtk, glib, cmocka and graphviz. This project is developped on CLion and uses a CMakeLists for its compiling. Currently, the project is designed for Linux Ubuntu only. 
 In this ReadMe, you will find 5 useful sections :
 - File organization
 - Git organization
 - User installation
 - Developer installation
 - Unit tests
+
+If you expect to use UnlockMaker software to create a unlock scenario and then print your card game, please have a look to the "Important warning about images" section below.
 
 ## File organization
 This project's files are sorted into 3 main directories : Model, View, and Controller. Any file you will add to this project must be tied to one of these 3 directories and thus put in it.
@@ -76,9 +77,25 @@ If you want to compile and run only the model of this project, the only required
 #### CMocka
 
 CMocka library is required for running unit tests of the project.
-To install it on your computer, tap this command on a terminal :
+To install it on your computer, please follow these steps :
 
-$ sudo apt-get install libcmocka-dev
+1. Download the latest .tar.xz archive of cmocka on the website https://cmocka.org/
+
+2. Open a terminal in the repertory containing the downloaded archive and extract it with the command :
+
+$ tar -xf cmocka-1.1.5.tar.xz
+
+3. Tap the following command to install cmocka on your computer
+
+$ mkdir cmocka-build
+
+$ cd cmocka-build
+
+$ cmake ../cmocka-1.1.5
+
+$ make
+
+$ sudo make install
 
 #### Lcov
 
@@ -122,10 +139,13 @@ $ lcov --capture --directory cmake-build-debug/CMakeFiles/UnlockMakerTestsU.dir/
 
 $ genhtml coverage.info --output-directory cmake-build-debug
 
+## Important warning about images
 
+When using UnlockMaker software, before importing any image in a Unlock, please make sure to check the image is in the JPEG format. If not, you won't be able to generate a pdf with the complete card game at the end of your project, although the image would be rename as a jpeg in the repertories of your project.
 
-## Contributors
+## Project context and contributors
 
-This project have been initialized by Dario Ergun, Louenn Fradet, Thomas Golitin, Yasser Miniya and Maxime Plumejeau. 
+The creation of UnlockMaker software was a school project aiming to improve our skills in C progamming language. It was initialized by a team of 5 INSA Rennes students : Dario Ergun, Louenn Fradet, Thomas Golitin, Yasser Miniya and Maxime Plumejeau. Our supervisor for this project was Karol Desnos.
+
 
 
