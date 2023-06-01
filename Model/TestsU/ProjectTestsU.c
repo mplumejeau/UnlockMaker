@@ -3,6 +3,7 @@
 //
 
 #include <stdio.h>
+#include <setjmp.h>
 #include <cmocka.h>
 
 #include "../Project.h"
@@ -11,9 +12,9 @@
 
 #include "ProjectTestsU.h"
 
-char* projectPath = "/home/yourLogin/Documents";
+char* projectPath = "/home/yourLogin/Documents"; //TODO : change yourLogin to match your system login
 char* projectName = "unlockTestsU";
-char* imagePath = "/home/yourLogin/yourPicture.jpg";
+char* imagePath = "/home/yourLogin/yourPicture.jpg"; //TODO : change yourLogin to match your system login and yourPicture to match the path of the image you want to use
 
 int setupInitProject(void** state){
     Project* p = allocProject();
