@@ -121,10 +121,9 @@ A major part of unit testing have been done for the model part of this project. 
 
 1. First, you have to follow the installation procedure for model development to have CMocka on your computer.
 
-2. Then, you have to go into the files Model/TestsU/ProjectTestsU and Model/TestsU/AlgoTestsU to change the following variables located at the top of .c files :
+2. Then, you have to go into the file Model/TestsU/ProjectTestsU and to change the following variables located at the top of the .c file :
 - char* projectPath (in ProjectTestsU)
 - char* imagePath (in ProjectTestsU)
-- char* projectPath2 (in AlgoTestsU)
 
 3. You have to set projectPath and projectPath2 to a valid repertory path on your computer (can be same for both). This repertory will be used to install project repertories during unit testing but everything will be automatically removed. 
 You have to set imagePath to a valid existing image path on your computer. This image will be used during unit testing but it won't be modified or removed.
@@ -138,6 +137,8 @@ You have to set imagePath to a valid existing image path on your computer. This 
 $ lcov --capture --directory cmake-build-debug/CMakeFiles/UnlockMakerTestsU.dir/Model --output-file coverage.info
 
 $ genhtml coverage.info --output-directory cmake-build-debug
+
+When running unit tests, you will have lots of error messages in stderr. However, it's normal and it's not a cause of failure of the tests. Most of them are error messages about a file impossible to delete but the reason is this file didn't exist on your computer when you ran the tests. There are useful messages for debugging.
 
 ## Important warning about images
 

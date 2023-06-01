@@ -41,6 +41,7 @@ void testSetParent(void** state){
     Card* c = allocCard();
     setParent(l,c);
     assert_ptr_equal(c,l->parent);
+    freeCard(c);
 }
 
 void testSetChild(void** state){
@@ -48,4 +49,5 @@ void testSetChild(void** state){
     Card* c = allocCard();
     setChild(l,c);
     assert_ptr_equal(c,l->child);
+    freeCard(c);
 }

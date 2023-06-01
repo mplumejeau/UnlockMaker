@@ -82,7 +82,7 @@ void testInitEdge(void** state){
 //tests getEdgeLink
 
 void testGetEdgeLink(void** state){
-    Link* res;
+    Link* res = NULL;
     Edge* e = (Edge*) (*state);
     res = getEdgeLink(e);
     assert_ptr_equal(e->link, res);

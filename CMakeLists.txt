@@ -9,7 +9,7 @@ set(CMAKE_C_STANDARD 99)
 # Write yes if you want to compile the unit tests target as a developer
 # Write no if you want to compile the user target
 
-set(UNIT_TESTS_MODE no)
+set(UNIT_TESTS_MODE yes)
 
 ######################################################################################
 

@@ -26,8 +26,8 @@ int setupInitProject(void** state){
     Card* c0 = addEmptyCard(p);
     Card* c1 = addEmptyCard(p);
     Card* c2 = addEmptyCard(p);
-    Link* l0 = addLink(p, c0, c1, DEFAULT);
-    Link* l1 = addLink(p, c0, c2, DEFAULT);
+    addLink(p, c0, c1, DEFAULT);
+    addLink(p, c0, c2, DEFAULT);
     if(p != NULL){
         *state = p;
         return 0;
@@ -39,7 +39,7 @@ int setupInitProject(void** state){
 int teardownInitProject(void** state){
     Project* p = (Project*) (*state);
     deleteProject(p);
-    free(p);
+    freeProject(p);
     return 0;
 }
 
@@ -147,4 +147,5 @@ void testSaveAndLoadProject(void** state){
     assert_int_equal(p->linkList.current->link->id, p2->linkList.current->link->id);
 
     deleteProject(p2);
+    freeProject(p2);
 }

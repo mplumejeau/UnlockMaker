@@ -194,8 +194,8 @@ void testIsOutOfEdgeListBadAlloc(void** state){
 
 void testSetOnNextEdge(void** state){
     EdgeList* el = (EdgeList*) (*state);
-    Edge* e1;
-    Edge* e2;
+    Edge* e1 = NULL;
+    Edge* e2 = NULL;
     setOnFirstEdge(el);
     e1 = el->current;
     setOnNextEdge(el);
@@ -215,10 +215,6 @@ void testSetOnPreviousEdge(void** state){
     e2 = el->current;
     assert_ptr_equal(e1->previous,e2);
 }
-
-//test printEdgeList ??
-
-
 
 //test countEdgeElements
 

@@ -188,14 +188,12 @@ void testIsOutOfVertexListBadAlloc(void** state){
     assert_int_equal(-1, isOutOfListVertex(vl));
 }
 
-//can we consider that setOnFirstVertex and setOnLastVertex are tested respectively by testIsOnFirstVertexTrue and testIsOnLastVertexTrue ?
-
 //test setOnNextVertex
 
 void testSetOnNextVertex(void** state){
     VertexList* vl = (VertexList*) (*state);
-    Vertex* v1;
-    Vertex* v2;
+    Vertex* v1 = NULL;
+    Vertex* v2 = NULL;
     setOnFirstVertex(vl);
     v1 = vl->current;
     setOnNextVertex(vl);
@@ -207,18 +205,14 @@ void testSetOnNextVertex(void** state){
 
 void testSetOnPreviousVertex(void** state){
     VertexList* vl = (VertexList*) (*state);
-    Vertex* v1;
-    Vertex* v2;
+    Vertex* v1 = NULL;
+    Vertex* v2 = NULL;
     setOnLastVertex(vl);
     v1 = vl->current;
     setOnPreviousVertex(vl);
     v2 = vl->current;
     assert_ptr_equal(v1->previous,v2);
 }
-
-//test printVertexList ??
-
-
 
 //test countVertexElements
 
