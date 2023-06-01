@@ -1,13 +1,13 @@
 <map id="View/GraphHandler.c" name="View/GraphHandler.c">
-<area shape="rect" id="node1" title=" " alt="" coords="247,5,406,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,72,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="97,80,167,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="191,80,259,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="284,80,369,107"/>
-<area shape="rect" id="node6" title=" " alt="" coords="393,80,511,107"/>
-<area shape="rect" id="node7" href="$GraphHandler_8h.html" title=" " alt="" coords="535,80,657,107"/>
-<area shape="rect" id="node10" href="$ViewApplication_8h.html" title=" " alt="" coords="681,80,820,107"/>
-<area shape="rect" id="node8" href="$Project_8h.html" title=" " alt="" coords="541,155,675,181"/>
-<area shape="rect" id="node9" href="$Struct_8h.html" title=" " alt="" coords="572,229,644,256"/>
-<area shape="rect" id="node11" title=" " alt="" coords="711,155,791,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="245,5,402,34"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,82,71,111"/>
+<area shape="rect" id="node3" title=" " alt="" coords="95,82,165,111"/>
+<area shape="rect" id="node4" title=" " alt="" coords="190,82,257,111"/>
+<area shape="rect" id="node5" title=" " alt="" coords="281,82,366,111"/>
+<area shape="rect" id="node6" title=" " alt="" coords="389,82,506,111"/>
+<area shape="rect" id="node7" href="$GraphHandler_8h.html" title=" " alt="" coords="530,82,653,111"/>
+<area shape="rect" id="node10" href="$ViewApplication_8h.html" title=" " alt="" coords="677,82,815,111"/>
+<area shape="rect" id="node8" href="$Project_8h.html" title=" " alt="" coords="536,159,671,188"/>
+<area shape="rect" id="node9" href="$Struct_8h.html" title=" " alt="" coords="568,236,639,265"/>
+<area shape="rect" id="node11" title=" " alt="" coords="706,159,786,188"/>
 </map>

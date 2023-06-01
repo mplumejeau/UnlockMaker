@@ -2,49 +2,56 @@
 \label{structVertex}\index{Vertex@{Vertex}}
 
 
+A structure used to create a list of Cards.  
+
+
+
+
 {\ttfamily \#include $<$Struct.\+h$>$}
 
 
 
-Collaboration diagram for Vertex\+:
-\nopagebreak
+Collaboration diagram for Vertex\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=266pt]{structVertex__coll__graph}
+\includegraphics[height=550pt]{structVertex__coll__graph}
 \end{center}
 \end{figure}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{structVertex_a2fd45d04f6676de4303769176f4ab9a1}{card}}
+\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{structVertex_aad89687aa107a00e5297ed56cf0e56f1}{card}}
 \item 
-struct \mbox{\hyperlink{structVertex}{Vertex}} $\ast$ \mbox{\hyperlink{structVertex_a08612f92582322f8d07f61beece27362}{next}}
+struct \mbox{\hyperlink{structVertex}{Vertex}} $\ast$ \mbox{\hyperlink{structVertex_a735992fdbcd3f30cee222c56b2edfcab}{next}}
 \item 
-struct \mbox{\hyperlink{structVertex}{Vertex}} $\ast$ \mbox{\hyperlink{structVertex_a765fcbed1eaa6dc3ce4d135e2cb962b7}{previous}}
+struct \mbox{\hyperlink{structVertex}{Vertex}} $\ast$ \mbox{\hyperlink{structVertex_a77c2ece8b0a7bc2d3b21b7eb23d8c661}{previous}}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+A structure used to create a list of Cards. 
+
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structVertex_a2fd45d04f6676de4303769176f4ab9a1}\label{structVertex_a2fd45d04f6676de4303769176f4ab9a1}} 
+\mbox{\Hypertarget{structVertex_aad89687aa107a00e5297ed56cf0e56f1}\label{structVertex_aad89687aa107a00e5297ed56cf0e56f1}} 
 \index{Vertex@{Vertex}!card@{card}}
 \index{card@{card}!Vertex@{Vertex}}
 \doxysubsubsection{\texorpdfstring{card}{card}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structCard}{Card}}$\ast$ Vertex\+::card}
+{\footnotesize\ttfamily Vertex\+::card}
 
-\mbox{\Hypertarget{structVertex_a08612f92582322f8d07f61beece27362}\label{structVertex_a08612f92582322f8d07f61beece27362}} 
+A pointer towards the \mbox{\hyperlink{structCard}{Card}} contained in the \mbox{\hyperlink{structVertex}{Vertex}} \mbox{\Hypertarget{structVertex_a735992fdbcd3f30cee222c56b2edfcab}\label{structVertex_a735992fdbcd3f30cee222c56b2edfcab}} 
 \index{Vertex@{Vertex}!next@{next}}
 \index{next@{next}!Vertex@{Vertex}}
 \doxysubsubsection{\texorpdfstring{next}{next}}
-{\footnotesize\ttfamily struct \mbox{\hyperlink{structVertex}{Vertex}}$\ast$ Vertex\+::next}
+{\footnotesize\ttfamily Vertex\+::next}
 
-\mbox{\Hypertarget{structVertex_a765fcbed1eaa6dc3ce4d135e2cb962b7}\label{structVertex_a765fcbed1eaa6dc3ce4d135e2cb962b7}} 
+A pointer towards the next \mbox{\hyperlink{structVertex}{Vertex}} in the list \mbox{\Hypertarget{structVertex_a77c2ece8b0a7bc2d3b21b7eb23d8c661}\label{structVertex_a77c2ece8b0a7bc2d3b21b7eb23d8c661}} 
 \index{Vertex@{Vertex}!previous@{previous}}
 \index{previous@{previous}!Vertex@{Vertex}}
 \doxysubsubsection{\texorpdfstring{previous}{previous}}
-{\footnotesize\ttfamily struct \mbox{\hyperlink{structVertex}{Vertex}}$\ast$ Vertex\+::previous}
+{\footnotesize\ttfamily Vertex\+::previous}
 
-
+A pointer towards the previous \mbox{\hyperlink{structVertex}{Vertex}} in the list 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

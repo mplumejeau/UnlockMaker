@@ -1,12 +1,12 @@
 <map id="Model/main.c" name="Model/main.c">
-<area shape="rect" id="node1" title=" " alt="" coords="318,5,429,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,80,72,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="97,80,167,107"/>
-<area shape="rect" id="node4" title=" " alt="" coords="191,80,262,107"/>
-<area shape="rect" id="node5" href="$Project_8h.html" title=" " alt="" coords="286,80,365,107"/>
-<area shape="rect" id="node7" href="$Card_8h.html" title=" " alt="" coords="389,80,453,107"/>
-<area shape="rect" id="node8" href="$VertexList_8h.html" title=" " alt="" coords="477,80,576,107"/>
-<area shape="rect" id="node9" href="$EdgeList_8h.html" title=" " alt="" coords="601,80,690,107"/>
-<area shape="rect" id="node10" href="$algo_8h.html" title=" " alt="" coords="714,80,777,107"/>
-<area shape="rect" id="node6" href="$Struct_8h.html" title=" " alt="" coords="491,155,563,181"/>
+<area shape="rect" id="node1" title=" " alt="" coords="314,5,423,34"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,82,71,111"/>
+<area shape="rect" id="node3" title=" " alt="" coords="95,82,165,111"/>
+<area shape="rect" id="node4" title=" " alt="" coords="188,82,259,111"/>
+<area shape="rect" id="node5" href="$Project_8h.html" title=" " alt="" coords="283,82,361,111"/>
+<area shape="rect" id="node7" href="$Card_8h.html" title=" " alt="" coords="385,82,448,111"/>
+<area shape="rect" id="node8" href="$VertexList_8h.html" title=" " alt="" coords="473,82,571,111"/>
+<area shape="rect" id="node9" href="$EdgeList_8h.html" title=" " alt="" coords="595,82,684,111"/>
+<area shape="rect" id="node10" href="$algo_8h.html" title=" " alt="" coords="707,82,769,111"/>
+<area shape="rect" id="node6" href="$Struct_8h.html" title=" " alt="" coords="486,159,558,188"/>
 </map>

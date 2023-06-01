@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>UnlockMaker: Model/algo.h Source File</title>
+<title>UnlockMaker: Controller/algo.h Source File</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -61,7 +61,7 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><a class="el" href="dir_312950da3f243a51cc00f4a947545131.html">Model</a></li>  </ul>
+<li class="navelem"><a class="el" href="dir_b500f500d6f9b315c95ab1cd4a3b5c0d.html">Controller</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
@@ -76,25 +76,21 @@ $(function() {
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#ifndef UNLOCKMAKER_ALGO_H</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#define UNLOCKMAKER_ALGO_H</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="Struct_8h.html">Struct.h</a>&quot;</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#include &quot;../Model/Struct.h&quot;</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="keywordtype">int</span> <a class="code" href="algo_8h.html#abfff09c12c90ad9ee5c5b981d8463a91">checkLoops</a>(<a class="code" href="structProject.html">Project</a>* p);</div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="algo_8h.html#af643a74f1e539f377e118388fd981fe5">   12</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="algo_8h.html#af643a74f1e539f377e118388fd981fe5">runCompatibility</a>(<a class="code" href="structProject.html">Project</a>* p);</div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">int</span> <a class="code" href="algo_8h.html#a057280108c2e204e644da98bf6b0d6d4">assignNumbers</a>(<a class="code" href="structProject.html">Project</a>* p);</div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
-<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="algo_8h.html#aef0b33b3f21f0c632c97e509beb44172">   14</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="algo_8h.html#aef0b33b3f21f0c632c97e509beb44172">runDiscard</a>(<a class="code" href="structProject.html">Project</a>* p);</div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="keywordtype">int</span> <a class="code" href="algo_8h.html#a10d840852e50012b46ee099a0ee04d69">createPrintable</a>(<a class="code" href="structProject.html">Project</a>* p);</div>
 <div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160; </div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">int</span> <a class="code" href="algo_8h.html#a057280108c2e204e644da98bf6b0d6d4">assignNumbers</a>(<a class="code" href="structProject.html">Project</a>* p);</div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//UNLOCKMAKER_ALGO_H</span></div>
 <div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#endif </span><span class="comment">//UNLOCKMAKER_ALGO_H</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160; </div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160; </div>
-<div class="ttc" id="aStruct_8h_html"><div class="ttname"><a href="Struct_8h.html">Struct.h</a></div></div>
-<div class="ttc" id="aalgo_8h_html_a057280108c2e204e644da98bf6b0d6d4"><div class="ttname"><a href="algo_8h.html#a057280108c2e204e644da98bf6b0d6d4">assignNumbers</a></div><div class="ttdeci">int assignNumbers(Project *p)</div><div class="ttdef"><b>Definition:</b> algo.c:102</div></div>
-<div class="ttc" id="aalgo_8h_html_abfff09c12c90ad9ee5c5b981d8463a91"><div class="ttname"><a href="algo_8h.html#abfff09c12c90ad9ee5c5b981d8463a91">checkLoops</a></div><div class="ttdeci">int checkLoops(Project *p)</div><div class="ttdef"><b>Definition:</b> algo.c:50</div></div>
-<div class="ttc" id="aalgo_8h_html_aef0b33b3f21f0c632c97e509beb44172"><div class="ttname"><a href="algo_8h.html#aef0b33b3f21f0c632c97e509beb44172">runDiscard</a></div><div class="ttdeci">void runDiscard(Project *p)</div></div>
-<div class="ttc" id="aalgo_8h_html_af643a74f1e539f377e118388fd981fe5"><div class="ttname"><a href="algo_8h.html#af643a74f1e539f377e118388fd981fe5">runCompatibility</a></div><div class="ttdeci">void runCompatibility(Project *p)</div></div>
-<div class="ttc" id="astructProject_html"><div class="ttname"><a href="structProject.html">Project</a></div><div class="ttdef"><b>Definition:</b> Struct.h:149</div></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
+<div class="ttc" id="aalgo_8h_html_a057280108c2e204e644da98bf6b0d6d4"><div class="ttname"><a href="algo_8h.html#a057280108c2e204e644da98bf6b0d6d4">assignNumbers</a></div><div class="ttdeci">int assignNumbers(Project *p)</div><div class="ttdef"><b>Definition:</b> algo.c:92</div></div>
+<div class="ttc" id="aalgo_8h_html_a10d840852e50012b46ee099a0ee04d69"><div class="ttname"><a href="algo_8h.html#a10d840852e50012b46ee099a0ee04d69">createPrintable</a></div><div class="ttdeci">int createPrintable(Project *p)</div><div class="ttdef"><b>Definition:</b> algo.c:155</div></div>
+<div class="ttc" id="aalgo_8h_html_abfff09c12c90ad9ee5c5b981d8463a91"><div class="ttname"><a href="algo_8h.html#abfff09c12c90ad9ee5c5b981d8463a91">checkLoops</a></div><div class="ttdeci">int checkLoops(Project *p)</div><div class="ttdef"><b>Definition:</b> algo.c:60</div></div>
+<div class="ttc" id="astructProject_html"><div class="ttname"><a href="structProject.html">Project</a></div><div class="ttdoc">A structure representing an Unlock scenario Project, created by a user of the software.</div><div class="ttdef"><b>Definition:</b> Struct.h:187</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

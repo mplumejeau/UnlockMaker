@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fixednumber_743',['fixedNumber',['../structCard.html#a8e8fc028730015ba01e14e86daf0e5b2',1,'Card']]]
+  ['fixednumber_720',['fixedNumber',['../structCard.html#a7b3328bdb11e0a6549c848767e8c5944',1,'Card']]]
 ];

@@ -2,12 +2,16 @@
 \label{structVertexList}\index{VertexList@{VertexList}}
 
 
+A structure containing a list of Vertexes, pointing to a \mbox{\hyperlink{structCard}{Card}} each.  
+
+
+
+
 {\ttfamily \#include $<$Struct.\+h$>$}
 
 
 
-Collaboration diagram for Vertex\+List\+:
-\nopagebreak
+Collaboration diagram for Vertex\+List\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -17,34 +21,37 @@ Collaboration diagram for Vertex\+List\+:
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{structVertex}{Vertex}} \mbox{\hyperlink{structVertexList_a11421878553a0bc0ba8afe7f101eba11}{sentinel\+First}}
+\mbox{\hyperlink{structVertex}{Vertex}} \mbox{\hyperlink{structVertexList_adda831c2a20718f95931cfb27bb09871}{sentinel\+First}}
 \item 
-\mbox{\hyperlink{structVertex}{Vertex}} $\ast$ \mbox{\hyperlink{structVertexList_aa01154c71394b86b096975878b4b402a}{current}}
+\mbox{\hyperlink{structVertex}{Vertex}} $\ast$ \mbox{\hyperlink{structVertexList_ad129324d25c52f73eea9d8c6c6f5e163}{current}}
 \item 
-\mbox{\hyperlink{structVertex}{Vertex}} \mbox{\hyperlink{structVertexList_abe9d17c8aac4dec8cf9cb0fadc146a36}{sentinel\+Last}}
+\mbox{\hyperlink{structVertex}{Vertex}} \mbox{\hyperlink{structVertexList_a2f7d28a29d6eb49d44d4a4c7e7bf6fb0}{sentinel\+Last}}
 \end{DoxyCompactItemize}
 
 
+\doxysubsection{Detailed Description}
+A structure containing a list of Vertexes, pointing to a \mbox{\hyperlink{structCard}{Card}} each. 
+
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{structVertexList_aa01154c71394b86b096975878b4b402a}\label{structVertexList_aa01154c71394b86b096975878b4b402a}} 
+\mbox{\Hypertarget{structVertexList_ad129324d25c52f73eea9d8c6c6f5e163}\label{structVertexList_ad129324d25c52f73eea9d8c6c6f5e163}} 
 \index{VertexList@{VertexList}!current@{current}}
 \index{current@{current}!VertexList@{VertexList}}
 \doxysubsubsection{\texorpdfstring{current}{current}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structVertex}{Vertex}}$\ast$ Vertex\+List\+::current}
+{\footnotesize\ttfamily Vertex\+List\+::current}
 
-\mbox{\Hypertarget{structVertexList_a11421878553a0bc0ba8afe7f101eba11}\label{structVertexList_a11421878553a0bc0ba8afe7f101eba11}} 
+A pointer towards the current \mbox{\hyperlink{structVertex}{Vertex}} of the list (useful for browsing the list) \mbox{\Hypertarget{structVertexList_adda831c2a20718f95931cfb27bb09871}\label{structVertexList_adda831c2a20718f95931cfb27bb09871}} 
 \index{VertexList@{VertexList}!sentinelFirst@{sentinelFirst}}
 \index{sentinelFirst@{sentinelFirst}!VertexList@{VertexList}}
 \doxysubsubsection{\texorpdfstring{sentinelFirst}{sentinelFirst}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structVertex}{Vertex}} Vertex\+List\+::sentinel\+First}
+{\footnotesize\ttfamily Vertex\+List\+::sentinel\+First}
 
-\mbox{\Hypertarget{structVertexList_abe9d17c8aac4dec8cf9cb0fadc146a36}\label{structVertexList_abe9d17c8aac4dec8cf9cb0fadc146a36}} 
+An empty \mbox{\hyperlink{structVertex}{Vertex}} marking the beginning of the list \mbox{\Hypertarget{structVertexList_a2f7d28a29d6eb49d44d4a4c7e7bf6fb0}\label{structVertexList_a2f7d28a29d6eb49d44d4a4c7e7bf6fb0}} 
 \index{VertexList@{VertexList}!sentinelLast@{sentinelLast}}
 \index{sentinelLast@{sentinelLast}!VertexList@{VertexList}}
 \doxysubsubsection{\texorpdfstring{sentinelLast}{sentinelLast}}
-{\footnotesize\ttfamily \mbox{\hyperlink{structVertex}{Vertex}} Vertex\+List\+::sentinel\+Last}
+{\footnotesize\ttfamily Vertex\+List\+::sentinel\+Last}
 
-
+An empty \mbox{\hyperlink{structVertex}{Vertex}} marking the end of the list 
 
 The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
 \item 

@@ -1,8 +1,8 @@
 <map id="EdgeList" name="EdgeList">
-<area shape="rect" id="node1" title=" " alt="" coords="261,5,339,32"/>
-<area shape="rect" id="node4" href="$structCard.html" title=" " alt="" coords="203,109,255,136"/>
-<area shape="rect" id="node2" href="$structEdge.html" title=" " alt="" coords="346,351,401,377"/>
-<area shape="rect" id="node3" href="$structLink.html" title=" " alt="" coords="314,229,363,256"/>
-<area shape="rect" id="node6" href="$structVertex.html" title=" " alt="" coords="5,229,69,256"/>
-<area shape="rect" id="node5" href="$structVertexList.html" title=" " alt="" coords="105,351,191,377"/>
+<area shape="rect" id="node1" title="A structure containing a list of Edges, pointing to a Link each." alt="" coords="259,5,335,34"/>
+<area shape="rect" id="node4" href="$structCard.html" title="A structure representing the Card of a Project, containing all the useful informations regarding the ..." alt="" coords="202,116,253,145"/>
+<area shape="rect" id="node2" href="$structEdge.html" title="A structure used to create a list of Links." alt="" coords="342,380,396,409"/>
+<area shape="rect" id="node3" href="$structLink.html" title="A structure representing a Link between 2 Cards." alt="" coords="312,247,360,276"/>
+<area shape="rect" id="node6" href="$structVertex.html" title="A structure used to create a list of Cards." alt="" coords="5,247,69,276"/>
+<area shape="rect" id="node5" href="$structVertexList.html" title="A structure containing a list of Vertexes, pointing to a Card each." alt="" coords="105,380,191,409"/>
 </map>

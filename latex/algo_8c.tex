@@ -1,13 +1,15 @@
-\hypertarget{algo_8c}{}\doxysection{Model/algo.c File Reference}
-\label{algo_8c}\index{Model/algo.c@{Model/algo.c}}
+\hypertarget{algo_8c}{}\doxysection{Controller/algo.c File Reference}
+\label{algo_8c}\index{Controller/algo.c@{Controller/algo.c}}
 {\ttfamily \#include $<$stdio.\+h$>$}\newline
 {\ttfamily \#include $<$stddef.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}hpdf.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}algo.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Vertex\+List.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Card.\+h\char`\"{}}\newline
-{\ttfamily \#include \char`\"{}Edge\+List.\+h\char`\"{}}\newline
-Include dependency graph for algo.\+c\+:
-\nopagebreak
+{\ttfamily \#include \char`\"{}../\+Model/\+Vertex\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Model/\+Card.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Model/\+Edge\+List.\+h\char`\"{}}\newline
+Include dependency graph for algo.\+c\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -17,11 +19,13 @@ Include dependency graph for algo.\+c\+:
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-int \mbox{\hyperlink{algo_8c_aa5a39c66ddebb68d1174297af9313bd3}{iterate\+Loops}} (\mbox{\hyperlink{structCard}{Card}} $\ast$target\+Card, \mbox{\hyperlink{structCard}{Card}} $\ast$current\+Card)
+int \mbox{\hyperlink{algo_8c_a1e4572ed95077d2e666174f855a91eb9}{iterate\+Loops}} (\mbox{\hyperlink{structCard}{Card}} $\ast$passed\+Cards\mbox{[}$\,$\mbox{]}, int nb\+Passed\+Cards, \mbox{\hyperlink{structCard}{Card}} $\ast$current\+Card)
 \item 
 int \mbox{\hyperlink{algo_8c_abfff09c12c90ad9ee5c5b981d8463a91}{check\+Loops}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
 \item 
 int \mbox{\hyperlink{algo_8c_a057280108c2e204e644da98bf6b0d6d4}{assign\+Numbers}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\item 
+int \mbox{\hyperlink{algo_8c_a10d840852e50012b46ee099a0ee04d69}{create\+Printable}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
 \end{DoxyCompactItemize}
 
 
@@ -32,12 +36,8 @@ int \mbox{\hyperlink{algo_8c_a057280108c2e204e644da98bf6b0d6d4}{assign\+Numbers}
 \doxysubsubsection{\texorpdfstring{assignNumbers()}{assignNumbers()}}
 {\footnotesize\ttfamily int assign\+Numbers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
 
-Run an algorithm to fill every card\textquotesingle{}s compatibility list 
+Run an algorithm to automatically assign a number between 1 and 99 to every card that hasn\textquotesingle{}t a number yet Must take in account that several specific numbers may have been already assigned by the user 
 \begin{DoxyParams}{Parameters}
-{\em p} & the project Run an algorithm to fill every card\textquotesingle{}s discard list \\
-\hline
-{\em p} & the project Run an algorithm to automatically assign a number between 1 and 99 to every card that hasn\textquotesingle{}t a number yet Must take in account that several specific numbers may have been already assigned by the user \\
-\hline
 {\em p} & the project \\
 \hline
 \end{DoxyParams}
@@ -50,7 +50,7 @@ Run an algorithm to fill every card\textquotesingle{}s compatibility list
 \doxysubsubsection{\texorpdfstring{checkLoops()}{checkLoops()}}
 {\footnotesize\ttfamily int check\+Loops (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
 
-Run an algorithm to check that there is no loops in the graph structure of a project 
+Runs an algorithm to check that there is no loops in the graph structure of a project by calling the recursive function iterate\+Loops 
 \begin{DoxyParams}{Parameters}
 {\em p} & the project to check \\
 \hline
@@ -58,17 +58,35 @@ Run an algorithm to check that there is no loops in the graph structure of a pro
 \begin{DoxyReturn}{Returns}
 1 if there are loops, 0 if there aren\textquotesingle{}t, -\/1 if there are errors 
 \end{DoxyReturn}
-\mbox{\Hypertarget{algo_8c_aa5a39c66ddebb68d1174297af9313bd3}\label{algo_8c_aa5a39c66ddebb68d1174297af9313bd3}} 
-\index{algo.c@{algo.c}!iterateLoops@{iterateLoops}}
-\index{iterateLoops@{iterateLoops}!algo.c@{algo.c}}
-\doxysubsubsection{\texorpdfstring{iterateLoops()}{iterateLoops()}}
-{\footnotesize\ttfamily int iterate\+Loops (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{target\+Card,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{current\+Card }\end{DoxyParamCaption})}
+\mbox{\Hypertarget{algo_8c_a10d840852e50012b46ee099a0ee04d69}\label{algo_8c_a10d840852e50012b46ee099a0ee04d69}} 
+\index{algo.c@{algo.c}!createPrintable@{createPrintable}}
+\index{createPrintable@{createPrintable}!algo.c@{algo.c}}
+\doxysubsubsection{\texorpdfstring{createPrintable()}{createPrintable()}}
+{\footnotesize\ttfamily int create\+Printable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
 
-Run an algorithm to check that there is no loops in the graph structure of a project 
+Create a printable file containing all the formatted cards of a completed project whose name is \mbox{[}project\+Name\mbox{]}.pdf in the /\mbox{[}project\+Path\mbox{]} directory If the .pdf file doesn\textquotesingle{}t exist, create it and if it already exists, delete it and create a new one 
 \begin{DoxyParams}{Parameters}
-{\em p} & the project to check \\
+{\em p} & the project \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-1 if there are loops, 0 if there isn\textquotesingle{}t 
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{algo_8c_a1e4572ed95077d2e666174f855a91eb9}\label{algo_8c_a1e4572ed95077d2e666174f855a91eb9}} 
+\index{algo.c@{algo.c}!iterateLoops@{iterateLoops}}
+\index{iterateLoops@{iterateLoops}!algo.c@{algo.c}}
+\doxysubsubsection{\texorpdfstring{iterateLoops()}{iterateLoops()}}
+{\footnotesize\ttfamily int iterate\+Loops (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{passed\+Cards\mbox{[}$\,$\mbox{]},  }\item[{int}]{nb\+Passed\+Cards,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{current\+Card }\end{DoxyParamCaption})}
+
+This recursive function is an DFS-\/type algorithm to check that there is no loops in the graph structure of a project. It runs through the links of the graph and checks that a card is not run through twice by comparing with an array of cards 
+\begin{DoxyParams}{Parameters}
+{\em passed\+Cards} & the array containing all the cards already encountered \\
+\hline
+{\em nb\+Passed\+Cards} & the number of cards already encountered \\
+\hline
+{\em current\+Card} & the current card the algorithm is on \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
 \end{DoxyReturn}

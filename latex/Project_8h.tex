@@ -1,16 +1,14 @@
 \hypertarget{Project_8h}{}\doxysection{Model/\+Project.h File Reference}
 \label{Project_8h}\index{Model/Project.h@{Model/Project.h}}
 {\ttfamily \#include \char`\"{}Struct.\+h\char`\"{}}\newline
-Include dependency graph for Project.\+h\+:
-\nopagebreak
+Include dependency graph for Project.\+h\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
 \includegraphics[width=172pt]{Project_8h__incl}
 \end{center}
 \end{figure}
-This graph shows which files directly or indirectly include this file\+:
-\nopagebreak
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -29,8 +27,6 @@ int \mbox{\hyperlink{Project_8h_aed0786ef68a57efab7dc5823f375ed30}{init\+Project
 int \mbox{\hyperlink{Project_8h_ad21c69c085a1bb527670159daf34a1cd}{init\+Project\+For\+Load}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, char $\ast$path, char $\ast$name)
 \item 
 int \mbox{\hyperlink{Project_8h_a5f0a3083ddf2a88c388a282031a789a2}{delete\+Project}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
-\item 
-void \mbox{\hyperlink{Project_8h_ac4193f7f7484434812f8c5141a5eea19}{set\+Name}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, char $\ast$name)
 \item 
 void \mbox{\hyperlink{Project_8h_a64cf4fd753f92d4ed65b2432e267588b}{set\+Root}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$root)
 \item 
@@ -71,8 +67,6 @@ int \mbox{\hyperlink{Project_8h_a502c1041de085c355d4763e6b78d51b2}{set\+Bottom\+
 int \mbox{\hyperlink{Project_8h_a90da885fafb232f7a80b2fff99b1cc88}{save\+Project}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
 \item 
 \mbox{\hyperlink{structProject}{Project}} $\ast$ \mbox{\hyperlink{Project_8h_af0250b3b1f7cac2ab8044459442b2095}{load\+Project}} (char $\ast$path, char $\ast$name)
-\item 
-int \mbox{\hyperlink{Project_8h_a10d840852e50012b46ee099a0ee04d69}{create\+Printable}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
 \end{DoxyCompactItemize}
 
 
@@ -229,20 +223,6 @@ Automatically assign a free id to a link and set it as occupied in the id\+Links
 {\em p} & the project \\
 \hline
 {\em l} & the link \\
-\hline
-\end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-0 if it\textquotesingle{}s a success, -\/1 if not 
-\end{DoxyReturn}
-\mbox{\Hypertarget{Project_8h_a10d840852e50012b46ee099a0ee04d69}\label{Project_8h_a10d840852e50012b46ee099a0ee04d69}} 
-\index{Project.h@{Project.h}!createPrintable@{createPrintable}}
-\index{createPrintable@{createPrintable}!Project.h@{Project.h}}
-\doxysubsubsection{\texorpdfstring{createPrintable()}{createPrintable()}}
-{\footnotesize\ttfamily int create\+Printable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
-
-Create a printable file containing all the formatted cards of a completed project whose name is \mbox{[}project\+Name\mbox{]}.pdf in the /\mbox{[}project\+Path\mbox{]} directory If the .pdf file doesn\textquotesingle{}t exist, create it and if it already exists, delete it and create a new one 
-\begin{DoxyParams}{Parameters}
-{\em p} & the project \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -439,19 +419,6 @@ Set a front image for a card of the project Copy an image to the directory /\mbo
 \begin{DoxyReturn}{Returns}
 0 if it\textquotesingle{}s a success, -\/1 if not 
 \end{DoxyReturn}
-\mbox{\Hypertarget{Project_8h_ac4193f7f7484434812f8c5141a5eea19}\label{Project_8h_ac4193f7f7484434812f8c5141a5eea19}} 
-\index{Project.h@{Project.h}!setName@{setName}}
-\index{setName@{setName}!Project.h@{Project.h}}
-\doxysubsubsection{\texorpdfstring{setName()}{setName()}}
-{\footnotesize\ttfamily void set\+Name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
-
-Set the name of a project Modify the directory tree of the project according to the new name 
-\begin{DoxyParams}{Parameters}
-{\em p} & the project to rename \\
-\hline
-{\em name} & the new name for the project \\
-\hline
-\end{DoxyParams}
 \mbox{\Hypertarget{Project_8h_a64cf4fd753f92d4ed65b2432e267588b}\label{Project_8h_a64cf4fd753f92d4ed65b2432e267588b}} 
 \index{Project.h@{Project.h}!setRoot@{setRoot}}
 \index{setRoot@{setRoot}!Project.h@{Project.h}}
