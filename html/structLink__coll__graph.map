@@ -1,0 +1,8 @@
+<map id="Link" name="Link">
+<area shape="rect" id="node1" title="A structure representing a Link between 2 Cards." alt="" coords="80,5,128,34"/>
+<area shape="rect" id="node6" href="$structEdge.html" title="A structure used to create a list of Links." alt="" coords="5,102,59,131"/>
+<area shape="rect" id="node2" href="$structCard.html" title="A structure representing the Card of a Project, containing all the useful informations regarding the ..." alt="" coords="100,343,151,372"/>
+<area shape="rect" id="node4" href="$structVertex.html" title="A structure used to create a list of Cards." alt="" coords="14,440,77,469"/>
+<area shape="rect" id="node3" href="$structVertexList.html" title="A structure containing a list of Vertexes, pointing to a Card each." alt="" coords="82,570,169,599"/>
+<area shape="rect" id="node5" href="$structEdgeList.html" title="A structure containing a list of Edges, pointing to a Link each." alt="" coords="37,232,113,261"/>
+</map>

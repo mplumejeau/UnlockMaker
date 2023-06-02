@@ -1,0 +1,58 @@
+\hypertarget{structEdgeList}{}\doxysection{Edge\+List Struct Reference}
+\label{structEdgeList}\index{EdgeList@{EdgeList}}
+
+
+A structure containing a list of Edges, pointing to a \mbox{\hyperlink{structLink}{Link}} each.  
+
+
+
+
+{\ttfamily \#include $<$Struct.\+h$>$}
+
+
+
+Collaboration diagram for Edge\+List\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structEdgeList__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structEdge}{Edge}} \mbox{\hyperlink{structEdgeList_ab9b8b3f7dfb69a35f18d16d0b3873289}{sentinel\+First}}
+\item 
+\mbox{\hyperlink{structEdge}{Edge}} $\ast$ \mbox{\hyperlink{structEdgeList_a2ea519970c019a87c599875557aae82f}{current}}
+\item 
+\mbox{\hyperlink{structEdge}{Edge}} \mbox{\hyperlink{structEdgeList_a4dfaa6a43c2e9d36774c7b9a09a387c4}{sentinel\+Last}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A structure containing a list of Edges, pointing to a \mbox{\hyperlink{structLink}{Link}} each. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structEdgeList_a2ea519970c019a87c599875557aae82f}\label{structEdgeList_a2ea519970c019a87c599875557aae82f}} 
+\index{EdgeList@{EdgeList}!current@{current}}
+\index{current@{current}!EdgeList@{EdgeList}}
+\doxysubsubsection{\texorpdfstring{current}{current}}
+{\footnotesize\ttfamily Edge\+List\+::current}
+
+A pointer towards the current \mbox{\hyperlink{structEdge}{Edge}} of the list (useful for browsing the list) \mbox{\Hypertarget{structEdgeList_ab9b8b3f7dfb69a35f18d16d0b3873289}\label{structEdgeList_ab9b8b3f7dfb69a35f18d16d0b3873289}} 
+\index{EdgeList@{EdgeList}!sentinelFirst@{sentinelFirst}}
+\index{sentinelFirst@{sentinelFirst}!EdgeList@{EdgeList}}
+\doxysubsubsection{\texorpdfstring{sentinelFirst}{sentinelFirst}}
+{\footnotesize\ttfamily Edge\+List\+::sentinel\+First}
+
+An empty \mbox{\hyperlink{structEdge}{Edge}} marking the beginning of the list \mbox{\Hypertarget{structEdgeList_a4dfaa6a43c2e9d36774c7b9a09a387c4}\label{structEdgeList_a4dfaa6a43c2e9d36774c7b9a09a387c4}} 
+\index{EdgeList@{EdgeList}!sentinelLast@{sentinelLast}}
+\index{sentinelLast@{sentinelLast}!EdgeList@{EdgeList}}
+\doxysubsubsection{\texorpdfstring{sentinelLast}{sentinelLast}}
+{\footnotesize\ttfamily Edge\+List\+::sentinel\+Last}
+
+An empty \mbox{\hyperlink{structEdge}{Edge}} marking the end of the list 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Model/\mbox{\hyperlink{Struct_8h}{Struct.\+h}}\end{DoxyCompactItemize}

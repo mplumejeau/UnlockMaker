@@ -1,0 +1,71 @@
+\hypertarget{algo_8h}{}\doxysection{Controller/algo.h File Reference}
+\label{algo_8h}\index{Controller/algo.h@{Controller/algo.h}}
+{\ttfamily \#include \char`\"{}../\+Model/\+Struct.\+h\char`\"{}}\newline
+Include dependency graph for algo.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=177pt]{algo_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{algo_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{algo_8h_abfff09c12c90ad9ee5c5b981d8463a91}{check\+Loops}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\item 
+int \mbox{\hyperlink{algo_8h_a057280108c2e204e644da98bf6b0d6d4}{assign\+Numbers}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\item 
+int \mbox{\hyperlink{algo_8h_a10d840852e50012b46ee099a0ee04d69}{create\+Printable}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{algo_8h_a057280108c2e204e644da98bf6b0d6d4}\label{algo_8h_a057280108c2e204e644da98bf6b0d6d4}} 
+\index{algo.h@{algo.h}!assignNumbers@{assignNumbers}}
+\index{assignNumbers@{assignNumbers}!algo.h@{algo.h}}
+\doxysubsubsection{\texorpdfstring{assignNumbers()}{assignNumbers()}}
+{\footnotesize\ttfamily int assign\+Numbers (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Run an algorithm to automatically assign a number between 1 and 99 to every card that hasn\textquotesingle{}t a number yet Must take in account that several specific numbers may have been already assigned by the user 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{algo_8h_abfff09c12c90ad9ee5c5b981d8463a91}\label{algo_8h_abfff09c12c90ad9ee5c5b981d8463a91}} 
+\index{algo.h@{algo.h}!checkLoops@{checkLoops}}
+\index{checkLoops@{checkLoops}!algo.h@{algo.h}}
+\doxysubsubsection{\texorpdfstring{checkLoops()}{checkLoops()}}
+{\footnotesize\ttfamily int check\+Loops (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Runs an algorithm to check that there is no loops in the graph structure of a project by calling the recursive function iterate\+Loops 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to check \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if there are loops, 0 if there aren\textquotesingle{}t, -\/1 if there are errors 
+\end{DoxyReturn}
+\mbox{\Hypertarget{algo_8h_a10d840852e50012b46ee099a0ee04d69}\label{algo_8h_a10d840852e50012b46ee099a0ee04d69}} 
+\index{algo.h@{algo.h}!createPrintable@{createPrintable}}
+\index{createPrintable@{createPrintable}!algo.h@{algo.h}}
+\doxysubsubsection{\texorpdfstring{createPrintable()}{createPrintable()}}
+{\footnotesize\ttfamily int create\+Printable (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Create a printable file containing all the formatted cards of a completed project whose name is \mbox{[}project\+Name\mbox{]}.pdf in the /\mbox{[}project\+Path\mbox{]} directory If the .pdf file doesn\textquotesingle{}t exist, create it and if it already exists, delete it and create a new one 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}

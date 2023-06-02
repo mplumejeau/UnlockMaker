@@ -1,0 +1,118 @@
+\hypertarget{structCard}{}\doxysection{Card Struct Reference}
+\label{structCard}\index{Card@{Card}}
+
+
+A structure representing the \mbox{\hyperlink{structCard}{Card}} of a \mbox{\hyperlink{structProject}{Project}}, containing all the useful informations regarding the attributes a \mbox{\hyperlink{structCard}{Card}} can have.  
+
+
+
+
+{\ttfamily \#include $<$Struct.\+h$>$}
+
+
+
+Collaboration diagram for Card\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structCard__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{structCard_a1a9954b039db02dcc94fd6b6dee21a2c}{id}}
+\item 
+\mbox{\hyperlink{Struct_8h_adc82e1818cbb951286495171fd55db18}{card\+Type}} \mbox{\hyperlink{structCard_a7bdb17784252ad99964eece6f48c0a75}{type}}
+\item 
+int \mbox{\hyperlink{structCard_a8f209bb3a4387d6904a5f2187b5f1c65}{number}}
+\item 
+int \mbox{\hyperlink{structCard_a7b3328bdb11e0a6549c848767e8c5944}{fixed\+Number}}
+\item 
+int \mbox{\hyperlink{structCard_a2722d840fa8c36048356c850bf04c626}{image}}
+\item 
+\mbox{\hyperlink{structVertexList}{Vertex\+List}} \mbox{\hyperlink{structCard_ac72c1b87867a3022f9a9814730936194}{discard}}
+\item 
+\mbox{\hyperlink{structVertexList}{Vertex\+List}} \mbox{\hyperlink{structCard_abda01f7b3f3a03e799baed47456ab083}{compatibility}}
+\item 
+\mbox{\hyperlink{structEdgeList}{Edge\+List}} \mbox{\hyperlink{structCard_acf477b5154968147174c24aa34d6bf14}{parents}}
+\item 
+\mbox{\hyperlink{structEdgeList}{Edge\+List}} \mbox{\hyperlink{structCard_a6e581a926418162787e06677ba3d45f9}{children}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A structure representing the \mbox{\hyperlink{structCard}{Card}} of a \mbox{\hyperlink{structProject}{Project}}, containing all the useful informations regarding the attributes a \mbox{\hyperlink{structCard}{Card}} can have. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structCard_a6e581a926418162787e06677ba3d45f9}\label{structCard_a6e581a926418162787e06677ba3d45f9}} 
+\index{Card@{Card}!children@{children}}
+\index{children@{children}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{children}{children}}
+{\footnotesize\ttfamily Card\+::children}
+
+A list containing pointers towards every child \mbox{\hyperlink{structLink}{Link}} of this \mbox{\hyperlink{structCard}{Card}} \mbox{\Hypertarget{structCard_abda01f7b3f3a03e799baed47456ab083}\label{structCard_abda01f7b3f3a03e799baed47456ab083}} 
+\index{Card@{Card}!compatibility@{compatibility}}
+\index{compatibility@{compatibility}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{compatibility}{compatibility}}
+{\footnotesize\ttfamily Card\+::compatibility}
+
+A list containing every \mbox{\hyperlink{structCard}{Card}} that can be present in the game at the same time as this \mbox{\hyperlink{structCard}{Card}} (unused at the moment, but could be used later on) \mbox{\Hypertarget{structCard_ac72c1b87867a3022f9a9814730936194}\label{structCard_ac72c1b87867a3022f9a9814730936194}} 
+\index{Card@{Card}!discard@{discard}}
+\index{discard@{discard}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{discard}{discard}}
+{\footnotesize\ttfamily Card\+::discard}
+
+The \mbox{\hyperlink{structCard}{Card}}\textquotesingle{}s discard list, containing pointers towards every \mbox{\hyperlink{structCard}{Card}} the player can discard when getting this one (unused at the moment, but could be used later on) \mbox{\Hypertarget{structCard_a7b3328bdb11e0a6549c848767e8c5944}\label{structCard_a7b3328bdb11e0a6549c848767e8c5944}} 
+\index{Card@{Card}!fixedNumber@{fixedNumber}}
+\index{fixedNumber@{fixedNumber}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{fixedNumber}{fixedNumber}}
+{\footnotesize\ttfamily Card\+::fixed\+Number}
+
+A boolean to indicate if the number of this \mbox{\hyperlink{structCard}{Card}} has been chosen by the user \+:~\newline
+
+\begin{DoxyItemize}
+\item 1 \+: the number of the \mbox{\hyperlink{structCard}{Card}} has been chosen~\newline
+
+\item 0 \+: it hasn\textquotesingle{}t been chosen yet 
+\end{DoxyItemize}\mbox{\Hypertarget{structCard_a1a9954b039db02dcc94fd6b6dee21a2c}\label{structCard_a1a9954b039db02dcc94fd6b6dee21a2c}} 
+\index{Card@{Card}!id@{id}}
+\index{id@{id}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{id}{id}}
+{\footnotesize\ttfamily Card\+::id}
+
+The unique id of the \mbox{\hyperlink{structCard}{Card}} \mbox{\Hypertarget{structCard_a2722d840fa8c36048356c850bf04c626}\label{structCard_a2722d840fa8c36048356c850bf04c626}} 
+\index{Card@{Card}!image@{image}}
+\index{image@{image}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{image}{image}}
+{\footnotesize\ttfamily Card\+::image}
+
+A boolean about the presence of a front image for this \mbox{\hyperlink{structCard}{Card}} \+:~\newline
+
+\begin{DoxyItemize}
+\item 1 \+: a front image for this \mbox{\hyperlink{structCard}{Card}} is present in a specific directory with the precise appropriate name~\newline
+
+\item 0 \+: no front image has been added yet for this \mbox{\hyperlink{structCard}{Card}} 
+\end{DoxyItemize}\mbox{\Hypertarget{structCard_a8f209bb3a4387d6904a5f2187b5f1c65}\label{structCard_a8f209bb3a4387d6904a5f2187b5f1c65}} 
+\index{Card@{Card}!number@{number}}
+\index{number@{number}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{number}{number}}
+{\footnotesize\ttfamily Card\+::number}
+
+The number of the \mbox{\hyperlink{structCard}{Card}} in the Unlock scenario (almost always different from the id) \mbox{\Hypertarget{structCard_acf477b5154968147174c24aa34d6bf14}\label{structCard_acf477b5154968147174c24aa34d6bf14}} 
+\index{Card@{Card}!parents@{parents}}
+\index{parents@{parents}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{parents}{parents}}
+{\footnotesize\ttfamily Card\+::parents}
+
+A list containing pointers towards every parent \mbox{\hyperlink{structLink}{Link}} of this \mbox{\hyperlink{structCard}{Card}} \mbox{\Hypertarget{structCard_a7bdb17784252ad99964eece6f48c0a75}\label{structCard_a7bdb17784252ad99964eece6f48c0a75}} 
+\index{Card@{Card}!type@{type}}
+\index{type@{type}!Card@{Card}}
+\doxysubsubsection{\texorpdfstring{type}{type}}
+{\footnotesize\ttfamily Card\+::type}
+
+The type/color of the \mbox{\hyperlink{structCard}{Card}} (see enum card\+Type at the top of this file for more information) 
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Model/\mbox{\hyperlink{Struct_8h}{Struct.\+h}}\end{DoxyCompactItemize}

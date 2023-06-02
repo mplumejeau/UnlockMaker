@@ -1,0 +1,118 @@
+\hypertarget{Card_8h}{}\doxysection{Model/\+Card.h File Reference}
+\label{Card_8h}\index{Model/Card.h@{Model/Card.h}}
+{\ttfamily \#include \char`\"{}Struct.\+h\char`\"{}}\newline
+Include dependency graph for Card.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=161pt]{Card_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Card_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{Card_8h_af13289731a207d4272d108815448c2a1}{alloc\+Card}} (void)
+\item 
+void \mbox{\hyperlink{Card_8h_a7b72c3fe120b3f129ebf26e2f66b0f72}{init\+Empty\+Card}} (\mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+void \mbox{\hyperlink{Card_8h_a007a2ade7623d5ba0aeed797ecebaee2}{free\+Card}} (\mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+void \mbox{\hyperlink{Card_8h_aec5676511c55875c4d399134c8da5d6f}{set\+Card\+Type}} (\mbox{\hyperlink{structCard}{Card}} $\ast$c, \mbox{\hyperlink{Struct_8h_adc82e1818cbb951286495171fd55db18}{card\+Type}} t)
+\item 
+void \mbox{\hyperlink{Card_8h_a11e39413c95bc025963cc8413026f843}{set\+Card\+Number}} (\mbox{\hyperlink{structCard}{Card}} $\ast$c, int n)
+\item 
+void \mbox{\hyperlink{Card_8h_a4d24f22e31da160b7eaf8b8fe79b31a3}{fix\+Card\+Number}} (\mbox{\hyperlink{structCard}{Card}} $\ast$c, int n)
+\item 
+void \mbox{\hyperlink{Card_8h_a2c74716fee8ad887af9f31f88d91f157}{unfix\+Card\+Number}} (\mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Card_8h_af13289731a207d4272d108815448c2a1}\label{Card_8h_af13289731a207d4272d108815448c2a1}} 
+\index{Card.h@{Card.h}!allocCard@{allocCard}}
+\index{allocCard@{allocCard}!Card.h@{Card.h}}
+\doxysubsubsection{\texorpdfstring{allocCard()}{allocCard()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCard}{Card}}$\ast$ alloc\+Card (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Allocate a \mbox{\hyperlink{structCard}{Card}} in the dynamic space memory Give it a unique id based on id\+Links Increment id\+Links by 1 \begin{DoxyReturn}{Returns}
+Card$\ast$ the address of the allocated structure 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Card_8h_a4d24f22e31da160b7eaf8b8fe79b31a3}\label{Card_8h_a4d24f22e31da160b7eaf8b8fe79b31a3}} 
+\index{Card.h@{Card.h}!fixCardNumber@{fixCardNumber}}
+\index{fixCardNumber@{fixCardNumber}!Card.h@{Card.h}}
+\doxysubsubsection{\texorpdfstring{fixCardNumber()}{fixCardNumber()}}
+{\footnotesize\ttfamily void fix\+Card\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+Sets the number of the card c to n and enables the card\textquotesingle{}s parameter fixed\+Number (to indicate that it is chosen by the user) 
+\begin{DoxyParams}{Parameters}
+{\em c} & the card to modify \\
+\hline
+{\em n} & the new number of the card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Card_8h_a007a2ade7623d5ba0aeed797ecebaee2}\label{Card_8h_a007a2ade7623d5ba0aeed797ecebaee2}} 
+\index{Card.h@{Card.h}!freeCard@{freeCard}}
+\index{freeCard@{freeCard}!Card.h@{Card.h}}
+\doxysubsubsection{\texorpdfstring{freeCard()}{freeCard()}}
+{\footnotesize\ttfamily void free\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Frees the card and everything that must be deleted in it 
+\begin{DoxyParams}{Parameters}
+{\em c} & the card to free \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Card_8h_a7b72c3fe120b3f129ebf26e2f66b0f72}\label{Card_8h_a7b72c3fe120b3f129ebf26e2f66b0f72}} 
+\index{Card.h@{Card.h}!initEmptyCard@{initEmptyCard}}
+\index{initEmptyCard@{initEmptyCard}!Card.h@{Card.h}}
+\doxysubsubsection{\texorpdfstring{initEmptyCard()}{initEmptyCard()}}
+{\footnotesize\ttfamily void init\+Empty\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Initialize an empty card 
+\begin{DoxyParams}{Parameters}
+{\em c} & the card to initialieze \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Card_8h_a11e39413c95bc025963cc8413026f843}\label{Card_8h_a11e39413c95bc025963cc8413026f843}} 
+\index{Card.h@{Card.h}!setCardNumber@{setCardNumber}}
+\index{setCardNumber@{setCardNumber}!Card.h@{Card.h}}
+\doxysubsubsection{\texorpdfstring{setCardNumber()}{setCardNumber()}}
+{\footnotesize\ttfamily void set\+Card\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c,  }\item[{int}]{n }\end{DoxyParamCaption})}
+
+Sets the number of the card c to n 
+\begin{DoxyParams}{Parameters}
+{\em c} & the card to modify \\
+\hline
+{\em n} & the new number of the card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Card_8h_aec5676511c55875c4d399134c8da5d6f}\label{Card_8h_aec5676511c55875c4d399134c8da5d6f}} 
+\index{Card.h@{Card.h}!setCardType@{setCardType}}
+\index{setCardType@{setCardType}!Card.h@{Card.h}}
+\doxysubsubsection{\texorpdfstring{setCardType()}{setCardType()}}
+{\footnotesize\ttfamily void set\+Card\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c,  }\item[{\mbox{\hyperlink{Struct_8h_adc82e1818cbb951286495171fd55db18}{card\+Type}}}]{t }\end{DoxyParamCaption})}
+
+Sets the type (color) of the card c to t 
+\begin{DoxyParams}{Parameters}
+{\em c} & the card to modify \\
+\hline
+{\em t} & the new type of the card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Card_8h_a2c74716fee8ad887af9f31f88d91f157}\label{Card_8h_a2c74716fee8ad887af9f31f88d91f157}} 
+\index{Card.h@{Card.h}!unfixCardNumber@{unfixCardNumber}}
+\index{unfixCardNumber@{unfixCardNumber}!Card.h@{Card.h}}
+\doxysubsubsection{\texorpdfstring{unfixCardNumber()}{unfixCardNumber()}}
+{\footnotesize\ttfamily void unfix\+Card\+Number (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Disables the card\textquotesingle{}s parameter fixed\+Number (to indicate that it is no longer chosen by the user) 
+\begin{DoxyParams}{Parameters}
+{\em c} & the card to modify \\
+\hline
+\end{DoxyParams}

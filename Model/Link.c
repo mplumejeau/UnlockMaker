@@ -7,10 +7,9 @@
 
 #include "Link.h"
 
-int idLinks = 0;
-
 /**
- * allocate a Link in the dynamic space memory
+ * Allocate a Link in the dynamic space memory
+ * Give it a unique id based on idLinks
  * @return Link* the address of the allocated structure
  */
 Link* allocLink(void){
@@ -19,25 +18,26 @@ Link* allocLink(void){
 }
 
 /**
+ * Initialize an empty link
+ * @param l the link to initialize
+ */
+void initEmptyLink(Link* l){
+    if (l != NULL){
+        l->id = -1;
+        l->type = DEFAULT;
+        l->parent = NULL;
+        l->child = NULL;
+    } else {
+        fprintf(stderr, "error : link bad allocation\n");
+    }
+}
+
+/**
  * Frees the link and everything that must be deleted in it
  * @param l the link to free
  */
 void freeLink(Link* l){
     free(l);
-    idLinks --;
-}
-
-/**
- * Initialize an empty link with a unique id
- * @param l the link to initialize
- */
-void initLink(Link* l){
-    if (l != NULL){
-        l->id = idLinks;
-        idLinks++;
-    } else {
-        fprintf(stderr, "error : link bad allocation\n");
-    }
 }
 
 /**

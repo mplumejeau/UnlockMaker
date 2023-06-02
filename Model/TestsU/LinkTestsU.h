@@ -6,11 +6,8 @@
 #define UNLOCKMAKER_LINKTESTSU_H
 
 int setupAllocLink(void** state);
-int setupInitLink(void** state);
 
 int teardownAllocLink(void** state);
-
-void testInitLink(void** state);
 
 void testSetLinkType(void** state);
 

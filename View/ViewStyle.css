@@ -1,0 +1,422 @@
+/* This file describes the visual attributes of the GUI's widgets.
+To learn more about CSS format, follow this link : https://developer.mozilla.org/en-US/docs/Web/CSS */
+
+/* --------------------- Main window widgets --------------------- */
+
+/* ----- General widgets ----- */
+
+#mainWindow
+{
+   background-color: lightgrey;
+   color: black;
+}
+
+#generalGrid
+{
+   background-color: lightgrey;
+   border-width: 1px;
+   border-radius: 0;
+}
+
+
+button
+{
+   margin: 3px;
+}
+
+button:active
+{
+   transform: translateY(2px);
+}
+
+/* ----- Left widgets ----- */
+
+#leftWindow
+{
+   border-style: solid;
+   border-color: black;
+   border-width: 2px;
+   border-radius: 1px;
+   background-color: #B0B0B0;
+}
+
+#leftWindowTitle
+{
+   background-color: #333333;
+   color: white;
+}
+
+/* Card list buttons */
+
+#unselectedGreyCardBtn
+{
+   background-color: grey;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   margin-right: 18px;
+}
+
+#selectedGreyCardBtn
+{
+   background-color: grey;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#unselectedBlueCardBtn
+{
+   background-color: #0000CD;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   margin-right: 18px;
+}
+
+#selectedBlueCardBtn
+{
+   background-color: #0000CD;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#unselectedRedCardBtn
+{
+   background-color: #EE0000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   margin-right: 18px;
+}
+
+#selectedRedCardBtn
+{
+   background-color: #EE0000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#unselectedGreenCardBtn
+{
+   background-color: #00BD00;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   margin-right: 18px;
+}
+
+#selectedGreenCardBtn
+{
+   background-color: #00BD00;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+/* Link List Buttons */
+
+#unselectedFoundLinkBtn
+{
+   background-color: #000000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   color: #FFFFFF;
+   margin-right: 18px;
+}
+
+#selectedFoundLinkBtn
+{
+   background-color: #000000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   color: #FFFFFF;
+   border-width: 2px;
+   border-style: solid;
+   border-color: white;
+   margin-right: 18px;
+}
+
+#unselectedCombLinkBtn
+{
+   background-color: #DA70D6;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   margin-right: 18px;
+}
+
+#selectedCombLinkBtn
+{
+   background-color: #DA70D6;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#unselectedFixedLinkBtn
+{
+   background-color: #00CDCD;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   margin-right: 18px;
+}
+
+#selectedFixedLinkBtn
+{
+   background-color: #00CDCD;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+#unselectedHintLinkBtn
+{
+   background-color: #FF8000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   margin-right: 18px;
+}
+
+#selectedHintLinkBtn
+{
+   background-color: #FF8000;
+   margin-bottom: 1px;
+   border-radius: 1px;
+   border-width: 2px;
+   border-style: solid;
+   border-color: black;
+   margin-right: 18px;
+}
+
+/* ----- Middle Widgets ----- */
+
+#imageBox
+{
+   padding: 10px;
+}
+
+#zoomBtn
+{
+   background: none;
+}
+
+/* ----- Right Widgets ----- */
+#disabledRightButton
+{
+   margin-bottom: 15px;
+   margin-left: 15px;
+   margin-right: 15px;
+   border-color: grey;
+   border-width: 2px;
+   border-style: solid;
+   background-color: #BBB;
+   color: black;
+   box-shadow: 0 9px #AAA;
+}
+
+#enabledRightButton
+{
+   margin-bottom: 15px;
+   margin-left: 15px;
+   margin-right: 15px;
+   border-color: black;
+   border-width: 2px;
+   border-style: solid;
+   background-color: darkgrey;
+   color: black;
+   box-shadow: 0 9px #999;
+}
+
+#enabledRightButton:hover
+{
+   background-color: grey;
+   color:white;
+}
+
+#enabledRightButton:active
+{
+   box-shadow: 0 4px #666;
+   transform: translateY(5px);
+   transition-duration: 0.05s;
+}
+
+#rightSeparator
+{
+   background-color: transparent;
+   margin-bottom: 10px;
+   margin-top: 10px;
+}
+
+#selectedWidgetLabel
+{
+   background-color: black;
+   color: white;
+   margin-right: 5px;
+   margin-left: 5px;
+}
+
+#infoLabel
+{
+   background-color: black;
+   color: white;
+   margin-right: 5px;
+   margin-left: 5px;
+   margin-bottom: 5px;
+}
+
+/* --------------------- Start window widgets --------------------- */
+
+#startWindow
+{
+   border-radius: 10px;
+}
+
+#startWindowGrid
+{
+   margin: 10px;
+   padding: 10px;
+}
+
+#startTitleLabel
+{
+   font-size : x-large;
+   font-weight: bold;
+}
+
+#startLabel
+{
+   font-size : 110%;
+}
+
+#startBtn
+{
+   margin: 10px;
+}
+
+#saveProjectEntry
+{
+   margin:5px;
+   border-radius: 0;
+   border-style: solid;
+   border-color: black;
+   border-width: 1px;
+}
+
+/* --------------------- Modification window widgets --------------------- */
+
+#modifNumberEntry
+{
+   margin-right: 3px;
+}
+
+#modifParentWindow
+{
+   border-style: solid;
+   border-color: grey;
+   border-width: 2px;
+   border-radius: 7px;
+   margin: 2px;
+}
+
+#modifParentsBox
+{
+   margin: 5px 15px 5px 5px;
+}
+
+#modifChildWindow
+{
+   border-style: solid;
+   border-color: grey;
+   border-width: 2px;
+   border-radius: 7px;
+   margin: 2px;
+}
+
+#modifChildrenBox
+{
+   margin: 5px 15px 5px 5px;
+}
+
+#modifGreyLabel
+{
+   background-color: grey;
+   border-radius: 4px;
+   margin-bottom: 2px;
+   color:black;
+   font-weight: bold;
+}
+#modifBlueLabel
+{
+   background-color: #0000CD;
+   border-radius: 4px;
+   margin-bottom: 2px;
+   color:black;
+   font-weight: bold;
+}
+#modifRedLabel
+{
+   background-color: #EE0000;
+   border-radius: 4px;
+   margin-bottom: 2px;
+   color:black;
+   font-weight: bold;
+}
+#modifGreenLabel
+{
+   background-color: #00BD00;
+   border-radius: 4px;
+   margin-bottom: 2px;
+   color:black;
+   font-weight: bold;
+}
+
+#modifLabelCheck
+{
+   border-style: solid;
+   border-color: black;
+}
+
+/* --------------------- Close confirmation widgets --------------------- */
+
+#closeAbortBtn
+{
+   margin: 10px 3px 10px 10px;
+}
+
+#closeNoSaveBtn {
+   margin: 10px 3px 10px 3px;
+}
+
+#closeWithSaveBtn
+{
+   background-color: darkgrey;
+   font-weight: bold;
+   margin: 10px 10px 10px 3px;
+}
+
+#closeWithSaveBtn:hover
+{
+   background-color: #888888;
+   font-weight: bold;
+}
+
+#closeConfirmLabel
+{
+   font-size : large;
+}

@@ -1,0 +1,479 @@
+\hypertarget{Project_8c}{}\doxysection{Model/\+Project.c File Reference}
+\label{Project_8c}\index{Model/Project.c@{Model/Project.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$sys/stat.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Project.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Vertex\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Edge\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Card.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Link.\+h\char`\"{}}\newline
+Include dependency graph for Project.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Project_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structProject}{Project}} $\ast$ \mbox{\hyperlink{Project_8c_a3e86046e5dad725dda00cf115759633c}{alloc\+Project}} (void)
+\item 
+void \mbox{\hyperlink{Project_8c_a68dac7ace8077fa6f59e6b5cb9004f4e}{free\+Project}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\item 
+int \mbox{\hyperlink{Project_8c_aed0786ef68a57efab7dc5823f375ed30}{init\+Project}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, char $\ast$path, char $\ast$name)
+\item 
+int \mbox{\hyperlink{Project_8c_ad21c69c085a1bb527670159daf34a1cd}{init\+Project\+For\+Load}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, char $\ast$path, char $\ast$name)
+\item 
+int \mbox{\hyperlink{Project_8c_a5f0a3083ddf2a88c388a282031a789a2}{delete\+Project}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\item 
+void \mbox{\hyperlink{Project_8c_a64cf4fd753f92d4ed65b2432e267588b}{set\+Root}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$root)
+\item 
+int \mbox{\hyperlink{Project_8c_a5e848920c9c13896b1de691960bfe83a}{assign\+Id\+Card}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+int \mbox{\hyperlink{Project_8c_a0ef2e7ff94d542c65e161f16fa353d01}{assign\+Given\+Id\+Card}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$c, int id)
+\item 
+void \mbox{\hyperlink{Project_8c_a53704d97355e6e9be776ad2a413fbf76}{unassign\+Id\+Card}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{Project_8c_a5e44a7e14a7c0fa624e6df114244be9b}{add\+Empty\+Card}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\item 
+\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{Project_8c_a32910ce160442757e8dd37a1d99ab9cd}{add\+Card\+For\+Load}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, int id, \mbox{\hyperlink{Struct_8h_adc82e1818cbb951286495171fd55db18}{card\+Type}} type, int number, int fixed\+Number, int image)
+\item 
+int \mbox{\hyperlink{Project_8c_aab01189059ed7fe37b8d2f36dffeedd3}{set\+Card\+Image}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$c, char $\ast$path\+Image)
+\item 
+int \mbox{\hyperlink{Project_8c_a5a59a5923b826e145f1ff80fd34922ee}{delete\+Card}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+int \mbox{\hyperlink{Project_8c_a285a3db08e9696de578da62635bcdeef}{assign\+Id\+Link}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\item 
+int \mbox{\hyperlink{Project_8c_a9ad8cb10583210f3d98a9ea3dce10d64}{assign\+Given\+Id\+Link}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structLink}{Link}} $\ast$l, int id)
+\item 
+void \mbox{\hyperlink{Project_8c_ab61c0f0cf34d0a27eada6157b1fd3380}{unassign\+Id\+Link}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\item 
+\mbox{\hyperlink{structLink}{Link}} $\ast$ \mbox{\hyperlink{Project_8c_a87408d14f1d597457a47ad669ab7353b}{add\+Link}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$parent, \mbox{\hyperlink{structCard}{Card}} $\ast$child, \mbox{\hyperlink{Struct_8h_aafb381844623b97e6ef5bdbd3dfa6340}{link\+Type}} type)
+\item 
+\mbox{\hyperlink{structLink}{Link}} $\ast$ \mbox{\hyperlink{Project_8c_a06c66f6068d64be00504b9286872bef6}{add\+Link\+For\+Load}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, int id, \mbox{\hyperlink{Struct_8h_aafb381844623b97e6ef5bdbd3dfa6340}{link\+Type}} type, \mbox{\hyperlink{structCard}{Card}} $\ast$parent, \mbox{\hyperlink{structCard}{Card}} $\ast$child)
+\item 
+int \mbox{\hyperlink{Project_8c_a07faae401c201c12c80d00b33371cece}{delete\+Link}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\item 
+int \mbox{\hyperlink{Project_8c_ab33bf1c9b5c79619c303338d82249838}{delete\+Link\+From\+Cards}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, \mbox{\hyperlink{structCard}{Card}} $\ast$parent, \mbox{\hyperlink{structCard}{Card}} $\ast$child)
+\item 
+int \mbox{\hyperlink{Project_8c_a6334496ebb11c97b54a8870b178f9b58}{set\+Back\+Image}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, char $\ast$path\+Image)
+\item 
+int \mbox{\hyperlink{Project_8c_ab3da853c60621edf4062aa4ad491d708}{set\+Top\+Image}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, char $\ast$path\+Image)
+\item 
+int \mbox{\hyperlink{Project_8c_a502c1041de085c355d4763e6b78d51b2}{set\+Bottom\+Image}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p, char $\ast$path\+Image)
+\item 
+int \mbox{\hyperlink{Project_8c_a90da885fafb232f7a80b2fff99b1cc88}{save\+Project}} (\mbox{\hyperlink{structProject}{Project}} $\ast$p)
+\item 
+\mbox{\hyperlink{structProject}{Project}} $\ast$ \mbox{\hyperlink{Project_8c_af0250b3b1f7cac2ab8044459442b2095}{load\+Project}} (char $\ast$path, char $\ast$name)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Project_8c_a32910ce160442757e8dd37a1d99ab9cd}\label{Project_8c_a32910ce160442757e8dd37a1d99ab9cd}} 
+\index{Project.c@{Project.c}!addCardForLoad@{addCardForLoad}}
+\index{addCardForLoad@{addCardForLoad}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{addCardForLoad()}{addCardForLoad()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCard}{Card}}$\ast$ add\+Card\+For\+Load (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{int}]{id,  }\item[{\mbox{\hyperlink{Struct_8h_adc82e1818cbb951286495171fd55db18}{card\+Type}}}]{type,  }\item[{int}]{number,  }\item[{int}]{fixed\+Number,  }\item[{int}]{image }\end{DoxyParamCaption})}
+
+Create and add a card to a project when it is loaded from a .txt file Don\textquotesingle{}t create a directory for the card (already existed) The id of the card created is the given id 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em id} & the id of the new card \\
+\hline
+{\em type} & the type of the new card \\
+\hline
+{\em number} & the number of the new card \\
+\hline
+{\em fixed\+Number} & the enable fixed\+Number of the new card \\
+\hline
+{\em image} & the enable image of the new card \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer towards the created card 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a5e44a7e14a7c0fa624e6df114244be9b}\label{Project_8c_a5e44a7e14a7c0fa624e6df114244be9b}} 
+\index{Project.c@{Project.c}!addEmptyCard@{addEmptyCard}}
+\index{addEmptyCard@{addEmptyCard}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{addEmptyCard()}{addEmptyCard()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCard}{Card}}$\ast$ add\+Empty\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Add an empty card to a project Create its directory into the directory tree of the project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to which a card must be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer towards the created card 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a87408d14f1d597457a47ad669ab7353b}\label{Project_8c_a87408d14f1d597457a47ad669ab7353b}} 
+\index{Project.c@{Project.c}!addLink@{addLink}}
+\index{addLink@{addLink}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{addLink()}{addLink()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structLink}{Link}}$\ast$ add\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{child,  }\item[{\mbox{\hyperlink{Struct_8h_aafb381844623b97e6ef5bdbd3dfa6340}{link\+Type}}}]{type }\end{DoxyParamCaption})}
+
+Add a link between 2 cards of a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to which a card must be added \\
+\hline
+{\em parent} & the parent card of the link \\
+\hline
+{\em child} & the child card of the link \\
+\hline
+{\em type} & the type of the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer towards the link created 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a06c66f6068d64be00504b9286872bef6}\label{Project_8c_a06c66f6068d64be00504b9286872bef6}} 
+\index{Project.c@{Project.c}!addLinkForLoad@{addLinkForLoad}}
+\index{addLinkForLoad@{addLinkForLoad}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{addLinkForLoad()}{addLinkForLoad()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structLink}{Link}}$\ast$ add\+Link\+For\+Load (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{int}]{id,  }\item[{\mbox{\hyperlink{Struct_8h_aafb381844623b97e6ef5bdbd3dfa6340}{link\+Type}}}]{type,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{child }\end{DoxyParamCaption})}
+
+Create and add a link between 2 cards of a project The id of the link created is the given id 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em id} & the given id for the new link \\
+\hline
+{\em type} & the type of the new link \\
+\hline
+{\em parent} & the parent card of the new link \\
+\hline
+{\em child} & the child card of the new link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+a pointer towards the link created 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a3e86046e5dad725dda00cf115759633c}\label{Project_8c_a3e86046e5dad725dda00cf115759633c}} 
+\index{Project.c@{Project.c}!allocProject@{allocProject}}
+\index{allocProject@{allocProject}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{allocProject()}{allocProject()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structProject}{Project}}$\ast$ alloc\+Project (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Allocate a unlock project in the dynamic space memory \begin{DoxyReturn}{Returns}
+the address of the allocated structure 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a0ef2e7ff94d542c65e161f16fa353d01}\label{Project_8c_a0ef2e7ff94d542c65e161f16fa353d01}} 
+\index{Project.c@{Project.c}!assignGivenIdCard@{assignGivenIdCard}}
+\index{assignGivenIdCard@{assignGivenIdCard}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{assignGivenIdCard()}{assignGivenIdCard()}}
+{\footnotesize\ttfamily int assign\+Given\+Id\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c,  }\item[{int}]{id }\end{DoxyParamCaption})}
+
+Assign a given id (verify it is free) to a card and set it as occupied in the id\+Cards array of a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em c} & the card \\
+\hline
+{\em id} & the id to assign \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a9ad8cb10583210f3d98a9ea3dce10d64}\label{Project_8c_a9ad8cb10583210f3d98a9ea3dce10d64}} 
+\index{Project.c@{Project.c}!assignGivenIdLink@{assignGivenIdLink}}
+\index{assignGivenIdLink@{assignGivenIdLink}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{assignGivenIdLink()}{assignGivenIdLink()}}
+{\footnotesize\ttfamily int assign\+Given\+Id\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l,  }\item[{int}]{id }\end{DoxyParamCaption})}
+
+Assign a given id (verify it is free) to a link and set it as occupied in the id\+Links array of a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em l} & the link \\
+\hline
+{\em id} & the id to assign \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a5e848920c9c13896b1de691960bfe83a}\label{Project_8c_a5e848920c9c13896b1de691960bfe83a}} 
+\index{Project.c@{Project.c}!assignIdCard@{assignIdCard}}
+\index{assignIdCard@{assignIdCard}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{assignIdCard()}{assignIdCard()}}
+{\footnotesize\ttfamily int assign\+Id\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Automatically assign a free id to a card and set it as occupied in the id\+Cards array of a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em c} & the card \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a285a3db08e9696de578da62635bcdeef}\label{Project_8c_a285a3db08e9696de578da62635bcdeef}} 
+\index{Project.c@{Project.c}!assignIdLink@{assignIdLink}}
+\index{assignIdLink@{assignIdLink}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{assignIdLink()}{assignIdLink()}}
+{\footnotesize\ttfamily int assign\+Id\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+Automatically assign a free id to a link and set it as occupied in the id\+Links array of a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em l} & the link \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a5a59a5923b826e145f1ff80fd34922ee}\label{Project_8c_a5a59a5923b826e145f1ff80fd34922ee}} 
+\index{Project.c@{Project.c}!deleteCard@{deleteCard}}
+\index{deleteCard@{deleteCard}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{deleteCard()}{deleteCard()}}
+{\footnotesize\ttfamily int delete\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Remove a card from a project and free it Must delete all links in which the card is included Delete its directory in the directory tree 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to which a card must be removed \\
+\hline
+{\em c} & the card to delete \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a07faae401c201c12c80d00b33371cece}\label{Project_8c_a07faae401c201c12c80d00b33371cece}} 
+\index{Project.c@{Project.c}!deleteLink@{deleteLink}}
+\index{deleteLink@{deleteLink}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{deleteLink()}{deleteLink()}}
+{\footnotesize\ttfamily int delete\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+Remove a link from a project and free it 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to which a link must be removed \\
+\hline
+{\em l} & the link to delete \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_ab33bf1c9b5c79619c303338d82249838}\label{Project_8c_ab33bf1c9b5c79619c303338d82249838}} 
+\index{Project.c@{Project.c}!deleteLinkFromCards@{deleteLinkFromCards}}
+\index{deleteLinkFromCards@{deleteLinkFromCards}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{deleteLinkFromCards()}{deleteLinkFromCards()}}
+{\footnotesize\ttfamily int delete\+Link\+From\+Cards (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{child }\end{DoxyParamCaption})}
+
+Remove a link from a project and free it 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to which a link must be removed \\
+\hline
+{\em parent} & the parent card of the link to delete \\
+\hline
+{\em child} & the child card of the link to delete \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a5f0a3083ddf2a88c388a282031a789a2}\label{Project_8c_a5f0a3083ddf2a88c388a282031a789a2}} 
+\index{Project.c@{Project.c}!deleteProject@{deleteProject}}
+\index{deleteProject@{deleteProject}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{deleteProject()}{deleteProject()}}
+{\footnotesize\ttfamily int delete\+Project (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Free every structures (cards, links, vertex\+List,...) contained by a project Delete directory tree of the project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to delete \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a68dac7ace8077fa6f59e6b5cb9004f4e}\label{Project_8c_a68dac7ace8077fa6f59e6b5cb9004f4e}} 
+\index{Project.c@{Project.c}!freeProject@{freeProject}}
+\index{freeProject@{freeProject}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{freeProject()}{freeProject()}}
+{\footnotesize\ttfamily void free\+Project (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Free a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to free \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Project_8c_aed0786ef68a57efab7dc5823f375ed30}\label{Project_8c_aed0786ef68a57efab7dc5823f375ed30}} 
+\index{Project.c@{Project.c}!initProject@{initProject}}
+\index{initProject@{initProject}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{initProject()}{initProject()}}
+{\footnotesize\ttfamily int init\+Project (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{char $\ast$}]{path,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Initialize an empty project and create its directory tree at the specified absolute path Set the id arrays to arrays of 0 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to initialize \\
+\hline
+{\em path} & the absolute path where the project\textquotesingle{}s directory has to be created \\
+\hline
+{\em name} & the name of the project \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_ad21c69c085a1bb527670159daf34a1cd}\label{Project_8c_ad21c69c085a1bb527670159daf34a1cd}} 
+\index{Project.c@{Project.c}!initProjectForLoad@{initProjectForLoad}}
+\index{initProjectForLoad@{initProjectForLoad}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{initProjectForLoad()}{initProjectForLoad()}}
+{\footnotesize\ttfamily int init\+Project\+For\+Load (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{char $\ast$}]{path,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Initialize an empty project without create its directory tree (already exists) Set the id arrays to arrays of 0 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to initialized \\
+\hline
+{\em path} & the absolute path of the project \\
+\hline
+{\em name} & the name of the project \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_af0250b3b1f7cac2ab8044459442b2095}\label{Project_8c_af0250b3b1f7cac2ab8044459442b2095}} 
+\index{Project.c@{Project.c}!loadProject@{loadProject}}
+\index{loadProject@{loadProject}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{loadProject()}{loadProject()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structProject}{Project}}$\ast$ load\+Project (\begin{DoxyParamCaption}\item[{char $\ast$}]{path,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+Load a project from a \mbox{[}project\+Name\mbox{]}.txt in the /\mbox{[}project\+Path\mbox{]} directory The information stored has to respect a precise and specific pattern in order to be well read Allocate and fill all the needed structures in order to restore the state of the project when he was saved 
+\begin{DoxyParams}{Parameters}
+{\em path} & the path of the directory tree of project to load \\
+\hline
+{\em name} & the name of the project to load \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the project filled if it\textquotesingle{}s a success, NULL if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a90da885fafb232f7a80b2fff99b1cc88}\label{Project_8c_a90da885fafb232f7a80b2fff99b1cc88}} 
+\index{Project.c@{Project.c}!saveProject@{saveProject}}
+\index{saveProject@{saveProject}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{saveProject()}{saveProject()}}
+{\footnotesize\ttfamily int save\+Project (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p }\end{DoxyParamCaption})}
+
+Save all the information about a project in a \mbox{[}project\+Name\mbox{]}.txt in the /\mbox{[}project\+Path\mbox{]} directory The information stored has to respect a precise and specific template in order to be read when loading a project If the .txt file doesn\textquotesingle{}t exist, create it and if it already exists, suppress it and recreate it 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project to save \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a6334496ebb11c97b54a8870b178f9b58}\label{Project_8c_a6334496ebb11c97b54a8870b178f9b58}} 
+\index{Project.c@{Project.c}!setBackImage@{setBackImage}}
+\index{setBackImage@{setBackImage}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{setBackImage()}{setBackImage()}}
+{\footnotesize\ttfamily int set\+Back\+Image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{char $\ast$}]{path\+Image }\end{DoxyParamCaption})}
+
+Set a back image for all cards of the project Copy an image to the directory /\mbox{[}project\+Path\mbox{]}/\+Project and rename it Back\+Image.\+jpg Set the enable back\+Image to 1 if it\textquotesingle{}s a success 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em path} & the absolute path of the image to copy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a502c1041de085c355d4763e6b78d51b2}\label{Project_8c_a502c1041de085c355d4763e6b78d51b2}} 
+\index{Project.c@{Project.c}!setBottomImage@{setBottomImage}}
+\index{setBottomImage@{setBottomImage}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{setBottomImage()}{setBottomImage()}}
+{\footnotesize\ttfamily int set\+Bottom\+Image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{char $\ast$}]{path\+Image }\end{DoxyParamCaption})}
+
+Set a bottom image for all cards of the project Copy an image to the directory /\mbox{[}project\+Path\mbox{]}/\+Project and rename it Bottom\+Image.\+jpg Set the enable bottom\+Image to 1 if it\textquotesingle{}s a success 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em path} & the absolute path of the image to copy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_aab01189059ed7fe37b8d2f36dffeedd3}\label{Project_8c_aab01189059ed7fe37b8d2f36dffeedd3}} 
+\index{Project.c@{Project.c}!setCardImage@{setCardImage}}
+\index{setCardImage@{setCardImage}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{setCardImage()}{setCardImage()}}
+{\footnotesize\ttfamily int set\+Card\+Image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c,  }\item[{char $\ast$}]{path\+Image }\end{DoxyParamCaption})}
+
+Set a front image for a card of the project Copy an image to the directory /\mbox{[}project\+Path\mbox{]}/\+Project/\+Cards/\+Card\mbox{[}c-\/$>$id\mbox{]} and rename it Image.\+jpg Set the enable image for the card to 1 if it\textquotesingle{}s a success 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project containing the card c \\
+\hline
+{\em c} & the card \\
+\hline
+{\em path\+Image} & the absolute path of the image to copy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a64cf4fd753f92d4ed65b2432e267588b}\label{Project_8c_a64cf4fd753f92d4ed65b2432e267588b}} 
+\index{Project.c@{Project.c}!setRoot@{setRoot}}
+\index{setRoot@{setRoot}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{setRoot()}{setRoot()}}
+{\footnotesize\ttfamily void set\+Root (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{root }\end{DoxyParamCaption})}
+
+Set the root card (the unique face up card at the beginning of the game) of a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project whose the root has to be set \\
+\hline
+{\em root} & the new root card for the project \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Project_8c_ab3da853c60621edf4062aa4ad491d708}\label{Project_8c_ab3da853c60621edf4062aa4ad491d708}} 
+\index{Project.c@{Project.c}!setTopImage@{setTopImage}}
+\index{setTopImage@{setTopImage}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{setTopImage()}{setTopImage()}}
+{\footnotesize\ttfamily int set\+Top\+Image (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{char $\ast$}]{path\+Image }\end{DoxyParamCaption})}
+
+Set a top image for all cards of the project Copy an image to the directory /\mbox{[}project\+Path\mbox{]}/\+Project and rename it Top\+Image.\+jpg Set the enable top\+Image to 1 if it\textquotesingle{}s a success 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em path} & the absolute path of the image to copy \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Project_8c_a53704d97355e6e9be776ad2a413fbf76}\label{Project_8c_a53704d97355e6e9be776ad2a413fbf76}} 
+\index{Project.c@{Project.c}!unassignIdCard@{unassignIdCard}}
+\index{unassignIdCard@{unassignIdCard}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{unassignIdCard()}{unassignIdCard()}}
+{\footnotesize\ttfamily void unassign\+Id\+Card (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Automatically unassign an id from a card =$>$ set it as unoccupied in the id\+Cards array of a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em c} & the card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Project_8c_ab61c0f0cf34d0a27eada6157b1fd3380}\label{Project_8c_ab61c0f0cf34d0a27eada6157b1fd3380}} 
+\index{Project.c@{Project.c}!unassignIdLink@{unassignIdLink}}
+\index{unassignIdLink@{unassignIdLink}!Project.c@{Project.c}}
+\doxysubsubsection{\texorpdfstring{unassignIdLink()}{unassignIdLink()}}
+{\footnotesize\ttfamily void unassign\+Id\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structProject}{Project}} $\ast$}]{p,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+Automatically unassign an id from a link =$>$ set it as unoccupied in the id\+Links array of a project 
+\begin{DoxyParams}{Parameters}
+{\em p} & the project \\
+\hline
+{\em l} & the link \\
+\hline
+\end{DoxyParams}

@@ -1,0 +1,1115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- This file describes the GUI's windows layout -->
+<interface>
+
+  <!-- ==================== Start window description ==================== -->
+  <object id="startWindow" class="GtkWindow">
+    <property name="title">Starting window</property>
+    <property name="decorated">False</property>
+    <property name="name">startWindow</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">startWindowGrid</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="name">startTitleLabel</property>
+            <property name="justify">center</property>
+            <property name="lines">1</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.5</property>
+            <property name="label">Bienvenue dans UnlockMaker !</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">4</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="name">startLabel</property>
+            <property name="justify">center</property>
+            <property name="lines">1</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.5</property>
+            <property name="label">Souhaitez-vous vous créer un nouveau projet ou ouvrir un projet existant ?</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">1</property>
+              <property name="column-span">4</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="newProjectBtn" class="GtkButton">
+            <property name="label">Nouveau projet</property>
+            <property name="name">startBtn</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">3</property>
+              <property name="column-span">2</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectBtn" class="GtkButton">
+            <property name="label">Ouvrir un projet existant</property>
+            <property name="name">startBtn</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">3</property>
+              <property name="column-span">2</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeStartingWindowBtn" class="GtkButton">
+            <property name="label">Quitter</property>
+            <property name="name">closeStartingWindowBtn</property>
+            <layout>
+              <property name="column">1</property>
+              <property name="row">5</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Project creating window description ==================== -->
+  <object id="saveNewProjectWindow" class="GtkWindow">
+    <property name="title">Création du projet</property>
+    <property name="name">saveProjectWindow</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">saveProjectGrid</property>
+        <child>
+          <object id="saveNewProjectBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveNewProjectErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner un dossier et entrer le nom du projet</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveNewProjectEntry" class="GtkEntry">
+            <property name="name">saveProjectEntry</property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveNewProjectConfirm" class="GtkButton">
+            <property name="label">Créer le projet</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveNewProjectAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Project opening window description ==================== -->
+  <object id="openProjectWindow" class="GtkWindow">
+    <property name="title">Ouvrir un projet</property>
+    <property name="name">openProjectWindow</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">openProjectGrid</property>
+        <child>
+          <object id="openProjectBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner un fichier</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectConfirm" class="GtkButton">
+            <property name="label">Ouvrir</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="openProjectAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Main window description ==================== -->
+  <object id="mainWindow" class="GtkWindow">
+    <property name="title">Sans titre - UnlockMaker</property>
+    <property name="name">mainWindow</property>
+    <child>
+      <object id="generalGrid" class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">generalGrid</property>
+        <child>
+          <object id="leftWindowsBox" class="GtkBox">
+            <property name="name">leftWindowsBox</property>
+            <property name="homogeneous">false</property>
+            <property name="orientation">vertical</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">6</property>
+              <property name="row-span">200</property>
+            </layout>
+            <child>
+              <object id="cardBoxLabel" class="GtkLabel">
+                <property name="label">Liste des cartes</property>
+                <property name="name">leftWindowTitle</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="vexpand">true</property>
+                <property name="name">leftWindow</property>
+                <child>
+                  <object id="cardBox" class="GtkBox">
+                    <property name="orientation">vertical</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object id="linkBoxLabel" class="GtkLabel">
+                <property name="label">Liste des liens</property>
+                <property name="name">leftWindowTitle</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkScrolledWindow">
+                <property name="vexpand">true</property>
+                <property name="name">leftWindow</property>
+                <child>
+                  <object id="linkBox" class="GtkBox">
+                    <property name="orientation">vertical</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">6</property>
+              <property name="column-span">1</property>
+              <property name="row">0</property>
+              <property name="row-span">200</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="vexpand">true</property>
+            <property name="name">imageWindow</property>
+            <layout>
+              <property name="column">7</property>
+              <property name="row">0</property>
+              <property name="column-span">25</property>
+              <property name="row-span">200</property>
+            </layout>
+            <child>
+              <object id="imageBox" class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="homogeneous">true</property>
+                <property name="name">imageBox</property>
+                <child type="center">
+                  <object id="graphViewer" class="GtkImage">
+                    <property name="name">graphViewer</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object id="zoomBtn" class="GtkScaleButton">
+            <property name="name">zoomBtn</property>
+            <property name="icons">zoom-in</property>
+            <layout>
+              <property name="column">31</property>
+              <property name="row">0</property>
+              <property name="column-span">1</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">32</property>
+              <property name="column-span">1</property>
+              <property name="row">0</property>
+              <property name="row-span">200</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="orientation">vertical</property>
+            <property name="homogeneous">false</property>
+            <layout>
+              <property name="column">33</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">140</property>
+            </layout>
+            <child>
+              <object id="BtnAddCard" class="GtkButton">
+                <property name="label">Ajouter une carte</property>
+                <property name="name">enabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="BtnModifyCard" class="GtkButton">
+                <property name="label">Modifier la carte sélectionnée</property>
+                <property name="name">disabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="BtnDeleteCard" class="GtkButton">
+                <property name="label">Supprimer la carte sélectionnée</property>
+                <property name="name">disabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="orientation">horizontal</property>
+                <property name="name">rightSeparator</property>
+              </object>
+            </child>
+            <child>
+              <object id="BtnModifyLink" class="GtkButton">
+                <property name="label">Modifier le lien sélectionné</property>
+                <property name="name">disabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="BtnDeleteLink" class="GtkButton">
+                <property name="label">Supprimer le lien sélectionné</property>
+                <property name="name">disabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="orientation">horizontal</property>
+                <property name="name">rightSeparator</property>
+              </object>
+            </child>
+            <child>
+              <object id="BtnModifyProject" class="GtkButton">
+                <property name="label">Ajouter des images génériques</property>
+                <property name="name">enabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkSeparator">
+                <property name="orientation">horizontal</property>
+                <property name="name">rightSeparator</property>
+              </object>
+            </child>
+            <child>
+              <object id="saveBtn" class="GtkButton">
+                <property name="label">Enregistrer le projet</property>
+                <property name="name">enabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="debugBtn" class="GtkButton">
+                <property name="label">Vérifier le graph</property>
+                <property name="name">enabledRightButton</property>
+              </object>
+            </child>
+            <child>
+              <object id="exportBtn" class="GtkButton">
+                <property name="label">Exporter le projet</property>
+                <property name="name">disabledRightButton</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object id="selectedCardLabel" class="GtkLabel">
+            <property name="justify">center</property>
+            <property name="lines">5</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.1</property>
+            <property name="label">Aucune carte sélectionnée</property>
+            <property name="name">selectedWidgetLabel</property>
+            <layout>
+              <property name="column">33</property>
+              <property name="row">140</property>
+              <property name="column-span">7</property>
+              <property name="row-span">15</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="selectedLinkLabel" class="GtkLabel">
+            <property name="justify">center</property>
+            <property name="lines">5</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.1</property>
+            <property name="label">Aucun lien sélectionné</property>
+            <property name="name">selectedWidgetLabel</property>
+            <layout>
+              <property name="column">33</property>
+              <property name="row">155</property>
+              <property name="column-span">7</property>
+              <property name="row-span">15</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="infoLabel" class="GtkLabel">
+            <property name="justify">center</property>
+            <property name="lines">5</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.1</property>
+            <property name="name">infoLabel</property>
+            <layout>
+              <property name="column">33</property>
+              <property name="row">170</property>
+              <property name="column-span">7</property>
+              <property name="row-span">30</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Project saving window description ==================== -->
+  <object id="saveProjectWindow" class="GtkWindow">
+    <property name="title">Sauvegarder le projet</property>
+    <property name="name">saveProjectWindow</property>
+    <property name="modal">true</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">saveProjectGrid</property>
+        <child>
+          <object id="saveProjectBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner un dossier et entrer le nom du projet</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectEntry" class="GtkEntry">
+            <property name="name">saveProjectEntry</property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectConfirm" class="GtkButton">
+            <property name="label">Sauvegarder</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="saveProjectAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Card modification window description ==================== -->
+  <object id="modifCardWindow" class="GtkWindow">
+    <property name="title">Modification window</property>
+    <child>
+      <object id="modifCardGrid" class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">             Type de Carte</property>
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">4</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="modifColorDropDown" class="GtkDropDown">
+            <property name="model">
+              <object class="GtkStringList">
+                <items>
+                  <item translatable="yes">Grise</item>
+                  <item translatable="yes">Bleue</item>
+                  <item translatable="yes">Rouge</item>
+                  <item translatable="yes">Verte</item>
+                </items>
+              </object>
+            </property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">1</property>
+              <property name="column-span">4</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">0</property>
+              <property name="column-span">8</property>
+              <property name="row">6</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">          Fixer le numéro de carte</property>
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">7</property>
+              <property name="column-span">5</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="modifNumberCheck" class="GtkCheckButton">
+            <layout>
+              <property name="column">5</property>
+              <property name="row">7</property>
+              <property name="column-span">1</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="modifNumberEntry" class="GtkEntry">
+            <property name="input-purpose">GTK_INPUT_PURPOSE_DIGITS</property>
+            <property name="name">modifNumberEntry</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">8</property>
+              <property name="column-span">2</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">0</property>
+              <property name="column-span">8</property>
+              <property name="row">13</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">          Positionner la carte en tant que racine</property>
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">14</property>
+              <property name="column-span">7</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="modifRootCheck" class="GtkCheckButton">
+            <layout>
+              <property name="column">7</property>
+              <property name="row">14</property>
+              <property name="column-span">1</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">0</property>
+              <property name="column-span">8</property>
+              <property name="row">20</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">       Ajouter une image à la carte</property>
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">21</property>
+              <property name="column-span">5</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="modifCardAddImageBtn" class="GtkButton">
+            <property name="icon-name">document-open</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">22</property>
+              <property name="column-span">1</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="modifCardViewImageBtn" class="GtkButton">
+            <property name="label">Voir</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">22</property>
+              <property name="column-span">2</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">0</property>
+              <property name="column-span">8</property>
+              <property name="row">27</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Sélectionner les parents de la carte</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">28</property>
+              <property name="column-span">8</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="vexpand">true</property>
+            <property name="name">modifParentWindow</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">34</property>
+              <property name="column-span">8</property>
+              <property name="row-span">20</property>
+            </layout>
+            <child>
+              <object id="modifParentsBox" class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="name">modifParentsBox</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Sélectionner les enfants de la carte</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">54</property>
+              <property name="column-span">8</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkScrolledWindow">
+            <property name="vexpand">true</property>
+            <property name="name">modifChildWindow</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">60</property>
+              <property name="column-span">8</property>
+              <property name="row-span">20</property>
+            </layout>
+            <child>
+              <object id="modifChildrenBox" class="GtkBox">
+                <property name="orientation">vertical</property>
+                <property name="name">modifChildrenBox</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object id="closeModifCardWindowBtn" class="GtkButton">
+            <property name="label">Terminer</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">80</property>
+              <property name="column-span">4</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Link modification window description ==================== -->
+  <object id="modifLinkWindow" class="GtkWindow">
+    <property name="title">Modification window</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">Type de Lien</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">4</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="modifTypeDropDown" class="GtkDropDown">
+            <property name="model">
+              <object class="GtkStringList">
+                <items>
+                  <item translatable="yes">Recherche</item>
+                  <item translatable="yes">Combinaison</item>
+                  <item translatable="yes">Indice</item>
+                </items>
+              </object>
+            </property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">1</property>
+              <property name="column-span">4</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeModifLinkWindowBtn" class="GtkButton">
+            <property name="label">Terminer</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">6</property>
+              <property name="column-span">4</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Project images modification window description ==================== -->
+
+  <object id="modifProjectWindow" class="GtkWindow">
+    <property name="title">Modification window</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">    Ajouter une image de haut de carte</property>
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">5</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="addTopImageBtn" class="GtkButton">
+            <property name="icon-name">document-open</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">1</property>
+              <property name="column-span">1</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="viewTopImageBtn" class="GtkButton">
+            <property name="label">Voir</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">1</property>
+              <property name="column-span">2</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">0</property>
+              <property name="column-span">8</property>
+              <property name="row">6</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">    Ajouter une image de bas de carte</property>
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">7</property>
+              <property name="column-span">5</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="addBottomImageBtn" class="GtkButton">
+            <property name="icon-name">document-open</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">8</property>
+              <property name="column-span">1</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="viewBottomImageBtn" class="GtkButton">
+            <property name="label">Voir</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">8</property>
+              <property name="column-span">2</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkSeparator">
+            <layout>
+              <property name="column">0</property>
+              <property name="column-span">8</property>
+              <property name="row">13</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object class="GtkLabel">
+            <property name="label">    Ajouter une image de dos de carte</property>
+            <property name="xalign">0.0</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">14</property>
+              <property name="column-span">5</property>
+              <property name="row-span">6</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="addBackImageBtn" class="GtkButton">
+            <property name="icon-name">document-open</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">15</property>
+              <property name="column-span">1</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="viewBackImageBtn" class="GtkButton">
+            <property name="label">Voir</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">15</property>
+              <property name="column-span">2</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeModifProjectWindowBtn" class="GtkButton">
+            <property name="label">Terminer</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">20</property>
+              <property name="column-span">4</property>
+              <property name="row-span">4</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Image import window description ==================== -->
+  <object id="importImageWindow" class="GtkWindow">
+    <property name="title">Importer une image</property>
+    <property name="name">importCardWindow</property>
+    <property name="modal">true</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">importCardGrid</property>
+        <child>
+          <object id="importImageBrowser" class="GtkFileChooserWidget">
+            <property name="select_multiple">false</property>
+            <property name="action">GTK_FILE_CHOOSER_ACTION_OPEN</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">7</property>
+              <property name="row-span">10</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importImageErrorLabel" class="GtkLabel">
+            <property name="xalign">0.0</property>
+            <property name="label"> Sélectionner une image</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">10</property>
+              <property name="column-span">5</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importImageConfirm" class="GtkButton">
+            <property name="label">Importer</property>
+            <layout>
+              <property name="column">5</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="importImageAbort" class="GtkButton">
+            <property name="label">Annuler</property>
+            <layout>
+              <property name="column">6</property>
+              <property name="row">10</property>
+              <property name="column-span">1</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Image viewer window description ==================== -->
+  <object id="imageViewerWindow" class="GtkWindow">
+    <property name="title">Image</property>
+    <property name="modal">false</property>
+    <child>
+      <object class="GtkBox">
+        <property name="homogeneous">True</property>
+        <child>
+          <object id="imageViewer" class="GtkImage">
+            <property name="pixel-size">700</property>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+
+  <!-- ==================== Close confirmation window description ==================== -->
+  <object id="closeConfirmWindow" class="GtkWindow">
+    <property name="name">closeConfirmWindow</property>
+    <property name="modal">true</property>
+    <property name="decorated">false</property>
+    <child>
+      <object class="GtkGrid">
+        <property name="column-homogeneous">True</property>
+        <property name="row-homogeneous">True</property>
+        <property name="name">closeConfirmationGrid</property>
+        <child>
+          <object class="GtkLabel">
+            <property name="name">closeConfirmLabel</property>
+            <property name="justify">center</property>
+            <property name="lines">1</property>
+            <property name="wrap">True</property>
+            <property name="yalign">0.5</property>
+            <property name="label">Vous êtes sur le point de quitter votre projet en cours
+
+Voulez-vous enregistrer les modifications ?</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">0</property>
+              <property name="column-span">6</property>
+              <property name="row-span">2</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeAbortBtn" class="GtkButton">
+            <property name="label">Annuler</property>
+            <property name="name">closeAbortBtn</property>
+            <layout>
+              <property name="column">0</property>
+              <property name="row">2</property>
+              <property name="column-span">2</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeNoSaveBtn" class="GtkButton">
+            <property name="label">Ne pas enregistrer</property>
+            <property name="name">closeNoSaveBtn</property>
+            <layout>
+              <property name="column">2</property>
+              <property name="row">2</property>
+              <property name="column-span">2</property>
+              <property name="row-span">1</property>
+            </layout>
+          </object>
+        </child>
+        <child>
+          <object id="closeWithSaveBtn" class="GtkButton">
+            <property name="label">Enregistrer</property>
+            <property name="name">closeWithSaveBtn</property>
+            <layout>
+              <property name="column">4</property>
+              <property name="row">2</property>
+              <property name="column-span">2</property>
+            </layout>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

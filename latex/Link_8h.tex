@@ -1,0 +1,113 @@
+\hypertarget{Link_8h}{}\doxysection{Model/\+Link.h File Reference}
+\label{Link_8h}\index{Model/Link.h@{Model/Link.h}}
+{\ttfamily \#include \char`\"{}Struct.\+h\char`\"{}}\newline
+Include dependency graph for Link.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=158pt]{Link_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Link_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structLink}{Link}} $\ast$ \mbox{\hyperlink{Link_8h_adc12faa17375f3ed0c6a3a36270f977d}{alloc\+Link}} (void)
+\item 
+void \mbox{\hyperlink{Link_8h_a69eeaca0322d297db04fa71d49ee2539}{init\+Empty\+Link}} (\mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\item 
+void \mbox{\hyperlink{Link_8h_a386298841665632eeb0ed194f9ab5073}{free\+Link}} (\mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\item 
+void \mbox{\hyperlink{Link_8h_a8b1b7be6b5c6c8f81afa9216fabcf4fa}{set\+Link\+Type}} (\mbox{\hyperlink{structLink}{Link}} $\ast$l, \mbox{\hyperlink{Struct_8h_aafb381844623b97e6ef5bdbd3dfa6340}{link\+Type}} t)
+\item 
+void \mbox{\hyperlink{Link_8h_ab4fed12acf0888121bbefdd1f8cb36d7}{set\+Parent}} (\mbox{\hyperlink{structLink}{Link}} $\ast$l, \mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+void \mbox{\hyperlink{Link_8h_afb1c2f126d9fe95c170ead5234ba379a}{set\+Child}} (\mbox{\hyperlink{structLink}{Link}} $\ast$l, \mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+void \mbox{\hyperlink{Link_8h_a873a6f306b813e97a9c135df0cec4f8c}{print\+Link}} (\mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Link_8h_adc12faa17375f3ed0c6a3a36270f977d}\label{Link_8h_adc12faa17375f3ed0c6a3a36270f977d}} 
+\index{Link.h@{Link.h}!allocLink@{allocLink}}
+\index{allocLink@{allocLink}!Link.h@{Link.h}}
+\doxysubsubsection{\texorpdfstring{allocLink()}{allocLink()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structLink}{Link}}$\ast$ alloc\+Link (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Allocate a \mbox{\hyperlink{structLink}{Link}} in the dynamic space memory Give it a unique id based on id\+Links \begin{DoxyReturn}{Returns}
+Link$\ast$ the address of the allocated structure 
+\end{DoxyReturn}
+\mbox{\Hypertarget{Link_8h_a386298841665632eeb0ed194f9ab5073}\label{Link_8h_a386298841665632eeb0ed194f9ab5073}} 
+\index{Link.h@{Link.h}!freeLink@{freeLink}}
+\index{freeLink@{freeLink}!Link.h@{Link.h}}
+\doxysubsubsection{\texorpdfstring{freeLink()}{freeLink()}}
+{\footnotesize\ttfamily void free\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+Frees the link and everything that must be deleted in it 
+\begin{DoxyParams}{Parameters}
+{\em l} & the link to free \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Link_8h_a69eeaca0322d297db04fa71d49ee2539}\label{Link_8h_a69eeaca0322d297db04fa71d49ee2539}} 
+\index{Link.h@{Link.h}!initEmptyLink@{initEmptyLink}}
+\index{initEmptyLink@{initEmptyLink}!Link.h@{Link.h}}
+\doxysubsubsection{\texorpdfstring{initEmptyLink()}{initEmptyLink()}}
+{\footnotesize\ttfamily void init\+Empty\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+Initialize an empty link 
+\begin{DoxyParams}{Parameters}
+{\em l} & the link to initialize \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Link_8h_a873a6f306b813e97a9c135df0cec4f8c}\label{Link_8h_a873a6f306b813e97a9c135df0cec4f8c}} 
+\index{Link.h@{Link.h}!printLink@{printLink}}
+\index{printLink@{printLink}!Link.h@{Link.h}}
+\doxysubsubsection{\texorpdfstring{printLink()}{printLink()}}
+{\footnotesize\ttfamily void print\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{Link_8h_afb1c2f126d9fe95c170ead5234ba379a}\label{Link_8h_afb1c2f126d9fe95c170ead5234ba379a}} 
+\index{Link.h@{Link.h}!setChild@{setChild}}
+\index{setChild@{setChild}!Link.h@{Link.h}}
+\doxysubsubsection{\texorpdfstring{setChild()}{setChild()}}
+{\footnotesize\ttfamily void set\+Child (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Set the child \mbox{\hyperlink{structCard}{Card}} for a link 
+\begin{DoxyParams}{Parameters}
+{\em l} & the link \\
+\hline
+{\em t} & the child card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Link_8h_a8b1b7be6b5c6c8f81afa9216fabcf4fa}\label{Link_8h_a8b1b7be6b5c6c8f81afa9216fabcf4fa}} 
+\index{Link.h@{Link.h}!setLinkType@{setLinkType}}
+\index{setLinkType@{setLinkType}!Link.h@{Link.h}}
+\doxysubsubsection{\texorpdfstring{setLinkType()}{setLinkType()}}
+{\footnotesize\ttfamily void set\+Link\+Type (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l,  }\item[{\mbox{\hyperlink{Struct_8h_aafb381844623b97e6ef5bdbd3dfa6340}{link\+Type}}}]{t }\end{DoxyParamCaption})}
+
+Set the link\+Type for a link 
+\begin{DoxyParams}{Parameters}
+{\em l} & the link \\
+\hline
+{\em t} & the link\+Type \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{Link_8h_ab4fed12acf0888121bbefdd1f8cb36d7}\label{Link_8h_ab4fed12acf0888121bbefdd1f8cb36d7}} 
+\index{Link.h@{Link.h}!setParent@{setParent}}
+\index{setParent@{setParent}!Link.h@{Link.h}}
+\doxysubsubsection{\texorpdfstring{setParent()}{setParent()}}
+{\footnotesize\ttfamily void set\+Parent (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Set the parent \mbox{\hyperlink{structCard}{Card}} for a link 
+\begin{DoxyParams}{Parameters}
+{\em l} & the link \\
+\hline
+{\em t} & the parent card \\
+\hline
+\end{DoxyParams}

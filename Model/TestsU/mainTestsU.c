@@ -13,6 +13,8 @@
 #include "EdgeTestsU.h"
 #include "EdgeListTestsU.h"
 #include "LinkTestsU.h"
+#include "CardTestsU.h"
+#include "ProjectTestsU.h"
 
 //main
 
@@ -100,17 +102,44 @@ int main(void){
 
     const struct CMUnitTest testsLink[] =
             {
-                    cmocka_unit_test_setup_teardown(testInitLink, setupAllocLink, teardownAllocLink),
-                    cmocka_unit_test_setup_teardown(testSetLinkType, setupInitLink, teardownAllocLink),
-                    cmocka_unit_test_setup_teardown(testSetParent, setupInitLink, teardownAllocLink),
-                    cmocka_unit_test_setup_teardown(testSetChild, setupInitLink, teardownAllocLink)
+                    cmocka_unit_test_setup_teardown(testSetLinkType, setupAllocLink, teardownAllocLink),
+                    cmocka_unit_test_setup_teardown(testSetParent, setupAllocLink, teardownAllocLink),
+                    cmocka_unit_test_setup_teardown(testSetChild, setupAllocLink, teardownAllocLink)
             };
+
+    const struct CMUnitTest testsCard[] =
+            {
+                    cmocka_unit_test_setup_teardown(testsInitEmptyCard, setupAllocCard, teardownAllocCard),
+                    cmocka_unit_test_setup_teardown(testSetCardType, setupAllocCard, teardownAllocCard),
+                    cmocka_unit_test_setup_teardown(testSetCardNumber, setupAllocCard, teardownAllocCard),
+                    cmocka_unit_test_setup_teardown(testFixCardNumber, setupAllocCard, teardownAllocCard),
+                    cmocka_unit_test_setup_teardown(testUnfixCardNumber, setupAllocCard, teardownAllocCard)
+            };
+
+    const struct CMUnitTest testsProject[] =
+            {
+                    cmocka_unit_test_setup_teardown(testSetRoot, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testAddEmptyCard, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSetCardImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testDeleteCard, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testAddLink, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testDeleteLink, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testDeleteLinkFromCards, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSetBackImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSetTopImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSetBottomImage, setupInitProject, teardownInitProject),
+                    cmocka_unit_test_setup_teardown(testSaveAndLoadProject, setupInitProject, teardownInitProject)
+            };
+
 
     cmocka_run_group_tests_name("Tests Vertex module", testsVertex, NULL, NULL);
     cmocka_run_group_tests_name("Tests VertexList module", testsVertexList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Edge module", testsEdge, NULL, NULL);
     cmocka_run_group_tests_name("Tests EdgeList module", testsEdgeList, NULL, NULL);
     cmocka_run_group_tests_name("Tests Link module", testsLink, NULL, NULL);
+    cmocka_run_group_tests_name("Tests Card module", testsCard, NULL, NULL);
+    cmocka_run_group_tests_name("Tests Project module", testsProject, NULL, NULL);
+
 
     return 0;
 }

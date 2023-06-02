@@ -1,0 +1,159 @@
+\hypertarget{ProjectTestsU_8c}{}\doxysection{Model/\+Tests\+U/\+Project\+TestsU.c File Reference}
+\label{ProjectTestsU_8c}\index{Model/TestsU/ProjectTestsU.c@{Model/TestsU/ProjectTestsU.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$setjmp.\+h$>$}\newline
+{\ttfamily \#include $<$cmocka.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Project.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Link.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Card.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Vertex\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Edge\+List.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Project\+Tests\+U.\+h\char`\"{}}\newline
+Include dependency graph for Project\+Tests\+U.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ProjectTestsU_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{ProjectTestsU_8c_a99b8dc2282021225f7e57f099f761012}{setup\+Init\+Project}} (void $\ast$$\ast$state)
+\item 
+int \mbox{\hyperlink{ProjectTestsU_8c_a4eb0ddb346dcff70b5dda717045d7afd}{teardown\+Init\+Project}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_ab52dbbad96491e1ee70ed45a37fee801}{test\+Set\+Root}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_aaf39a256a0bb887426c6263bf92a70f5}{test\+Add\+Empty\+Card}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_a91b9981f0f45a5d44c1850d0c5d3f277}{test\+Set\+Card\+Image}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_ab1b332dbc2ab67ba9bab4f4f8a12690c}{test\+Delete\+Card}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_af4b23fb0d71d163f8700a258a7ea36f4}{test\+Add\+Link}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_a274b333586cf97abb4928b3944d56580}{test\+Delete\+Link}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_a0e5ced433d61c976af71aad32786be4b}{test\+Delete\+Link\+From\+Cards}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_a97945071f65020865065d2b419c66d30}{test\+Set\+Back\+Image}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_ab1c79072cdf522958ebd6f248efb84e9}{test\+Set\+Top\+Image}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_a9e8bbbdeb62e69c3b8e46ea610a07818}{test\+Set\+Bottom\+Image}} (void $\ast$$\ast$state)
+\item 
+void \mbox{\hyperlink{ProjectTestsU_8c_aaf047331399886f9a09a4937a60cef65}{test\+Save\+And\+Load\+Project}} (void $\ast$$\ast$state)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \mbox{\hyperlink{ProjectTestsU_8c_a24dd41f17b3cb281716577fa4ccda531}{project\+Path}} = \char`\"{}/home/maxime/Documents\char`\"{}
+\item 
+char $\ast$ \mbox{\hyperlink{ProjectTestsU_8c_a0987198d0eb9259864b84810effffcc7}{project\+Name}} = \char`\"{}unlock\+TestsU\char`\"{}
+\item 
+char $\ast$ \mbox{\hyperlink{ProjectTestsU_8c_afb14ab23ba86115c3b01ad4122943f89}{image\+Path}} = \char`\"{}/home/maxime/Pictures/Iron\+Man.\+jpg\char`\"{}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ProjectTestsU_8c_a99b8dc2282021225f7e57f099f761012}\label{ProjectTestsU_8c_a99b8dc2282021225f7e57f099f761012}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!setupInitProject@{setupInitProject}}
+\index{setupInitProject@{setupInitProject}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{setupInitProject()}{setupInitProject()}}
+{\footnotesize\ttfamily int setup\+Init\+Project (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_a4eb0ddb346dcff70b5dda717045d7afd}\label{ProjectTestsU_8c_a4eb0ddb346dcff70b5dda717045d7afd}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!teardownInitProject@{teardownInitProject}}
+\index{teardownInitProject@{teardownInitProject}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{teardownInitProject()}{teardownInitProject()}}
+{\footnotesize\ttfamily int teardown\+Init\+Project (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_aaf39a256a0bb887426c6263bf92a70f5}\label{ProjectTestsU_8c_aaf39a256a0bb887426c6263bf92a70f5}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testAddEmptyCard@{testAddEmptyCard}}
+\index{testAddEmptyCard@{testAddEmptyCard}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testAddEmptyCard()}{testAddEmptyCard()}}
+{\footnotesize\ttfamily void test\+Add\+Empty\+Card (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_af4b23fb0d71d163f8700a258a7ea36f4}\label{ProjectTestsU_8c_af4b23fb0d71d163f8700a258a7ea36f4}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testAddLink@{testAddLink}}
+\index{testAddLink@{testAddLink}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testAddLink()}{testAddLink()}}
+{\footnotesize\ttfamily void test\+Add\+Link (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_ab1b332dbc2ab67ba9bab4f4f8a12690c}\label{ProjectTestsU_8c_ab1b332dbc2ab67ba9bab4f4f8a12690c}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testDeleteCard@{testDeleteCard}}
+\index{testDeleteCard@{testDeleteCard}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testDeleteCard()}{testDeleteCard()}}
+{\footnotesize\ttfamily void test\+Delete\+Card (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_a274b333586cf97abb4928b3944d56580}\label{ProjectTestsU_8c_a274b333586cf97abb4928b3944d56580}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testDeleteLink@{testDeleteLink}}
+\index{testDeleteLink@{testDeleteLink}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testDeleteLink()}{testDeleteLink()}}
+{\footnotesize\ttfamily void test\+Delete\+Link (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_a0e5ced433d61c976af71aad32786be4b}\label{ProjectTestsU_8c_a0e5ced433d61c976af71aad32786be4b}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testDeleteLinkFromCards@{testDeleteLinkFromCards}}
+\index{testDeleteLinkFromCards@{testDeleteLinkFromCards}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testDeleteLinkFromCards()}{testDeleteLinkFromCards()}}
+{\footnotesize\ttfamily void test\+Delete\+Link\+From\+Cards (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_aaf047331399886f9a09a4937a60cef65}\label{ProjectTestsU_8c_aaf047331399886f9a09a4937a60cef65}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testSaveAndLoadProject@{testSaveAndLoadProject}}
+\index{testSaveAndLoadProject@{testSaveAndLoadProject}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testSaveAndLoadProject()}{testSaveAndLoadProject()}}
+{\footnotesize\ttfamily void test\+Save\+And\+Load\+Project (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_a97945071f65020865065d2b419c66d30}\label{ProjectTestsU_8c_a97945071f65020865065d2b419c66d30}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testSetBackImage@{testSetBackImage}}
+\index{testSetBackImage@{testSetBackImage}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testSetBackImage()}{testSetBackImage()}}
+{\footnotesize\ttfamily void test\+Set\+Back\+Image (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_a9e8bbbdeb62e69c3b8e46ea610a07818}\label{ProjectTestsU_8c_a9e8bbbdeb62e69c3b8e46ea610a07818}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testSetBottomImage@{testSetBottomImage}}
+\index{testSetBottomImage@{testSetBottomImage}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testSetBottomImage()}{testSetBottomImage()}}
+{\footnotesize\ttfamily void test\+Set\+Bottom\+Image (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_a91b9981f0f45a5d44c1850d0c5d3f277}\label{ProjectTestsU_8c_a91b9981f0f45a5d44c1850d0c5d3f277}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testSetCardImage@{testSetCardImage}}
+\index{testSetCardImage@{testSetCardImage}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testSetCardImage()}{testSetCardImage()}}
+{\footnotesize\ttfamily void test\+Set\+Card\+Image (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_ab52dbbad96491e1ee70ed45a37fee801}\label{ProjectTestsU_8c_ab52dbbad96491e1ee70ed45a37fee801}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testSetRoot@{testSetRoot}}
+\index{testSetRoot@{testSetRoot}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testSetRoot()}{testSetRoot()}}
+{\footnotesize\ttfamily void test\+Set\+Root (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_ab1c79072cdf522958ebd6f248efb84e9}\label{ProjectTestsU_8c_ab1c79072cdf522958ebd6f248efb84e9}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!testSetTopImage@{testSetTopImage}}
+\index{testSetTopImage@{testSetTopImage}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{testSetTopImage()}{testSetTopImage()}}
+{\footnotesize\ttfamily void test\+Set\+Top\+Image (\begin{DoxyParamCaption}\item[{void $\ast$$\ast$}]{state }\end{DoxyParamCaption})}
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{ProjectTestsU_8c_afb14ab23ba86115c3b01ad4122943f89}\label{ProjectTestsU_8c_afb14ab23ba86115c3b01ad4122943f89}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!imagePath@{imagePath}}
+\index{imagePath@{imagePath}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{imagePath}{imagePath}}
+{\footnotesize\ttfamily char$\ast$ image\+Path = \char`\"{}/home/maxime/Pictures/Iron\+Man.\+jpg\char`\"{}}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_a0987198d0eb9259864b84810effffcc7}\label{ProjectTestsU_8c_a0987198d0eb9259864b84810effffcc7}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!projectName@{projectName}}
+\index{projectName@{projectName}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{projectName}{projectName}}
+{\footnotesize\ttfamily char$\ast$ project\+Name = \char`\"{}unlock\+TestsU\char`\"{}}
+
+\mbox{\Hypertarget{ProjectTestsU_8c_a24dd41f17b3cb281716577fa4ccda531}\label{ProjectTestsU_8c_a24dd41f17b3cb281716577fa4ccda531}} 
+\index{ProjectTestsU.c@{ProjectTestsU.c}!projectPath@{projectPath}}
+\index{projectPath@{projectPath}!ProjectTestsU.c@{ProjectTestsU.c}}
+\doxysubsubsection{\texorpdfstring{projectPath}{projectPath}}
+{\footnotesize\ttfamily char$\ast$ project\+Path = \char`\"{}/home/maxime/Documents\char`\"{}}
+

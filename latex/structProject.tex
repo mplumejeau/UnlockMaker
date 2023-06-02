@@ -1,0 +1,161 @@
+\hypertarget{structProject}{}\doxysection{Project Struct Reference}
+\label{structProject}\index{Project@{Project}}
+
+
+A structure representing an Unlock scenario \mbox{\hyperlink{structProject}{Project}}, created by a user of the software.  
+
+
+
+
+{\ttfamily \#include $<$Struct.\+h$>$}
+
+
+
+Collaboration diagram for Project\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{structProject__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{structProject_ad95501cc6b075db8e4e58b7e62ab0093}{path}} \mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+1\mbox{]}
+\item 
+char \mbox{\hyperlink{structProject_a0fc03c613d12eee0ff9841447d85dc74}{name}} \mbox{[}\mbox{\hyperlink{Struct_8h_ac881f02a50b29d3ffa5b1f4a0e4f9568}{MAXNAME}}+1\mbox{]}
+\item 
+\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{structProject_ac1b37366e1e0177a8b0e5f3b7a7d583b}{root}}
+\item 
+\mbox{\hyperlink{structVertexList}{Vertex\+List}} \mbox{\hyperlink{structProject_aa90a5988e13a14dfdcf803a8213fcfd3}{card\+List}}
+\item 
+int \mbox{\hyperlink{structProject_a1800234dc5af74a3764009b1d3b463b2}{nb\+Cards}}
+\item 
+int \mbox{\hyperlink{structProject_af137ade900927ecf7901695e61adb532}{id\+Cards}} \mbox{[}\mbox{\hyperlink{Struct_8h_a0a4da6b058659a0cefe80df6e65581fd}{MAXCARD}}\mbox{]}
+\item 
+\mbox{\hyperlink{structEdgeList}{Edge\+List}} \mbox{\hyperlink{structProject_ad67d623b85d99f980604eb735393fb61}{link\+List}}
+\item 
+int \mbox{\hyperlink{structProject_a6c81c2ac23d38c553ccce6b6ba844a73}{nb\+Links}}
+\item 
+int \mbox{\hyperlink{structProject_afe93662c3a379931f0097e0f9ce4e460}{id\+Links}} \mbox{[}\mbox{\hyperlink{Struct_8h_ae3d15e59d8572368e24402f06b715897}{MAXLINK}}\mbox{]}
+\item 
+int \mbox{\hyperlink{structProject_af5e8bff852727abbf281510534a1c805}{back\+Image}}
+\item 
+int \mbox{\hyperlink{structProject_af35293eead9a56084e6d32fc26a348cb}{top\+Image}}
+\item 
+int \mbox{\hyperlink{structProject_ab1082f87f95c4cfd816df83060362a04}{bottom\+Image}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A structure representing an Unlock scenario \mbox{\hyperlink{structProject}{Project}}, created by a user of the software. 
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structProject_af5e8bff852727abbf281510534a1c805}\label{structProject_af5e8bff852727abbf281510534a1c805}} 
+\index{Project@{Project}!backImage@{backImage}}
+\index{backImage@{backImage}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{backImage}{backImage}}
+{\footnotesize\ttfamily Project\+::back\+Image}
+
+A boolean about the presence of a back image for the Cards of the \mbox{\hyperlink{structProject}{Project}} \+:~\newline
+
+\begin{DoxyItemize}
+\item 1 \+: a back image is present in a specific directory with the precise appropriate name~\newline
+
+\item 0 \+: no back image has been added yet 
+\end{DoxyItemize}\mbox{\Hypertarget{structProject_ab1082f87f95c4cfd816df83060362a04}\label{structProject_ab1082f87f95c4cfd816df83060362a04}} 
+\index{Project@{Project}!bottomImage@{bottomImage}}
+\index{bottomImage@{bottomImage}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{bottomImage}{bottomImage}}
+{\footnotesize\ttfamily Project\+::bottom\+Image}
+
+A boolean about the presence of a bottom image for the Cards of the \mbox{\hyperlink{structProject}{Project}} \+:~\newline
+
+\begin{DoxyItemize}
+\item 1 \+: a bottom image is present in a specific directory with the precise appropriate name~\newline
+
+\item 0 \+: no bottom image has been added yet 
+\end{DoxyItemize}\mbox{\Hypertarget{structProject_aa90a5988e13a14dfdcf803a8213fcfd3}\label{structProject_aa90a5988e13a14dfdcf803a8213fcfd3}} 
+\index{Project@{Project}!cardList@{cardList}}
+\index{cardList@{cardList}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{cardList}{cardList}}
+{\footnotesize\ttfamily Project\+::card\+List}
+
+The list of all the Cards of the \mbox{\hyperlink{structProject}{Project}} (the order have nothing to do with the order of discovering during the game) \mbox{\Hypertarget{structProject_af137ade900927ecf7901695e61adb532}\label{structProject_af137ade900927ecf7901695e61adb532}} 
+\index{Project@{Project}!idCards@{idCards}}
+\index{idCards@{idCards}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{idCards}{idCards}}
+{\footnotesize\ttfamily Project\+::id\+Cards}
+
+An array to manage the id for each Cards of the \mbox{\hyperlink{structProject}{Project}} \+:~\newline
+
+\begin{DoxyItemize}
+\item 1 in a case of this array if the index of the case is an id for an existing \mbox{\hyperlink{structCard}{Card}} ~\newline
+
+\item 0 in a case of this array if this id is free 
+\end{DoxyItemize}\mbox{\Hypertarget{structProject_afe93662c3a379931f0097e0f9ce4e460}\label{structProject_afe93662c3a379931f0097e0f9ce4e460}} 
+\index{Project@{Project}!idLinks@{idLinks}}
+\index{idLinks@{idLinks}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{idLinks}{idLinks}}
+{\footnotesize\ttfamily Project\+::id\+Links}
+
+An array to manage the id for each Links of the \mbox{\hyperlink{structProject}{Project}} \+:~\newline
+
+\begin{DoxyItemize}
+\item 1 in a case of this array if the index of the case is an id for an existing \mbox{\hyperlink{structLink}{Link}}~\newline
+
+\item 0 in a case of this array if this id is free 
+\end{DoxyItemize}\mbox{\Hypertarget{structProject_ad67d623b85d99f980604eb735393fb61}\label{structProject_ad67d623b85d99f980604eb735393fb61}} 
+\index{Project@{Project}!linkList@{linkList}}
+\index{linkList@{linkList}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{linkList}{linkList}}
+{\footnotesize\ttfamily Project\+::link\+List}
+
+The list of all the Links of the \mbox{\hyperlink{structProject}{Project}} \mbox{\Hypertarget{structProject_a0fc03c613d12eee0ff9841447d85dc74}\label{structProject_a0fc03c613d12eee0ff9841447d85dc74}} 
+\index{Project@{Project}!name@{name}}
+\index{name@{name}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{name}{name}}
+{\footnotesize\ttfamily Project\+::name}
+
+The name of the \mbox{\hyperlink{structProject}{Project}} \mbox{\Hypertarget{structProject_a1800234dc5af74a3764009b1d3b463b2}\label{structProject_a1800234dc5af74a3764009b1d3b463b2}} 
+\index{Project@{Project}!nbCards@{nbCards}}
+\index{nbCards@{nbCards}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{nbCards}{nbCards}}
+{\footnotesize\ttfamily Project\+::nb\+Cards}
+
+The number of Cards of the \mbox{\hyperlink{structProject}{Project}} \mbox{\Hypertarget{structProject_a6c81c2ac23d38c553ccce6b6ba844a73}\label{structProject_a6c81c2ac23d38c553ccce6b6ba844a73}} 
+\index{Project@{Project}!nbLinks@{nbLinks}}
+\index{nbLinks@{nbLinks}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{nbLinks}{nbLinks}}
+{\footnotesize\ttfamily Project\+::nb\+Links}
+
+The number of Links of the \mbox{\hyperlink{structProject}{Project}} \mbox{\Hypertarget{structProject_ad95501cc6b075db8e4e58b7e62ab0093}\label{structProject_ad95501cc6b075db8e4e58b7e62ab0093}} 
+\index{Project@{Project}!path@{path}}
+\index{path@{path}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{path}{path}}
+{\footnotesize\ttfamily Project\+::path}
+
+The absolute path of the \mbox{\hyperlink{structProject}{Project}} directory (without the name of the \mbox{\hyperlink{structProject}{Project}}) \mbox{\Hypertarget{structProject_ac1b37366e1e0177a8b0e5f3b7a7d583b}\label{structProject_ac1b37366e1e0177a8b0e5f3b7a7d583b}} 
+\index{Project@{Project}!root@{root}}
+\index{root@{root}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{root}{root}}
+{\footnotesize\ttfamily Project\+::root}
+
+The root \mbox{\hyperlink{structCard}{Card}} of the unlock scenario (the unique face up \mbox{\hyperlink{structCard}{Card}} at the beginning of the game) \mbox{\Hypertarget{structProject_af35293eead9a56084e6d32fc26a348cb}\label{structProject_af35293eead9a56084e6d32fc26a348cb}} 
+\index{Project@{Project}!topImage@{topImage}}
+\index{topImage@{topImage}!Project@{Project}}
+\doxysubsubsection{\texorpdfstring{topImage}{topImage}}
+{\footnotesize\ttfamily Project\+::top\+Image}
+
+A boolean about the presence of a top image for the Cards of the \mbox{\hyperlink{structProject}{Project}} \+:~\newline
+
+\begin{DoxyItemize}
+\item 1 \+: a top image is present in a specific directory with the precise appropriate name~\newline
+
+\item 0 \+: no top image has been added yet 
+\end{DoxyItemize}
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Model/\mbox{\hyperlink{Struct_8h}{Struct.\+h}}\end{DoxyCompactItemize}

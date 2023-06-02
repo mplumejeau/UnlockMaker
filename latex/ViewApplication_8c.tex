@@ -1,0 +1,537 @@
+\hypertarget{ViewApplication_8c}{}\doxysection{View/\+View\+Application.c File Reference}
+\label{ViewApplication_8c}\index{View/ViewApplication.c@{View/ViewApplication.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$gtk/gtk.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}View\+Application.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Graph\+Handler.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Controller/\+Controller.\+h\char`\"{}}\newline
+Include dependency graph for View\+Application.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{ViewApplication_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_aefd2f43e0516c242598701a0c2ee876d}{init\+View}} (Gtk\+Application $\ast$app)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_abe7623379bb7854e07b514b696ab506f}{load\+Css}} (void)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a7d6cfa9e8e2dfcb44f93717e260dfb6b}{add\+Card\+Btn}} (\mbox{\hyperlink{structCard}{Card}} $\ast$c)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a1fc70a49ccdfa1312c1ef523e4d117df}{add\+Card\+Lbl\+For\+Modify}} (\mbox{\hyperlink{structCard}{Card}} $\ast$c, Gtk\+Widget $\ast$check\+Btn, Gtk\+Widget $\ast$box)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a474a19243c9d3be701f0548e2a7d8b43}{add\+Link\+Btn}} (\mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a96d3aca916ca261a96b5b0d9d63a2148}{remove\+Link\+Btn\+From\+Cards}} (\mbox{\hyperlink{structCard}{Card}} $\ast$parent, \mbox{\hyperlink{structCard}{Card}} $\ast$child)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a7a5d122fe3d141884bb6a62b87120622}{change\+Link\+Btn\+Type\+From\+Cards}} (\mbox{\hyperlink{structCard}{Card}} $\ast$parent, \mbox{\hyperlink{structCard}{Card}} $\ast$child, int new\+Type)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a7b77b31154498d357a74b0d7ab5329cb}{open\+Starting\+Window}} (Gtk\+Window $\ast$main\+Window)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a05f5936d917111ff59a372bf9acfbdda}{open\+New\+Project\+Browser}} (Gtk\+Widget $\ast$main\+Window)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a3331dc2a86358036854ac6cc2f52db6f}{open\+Open\+Project\+Browser}} (Gtk\+Widget $\ast$main\+Window)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_ab2851b2e6a266554447c8373cd3c0d2d}{open\+Main\+Window}} (Gtk\+Window $\ast$window)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a122230e2c0ca51e98f4cedf038ca824b}{open\+Modify\+Card\+Window}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_ae3d69d7eeca35e811cdf20eec321d1da}{open\+Modify\+Link\+Window}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a210eee28fafad5449be2511da9eef0c4}{open\+Modify\+Project\+Window}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a0d70124efa2a4c7be809dcf8e41e2055}{on\+Destroy\+Second\+Window}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a2e6d1e050f2371e0900a91fbd480803b}{open\+Import\+Image\+Browser}} (char $\ast$target)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_ad8ba99b2b25a8816c54066e44699b1e2}{open\+Image\+Viewer}} (char $\ast$target)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_aed7434b16b74aabf2d3a610ce586f4e9}{on\+Destroy\+Image\+Viewer}} ()
+\item 
+int \mbox{\hyperlink{ViewApplication_8c_a1eff3ce57d49cf901056853bbe299452}{open\+Close\+Confirmation\+Window}} (Gtk\+Window $\ast$main\+Window)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a5fe910e545b7adfb8898754d39bce47b}{refresh\+Card\+Box\+Label}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a77d27c89684461a0e8bd9b50b2b43bb1}{refresh\+Link\+Box\+Label}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a622ebda7bfecc3f088e0bdcc758534c3}{refresh\+Selected\+Card\+Label}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a9afa36df080846c99f067c91a82bf111}{refresh\+Selected\+Link\+Label}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_ad99cec8c4401cf59ce501c47f4574489}{change\+Info\+Label}} (char $\ast$text)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a680c954007a63b1a30f64d11f39f9df0}{set\+Center\+Image\+Path}} (char $\ast$path)
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a8491e583672c869e074f0bc934ba8159}{reload\+Center\+Image}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a937cdaea5a791b7e0f1158247dc7a1a1}{disable\+Right\+Card\+Buttons}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_ac49f9b72dfd0c45190746038aaafcece}{disable\+Right\+Link\+Buttons}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a510256a662593338d836d6ad78141c46}{enable\+Right\+Card\+Buttons}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a1fd4643c45a30a491e582272ba5a9457}{enable\+Right\+Link\+Buttons}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a1c1b25a3afae8f31227af6911adf0f83}{disable\+Export\+Button}} ()
+\item 
+void \mbox{\hyperlink{ViewApplication_8c_a6eca87357ee769fbc7ed4c1082b3bcec}{enable\+Export\+Button}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char \mbox{\hyperlink{ViewApplication_8c_ab6b93e308db1f88a9c882bf2e776658c}{image\+Path}} \mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+16\mbox{]} = \char`\"{}\char`\"{}
+\item 
+\mbox{\hyperlink{structCard}{Card}} $\ast$ \mbox{\hyperlink{ViewApplication_8c_a52299faeab3a1dd0cc832c74d0e11f72}{selected\+Card}}
+\item 
+\mbox{\hyperlink{structLink}{Link}} $\ast$ \mbox{\hyperlink{ViewApplication_8c_acc815e556f5fbfb914d097bb75177bb6}{selected\+Link}}
+\item 
+Gtk\+Widget $\ast$ \mbox{\hyperlink{ViewApplication_8c_a9f0d4cbc6a5bd905c566e5132a6e440b}{selected\+Link\+Btn}}
+\item 
+\mbox{\hyperlink{structProject}{Project}} $\ast$ \mbox{\hyperlink{ViewApplication_8c_ac399c321bf24020e2f033af16df215e2}{cur\+Project}}
+\item 
+bool \mbox{\hyperlink{ViewApplication_8c_a572c1a1c006b22a99ea1ee2608e5bf5f}{unsaved\+Changes}}
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_a8b8c73f08a92dd824afc627e2ec323ab}{card\+Box\+Label}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_aef6cce0fba393cd1a9039817589cdc59}{card\+Box}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_aef04cd51829bfe50e17920a6479590c3}{link\+Box\+Label}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_afcaab67e001d3b46137b16de4d11636c}{link\+Box}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_a7d2a0fd39af2787ad5f96b7aa2ae6a7e}{center\+Image}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_adecdb093ef62518b349ec85329d76489}{modify\+Card\+Btn}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_a248e6b854a52e241bde1b220b1d5187e}{delete\+Card\+Btn}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_ac70434cfd376642d6792bf5f3d5243ac}{modify\+Link\+Btn}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_ac09272f91e31c36c5a067dc18087ec43}{delete\+Link\+Btn}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_a3dd780f6bd531916f66ffccccd895825}{export\+Btn}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_a11639e6660aaca4cbdb568403979c447}{selected\+Card\+Label}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_a3edd84d4d6e2fde0484f2133c90af334}{selected\+Link\+Label}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_a1e8d81e927922fc267909c4724577c2b}{info\+Label}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_afb9b9781f2d2456a7a5ddd198b962130}{second\+Window\+Open}} = NULL
+\item 
+GObject $\ast$ \mbox{\hyperlink{ViewApplication_8c_aac6caef4b4e353c5191e19587c6ab564}{image\+Viewer\+Window}} = NULL
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{ViewApplication_8c_a7d6cfa9e8e2dfcb44f93717e260dfb6b}\label{ViewApplication_8c_a7d6cfa9e8e2dfcb44f93717e260dfb6b}} 
+\index{ViewApplication.c@{ViewApplication.c}!addCardBtn@{addCardBtn}}
+\index{addCardBtn@{addCardBtn}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{addCardBtn()}{addCardBtn()}}
+{\footnotesize\ttfamily void add\+Card\+Btn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c }\end{DoxyParamCaption})}
+
+Adds a button at the right place in the \mbox{\hyperlink{structCard}{Card}} Box for the already created card, and attach callbacks to it 
+\begin{DoxyParams}{Parameters}
+{\em c} & a pointer to the card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a1fc70a49ccdfa1312c1ef523e4d117df}\label{ViewApplication_8c_a1fc70a49ccdfa1312c1ef523e4d117df}} 
+\index{ViewApplication.c@{ViewApplication.c}!addCardLblForModify@{addCardLblForModify}}
+\index{addCardLblForModify@{addCardLblForModify}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{addCardLblForModify()}{addCardLblForModify()}}
+{\footnotesize\ttfamily void add\+Card\+Lbl\+For\+Modify (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{c,  }\item[{Gtk\+Widget $\ast$}]{check\+Btn,  }\item[{Gtk\+Widget $\ast$}]{box }\end{DoxyParamCaption})}
+
+Adds a new label and the given check\+Button at the right place in the given Box in the card modification window 
+\begin{DoxyParams}{Parameters}
+{\em c} & a pointer to the card \\
+\hline
+{\em check\+Btn} & a pointer to the new check\+Button related to the card \\
+\hline
+{\em box} & a pointer to the box to which the widgets must be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a474a19243c9d3be701f0548e2a7d8b43}\label{ViewApplication_8c_a474a19243c9d3be701f0548e2a7d8b43}} 
+\index{ViewApplication.c@{ViewApplication.c}!addLinkBtn@{addLinkBtn}}
+\index{addLinkBtn@{addLinkBtn}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{addLinkBtn()}{addLinkBtn()}}
+{\footnotesize\ttfamily void add\+Link\+Btn (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+Adds a button at the right place in the \mbox{\hyperlink{structLink}{Link}} Box for the already created link, and attach callbacks to it 
+\begin{DoxyParams}{Parameters}
+{\em l} & a pointer to the link \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_ad99cec8c4401cf59ce501c47f4574489}\label{ViewApplication_8c_ad99cec8c4401cf59ce501c47f4574489}} 
+\index{ViewApplication.c@{ViewApplication.c}!changeInfoLabel@{changeInfoLabel}}
+\index{changeInfoLabel@{changeInfoLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{changeInfoLabel()}{changeInfoLabel()}}
+{\footnotesize\ttfamily void change\+Info\+Label (\begin{DoxyParamCaption}\item[{char $\ast$}]{text }\end{DoxyParamCaption})}
+
+Changes the bottom right info label to display the given text 
+\begin{DoxyParams}{Parameters}
+{\em text} & the text to be displayed \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a7a5d122fe3d141884bb6a62b87120622}\label{ViewApplication_8c_a7a5d122fe3d141884bb6a62b87120622}} 
+\index{ViewApplication.c@{ViewApplication.c}!changeLinkBtnTypeFromCards@{changeLinkBtnTypeFromCards}}
+\index{changeLinkBtnTypeFromCards@{changeLinkBtnTypeFromCards}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{changeLinkBtnTypeFromCards()}{changeLinkBtnTypeFromCards()}}
+{\footnotesize\ttfamily void change\+Link\+Btn\+Type\+From\+Cards (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{child,  }\item[{int}]{new\+Type }\end{DoxyParamCaption})}
+
+Change the color of all buttons in the \mbox{\hyperlink{structLink}{Link}} Box that have the given parent and child cards to match the new type (there should only be one changed at max) 
+\begin{DoxyParams}{Parameters}
+{\em parent} & a pointer to the parent card \\
+\hline
+{\em child} & a pointer to the child card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a1c1b25a3afae8f31227af6911adf0f83}\label{ViewApplication_8c_a1c1b25a3afae8f31227af6911adf0f83}} 
+\index{ViewApplication.c@{ViewApplication.c}!disableExportButton@{disableExportButton}}
+\index{disableExportButton@{disableExportButton}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{disableExportButton()}{disableExportButton()}}
+{\footnotesize\ttfamily void disable\+Export\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Disables the export button to disallow interactions by the user. This function is called when a modification is done, so that the graph is not verified anymore \mbox{\Hypertarget{ViewApplication_8c_a937cdaea5a791b7e0f1158247dc7a1a1}\label{ViewApplication_8c_a937cdaea5a791b7e0f1158247dc7a1a1}} 
+\index{ViewApplication.c@{ViewApplication.c}!disableRightCardButtons@{disableRightCardButtons}}
+\index{disableRightCardButtons@{disableRightCardButtons}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{disableRightCardButtons()}{disableRightCardButtons()}}
+{\footnotesize\ttfamily void disable\+Right\+Card\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Disables the card modification and suppression buttons to disallow any interaction by the user. This function is called when the selected card is set to NULL \mbox{\Hypertarget{ViewApplication_8c_ac49f9b72dfd0c45190746038aaafcece}\label{ViewApplication_8c_ac49f9b72dfd0c45190746038aaafcece}} 
+\index{ViewApplication.c@{ViewApplication.c}!disableRightLinkButtons@{disableRightLinkButtons}}
+\index{disableRightLinkButtons@{disableRightLinkButtons}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{disableRightLinkButtons()}{disableRightLinkButtons()}}
+{\footnotesize\ttfamily void disable\+Right\+Link\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Disables the link modification and suppression buttons to disallow any interaction by the user. This function is called when the selected link is set to NULL \mbox{\Hypertarget{ViewApplication_8c_a6eca87357ee769fbc7ed4c1082b3bcec}\label{ViewApplication_8c_a6eca87357ee769fbc7ed4c1082b3bcec}} 
+\index{ViewApplication.c@{ViewApplication.c}!enableExportButton@{enableExportButton}}
+\index{enableExportButton@{enableExportButton}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{enableExportButton()}{enableExportButton()}}
+{\footnotesize\ttfamily void enable\+Export\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Enables the export button to allow interactions by the user. This function is called when the graph is verified to be correct \mbox{\Hypertarget{ViewApplication_8c_a510256a662593338d836d6ad78141c46}\label{ViewApplication_8c_a510256a662593338d836d6ad78141c46}} 
+\index{ViewApplication.c@{ViewApplication.c}!enableRightCardButtons@{enableRightCardButtons}}
+\index{enableRightCardButtons@{enableRightCardButtons}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{enableRightCardButtons()}{enableRightCardButtons()}}
+{\footnotesize\ttfamily void enable\+Right\+Card\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Enables the card modification and suppression buttons to allow interactions by the user. This function is called when the selected card is set to a non-\/\+NULL value \mbox{\Hypertarget{ViewApplication_8c_a1fd4643c45a30a491e582272ba5a9457}\label{ViewApplication_8c_a1fd4643c45a30a491e582272ba5a9457}} 
+\index{ViewApplication.c@{ViewApplication.c}!enableRightLinkButtons@{enableRightLinkButtons}}
+\index{enableRightLinkButtons@{enableRightLinkButtons}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{enableRightLinkButtons()}{enableRightLinkButtons()}}
+{\footnotesize\ttfamily void enable\+Right\+Link\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Enables the link modification and suppression buttons to allow interactions by the user. This function is called when the selected link is set to a non-\/\+NULL value \mbox{\Hypertarget{ViewApplication_8c_aefd2f43e0516c242598701a0c2ee876d}\label{ViewApplication_8c_aefd2f43e0516c242598701a0c2ee876d}} 
+\index{ViewApplication.c@{ViewApplication.c}!initView@{initView}}
+\index{initView@{initView}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{initView()}{initView()}}
+{\footnotesize\ttfamily void init\+View (\begin{DoxyParamCaption}\item[{Gtk\+Application $\ast$}]{app }\end{DoxyParamCaption})}
+
+Initializes all the view attached to the given app. This is the starting point of the software after it is called by the main 
+\begin{DoxyParams}{Parameters}
+{\em app} & the app running during the time the software is open \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_abe7623379bb7854e07b514b696ab506f}\label{ViewApplication_8c_abe7623379bb7854e07b514b696ab506f}} 
+\index{ViewApplication.c@{ViewApplication.c}!loadCss@{loadCss}}
+\index{loadCss@{loadCss}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{loadCss()}{loadCss()}}
+{\footnotesize\ttfamily void load\+Css (\begin{DoxyParamCaption}\item[{void}]{ }\end{DoxyParamCaption})}
+
+Loads all the CSS style descriptions from the file View\+Style.\+css \mbox{\Hypertarget{ViewApplication_8c_aed7434b16b74aabf2d3a610ce586f4e9}\label{ViewApplication_8c_aed7434b16b74aabf2d3a610ce586f4e9}} 
+\index{ViewApplication.c@{ViewApplication.c}!onDestroyImageViewer@{onDestroyImageViewer}}
+\index{onDestroyImageViewer@{onDestroyImageViewer}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{onDestroyImageViewer()}{onDestroyImageViewer()}}
+{\footnotesize\ttfamily void on\+Destroy\+Image\+Viewer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This function is called when the image\+Viewer is closed. It changes the variable image\+Viewer\+Window to NULL \mbox{\Hypertarget{ViewApplication_8c_a0d70124efa2a4c7be809dcf8e41e2055}\label{ViewApplication_8c_a0d70124efa2a4c7be809dcf8e41e2055}} 
+\index{ViewApplication.c@{ViewApplication.c}!onDestroySecondWindow@{onDestroySecondWindow}}
+\index{onDestroySecondWindow@{onDestroySecondWindow}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{onDestroySecondWindow()}{onDestroySecondWindow()}}
+{\footnotesize\ttfamily void on\+Destroy\+Second\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+This function is called when either the modify \mbox{\hyperlink{structLink}{Link}} or \mbox{\hyperlink{structCard}{Card}} window is closed. It changes the variable second\+Window\+Open to NULL \mbox{\Hypertarget{ViewApplication_8c_a1eff3ce57d49cf901056853bbe299452}\label{ViewApplication_8c_a1eff3ce57d49cf901056853bbe299452}} 
+\index{ViewApplication.c@{ViewApplication.c}!openCloseConfirmationWindow@{openCloseConfirmationWindow}}
+\index{openCloseConfirmationWindow@{openCloseConfirmationWindow}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openCloseConfirmationWindow()}{openCloseConfirmationWindow()}}
+{\footnotesize\ttfamily int open\+Close\+Confirmation\+Window (\begin{DoxyParamCaption}\item[{Gtk\+Window $\ast$}]{main\+Window }\end{DoxyParamCaption})}
+
+This function is called when the user asks to close the main window. If there were unsaved changes, it opens the window that will ask for confirmation before closing the window, and proposed to the user to save the project 
+\begin{DoxyParams}{Parameters}
+{\em main\+Window} & the main window of the software \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+true if the confirmation window is opened and the main window must not be closed, false if all changes were saved and the main window can be closed 
+\end{DoxyReturn}
+\mbox{\Hypertarget{ViewApplication_8c_ad8ba99b2b25a8816c54066e44699b1e2}\label{ViewApplication_8c_ad8ba99b2b25a8816c54066e44699b1e2}} 
+\index{ViewApplication.c@{ViewApplication.c}!openImageViewer@{openImageViewer}}
+\index{openImageViewer@{openImageViewer}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openImageViewer()}{openImageViewer()}}
+{\footnotesize\ttfamily void open\+Image\+Viewer (\begin{DoxyParamCaption}\item[{char $\ast$}]{target }\end{DoxyParamCaption})}
+
+Opens the window that will allow to view an image. The image shown will depend on the parameter \textquotesingle{}target\textquotesingle{} that will have the values \char`\"{}card\char`\"{}, \char`\"{}top\char`\"{}, \char`\"{}bottom\char`\"{} and \char`\"{}back\char`\"{} corresponding to the image card and the 3 generic images of the project 
+\begin{DoxyParams}{Parameters}
+{\em target} & the target of the viewer \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a2e6d1e050f2371e0900a91fbd480803b}\label{ViewApplication_8c_a2e6d1e050f2371e0900a91fbd480803b}} 
+\index{ViewApplication.c@{ViewApplication.c}!openImportImageBrowser@{openImportImageBrowser}}
+\index{openImportImageBrowser@{openImportImageBrowser}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openImportImageBrowser()}{openImportImageBrowser()}}
+{\footnotesize\ttfamily void open\+Import\+Image\+Browser (\begin{DoxyParamCaption}\item[{char $\ast$}]{target }\end{DoxyParamCaption})}
+
+Opens the window that will allow to browse in the files to choose an image. The image chosen will depend on the parameter \textquotesingle{}cible\textquotesingle{} that will have the values \char`\"{}card\char`\"{}, \char`\"{}top\char`\"{}, \char`\"{}bottom\char`\"{} and \char`\"{}back\char`\"{} corresponding to the image card and the 3 generic images of the project 
+\begin{DoxyParams}{Parameters}
+{\em target} & the target of the browser \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_ab2851b2e6a266554447c8373cd3c0d2d}\label{ViewApplication_8c_ab2851b2e6a266554447c8373cd3c0d2d}} 
+\index{ViewApplication.c@{ViewApplication.c}!openMainWindow@{openMainWindow}}
+\index{openMainWindow@{openMainWindow}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openMainWindow()}{openMainWindow()}}
+{\footnotesize\ttfamily void open\+Main\+Window (\begin{DoxyParamCaption}\item[{Gtk\+Window $\ast$}]{window }\end{DoxyParamCaption})}
+
+Opens the main window of the software and set its attributes 
+\begin{DoxyParams}{Parameters}
+{\em window} & a pointer to the main window \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a122230e2c0ca51e98f4cedf038ca824b}\label{ViewApplication_8c_a122230e2c0ca51e98f4cedf038ca824b}} 
+\index{ViewApplication.c@{ViewApplication.c}!openModifyCardWindow@{openModifyCardWindow}}
+\index{openModifyCardWindow@{openModifyCardWindow}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openModifyCardWindow()}{openModifyCardWindow()}}
+{\footnotesize\ttfamily void open\+Modify\+Card\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Opens the window that will allow to modify the attributes of the selected card \mbox{\Hypertarget{ViewApplication_8c_ae3d69d7eeca35e811cdf20eec321d1da}\label{ViewApplication_8c_ae3d69d7eeca35e811cdf20eec321d1da}} 
+\index{ViewApplication.c@{ViewApplication.c}!openModifyLinkWindow@{openModifyLinkWindow}}
+\index{openModifyLinkWindow@{openModifyLinkWindow}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openModifyLinkWindow()}{openModifyLinkWindow()}}
+{\footnotesize\ttfamily void open\+Modify\+Link\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Opens the window that will allow to modify the attributes of the selected link \mbox{\Hypertarget{ViewApplication_8c_a210eee28fafad5449be2511da9eef0c4}\label{ViewApplication_8c_a210eee28fafad5449be2511da9eef0c4}} 
+\index{ViewApplication.c@{ViewApplication.c}!openModifyProjectWindow@{openModifyProjectWindow}}
+\index{openModifyProjectWindow@{openModifyProjectWindow}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openModifyProjectWindow()}{openModifyProjectWindow()}}
+{\footnotesize\ttfamily void open\+Modify\+Project\+Window (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Opens the window that will allow to add images to the project \mbox{\Hypertarget{ViewApplication_8c_a05f5936d917111ff59a372bf9acfbdda}\label{ViewApplication_8c_a05f5936d917111ff59a372bf9acfbdda}} 
+\index{ViewApplication.c@{ViewApplication.c}!openNewProjectBrowser@{openNewProjectBrowser}}
+\index{openNewProjectBrowser@{openNewProjectBrowser}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openNewProjectBrowser()}{openNewProjectBrowser()}}
+{\footnotesize\ttfamily void open\+New\+Project\+Browser (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{main\+Window }\end{DoxyParamCaption})}
+
+Opens the window that will allow to browse in the files, to create a new project in the chosen directory 
+\begin{DoxyParams}{Parameters}
+{\em main\+Window} & a pointer to the main window of the software \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a3331dc2a86358036854ac6cc2f52db6f}\label{ViewApplication_8c_a3331dc2a86358036854ac6cc2f52db6f}} 
+\index{ViewApplication.c@{ViewApplication.c}!openOpenProjectBrowser@{openOpenProjectBrowser}}
+\index{openOpenProjectBrowser@{openOpenProjectBrowser}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openOpenProjectBrowser()}{openOpenProjectBrowser()}}
+{\footnotesize\ttfamily void open\+Open\+Project\+Browser (\begin{DoxyParamCaption}\item[{Gtk\+Widget $\ast$}]{main\+Window }\end{DoxyParamCaption})}
+
+Opens the window that will allow to browse in the files to open an already created project 
+\begin{DoxyParams}{Parameters}
+{\em main\+Window} & a pointer to the main window of the software \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a7b77b31154498d357a74b0d7ab5329cb}\label{ViewApplication_8c_a7b77b31154498d357a74b0d7ab5329cb}} 
+\index{ViewApplication.c@{ViewApplication.c}!openStartingWindow@{openStartingWindow}}
+\index{openStartingWindow@{openStartingWindow}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{openStartingWindow()}{openStartingWindow()}}
+{\footnotesize\ttfamily void open\+Starting\+Window (\begin{DoxyParamCaption}\item[{Gtk\+Window $\ast$}]{main\+Window }\end{DoxyParamCaption})}
+
+Opens the starting window that will allow to create or open a project 
+\begin{DoxyParams}{Parameters}
+{\em main\+Window} & a pointer to the main window of the software \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a5fe910e545b7adfb8898754d39bce47b}\label{ViewApplication_8c_a5fe910e545b7adfb8898754d39bce47b}} 
+\index{ViewApplication.c@{ViewApplication.c}!refreshCardBoxLabel@{refreshCardBoxLabel}}
+\index{refreshCardBoxLabel@{refreshCardBoxLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{refreshCardBoxLabel()}{refreshCardBoxLabel()}}
+{\footnotesize\ttfamily void refresh\+Card\+Box\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Refreshes the count of the number of cards in the project on the card box \mbox{\Hypertarget{ViewApplication_8c_a77d27c89684461a0e8bd9b50b2b43bb1}\label{ViewApplication_8c_a77d27c89684461a0e8bd9b50b2b43bb1}} 
+\index{ViewApplication.c@{ViewApplication.c}!refreshLinkBoxLabel@{refreshLinkBoxLabel}}
+\index{refreshLinkBoxLabel@{refreshLinkBoxLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{refreshLinkBoxLabel()}{refreshLinkBoxLabel()}}
+{\footnotesize\ttfamily void refresh\+Link\+Box\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Refreshes the count of the number of links in the project on the link box \mbox{\Hypertarget{ViewApplication_8c_a622ebda7bfecc3f088e0bdcc758534c3}\label{ViewApplication_8c_a622ebda7bfecc3f088e0bdcc758534c3}} 
+\index{ViewApplication.c@{ViewApplication.c}!refreshSelectedCardLabel@{refreshSelectedCardLabel}}
+\index{refreshSelectedCardLabel@{refreshSelectedCardLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{refreshSelectedCardLabel()}{refreshSelectedCardLabel()}}
+{\footnotesize\ttfamily void refresh\+Selected\+Card\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Refreshes the bottom right label that indicates which card is selected \mbox{\Hypertarget{ViewApplication_8c_a9afa36df080846c99f067c91a82bf111}\label{ViewApplication_8c_a9afa36df080846c99f067c91a82bf111}} 
+\index{ViewApplication.c@{ViewApplication.c}!refreshSelectedLinkLabel@{refreshSelectedLinkLabel}}
+\index{refreshSelectedLinkLabel@{refreshSelectedLinkLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{refreshSelectedLinkLabel()}{refreshSelectedLinkLabel()}}
+{\footnotesize\ttfamily void refresh\+Selected\+Link\+Label (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Refreshes the bottom right label that indicates which link is selected \mbox{\Hypertarget{ViewApplication_8c_a8491e583672c869e074f0bc934ba8159}\label{ViewApplication_8c_a8491e583672c869e074f0bc934ba8159}} 
+\index{ViewApplication.c@{ViewApplication.c}!reloadCenterImage@{reloadCenterImage}}
+\index{reloadCenterImage@{reloadCenterImage}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{reloadCenterImage()}{reloadCenterImage()}}
+{\footnotesize\ttfamily void reload\+Center\+Image (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Reloads the graph image widget to actualize the image. This function is called when any modification to a link or a card is done \mbox{\Hypertarget{ViewApplication_8c_a96d3aca916ca261a96b5b0d9d63a2148}\label{ViewApplication_8c_a96d3aca916ca261a96b5b0d9d63a2148}} 
+\index{ViewApplication.c@{ViewApplication.c}!removeLinkBtnFromCards@{removeLinkBtnFromCards}}
+\index{removeLinkBtnFromCards@{removeLinkBtnFromCards}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{removeLinkBtnFromCards()}{removeLinkBtnFromCards()}}
+{\footnotesize\ttfamily void remove\+Link\+Btn\+From\+Cards (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{parent,  }\item[{\mbox{\hyperlink{structCard}{Card}} $\ast$}]{child }\end{DoxyParamCaption})}
+
+Remove all buttons in the \mbox{\hyperlink{structLink}{Link}} Box that have the given parent and child cards (there should only be one removed at max) 
+\begin{DoxyParams}{Parameters}
+{\em parent} & a pointer to the parent card \\
+\hline
+{\em child} & a pointer to the child card \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{ViewApplication_8c_a680c954007a63b1a30f64d11f39f9df0}\label{ViewApplication_8c_a680c954007a63b1a30f64d11f39f9df0}} 
+\index{ViewApplication.c@{ViewApplication.c}!setCenterImagePath@{setCenterImagePath}}
+\index{setCenterImagePath@{setCenterImagePath}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{setCenterImagePath()}{setCenterImagePath()}}
+{\footnotesize\ttfamily void set\+Center\+Image\+Path (\begin{DoxyParamCaption}\item[{char $\ast$}]{path }\end{DoxyParamCaption})}
+
+Sets the graph image widget to display the image at the given path 
+\begin{DoxyParams}{Parameters}
+{\em path} & the path of the image in the files \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{ViewApplication_8c_aef6cce0fba393cd1a9039817589cdc59}\label{ViewApplication_8c_aef6cce0fba393cd1a9039817589cdc59}} 
+\index{ViewApplication.c@{ViewApplication.c}!cardBox@{cardBox}}
+\index{cardBox@{cardBox}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{cardBox}{cardBox}}
+{\footnotesize\ttfamily GObject$\ast$ card\+Box = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_a8b8c73f08a92dd824afc627e2ec323ab}\label{ViewApplication_8c_a8b8c73f08a92dd824afc627e2ec323ab}} 
+\index{ViewApplication.c@{ViewApplication.c}!cardBoxLabel@{cardBoxLabel}}
+\index{cardBoxLabel@{cardBoxLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{cardBoxLabel}{cardBoxLabel}}
+{\footnotesize\ttfamily GObject$\ast$ card\+Box\+Label = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_a7d2a0fd39af2787ad5f96b7aa2ae6a7e}\label{ViewApplication_8c_a7d2a0fd39af2787ad5f96b7aa2ae6a7e}} 
+\index{ViewApplication.c@{ViewApplication.c}!centerImage@{centerImage}}
+\index{centerImage@{centerImage}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{centerImage}{centerImage}}
+{\footnotesize\ttfamily GObject$\ast$ center\+Image = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_ac399c321bf24020e2f033af16df215e2}\label{ViewApplication_8c_ac399c321bf24020e2f033af16df215e2}} 
+\index{ViewApplication.c@{ViewApplication.c}!curProject@{curProject}}
+\index{curProject@{curProject}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{curProject}{curProject}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structProject}{Project}}$\ast$ cur\+Project\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{ViewApplication_8c_a248e6b854a52e241bde1b220b1d5187e}\label{ViewApplication_8c_a248e6b854a52e241bde1b220b1d5187e}} 
+\index{ViewApplication.c@{ViewApplication.c}!deleteCardBtn@{deleteCardBtn}}
+\index{deleteCardBtn@{deleteCardBtn}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{deleteCardBtn}{deleteCardBtn}}
+{\footnotesize\ttfamily GObject$\ast$ delete\+Card\+Btn = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_ac09272f91e31c36c5a067dc18087ec43}\label{ViewApplication_8c_ac09272f91e31c36c5a067dc18087ec43}} 
+\index{ViewApplication.c@{ViewApplication.c}!deleteLinkBtn@{deleteLinkBtn}}
+\index{deleteLinkBtn@{deleteLinkBtn}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{deleteLinkBtn}{deleteLinkBtn}}
+{\footnotesize\ttfamily GObject$\ast$ delete\+Link\+Btn = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_a3dd780f6bd531916f66ffccccd895825}\label{ViewApplication_8c_a3dd780f6bd531916f66ffccccd895825}} 
+\index{ViewApplication.c@{ViewApplication.c}!exportBtn@{exportBtn}}
+\index{exportBtn@{exportBtn}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{exportBtn}{exportBtn}}
+{\footnotesize\ttfamily GObject$\ast$ export\+Btn = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_ab6b93e308db1f88a9c882bf2e776658c}\label{ViewApplication_8c_ab6b93e308db1f88a9c882bf2e776658c}} 
+\index{ViewApplication.c@{ViewApplication.c}!imagePath@{imagePath}}
+\index{imagePath@{imagePath}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{imagePath}{imagePath}}
+{\footnotesize\ttfamily char image\+Path\mbox{[}\mbox{\hyperlink{Struct_8h_a2d1edde91ea515b363277f4bbdc3244d}{MAXPATH}}+16\mbox{]} = \char`\"{}\char`\"{}}
+
+\mbox{\Hypertarget{ViewApplication_8c_aac6caef4b4e353c5191e19587c6ab564}\label{ViewApplication_8c_aac6caef4b4e353c5191e19587c6ab564}} 
+\index{ViewApplication.c@{ViewApplication.c}!imageViewerWindow@{imageViewerWindow}}
+\index{imageViewerWindow@{imageViewerWindow}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{imageViewerWindow}{imageViewerWindow}}
+{\footnotesize\ttfamily GObject$\ast$ image\+Viewer\+Window = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_a1e8d81e927922fc267909c4724577c2b}\label{ViewApplication_8c_a1e8d81e927922fc267909c4724577c2b}} 
+\index{ViewApplication.c@{ViewApplication.c}!infoLabel@{infoLabel}}
+\index{infoLabel@{infoLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{infoLabel}{infoLabel}}
+{\footnotesize\ttfamily GObject$\ast$ info\+Label = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_afcaab67e001d3b46137b16de4d11636c}\label{ViewApplication_8c_afcaab67e001d3b46137b16de4d11636c}} 
+\index{ViewApplication.c@{ViewApplication.c}!linkBox@{linkBox}}
+\index{linkBox@{linkBox}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{linkBox}{linkBox}}
+{\footnotesize\ttfamily GObject$\ast$ link\+Box = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_aef04cd51829bfe50e17920a6479590c3}\label{ViewApplication_8c_aef04cd51829bfe50e17920a6479590c3}} 
+\index{ViewApplication.c@{ViewApplication.c}!linkBoxLabel@{linkBoxLabel}}
+\index{linkBoxLabel@{linkBoxLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{linkBoxLabel}{linkBoxLabel}}
+{\footnotesize\ttfamily GObject$\ast$ link\+Box\+Label = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_adecdb093ef62518b349ec85329d76489}\label{ViewApplication_8c_adecdb093ef62518b349ec85329d76489}} 
+\index{ViewApplication.c@{ViewApplication.c}!modifyCardBtn@{modifyCardBtn}}
+\index{modifyCardBtn@{modifyCardBtn}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{modifyCardBtn}{modifyCardBtn}}
+{\footnotesize\ttfamily GObject$\ast$ modify\+Card\+Btn = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_ac70434cfd376642d6792bf5f3d5243ac}\label{ViewApplication_8c_ac70434cfd376642d6792bf5f3d5243ac}} 
+\index{ViewApplication.c@{ViewApplication.c}!modifyLinkBtn@{modifyLinkBtn}}
+\index{modifyLinkBtn@{modifyLinkBtn}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{modifyLinkBtn}{modifyLinkBtn}}
+{\footnotesize\ttfamily GObject$\ast$ modify\+Link\+Btn = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_afb9b9781f2d2456a7a5ddd198b962130}\label{ViewApplication_8c_afb9b9781f2d2456a7a5ddd198b962130}} 
+\index{ViewApplication.c@{ViewApplication.c}!secondWindowOpen@{secondWindowOpen}}
+\index{secondWindowOpen@{secondWindowOpen}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{secondWindowOpen}{secondWindowOpen}}
+{\footnotesize\ttfamily GObject$\ast$ second\+Window\+Open = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_a52299faeab3a1dd0cc832c74d0e11f72}\label{ViewApplication_8c_a52299faeab3a1dd0cc832c74d0e11f72}} 
+\index{ViewApplication.c@{ViewApplication.c}!selectedCard@{selectedCard}}
+\index{selectedCard@{selectedCard}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{selectedCard}{selectedCard}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structCard}{Card}}$\ast$ selected\+Card\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{ViewApplication_8c_a11639e6660aaca4cbdb568403979c447}\label{ViewApplication_8c_a11639e6660aaca4cbdb568403979c447}} 
+\index{ViewApplication.c@{ViewApplication.c}!selectedCardLabel@{selectedCardLabel}}
+\index{selectedCardLabel@{selectedCardLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{selectedCardLabel}{selectedCardLabel}}
+{\footnotesize\ttfamily GObject$\ast$ selected\+Card\+Label = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_acc815e556f5fbfb914d097bb75177bb6}\label{ViewApplication_8c_acc815e556f5fbfb914d097bb75177bb6}} 
+\index{ViewApplication.c@{ViewApplication.c}!selectedLink@{selectedLink}}
+\index{selectedLink@{selectedLink}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{selectedLink}{selectedLink}}
+{\footnotesize\ttfamily \mbox{\hyperlink{structLink}{Link}}$\ast$ selected\+Link\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{ViewApplication_8c_a9f0d4cbc6a5bd905c566e5132a6e440b}\label{ViewApplication_8c_a9f0d4cbc6a5bd905c566e5132a6e440b}} 
+\index{ViewApplication.c@{ViewApplication.c}!selectedLinkBtn@{selectedLinkBtn}}
+\index{selectedLinkBtn@{selectedLinkBtn}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{selectedLinkBtn}{selectedLinkBtn}}
+{\footnotesize\ttfamily Gtk\+Widget$\ast$ selected\+Link\+Btn\hspace{0.3cm}{\ttfamily [extern]}}
+
+\mbox{\Hypertarget{ViewApplication_8c_a3edd84d4d6e2fde0484f2133c90af334}\label{ViewApplication_8c_a3edd84d4d6e2fde0484f2133c90af334}} 
+\index{ViewApplication.c@{ViewApplication.c}!selectedLinkLabel@{selectedLinkLabel}}
+\index{selectedLinkLabel@{selectedLinkLabel}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{selectedLinkLabel}{selectedLinkLabel}}
+{\footnotesize\ttfamily GObject$\ast$ selected\+Link\+Label = NULL}
+
+\mbox{\Hypertarget{ViewApplication_8c_a572c1a1c006b22a99ea1ee2608e5bf5f}\label{ViewApplication_8c_a572c1a1c006b22a99ea1ee2608e5bf5f}} 
+\index{ViewApplication.c@{ViewApplication.c}!unsavedChanges@{unsavedChanges}}
+\index{unsavedChanges@{unsavedChanges}!ViewApplication.c@{ViewApplication.c}}
+\doxysubsubsection{\texorpdfstring{unsavedChanges}{unsavedChanges}}
+{\footnotesize\ttfamily bool unsaved\+Changes\hspace{0.3cm}{\ttfamily [extern]}}
+

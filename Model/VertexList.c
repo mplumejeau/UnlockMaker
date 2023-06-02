@@ -236,7 +236,7 @@ int deleteVertex(VertexList* vl, Card* c){
             vl->current->previous->next = vl->current->next;
             vl->current->next->previous = vl->current->previous;
             freeVertex(vl->current);
-            setOnNextVertex(vl);
+            setOnPreviousVertex(vl);
             return 0;
         }
         return -1;

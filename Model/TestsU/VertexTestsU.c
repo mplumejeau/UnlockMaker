@@ -13,8 +13,6 @@
 
 #include "VertexTestsU.h"
 
-//is it possible to test allocVertex and freeVertex ?
-
 //setup
 
 int setupNonAllocVertex(void** state){
@@ -77,13 +75,13 @@ void testInitVertex(void** state){
     assert_ptr_equal(c,v->card);
     assert_ptr_equal(n, v->next);
     assert_ptr_equal(p, v->previous);
-    free(c);
+    freeCard(c);
 }
 
 //tests getVertexCard
 
 void testGetVertexCard(void** state){
-    Card* res;
+    Card* res = NULL;
     Vertex* v = (Vertex*) (*state);
     res = getVertexCard(v);
     assert_ptr_equal(v->card, res);

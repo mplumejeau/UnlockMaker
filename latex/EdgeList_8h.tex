@@ -1,0 +1,232 @@
+\hypertarget{EdgeList_8h}{}\doxysection{Model/\+Edge\+List.h File Reference}
+\label{EdgeList_8h}\index{Model/EdgeList.h@{Model/EdgeList.h}}
+{\ttfamily \#include \char`\"{}Struct.\+h\char`\"{}}\newline
+Include dependency graph for Edge\+List.\+h\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=179pt]{EdgeList_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{EdgeList_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{EdgeList_8h_ad4fce278097f01803d6e0d19c0c5118a}{init\+Empty\+Edge\+List}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+int \mbox{\hyperlink{EdgeList_8h_a42b601d4d1fd71f34f6f16f0a74545f7}{is\+Edge\+List\+Empty}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+int \mbox{\hyperlink{EdgeList_8h_a30a18eb9e687e0cf14c859d2c9e91653}{is\+First\+Edge}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+int \mbox{\hyperlink{EdgeList_8h_a3eae89037b88ffe7ae4793df1e22d466}{is\+Last\+Edge}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+int \mbox{\hyperlink{EdgeList_8h_afba48152e3658ea4fe92cca80a9ff8e3}{is\+Out\+Of\+List\+Edge}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+void \mbox{\hyperlink{EdgeList_8h_a9a5a41443fdf4cac941e720f5bef7fd3}{set\+On\+First\+Edge}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+void \mbox{\hyperlink{EdgeList_8h_a5490ec0d71e402fd41402bce894332f4}{set\+On\+Last\+Edge}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+void \mbox{\hyperlink{EdgeList_8h_a5f4d65a87ef21db89df6f752c9ab6401}{set\+On\+Next\+Edge}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+void \mbox{\hyperlink{EdgeList_8h_a95bbfc484d3ee5c4f22a8a34280534ae}{set\+On\+Previous\+Edge}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+void \mbox{\hyperlink{EdgeList_8h_a8969372e6a415898d2b2b7c422bc7d26}{print\+Edge\+List}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+int \mbox{\hyperlink{EdgeList_8h_af2dc7d75607e7d3f74c8e9074e2d4bda}{count\+Edge\+Elements}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el)
+\item 
+int \mbox{\hyperlink{EdgeList_8h_a158271ee9e71673475a092f9d9ecc1b4}{insert\+Edge\+Last}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el, \mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\item 
+int \mbox{\hyperlink{EdgeList_8h_a460187d759a9d26a433248cf4e0716d6}{find\+Link}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el, \mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\item 
+int \mbox{\hyperlink{EdgeList_8h_a173cf0f5b5cd3fcdbc6b29330c9238ea}{delete\+Edge}} (\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$el, \mbox{\hyperlink{structLink}{Link}} $\ast$l)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{EdgeList_8h_af2dc7d75607e7d3f74c8e9074e2d4bda}\label{EdgeList_8h_af2dc7d75607e7d3f74c8e9074e2d4bda}} 
+\index{EdgeList.h@{EdgeList.h}!countEdgeElements@{countEdgeElements}}
+\index{countEdgeElements@{countEdgeElements}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{countEdgeElements()}{countEdgeElements()}}
+{\footnotesize\ttfamily int count\+Edge\+Elements (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+print the content of a list of Links 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links return the number of element of a list of Links \\
+\hline
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+the number of element of a list of Links 
+\end{DoxyReturn}
+\mbox{\Hypertarget{EdgeList_8h_a173cf0f5b5cd3fcdbc6b29330c9238ea}\label{EdgeList_8h_a173cf0f5b5cd3fcdbc6b29330c9238ea}} 
+\index{EdgeList.h@{EdgeList.h}!deleteEdge@{deleteEdge}}
+\index{deleteEdge@{deleteEdge}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{deleteEdge()}{deleteEdge()}}
+{\footnotesize\ttfamily int delete\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+delete a \mbox{\hyperlink{structEdge}{Edge}} pointing a given \mbox{\hyperlink{structLink}{Link}} from a list of Links if it exists and free the \mbox{\hyperlink{structEdge}{Edge}} deleted memory 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+{\em l} & the \mbox{\hyperlink{structLink}{Link}} to be deleted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it\textquotesingle{}s a success, -\/1 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{EdgeList_8h_a460187d759a9d26a433248cf4e0716d6}\label{EdgeList_8h_a460187d759a9d26a433248cf4e0716d6}} 
+\index{EdgeList.h@{EdgeList.h}!findLink@{findLink}}
+\index{findLink@{findLink}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{findLink()}{findLink()}}
+{\footnotesize\ttfamily int find\+Link (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+seek a given \mbox{\hyperlink{structLink}{Link}} in a list of Links 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+{\em l} & the \mbox{\hyperlink{structLink}{Link}} to seek \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the \mbox{\hyperlink{structLink}{Link}} is in the list, 0 if not 
+\end{DoxyReturn}
+\mbox{\Hypertarget{EdgeList_8h_ad4fce278097f01803d6e0d19c0c5118a}\label{EdgeList_8h_ad4fce278097f01803d6e0d19c0c5118a}} 
+\index{EdgeList.h@{EdgeList.h}!initEmptyEdgeList@{initEmptyEdgeList}}
+\index{initEmptyEdgeList@{initEmptyEdgeList}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{initEmptyEdgeList()}{initEmptyEdgeList()}}
+{\footnotesize\ttfamily void init\+Empty\+Edge\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+initialize an empty list of \mbox{\hyperlink{structEdge}{Edge}} and set the current pointer on sentinel\+First 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list to be initialized \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{EdgeList_8h_a158271ee9e71673475a092f9d9ecc1b4}\label{EdgeList_8h_a158271ee9e71673475a092f9d9ecc1b4}} 
+\index{EdgeList.h@{EdgeList.h}!insertEdgeLast@{insertEdgeLast}}
+\index{insertEdgeLast@{insertEdgeLast}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{insertEdgeLast()}{insertEdgeLast()}}
+{\footnotesize\ttfamily int insert\+Edge\+Last (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el,  }\item[{\mbox{\hyperlink{structLink}{Link}} $\ast$}]{l }\end{DoxyParamCaption})}
+
+create a new \mbox{\hyperlink{structEdge}{Edge}} pointing a given \mbox{\hyperlink{structLink}{Link}} and insert it at the end of a list of Links 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+{\em l} & the \mbox{\hyperlink{structLink}{Link}} to add in the list \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+0 if it is a success, -\/1 if it isn\textquotesingle{}t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{EdgeList_8h_a42b601d4d1fd71f34f6f16f0a74545f7}\label{EdgeList_8h_a42b601d4d1fd71f34f6f16f0a74545f7}} 
+\index{EdgeList.h@{EdgeList.h}!isEdgeListEmpty@{isEdgeListEmpty}}
+\index{isEdgeListEmpty@{isEdgeListEmpty}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{isEdgeListEmpty()}{isEdgeListEmpty()}}
+{\footnotesize\ttfamily int is\+Edge\+List\+Empty (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+return a boolean about the emptyness of a list of Links 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the list is empty and 0 if the list isn\textquotesingle{}t empty 
+\end{DoxyReturn}
+\mbox{\Hypertarget{EdgeList_8h_a30a18eb9e687e0cf14c859d2c9e91653}\label{EdgeList_8h_a30a18eb9e687e0cf14c859d2c9e91653}} 
+\index{EdgeList.h@{EdgeList.h}!isFirstEdge@{isFirstEdge}}
+\index{isFirstEdge@{isFirstEdge}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{isFirstEdge()}{isFirstEdge()}}
+{\footnotesize\ttfamily int is\+First\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+return a boolean about the position of the current pointer in a list of Links 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the current pointer is on the first element of the list and 0 if it isn\textquotesingle{}t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{EdgeList_8h_a3eae89037b88ffe7ae4793df1e22d466}\label{EdgeList_8h_a3eae89037b88ffe7ae4793df1e22d466}} 
+\index{EdgeList.h@{EdgeList.h}!isLastEdge@{isLastEdge}}
+\index{isLastEdge@{isLastEdge}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{isLastEdge()}{isLastEdge()}}
+{\footnotesize\ttfamily int is\+Last\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+return a boolean about the position of the current pointer in a list of Links 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the current pointer is on the last element of the list and 0 if it isn\textquotesingle{}t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{EdgeList_8h_afba48152e3658ea4fe92cca80a9ff8e3}\label{EdgeList_8h_afba48152e3658ea4fe92cca80a9ff8e3}} 
+\index{EdgeList.h@{EdgeList.h}!isOutOfListEdge@{isOutOfListEdge}}
+\index{isOutOfListEdge@{isOutOfListEdge}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{isOutOfListEdge()}{isOutOfListEdge()}}
+{\footnotesize\ttfamily int is\+Out\+Of\+List\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+return a boolean about the position of the current pointer in a list of Links 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+1 if the current pointer is on one of both sentinels of the list and 0 if it isn\textquotesingle{}t 
+\end{DoxyReturn}
+\mbox{\Hypertarget{EdgeList_8h_a8969372e6a415898d2b2b7c422bc7d26}\label{EdgeList_8h_a8969372e6a415898d2b2b7c422bc7d26}} 
+\index{EdgeList.h@{EdgeList.h}!printEdgeList@{printEdgeList}}
+\index{printEdgeList@{printEdgeList}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{printEdgeList()}{printEdgeList()}}
+{\footnotesize\ttfamily void print\+Edge\+List (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+\mbox{\Hypertarget{EdgeList_8h_a9a5a41443fdf4cac941e720f5bef7fd3}\label{EdgeList_8h_a9a5a41443fdf4cac941e720f5bef7fd3}} 
+\index{EdgeList.h@{EdgeList.h}!setOnFirstEdge@{setOnFirstEdge}}
+\index{setOnFirstEdge@{setOnFirstEdge}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{setOnFirstEdge()}{setOnFirstEdge()}}
+{\footnotesize\ttfamily void set\+On\+First\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+set the current pointer of a list of Links on the first element of the list 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{EdgeList_8h_a5490ec0d71e402fd41402bce894332f4}\label{EdgeList_8h_a5490ec0d71e402fd41402bce894332f4}} 
+\index{EdgeList.h@{EdgeList.h}!setOnLastEdge@{setOnLastEdge}}
+\index{setOnLastEdge@{setOnLastEdge}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{setOnLastEdge()}{setOnLastEdge()}}
+{\footnotesize\ttfamily void set\+On\+Last\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+set the current pointer of a list of Links on the last element of the list 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{EdgeList_8h_a5f4d65a87ef21db89df6f752c9ab6401}\label{EdgeList_8h_a5f4d65a87ef21db89df6f752c9ab6401}} 
+\index{EdgeList.h@{EdgeList.h}!setOnNextEdge@{setOnNextEdge}}
+\index{setOnNextEdge@{setOnNextEdge}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{setOnNextEdge()}{setOnNextEdge()}}
+{\footnotesize\ttfamily void set\+On\+Next\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+set the current pointer of a list of Links on the next element of the list 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{EdgeList_8h_a95bbfc484d3ee5c4f22a8a34280534ae}\label{EdgeList_8h_a95bbfc484d3ee5c4f22a8a34280534ae}} 
+\index{EdgeList.h@{EdgeList.h}!setOnPreviousEdge@{setOnPreviousEdge}}
+\index{setOnPreviousEdge@{setOnPreviousEdge}!EdgeList.h@{EdgeList.h}}
+\doxysubsubsection{\texorpdfstring{setOnPreviousEdge()}{setOnPreviousEdge()}}
+{\footnotesize\ttfamily void set\+On\+Previous\+Edge (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{structEdgeList}{Edge\+List}} $\ast$}]{el }\end{DoxyParamCaption})}
+
+set the current pointer of a list of Links on the previous element of the list 
+\begin{DoxyParams}{Parameters}
+{\em el} & the list of Links \\
+\hline
+\end{DoxyParams}

@@ -7,12 +7,9 @@
 
 #include "Struct.h"
 
-extern int idLinks;
-
 Link* allocLink(void);
+void initEmptyLink(Link* l);
 void freeLink(Link* l);
-
-void initLink(Link* l);
 
 void setLinkType(Link* l, linkType t);
 void setParent(Link* l, Card* c);
